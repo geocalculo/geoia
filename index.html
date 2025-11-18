@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Consulta de coordenadas (WGS84 y UTM 19S) con miniatura</title>
+  <title>GeoIA - Consulta de coordenadas</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
   <style>
     html, body { height: 100%; margin: 0; }
@@ -11,7 +11,7 @@
     .panel {
       position: absolute; top: 10px; left: 10px; z-index: 1000;
       background: #fff; border: 1px solid #ccc; border-radius: 8px;
-      padding: 10px; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; font-size: 14px;
+      padding: 10px; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; font-size: 14px;
       box-shadow: 0 2px 10px rgba(0,0,0,.15); max-width: 520px
     }
     .muted { color:#666; font-size:12px }
@@ -28,69 +28,55 @@
   <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.9.2/dist/proj4.js"></script>
   <script>
+    // Definir EPSG:32719 (UTM 19S, WGS84)
     proj4.defs('EPSG:32719', '+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs +type=crs');
 
+    // Mapa centrado aprox. en Copiapó
     const map = L.map('map').setView([-27.37, -70.33], 11);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    setTimeout(()=> map.invalidateSize(), 120);
+    // Asegurar que el mapa se redibuje al cargar y al redimensionar
+    setTimeout(() => map.invalidateSize(), 120);
     window.addEventListener('resize', () => map.invalidateSize());
 
     let marker = null;
-    const fmt = (n, d=6) => Number(n).toFixed(d);
 
-    function openReport(lat, lon, E, N) {
-      const html = `<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"/>
-        <title>Coordenadas del punto consultado</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
-        <style>
-          body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:16px;}
-          table{border-collapse:collapse;min-width:420px} th,td{border:1px solid #ddd;padding:8px;text-align:right}
-          th{background:#f6f8fa;text-align:center} .muted{color:#666;font-size:12px}
-          .grid{display:grid;grid-template-columns:1fr;gap:12px;max-width:720px}
-          #mini{height:220px;border:1px solid #ccc;border-radius:6px}
-          .row{display:flex;gap:10px;align-items:center}
-          .pill{display:inline-block;background:#eef;padding:2px 8px;border-radius:12px;border:1px solid #cfe}
-        </style></head><body>
-        <h2>Coordenadas del punto consultado</h2>
-        <div class="grid">
-          <table>
-            <thead><tr><th>Sistema</th><th>Coordenadas</th></tr></thead>
-            <tbody>
-              <tr><td style='text-align:left'>WGS84 (lat, lon)</td><td><b>${fmt(lat,6)}</b>, <b>${fmt(lon,6)}</b></td></tr>
-              <tr><td style='text-align:left'>UTM 19S (EPSG:32719)</td><td>E=<b>${fmt(E,3)}</b> m, N=<b>${fmt(N,3)}</b> m</td></tr>
-            </tbody>
-          </table>
-          <div class="row"><span class="pill">Miniatura</span><span class="muted">Mapa reducido centrado en el punto</span></div>
-          <div id="mini"></div>
-          <p class="muted">Lat/Lon en grados decimales. UTM: WGS84 Zona 19 Sur. Fuente mapa: OpenStreetMap.</p>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
-        <script>
-          const mini = L.map('mini', {zoomControl:false, attributionControl:false}).setView([${lat}, ${lon}], 13);
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19}).addTo(mini);
-          L.marker([${lat}, ${lon}]).addTo(mini);
-          setTimeout(()=> mini.invalidateSize(), 100);
-        </script>
-      </body></html>`;
-
-      const w = window.open('', '_blank');
-      if (w) { w.document.open(); w.document.write(html); w.document.close(); }
-      else { alert('El navegador bloqueó la apertura de la pestaña. Permite pop-ups para este sitio.'); }
+    function fmt(num, dec) {
+      return Number(num).toFixed(dec);
     }
 
-    map.on('click', (e) => {
+    map.on('click', function (e) {
       const lat = e.latlng.lat;
       const lon = e.latlng.lng;
-      const [E, N] = proj4('EPSG:4326', 'EPSG:32719', [lon, lat]);
+      const utm = proj4('EPSG:4326', 'EPSG:32719', [lon, lat]);
+      const E = utm[0];
+      const N = utm[1];
 
-      if (marker) marker.setLatLng(e.latlng);
-      else marker = L.marker(e.latlng).addTo(map);
+      if (marker) {
+        marker.setLatLng(e.latlng);
+      } else {
+        marker = L.marker(e.latlng).addTo(map);
+      }
 
-      marker.bindPopup(\`Lat: ${fmt(lat,6)}<br>Lon: ${fmt(lon,6)}<br>E: ${fmt(E,3)} m<br>N: ${fmt(N,3)} m\`).openPopup();
-      openReport(lat, lon, E, N);
+      marker.bindPopup(
+        'Lat: ' + fmt(lat, 6) + '<br>' +
+        'Lon: ' + fmt(lon, 6) + '<br>' +
+        'E: ' + fmt(E, 3) + ' m<br>' +
+        'N: ' + fmt(N, 3) + ' m'
+      ).openPopup();
+
+      const params = new URLSearchParams({
+        lat: lat,
+        lon: lon,
+        E: E,
+        N: N
+      });
+
+      window.open('info.html?' + params.toString(), '_blank');
     });
   </script>
 </body>
