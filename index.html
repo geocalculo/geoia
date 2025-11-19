@@ -1,63 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<title>Consulta de distancias a puntos KML</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<style>
-  body,html{margin:0;padding:0;height:100%;font-family:Arial}
-  #map{height:55vh}
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th,td{border:1px solid #ccc;padding:4px 6px}
-  th{background:#eee}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GeoIA - Consulta de coordenadas</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #map { height: 100vh; width: 100vw; }
+    .panel {
+      position: absolute; top: 10px; left: 10px; z-index: 1000;
+      background: #fff; border: 1px solid #ccc; border-radius: 8px;
+      padding: 10px; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; font-size: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.15); max-width: 520px
+    }
+    .muted { color:#666; font-size:12px }
+  </style>
 </head>
 <body>
-<div id="map"></div>
-<div style="padding:10px">
-<h2>Distancias a puntos del KML</h2>
-<div id="clicked-info">Haz clic en el mapa.</div>
-<table>
-<thead><tr><th>#</th><th>Nombre</th><th>Lat</th><th>Lon</th><th>Dist (m)</th></tr></thead>
-<tbody id="results-body"></tbody>
-</table>
-</div>
-<script>
-var map=L.map('map').setView([-27,-70],9);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
-var kmlPoints=[],layer=L.layerGroup().addTo(map),clickMarker=null;
-function loadKML(){
- fetch('puntos_a_consultar.kml').then(r=>r.text()).then(t=>{
-  var xml=new DOMParser().parseFromString(t,'text/xml');
-  var p=xml.getElementsByTagName('Placemark');
-  for(let i=0;i<p.length;i++){
-    let name=p[i].getElementsByTagName('name')[0]?.textContent||'Sin nombre';
-    let c=p[i].getElementsByTagName('coordinates')[0]?.textContent.trim().split(',');
-    if(!c||c.length<2) continue;
-    let lon=parseFloat(c[0]),lat=parseFloat(c[1]);
-    kmlPoints.push({name,lat,lon});
-    L.marker([lat,lon]).addTo(layer).bindPopup(name);
-  }
- });
-}
-function dist(a,b,c,d){
- const R=6371000,rad=x=>x*Math.PI/180;
- let dLat=rad(c-a),dLon=rad(d-b);
- let A=Math.sin(dLat/2)**2+Math.cos(rad(a))*Math.cos(rad(c))*Math.sin(dLon/2)**2;
- return R*2*Math.atan2(Math.sqrt(A),Math.sqrt(1-A));
-}
-map.on('click',e=>{
- if(clickMarker)map.removeLayer(clickMarker);
- clickMarker=L.marker(e.latlng).addTo(map);
- let lat=e.latlng.lat,lon=e.latlng.lng;
- document.getElementById('clicked-info').textContent=`Punto: ${lat.toFixed(6)}, ${lon.toFixed(6)}`;
- let res=kmlPoints.map(p=>({ ...p, d:dist(lat,lon,p.lat,p.lon)}));
- res.sort((a,b)=>a.d-b.d);
- let tb=document.getElementById('results-body'); tb.innerHTML='';
- res.forEach((r,i)=>{tb.innerHTML+=`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.lat}</td><td>${r.lon}</td><td>${r.d.toFixed(1)}</td></tr>`});
-});
-loadKML();
-</script>
+  <div id="map"></div>
+
+  <div class="panel">
+    <strong>Instrucciones:</strong> haz <b>click</b> en el mapa. Se abrirá una pestaña nueva con las <b>coordenadas</b> y una <b>miniatura</b> del mapa centrada en el punto.
+    <div class="muted" style="margin-top:6px;">Incluye Lat/Lon (WGS84) y UTM 19S (EPSG:32719). Si no se abre la pestaña, permite pop-ups.</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/proj4@2.9.2/dist/proj4.js"></script>
+  <script>
+    // Definir EPSG:32719 (UTM 19S, WGS84)
+    proj4.defs('EPSG:32719', '+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs +type=crs');
+
+    // Mapa centrado aprox. en Copiapó
+    const map = L.map('map').setView([-27.37, -70.33], 11);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Asegurar que el mapa se redibuje al cargar y al redimensionar
+    setTimeout(() => map.invalidateSize(), 120);
+    window.addEventListener('resize', () => map.invalidateSize());
+
+    let marker = null;
+
+    function fmt(num, dec) {
+      return Number(num).toFixed(dec);
+    }
+
+    map.on('click', function (e) {
+      const lat = e.latlng.lat;
+      const lon = e.latlng.lng;
+      const utm = proj4('EPSG:4326', 'EPSG:32719', [lon, lat]);
+      const E = utm[0];
+      const N = utm[1];
+
+      if (marker) {
+        marker.setLatLng(e.latlng);
+      } else {
+        marker = L.marker(e.latlng).addTo(map);
+      }
+
+      marker.bindPopup(
+        'Lat: ' + fmt(lat, 6) + '<br>' +
+        'Lon: ' + fmt(lon, 6) + '<br>' +
+        'E: ' + fmt(E, 3) + ' m<br>' +
+        'N: ' + fmt(N, 3) + ' m'
+      ).openPopup();
+
+      const params = new URLSearchParams({
+        lat: lat,
+        lon: lon,
+        E: E,
+        N: N
+      });
+
+      window.open('info.html?' + params.toString(), '_blank');
+    });
+  </script>
 </body>
 </html>

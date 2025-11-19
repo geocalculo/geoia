@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GeoIA - Reporte del punto consultado</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-size: 14px;
+      background: #f4f4f4;
+      color: #222;
+    }
+    .page {
+      max-width: 960px;
+      margin: 16px auto;
+      padding: 16px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.10);
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+    h2 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      margin-top: 18px;
+    }
+    .coords {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+      gap: 8px 24px;
+      margin-bottom: 10px;
+    }
+    .coord-item label {
+      display:block;
+      font-size: 11px;
+      color:#666;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .coord-item span {
+      font-weight: 600;
+    }
+    #map-mini {
+      width: 100%;
+      height: 260px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-top: 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 4px 6px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    th {
+      background: #f0f0f0;
+    }
+    tbody tr:nth-child(even) {
+      background: #fafafa;
+    }
+    .muted {
+      font-size: 11px;
+      color:#666;
+    }
+    .error {
+      color:#b00020;
+      font-weight:600;
+      margin-top:4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>GeoIA - Reporte del punto consultado</h1>
+    <p class="muted">
+      Este reporte se generó a partir del punto seleccionado en el visor principal.
+      Incluye las coordenadas en WGS84 y UTM 19S (EPSG:32719), una vista de mapa
+      y la distancia lineal a cada punto definido en el archivo KML
+      <strong>puntos_a_consultar.kml</strong>.
+    </p>
+
+    <h2>Coordenadas del punto</h2>
+    <div class="coords">
+      <div class="coord-item">
+        <label>Latitud (WGS84)</label>
+        <span id="lat-text">—</span>
+      </div>
+      <div class="coord-item">
+        <label>Longitud (WGS84)</label>
+        <span id="lon-text">—</span>
+      </div>
+      <div class="coord-item">
+        <label>Este (UTM 19S, m)</label>
+        <span id="e-text">—</span>
+      </div>
+      <div class="coord-item">
+        <label>Norte (UTM 19S, m)</label>
+        <span id="n-text">—</span>
+      </div>
+    </div>
+
+    <h2>Mapa de referencia</h2>
+    <div id="map-mini"></div>
+
+    <h2>Distancias a puntos del KML</h2>
+    <p class="muted">
+      Distancia lineal (Haversine) calculada desde el punto consultado hacia cada
+      punto del archivo <strong>puntos_a_consultar.kml</strong>.
+      Los puntos del KML <strong>no se muestran en el mapa</strong>, sólo se usan para el cálculo numérico.
+    </p>
+    <div id="kml-error" class="error" style="display:none;"></div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Latitud</th>
+          <th>Longitud</th>
+          <th>Distancia (m)</th>
+        </tr>
+      </thead>
+      <tbody id="dist-body">
+        <!-- filas dinámicas -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    function fmt(num, dec) {
+      if (num === null || num === undefined || isNaN(num)) return '—';
+      return Number(num).toFixed(dec);
+    }
+
+    // 1. Leer parámetros de la URL
+    const params = new URLSearchParams(window.location.search);
+    const lat = parseFloat(params.get('lat'));
+    const lon = parseFloat(params.get('lon'));
+    const E   = parseFloat(params.get('E'));
+    const N   = parseFloat(params.get('N'));
+
+    // Poblar texto de coordenadas
+    document.getElementById('lat-text').textContent = fmt(lat, 6);
+    document.getElementById('lon-text').textContent = fmt(lon, 6);
+    document.getElementById('e-text').textContent   = fmt(E, 3);
+    document.getElementById('n-text').textContent   = fmt(N, 3);
+
+    // 2. Mini mapa centrado en el punto (sin KML)
+    const mapMini = L.map('map-mini');
+    if (!isNaN(lat) && !isNaN(lon)) {
+      mapMini.setView([lat, lon], 14);
+    } else {
+      mapMini.setView([-27.37, -70.33], 11); // fallback Copiapó
+    }
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(mapMini);
+
+    if (!isNaN(lat) && !isNaN(lon)) {
+      L.marker([lat, lon]).addTo(mapMini)
+        .bindPopup('Punto consultado<br>Lat: ' + fmt(lat,6) +
+                   '<br>Lon: ' + fmt(lon,6))
+        .openPopup();
+    }
+
+    // 3. Utilidad: distancia Haversine en metros
+    function distanceMeters(lat1, lon1, lat2, lon2) {
+      const R = 6371000;
+      const toRad = deg => deg * Math.PI / 180;
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+
+    const errorBox = document.getElementById('kml-error');
+    const tbody = document.getElementById('dist-body');
+
+    function showError(msg) {
+      errorBox.textContent = msg;
+      errorBox.style.display = 'block';
+    }
+
+    // 4. Cargar KML (primero raíz, luego /capas como respaldo)
+    async function loadKMLText() {
+      const paths = ['puntos_a_consultar.kml', 'capas/puntos_a_consultar.kml'];
+      for (const p of paths) {
+        try {
+          const resp = await fetch(p);
+          if (resp.ok) {
+            return await resp.text();
+          }
+        } catch (err) {
+          // probar siguiente ruta
+        }
+      }
+      throw new Error('No se encontró puntos_a_consultar.kml ni en la raíz ni en /capas');
+    }
+
+    async function processKML() {
+      if (isNaN(lat) || isNaN(lon)) {
+        showError('No se pudieron leer las coordenadas del punto consultado desde la URL.');
+        return;
+      }
+
+      try {
+        const kmlText = await loadKMLText();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(kmlText, 'application/xml');
+        const placemarks = xml.getElementsByTagName('Placemark');
+
+        const items = [];
+        for (let i = 0; i < placemarks.length; i++) {
+          const pm = placemarks[i];
+          const nameEl = pm.getElementsByTagName('name')[0];
+          const pointEl = pm.getElementsByTagName('Point')[0];
+          if (!pointEl) continue;
+
+          const coordsEl = pointEl.getElementsByTagName('coordinates')[0];
+          if (!coordsEl) continue;
+
+          const raw = coordsEl.textContent.trim();
+          if (!raw) continue;
+
+          const parts = raw.split(',');
+          if (parts.length < 2) continue;
+
+          const lon2 = parseFloat(parts[0]);
+          const lat2 = parseFloat(parts[1]);
+          if (isNaN(lat2) || isNaN(lon2)) continue;
+
+          const name = nameEl ? nameEl.textContent.trim() : 'Sin nombre';
+          const dist = distanceMeters(lat, lon, lat2, lon2);
+
+          items.push({
+            name,
+            lat: lat2,
+            lon: lon2,
+            dist
+          });
+        }
+
+        if (!items.length) {
+          showError('El archivo KML no contiene puntos (Placemark con geometría Point).');
+          return;
+        }
+
+        // Ordenar por distancia ascendente
+        items.sort((a,b) => a.dist - b.dist);
+
+        // Poblar tabla
+        tbody.innerHTML = '';
+        items.forEach((item, idx) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML =
+            '<td>' + (idx + 1) + '</td>' +
+            '<td>' + item.name + '</td>' +
+            '<td>' + fmt(item.lat, 6) + '</td>' +
+            '<td>' + fmt(item.lon, 6) + '</td>' +
+            '<td>' + fmt(item.dist, 1) + '</td>';
+          tbody.appendChild(tr);
+        });
+
+      } catch (err) {
+        console.error(err);
+        showError('Error al leer el archivo KML: ' + err.message);
+      }
+    }
+
+    processKML();
+  </script>
+</body>
+</html>
