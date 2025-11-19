@@ -1,1 +1,63 @@
-PUT INDEX HTML HERE
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Consulta de distancias a puntos KML</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  body,html{margin:0;padding:0;height:100%;font-family:Arial}
+  #map{height:55vh}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{border:1px solid #ccc;padding:4px 6px}
+  th{background:#eee}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div style="padding:10px">
+<h2>Distancias a puntos del KML</h2>
+<div id="clicked-info">Haz clic en el mapa.</div>
+<table>
+<thead><tr><th>#</th><th>Nombre</th><th>Lat</th><th>Lon</th><th>Dist (m)</th></tr></thead>
+<tbody id="results-body"></tbody>
+</table>
+</div>
+<script>
+var map=L.map('map').setView([-27,-70],9);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
+var kmlPoints=[],layer=L.layerGroup().addTo(map),clickMarker=null;
+function loadKML(){
+ fetch('puntos_a_consultar.kml').then(r=>r.text()).then(t=>{
+  var xml=new DOMParser().parseFromString(t,'text/xml');
+  var p=xml.getElementsByTagName('Placemark');
+  for(let i=0;i<p.length;i++){
+    let name=p[i].getElementsByTagName('name')[0]?.textContent||'Sin nombre';
+    let c=p[i].getElementsByTagName('coordinates')[0]?.textContent.trim().split(',');
+    if(!c||c.length<2) continue;
+    let lon=parseFloat(c[0]),lat=parseFloat(c[1]);
+    kmlPoints.push({name,lat,lon});
+    L.marker([lat,lon]).addTo(layer).bindPopup(name);
+  }
+ });
+}
+function dist(a,b,c,d){
+ const R=6371000,rad=x=>x*Math.PI/180;
+ let dLat=rad(c-a),dLon=rad(d-b);
+ let A=Math.sin(dLat/2)**2+Math.cos(rad(a))*Math.cos(rad(c))*Math.sin(dLon/2)**2;
+ return R*2*Math.atan2(Math.sqrt(A),Math.sqrt(1-A));
+}
+map.on('click',e=>{
+ if(clickMarker)map.removeLayer(clickMarker);
+ clickMarker=L.marker(e.latlng).addTo(map);
+ let lat=e.latlng.lat,lon=e.latlng.lng;
+ document.getElementById('clicked-info').textContent=`Punto: ${lat.toFixed(6)}, ${lon.toFixed(6)}`;
+ let res=kmlPoints.map(p=>({ ...p, d:dist(lat,lon,p.lat,p.lon)}));
+ res.sort((a,b)=>a.d-b.d);
+ let tb=document.getElementById('results-body'); tb.innerHTML='';
+ res.forEach((r,i)=>{tb.innerHTML+=`<tr><td>${i+1}</td><td>${r.name}</td><td>${r.lat}</td><td>${r.lon}</td><td>${r.d.toFixed(1)}</td></tr>`});
+});
+loadKML();
+</script>
+</body>
+</html>
