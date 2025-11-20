@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head><meta charset="UTF-8"><title>GeoIA Visor</title></head>
+<head>
+<meta charset="UTF-8">
+<title>GeoIA - Consulta</title>
+<script>
+function enviarConsulta(e){
+  const lat = e.latlng.lat;
+  const lon = e.latlng.lng;
+  window.location='info.html?lat='+lat+'&lon='+lon;
+}
+</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
 <body>
-<h1>GeoIA - Visor</h1>
-<p>Seleccione un punto en el mapa (placeholder).</p>
+<div id="map" style="height:100vh"></div>
+<script>
+var map=L.map('map').setView([-27.38,-70.33],14);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+map.on('click', enviarConsulta);
+</script>
 </body>
 </html>
