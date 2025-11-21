@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>GeoIA - Reporte del punto consultado</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #f4f5f7;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
+    }
+    .card {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px 32px 32px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    }
+    h1 {
+      margin: 0 0 4px;
+      font-size: 24px;
+    }
+    .subtitle {
+      margin: 0 0 24px;
+      font-size: 14px;
+      color: #6b7280;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-box {
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 10px 14px;
+    }
+    .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+    .stat-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: #111827;
+    }
+    h2 {
+      font-size: 18px;
+      margin: 20px 0 6px;
+    }
+    .section-text {
+      font-size: 13px;
+      color: #6b7280;
+      margin: 0 0 12px;
+    }
+    #map {
+      width: 100%;
+      height: 360px;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>GeoIA - Reporte del punto consultado</h1>
+    <p class="subtitle">
+      Este reporte se generó a partir del punto seleccionado en el visor principal.
+      Incluye coordenadas en WGS84 y UTM 19S (EPSG:32719) y un mapa de referencia
+      centrado en el punto consultado.
+    </p>
+
+    <div class="stats">
+      <div class="stat-box">
+        <div class="stat-label">Latitud (WGS84)</div>
+        <div class="stat-value" id="lat-wgs84">-</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Longitud (WGS84)</div>
+        <div class="stat-value" id="lon-wgs84">-</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Este (UTM 19S, m)</div>
+        <div class="stat-value" id="utm-e">-</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Norte (UTM 19S, m)</div>
+        <div class="stat-value" id="utm-n">-</div>
+      </div>
+    </div>
+
+    <h2>Mapa de referencia</h2>
+    <p class="section-text">
+      Vista de mapa centrada en el punto consultado. El marcador azul indica la ubicación
+      de la consulta.
+    </p>
+    <div id="map"></div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin="">
+  </script>
+
+  <!-- proj4 para conversión a UTM -->
+  <script src="https://cdn.jsdelivr.net/npm/proj4@2.9.1/dist/proj4.js"></script>
+
+  <script>
+    // Obtener parámetros de la URL
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    const lat = parseFloat(getParam('lat'));
+    const lon = parseFloat(getParam('lon'));
+
+    // Mostrar lat/lon
+    if (!isNaN(lat) && !isNaN(lon)) {
+      document.getElementById('lat-wgs84').textContent = lat.toFixed(6);
+      document.getElementById('lon-wgs84').textContent = lon.toFixed(6);
+    }
+
+    // Definir UTM 19S (EPSG:32719) en proj4
+    proj4.defs('EPSG:32719',
+      '+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs'
+    );
+
+    // Convertir a UTM
+    if (!isNaN(lat) && !isNaN(lon)) {
+      const utm = proj4('EPSG:4326', 'EPSG:32719', [lon, lat]);
+      const este = utm[0];
+      const norte = utm[1];
+      document.getElementById('utm-e').textContent = este.toFixed(3);
+      document.getElementById('utm-n').textContent = norte.toFixed(3);
+    }
+
+    // Crear mapa de referencia
+    var map = L.map('map').setView([lat, lon], 17);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    var marker = L.marker([lat, lon]).addTo(map);
+    marker.bindPopup(
+      'Punto consultado<br>Lat: ' + lat.toFixed(6) +
+      '<br>Lon: ' + lon.toFixed(6)
+    ).openPopup();
+  </script>
+</body>
+</html>
