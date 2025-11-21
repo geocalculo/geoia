@@ -2,8 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>GeoIA - Consulta PRC Copiapó + Intercomunal Costero</title>
+  <title>GeoIA - Mapa limpio (PRC Copiapó + Intercomunal Costero)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <!-- Leaflet -->
   <link
     rel="stylesheet"
@@ -17,47 +18,40 @@
     crossorigin=""
   ></script>
 
-  <!-- toGeoJSON -->
-  <script src="https://unpkg.com/@tmcw/togeojson@4.5.0/dist/togeojson.umd.js"></script>
-
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <header>
-    <h1>GeoIA - Consulta de Planos Reguladores</h1>
-    <p>Punto vs PRC Comunal Copiapó e Intercomunal Costero de Atacama</p>
+    <h1>GeoIA - Mapa de consulta PRC</h1>
+    <p>
+      Mapa limpio. Cada clic abre una <strong>nueva pestaña</strong> con el detalle
+      (overview) del PRC Comunal Copiapó y PRC Intercomunal Costero de Atacama.
+    </p>
   </header>
 
-  <main>
-    <section id="mapa-seccion">
+  <main id="main-simple">
+    <section id="mapa-seccion-simple">
       <div id="map"></div>
-      <div id="ayuda">
-        <p>
-          Haz clic en el mapa para consultar en qué zona PRC cae el punto. 
-          Se revisan al mismo tiempo:
-        </p>
-        <ul>
-          <li>PRC Comunal Copiapó (IPT_03_PRC_Copiapo.kml)</li>
-          <li>PRC Intercomunal Costero de Atacama (PRICOST_Atacama.kml)</li>
-        </ul>
-        <p>
-          Deja ambos archivos KML dentro de la carpeta <code>capas/</code> en el servidor.
-        </p>
-      </div>
     </section>
 
-    <section id="panel-consulta">
-      <h2>Resultado de la consulta de PRC</h2>
-      <div id="reporte-prc">
-        <p>Haz clic en el mapa para ver el detalle aquí.</p>
-      </div>
+    <section id="instrucciones">
+      <h2>Instrucciones</h2>
+      <ol>
+        <li>Haz clic en cualquier punto del mapa.</li>
+        <li>Se abrirá una <strong>pestaña nueva</strong> con el overview.</li>
+        <li>En el overview verás las zonas PRC que toca el punto.</li>
+      </ol>
+      <p>
+        En la pestaña de overview también podrás volver a hacer clic en el mapa
+        para actualizar la consulta sin volver a esta ventana.
+      </p>
     </section>
   </main>
 
   <footer>
-    <small>GeoIA &mdash; Demo PRC Copiapó + Intercomunal Costero</small>
+    <small>GeoIA &mdash; Mapa limpio &amp; overview PRC</small>
   </footer>
 
-  <script src="js/app.js"></script>
+  <script src="js/index.js"></script>
 </body>
 </html>
