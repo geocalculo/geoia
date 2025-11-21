@@ -2,43 +2,62 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>GeoIA - Visor PRC</title>
+  <title>GeoIA - Consulta PRC Copiapó + Intercomunal Costero</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <!-- Leaflet -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""
   />
-  <style>
-    html, body { height: 100%; margin: 0; }
-    #map { width: 100%; height: 100%; }
-    .leaflet-container { font: 14px/1.5 "Segoe UI", Arial, sans-serif; }
-  </style>
-</head>
-<body>
-  <div id="map"></div>
-
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin="">
-  </script>
-  <script>
-    var map = L.map('map').setView([-27.37, -70.33], 14);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    crossorigin=""
+  ></script>
 
-    map.on('click', function(e){
-      var lat = e.latlng.lat;
-      var lon = e.latlng.lng;
-      var url = 'info.html?lat=' + encodeURIComponent(lat) +
-                '&lon=' + encodeURIComponent(lon);
-      window.open(url, '_blank');
-    });
-  </script>
+  <!-- toGeoJSON -->
+  <script src="https://unpkg.com/@tmcw/togeojson@4.5.0/dist/togeojson.umd.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>GeoIA - Consulta de Planos Reguladores</h1>
+    <p>Punto vs PRC Comunal Copiapó e Intercomunal Costero de Atacama</p>
+  </header>
+
+  <main>
+    <section id="mapa-seccion">
+      <div id="map"></div>
+      <div id="ayuda">
+        <p>
+          Haz clic en el mapa para consultar en qué zona PRC cae el punto. 
+          Se revisan al mismo tiempo:
+        </p>
+        <ul>
+          <li>PRC Comunal Copiapó (IPT_03_PRC_Copiapo.kml)</li>
+          <li>PRC Intercomunal Costero de Atacama (PRICOST_Atacama.kml)</li>
+        </ul>
+        <p>
+          Deja ambos archivos KML dentro de la carpeta <code>capas/</code> en el servidor.
+        </p>
+      </div>
+    </section>
+
+    <section id="panel-consulta">
+      <h2>Resultado de la consulta de PRC</h2>
+      <div id="reporte-prc">
+        <p>Haz clic en el mapa para ver el detalle aquí.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>GeoIA &mdash; Demo PRC Copiapó + Intercomunal Costero</small>
+  </footer>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
