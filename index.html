@@ -2,137 +2,43 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>GeoIA - Mapa limpio PRC Copiapó + Intercomunal Costero</title>
+  <title>GeoIA - Visor PRC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Leaflet -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""
   />
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
-
-  <!-- Estilos embebidos para que funcione incluso sin archivo CSS externo -->
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, sans-serif;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header,
-    footer {
-      background: #0a2540;
-      color: #fff;
-      padding: 0.75rem 1rem;
-    }
-
-    header h1 {
-      font-size: 1.2rem;
-      margin-bottom: 0.25rem;
-    }
-
-    header p {
-      font-size: 0.9rem;
-      opacity: 0.85;
-    }
-
-    footer {
-      font-size: 0.75rem;
-      text-align: center;
-    }
-
-    #main-simple {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-      gap: 0.75rem;
-      padding: 0.75rem;
-    }
-
-    #mapa-seccion-simple {
-      flex: 2;
-    }
-
-    #map {
-      width: 100%;
-      height: 500px; /* clave para que el mapa SIEMPRE sea visible */
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    #instrucciones {
-      flex: 1;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      padding: 0.75rem;
-      background: #fafafa;
-      font-size: 0.9rem;
-    }
-
-    #instrucciones h2 {
-      font-size: 1rem;
-      margin-bottom: 0.25rem;
-    }
-
-    #instrucciones ol {
-      margin-left: 1.25rem;
-      margin-bottom: 0.5rem;
-    }
-
-    @media (max-width: 900px) {
-      #main-simple {
-        flex-direction: column;
-      }
-    }
+    html, body { height: 100%; margin: 0; }
+    #map { width: 100%; height: 100%; }
+    .leaflet-container { font: 14px/1.5 "Segoe UI", Arial, sans-serif; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>GeoIA - Mapa de consulta PRC</h1>
-    <p>
-      Mapa limpio. Cada clic abre una <strong>nueva pestaña</strong> con el overview
-      del PRC Comunal Copiapó y PRC Intercomunal Costero de Atacama.
-    </p>
-  </header>
+  <div id="map"></div>
 
-  <main id="main-simple">
-    <section id="mapa-seccion-simple">
-      <div id="map"></div>
-    </section>
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin="">
+  </script>
+  <script>
+    var map = L.map('map').setView([-27.37, -70.33], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-    <section id="instrucciones">
-      <h2>Instrucciones</h2>
-      <ol>
-        <li>Haz clic en cualquier punto del mapa.</li>
-        <li>Se abrirá una <strong>pestaña nueva</strong> con el overview.</li>
-        <li>En el overview verás las zonas PRC que toca el punto.</li>
-      </ol>
-      <p>
-        En la pestaña de overview también podrás volver a hacer clic en el mapa
-        para recalcular la consulta sin volver a esta ventana.
-      </p>
-    </section>
-  </main>
-
-  <footer>
-    <small>GeoIA — Mapa limpio &amp; overview PRC</small>
-  </footer>
-
-  <script src="js/index.js"></script>
+    map.on('click', function(e){
+      var lat = e.latlng.lat;
+      var lon = e.latlng.lng;
+      var url = 'info.html?lat=' + encodeURIComponent(lat) +
+                '&lon=' + encodeURIComponent(lon);
+      window.open(url, '_blank');
+    });
+  </script>
 </body>
 </html>

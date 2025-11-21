@@ -96,7 +96,9 @@
     <p class="subtitle">
       Reporte generado a partir del punto seleccionado en el visor principal.
       Incluye coordenadas en WGS84, UTM 19S (EPSG:32719) y evaluación del punto
-      sobre los polígonos del archivo <code>capas/IPT_03_PRC_Copiapo.kml</code>.
+      sobre los polígonos de los archivos
+      <code>capas/IPT_03_PRC_Copiapo.kml</code> y
+      <code>capas/PRICOST_Atacama.kml</code>.
     </p>
 
     <div class="stats">
@@ -121,14 +123,15 @@
     <h2>Mapa de referencia</h2>
     <p class="section-text">
       Vista centrada en el punto consultado. El marcador indica la ubicación de la consulta.
-      El polígono del PRC que contenga el punto se dibuja sobre este mapa.
+      Los polígonos de PRC que contengan el punto se dibujan sobre este mapa.
     </p>
     <div id="map"></div>
 
     <h2>Consulta PRC (punto sobre polígonos)</h2>
     <p class="section-text">
-      Evaluación del punto sobre los polígonos del archivo
-      <code>IPT_03_PRC_Copiapo.kml</code>. El algoritmo es robusto para polígonos
+      Evaluación del punto sobre los polígonos de los archivos
+      <code>IPT_03_PRC_Copiapo.kml</code> y
+      <code>PRICOST_Atacama.kml</code>. El algoritmo es robusto para polígonos
       cóncavos (por ejemplo con forma de herradura) y considera además una
       pequeña tolerancia alrededor del punto para bordes.
     </p>
@@ -184,7 +187,19 @@
       '<br>Lon: ' + lon.toFixed(6)
     ).openPopup();
 
-    // ---- LÓGICA PRC DIRECTA SOBRE IPT_03_PRC_Copiapo.kml ----
+    // ---- CONFIGURACIÓN DE CAPAS PRC ----
+    const PRC_CAPAS = [
+      {
+        id: 'PRC_COPIAPO',
+        nombre: 'PRC Comunal Copiapó',
+        archivo: 'capas/IPT_03_PRC_Copiapo.kml'
+      },
+      {
+        id: 'PRC_COSTERO',
+        nombre: 'PRC Intercomunal Costero de Atacama',
+        archivo: 'capas/PRICOST_Atacama.kml'
+      }
+    ];
 
     function nombrePoligono(props) {
       if (!props) return 'Polígono sin nombre';
@@ -197,9 +212,10 @@
              JSON.stringify(props);
     }
 
-    function consultarPRC(lat, lon) {
+    // Consulta PRC en un solo archivo KML
+    function consultarPRCEnArchivo(lat, lon, cfg) {
       return new Promise(function(resolve, reject) {
-        var loader = omnivore.kml('capas/IPT_03_PRC_Copiapo.kml');
+        var loader = omnivore.kml(cfg.archivo);
 
         loader.on('ready', function() {
           try {
@@ -218,13 +234,11 @@
 
               var dentro = false;
               try {
-                // 1) prueba exacta punto-en-polígono (cóncavos y herradura OK)
                 dentro = turf.booleanPointInPolygon(pt, f);
               } catch (e) {
                 console.warn('Error booleanPointInPolygon', e);
               }
 
-              // 2) Si no está dentro, aplicamos una pequeña tolerancia (~2 m)
               if (!dentro) {
                 try {
                   var buf = turf.buffer(pt, 0.002, { units: 'kilometers' }); // ~2 m
@@ -238,7 +252,8 @@
                 resultados.push({
                   feature: f,
                   props: f.properties || {},
-                  nombre: nombrePoligono(f.properties || {})
+                  nombre: nombrePoligono(f.properties || {}),
+                  instrumento: cfg.nombre
                 });
               }
             }
@@ -255,30 +270,59 @@
       });
     }
 
+    // Consulta global en todas las capas
+    function consultarPRC(lat, lon) {
+      const promesas = PRC_CAPAS.map(function(cfg) {
+        return consultarPRCEnArchivo(lat, lon, cfg);
+      });
+
+      return Promise.all(promesas).then(function(listas) {
+        var todos = [];
+        listas.forEach(function(arr) {
+          todos = todos.concat(arr);
+        });
+        return todos;
+      });
+    }
+
     function construirHTML(resultados) {
-      var html = '<section><h3>Consulta PRC sobre IPT_03_PRC_Copiapo.kml</h3>';
+      var html = '<section><h3>Consulta PRC sobre archivos IPT_03_PRC_Copiapo.kml y PRICOST_Atacama.kml</h3>';
 
       if (!resultados || resultados.length === 0) {
-        html += '<p>El punto consultado <strong>no se encuentra dentro de ningún polígono</strong> del archivo PRC.</p>';
+        html += '<p>El punto consultado <strong>no se encuentra dentro de ningún polígono</strong> de los archivos PRC.</p>';
         html += '</section>';
         return html;
       }
 
-      html += '<p>Se encontraron las siguientes coincidencias:</p>';
-
-      resultados.forEach(function(r, idx) {
-        html += '<p style="margin:4px 0;"><strong>Polígono ' + (idx + 1) +
-                ':</strong> ' + r.nombre + '</p>';
-
-        var props = r.props || {};
-        var keys = Object.keys(props);
-        if (keys.length > 0) {
-          html += '<table><tr><th>Atributo</th><th>Valor</th></tr>';
-          keys.forEach(function(k) {
-            html += '<tr><td>' + k + '</td><td>' + props[k] + '</td></tr>';
-          });
-          html += '</table>';
+      // Agrupar por instrumento
+      var porInstrumento = {};
+      resultados.forEach(function(r) {
+        var inst = r.instrumento || 'PRC';
+        if (!porInstrumento[inst]) {
+          porInstrumento[inst] = [];
         }
+        porInstrumento[inst].push(r);
+      });
+
+      Object.keys(porInstrumento).forEach(function(inst) {
+        var lista = porInstrumento[inst];
+        html += '<h4 style="margin-top:12px;">' + inst + '</h4>';
+        html += '<p>Se encontraron ' + lista.length + ' polígonos que contienen el punto.</p>';
+
+        lista.forEach(function(r, idx) {
+          html += '<p style="margin:4px 0;"><strong>Polígono ' + (idx + 1) +
+                  ':</strong> ' + r.nombre + '</p>';
+
+          var props = r.props || {};
+          var keys = Object.keys(props);
+          if (keys.length > 0) {
+            html += '<table><tr><th>Atributo</th><th>Valor</th></tr>';
+            keys.forEach(function(k) {
+              html += '<tr><td>' + k + '</td><td>' + props[k] + '</td></tr>';
+            });
+            html += '</table>';
+          }
+        });
       });
 
       html += '</section>';
@@ -309,7 +353,7 @@
         .catch(function(err) {
           console.error('Error en consulta PRC:', err);
           document.getElementById('prc-container').innerHTML =
-            '<section><h3>Consulta PRC</h3><p>Error al procesar el archivo KML.</p></section>';
+            '<section><h3>Consulta PRC</h3><p>Error al procesar los archivos KML.</p></section>';
         });
     } else {
       document.getElementById('prc-container').innerHTML =
