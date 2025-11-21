@@ -95,8 +95,8 @@
     <h1>GeoIA - Reporte del punto consultado</h1>
     <p class="subtitle">
       Reporte generado a partir del punto seleccionado en el visor principal.
-      Incluye coordenadas en WGS84, UTM 19S (EPSG:32719) y evaluación sobre
-      todas las capas KML declaradas en <code>capas/manifest.json</code>.
+      Incluye coordenadas en WGS84, UTM 19S (EPSG:32719) y evaluación del punto
+      sobre los polígonos del archivo <code>capas/IPT_03_PRC_Copiapo.kml</code>.
     </p>
 
     <div class="stats">
@@ -121,14 +121,16 @@
     <h2>Mapa de referencia</h2>
     <p class="section-text">
       Vista centrada en el punto consultado. El marcador indica la ubicación de la consulta.
-      El polígono del PRC que contiene el punto se dibuja sobre este mapa.
+      El polígono del PRC que contenga el punto se dibuja sobre este mapa.
     </p>
     <div id="map"></div>
 
-    <h2>Resultado de consulta sobre capas KML</h2>
+    <h2>Consulta PRC (punto sobre polígonos)</h2>
     <p class="section-text">
-      Evaluación de punto sobre polígonos de todas las capas declaradas en
-      <code>capas/manifest.json</code>.
+      Evaluación del punto sobre los polígonos del archivo
+      <code>IPT_03_PRC_Copiapo.kml</code>. El algoritmo es robusto para polígonos
+      cóncavos (por ejemplo con forma de herradura) y considera además una
+      pequeña tolerancia alrededor del punto para bordes.
     </p>
     <div id="prc-container">
       Cargando consulta PRC...
@@ -143,7 +145,6 @@
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.9.1/dist/proj4.js"></script>
   <script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js"></script>
   <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
-  <script src="js/consulta_prc.js"></script>
 
   <script>
     function getParam(name) {
@@ -183,16 +184,132 @@
       '<br>Lon: ' + lon.toFixed(6)
     ).openPopup();
 
-    // llamada pasando el mapa para que pinte el polígono
+    // ---- LÓGICA PRC DIRECTA SOBRE IPT_03_PRC_Copiapo.kml ----
+
+    function nombrePoligono(props) {
+      if (!props) return 'Polígono sin nombre';
+      return props.name ||
+             props.Nombre ||
+             props.NOMBRE ||
+             props.ZONA ||
+             props.Zona ||
+             props.CODIGO ||
+             JSON.stringify(props);
+    }
+
+    function consultarPRC(lat, lon) {
+      return new Promise(function(resolve, reject) {
+        var loader = omnivore.kml('capas/IPT_03_PRC_Copiapo.kml');
+
+        loader.on('ready', function() {
+          try {
+            var geojson = this.toGeoJSON();
+            var features = geojson.features || [];
+            var pt = turf.point([lon, lat]);
+
+            var resultados = [];
+
+            for (var i = 0; i < features.length; i++) {
+              var f = features[i];
+              if (!f.geometry) continue;
+
+              var t = f.geometry.type;
+              if (t !== 'Polygon' && t !== 'MultiPolygon') continue;
+
+              var dentro = false;
+              try {
+                // 1) prueba exacta punto-en-polígono (cóncavos y herradura OK)
+                dentro = turf.booleanPointInPolygon(pt, f);
+              } catch (e) {
+                console.warn('Error booleanPointInPolygon', e);
+              }
+
+              // 2) Si no está dentro, aplicamos una pequeña tolerancia (~2 m)
+              if (!dentro) {
+                try {
+                  var buf = turf.buffer(pt, 0.002, { units: 'kilometers' }); // ~2 m
+                  dentro = turf.booleanIntersects(buf, f);
+                } catch (e2) {
+                  console.warn('Error en buffer/intersects', e2);
+                }
+              }
+
+              if (dentro) {
+                resultados.push({
+                  feature: f,
+                  props: f.properties || {},
+                  nombre: nombrePoligono(f.properties || {})
+                });
+              }
+            }
+
+            resolve(resultados);
+          } catch (e) {
+            reject(e);
+          }
+        });
+
+        loader.on('error', function(err) {
+          reject(err);
+        });
+      });
+    }
+
+    function construirHTML(resultados) {
+      var html = '<section><h3>Consulta PRC sobre IPT_03_PRC_Copiapo.kml</h3>';
+
+      if (!resultados || resultados.length === 0) {
+        html += '<p>El punto consultado <strong>no se encuentra dentro de ningún polígono</strong> del archivo PRC.</p>';
+        html += '</section>';
+        return html;
+      }
+
+      html += '<p>Se encontraron las siguientes coincidencias:</p>';
+
+      resultados.forEach(function(r, idx) {
+        html += '<p style="margin:4px 0;"><strong>Polígono ' + (idx + 1) +
+                ':</strong> ' + r.nombre + '</p>';
+
+        var props = r.props || {};
+        var keys = Object.keys(props);
+        if (keys.length > 0) {
+          html += '<table><tr><th>Atributo</th><th>Valor</th></tr>';
+          keys.forEach(function(k) {
+            html += '<tr><td>' + k + '</td><td>' + props[k] + '</td></tr>';
+          });
+          html += '</table>';
+        }
+      });
+
+      html += '</section>';
+      return html;
+    }
+
     if (!isNaN(lat) && !isNaN(lon)) {
-      consultaPRCEnTodasLasCapas(lat, lon, 'capas/manifest.json', map)
-        .then(function(html) {
-          document.getElementById('prc-container').innerHTML = html;
+      consultarPRC(lat, lon)
+        .then(function(resultados) {
+          // dibujar polígonos en el mapa
+          resultados.forEach(function(r) {
+            try {
+              L.geoJSON(r.feature, {
+                style: {
+                  color: '#2563eb',
+                  weight: 2,
+                  fillOpacity: 0.2
+                }
+              }).addTo(map);
+            } catch (e) {
+              console.warn('Error al dibujar polígono', e);
+            }
+          });
+
+          document.getElementById('prc-container').innerHTML =
+            construirHTML(resultados);
         })
         .catch(function(err) {
-          console.error('Error en consulta PRC múltiple:', err);
+          console.error('Error en consulta PRC:', err);
           document.getElementById('prc-container').innerHTML =
-            '<section><h3>Consulta PRC</h3><p>Error al procesar las capas KML.</p></section>';
+            '<section><h3>Consulta PRC</h3><p>Error al procesar el archivo KML.</p></section>';
         });
     } else {
       document.getElementById('prc-container').innerHTML =
