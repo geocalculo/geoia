@@ -20,7 +20,138 @@
   <!-- toGeoJSON -->
   <script src="https://unpkg.com/@tmcw/togeojson@4.5.0/dist/togeojson.umd.js"></script>
 
-  <link rel="stylesheet" href="css/styles.css" />
+  <!-- Estilos embebidos -->
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header,
+    footer {
+      background: #0a2540;
+      color: #fff;
+      padding: 0.75rem 1rem;
+    }
+
+    header h1 {
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    footer {
+      font-size: 0.75rem;
+      text-align: center;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      gap: 0.75rem;
+      padding: 0.75rem;
+    }
+
+    #mapa-seccion {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    #map {
+      flex: 1;
+      min-height: 420px;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    #ayuda {
+      background: #f5f5f7;
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    #ayuda ul {
+      margin-left: 1.25rem;
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    #panel-consulta {
+      flex: 1.4;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      background: #fafafa;
+    }
+
+    #panel-consulta h2 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    #reporte-prc {
+      font-size: 0.85rem;
+      overflow-y: auto;
+      max-height: calc(100vh - 170px);
+    }
+
+    #reporte-prc table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    #reporte-prc th,
+    #reporte-prc td {
+      border: 1px solid #ddd;
+      padding: 0.25rem 0.35rem;
+      text-align: left;
+    }
+
+    #reporte-prc thead {
+      background: #e9edf5;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.1rem 0.35rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      border: 1px solid #999;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        flex-direction: column;
+      }
+
+      #reporte-prc {
+        max-height: 260px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
