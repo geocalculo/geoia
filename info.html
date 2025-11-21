@@ -78,6 +78,25 @@
       height: 360px;
       border-radius: 14px;
       overflow: hidden;
+      margin-bottom: 24px;
+    }
+    #prc-container {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    #prc-container table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 6px;
+    }
+    #prc-container th,
+    #prc-container td {
+      border: 1px solid #e5e7eb;
+      padding: 4px 6px;
+      font-size: 12px;
+    }
+    #prc-container th {
+      background: #f3f4f6;
     }
   </style>
 </head>
@@ -85,9 +104,9 @@
   <div class="card">
     <h1>GeoIA - Reporte del punto consultado</h1>
     <p class="subtitle">
-      Este reporte se generó a partir del punto seleccionado en el visor principal.
-      Incluye coordenadas en WGS84 y UTM 19S (EPSG:32719) y un mapa de referencia
-      centrado en el punto consultado.
+      Reporte generado a partir del punto seleccionado en el visor principal.
+      Incluye coordenadas en WGS84, UTM 19S (EPSG:32719) y evaluación sobre
+      todas las capas KML declaradas en <code>capas/manifest.json</code>.
     </p>
 
     <div class="stats">
@@ -111,10 +130,18 @@
 
     <h2>Mapa de referencia</h2>
     <p class="section-text">
-      Vista de mapa centrada en el punto consultado. El marcador azul indica la ubicación
-      de la consulta.
+      Vista centrada en el punto consultado. El marcador indica la ubicación de la consulta.
     </p>
     <div id="map"></div>
+
+    <h2>Resultado de consulta sobre capas KML</h2>
+    <p class="section-text">
+      Evaluación de punto sobre polígonos de todas las capas declaradas en
+      <code>capas/manifest.json</code>.
+    </p>
+    <div id="prc-container">
+      Cargando consulta PRC...
+    </div>
   </div>
 
   <!-- Leaflet JS -->
@@ -127,6 +154,13 @@
   <!-- proj4 para conversión a UTM -->
   <script src="https://cdn.jsdelivr.net/npm/proj4@2.9.1/dist/proj4.js"></script>
 
+  <!-- omnivore y turf para lectura KML y point-in-polygon -->
+  <script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js"></script>
+  <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+
+  <!-- Lógica de consulta sobre múltiples KML -->
+  <script src="js/consulta_prc.js"></script>
+
   <script>
     // Obtener parámetros de la URL
     function getParam(name) {
@@ -137,7 +171,6 @@
     const lat = parseFloat(getParam('lat'));
     const lon = parseFloat(getParam('lon'));
 
-    // Mostrar lat/lon
     if (!isNaN(lat) && !isNaN(lon)) {
       document.getElementById('lat-wgs84').textContent = lat.toFixed(6);
       document.getElementById('lon-wgs84').textContent = lon.toFixed(6);
@@ -170,6 +203,22 @@
       'Punto consultado<br>Lat: ' + lat.toFixed(6) +
       '<br>Lon: ' + lon.toFixed(6)
     ).openPopup();
+
+    // Ejecutar consulta sobre todas las capas listadas en manifest.json
+    if (!isNaN(lat) && !isNaN(lon)) {
+      consultaPRCEnTodasLasCapas(lat, lon, 'capas/manifest.json')
+        .then(function(html) {
+          document.getElementById('prc-container').innerHTML = html;
+        })
+        .catch(function(err) {
+          console.error('Error en consulta PRC múltiple:', err);
+          document.getElementById('prc-container').innerHTML =
+            '<section><h3>Consulta PRC</h3><p>Error al procesar las capas KML.</p></section>';
+        });
+    } else {
+      document.getElementById('prc-container').innerHTML =
+        '<section><h3>Consulta PRC</h3><p>No se recibieron coordenadas válidas.</p></section>';
+    }
   </script>
 </body>
 </html>
