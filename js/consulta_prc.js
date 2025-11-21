@@ -31,14 +31,14 @@ function cargarKMLcomoGeoJSON(urlKml) {
   });
 }
 
-// Consulta el punto sobre una sola capa KML, devolviendo un objeto con resumen
+// Consulta el punto sobre una sola capa KML, devolviendo coincidencias
 function consultaSobreCapa(lat, lon, kmlPathRel) {
   var pt = turf.point([lon, lat]);
 
   return cargarKMLcomoGeoJSON(kmlPathRel).then(function(features) {
     var resultado = {
       capa: kmlPathRel,
-      coincidencias: []   // { nombrePoligono, propiedades }
+      coincidencias: []   // { nombrePoligono, propiedades, feature }
     };
 
     for (var i = 0; i < features.length; i++) {
@@ -59,7 +59,8 @@ function consultaSobreCapa(lat, lon, kmlPathRel) {
       if (dentro) {
         resultado.coincidencias.push({
           nombre: nombrePoligono(f.properties || {}),
-          props: f.properties || {}
+          props: f.properties || {},
+          feature: f
         });
       }
     }
@@ -68,7 +69,7 @@ function consultaSobreCapa(lat, lon, kmlPathRel) {
   });
 }
 
-// Construye un HTML a partir de todos los resultados de capas
+// Construye HTML desde resultados
 function construirHTMLDesdeResultados(resultados) {
   var html = '<section>';
   html += '<h3>Consulta PRC sobre capas KML</h3>';
@@ -104,7 +105,6 @@ function construirHTMLDesdeResultados(resultados) {
       html += '<p style="margin:4px 0;"><strong>Polígono ' + (idx + 1) +
               ':</strong> ' + c.nombre + '</p>';
 
-      // Tabla con atributos
       var props = c.props || {};
       var keys = Object.keys(props);
       if (keys.length > 0) {
@@ -122,8 +122,8 @@ function construirHTMLDesdeResultados(resultados) {
   return html;
 }
 
-// Función principal: lee manifest.json y ejecuta la consulta sobre todas las capas listadas
-function consultaPRCEnTodasLasCapas(lat, lon, manifestPath) {
+// Función principal: lee manifest.json y ejecuta la consulta; también dibuja polígonos en el mapa
+function consultaPRCEnTodasLasCapas(lat, lon, manifestPath, map) {
   return fetch(manifestPath)
     .then(function(resp) {
       if (!resp.ok) {
@@ -138,20 +138,35 @@ function consultaPRCEnTodasLasCapas(lat, lon, manifestPath) {
         return construirHTMLDesdeResultados([]);
       }
 
-      // Generamos un array de Promises, una por cada KML
       var promises = files.map(function(fname) {
         var kmlPathRel = 'capas/' + fname;
         return consultaSobreCapa(lat, lon, kmlPathRel)
           .catch(function(err) {
             console.error('Error consultando capa', kmlPathRel, err);
-            return {
-              capa: kmlPathRel,
-              coincidencias: []
-            };
+            return { capa: kmlPathRel, coincidencias: [] };
           });
       });
 
       return Promise.all(promises).then(function(resultados) {
+        // Dibujar polígonos en el mapa si se entregó un mapa Leaflet
+        if (map) {
+          resultados.forEach(function(r) {
+            r.coincidencias.forEach(function(c) {
+              try {
+                L.geoJSON(c.feature, {
+                  style: {
+                    color: '#2563eb',
+                    weight: 2,
+                    fillOpacity: 0.2
+                  }
+                }).addTo(map);
+              } catch(e) {
+                console.warn('No se pudo dibujar polígono en el mapa', e);
+              }
+            });
+          });
+        }
+
         return construirHTMLDesdeResultados(resultados);
       });
     });
