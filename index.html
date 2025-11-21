@@ -5,49 +5,33 @@
   <title>GeoIA - Visor PRC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Leaflet CSS -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""
   />
-
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
-    #map {
-      width: 100%;
-      height: 100%;
-    }
-    .leaflet-container {
-      font: 14px/1.5 "Segoe UI", Arial, sans-serif;
-    }
+    html, body { height: 100%; margin: 0; }
+    #map { width: 100%; height: 100%; }
   </style>
 </head>
 <body>
   <div id="map"></div>
 
-  <!-- Leaflet JS -->
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin="">
   </script>
-
   <script>
-    // Mapa principal: Copiapó aproximado
     var map = L.map('map').setView([-27.37, -70.33], 14);
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    // Click -> abre info.html en nueva pestaña con lat/lon
-    map.on('click', function (e) {
+    map.on('click', function(e){
       var lat = e.latlng.lat;
       var lon = e.latlng.lng;
       var url = 'info.html?lat=' + encodeURIComponent(lat) +
