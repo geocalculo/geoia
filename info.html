@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>GeoIA - Reporte del punto consultado</title>
+  <title>GeoIA - Reporte del punto consultado (3 PRC)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link
@@ -97,8 +97,9 @@
       Reporte generado a partir del punto seleccionado en el visor principal.
       Incluye coordenadas en WGS84, UTM 19S (EPSG:32719) y evaluación del punto
       sobre los polígonos de los archivos
-      <code>capas/IPT_03_PRC_Copiapo.kml</code> y
-      <code>capas/PRICOST_Atacama.kml</code>.
+      <code>IPT_03_PRC_Copiapo.kml</code>,
+      <code>IPT_03_PRC_Caldera.kml</code> y
+      <code>PRICOST_Atacama.kml</code>.
     </p>
 
     <div class="stats">
@@ -130,7 +131,8 @@
     <h2>Consulta PRC (punto sobre polígonos)</h2>
     <p class="section-text">
       Evaluación del punto sobre los polígonos de los archivos
-      <code>IPT_03_PRC_Copiapo.kml</code> y
+      <code>IPT_03_PRC_Copiapo.kml</code>,
+      <code>IPT_03_PRC_Caldera.kml</code> y
       <code>PRICOST_Atacama.kml</code>. El algoritmo es robusto para polígonos
       cóncavos (por ejemplo con forma de herradura) y considera además una
       pequeña tolerancia alrededor del punto para bordes.
@@ -175,17 +177,19 @@
       document.getElementById('utm-n').textContent = norte.toFixed(3);
     }
 
-    var map = L.map('map').setView([lat, lon], 17);
+    var map = L.map('map').setView([lat || -27.37, lon || -70.33], 17);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    var marker = L.marker([lat, lon]).addTo(map);
-    marker.bindPopup(
-      'Punto consultado<br>Lat: ' + lat.toFixed(6) +
-      '<br>Lon: ' + lon.toFixed(6)
-    ).openPopup();
+    if (!isNaN(lat) && !isNaN(lon)) {
+      var marker = L.marker([lat, lon]).addTo(map);
+      marker.bindPopup(
+        'Punto consultado<br>Lat: ' + lat.toFixed(6) +
+        '<br>Lon: ' + lon.toFixed(6)
+      ).openPopup();
+    }
 
     // ---- CONFIGURACIÓN DE CAPAS PRC ----
     const PRC_CAPAS = [
@@ -195,7 +199,12 @@
         archivo: 'capas/IPT_03_PRC_Copiapo.kml'
       },
       {
-        id: 'PRC_COSTERO',
+        id: 'PRC_CALDERA',
+        nombre: 'PRC Comunal Caldera',
+        archivo: 'capas/IPT_03_PRC_Caldera.kml'
+      },
+      {
+        id: 'PRICOST',
         nombre: 'PRC Intercomunal Costero de Atacama',
         archivo: 'capas/PRICOST_Atacama.kml'
       }
@@ -286,7 +295,7 @@
     }
 
     function construirHTML(resultados) {
-      var html = '<section><h3>Consulta PRC sobre archivos IPT_03_PRC_Copiapo.kml y PRICOST_Atacama.kml</h3>';
+      var html = '<section><h3>Consulta PRC sobre archivos IPT_03_PRC_Copiapo.kml, IPT_03_PRC_Caldera.kml y PRICOST_Atacama.kml</h3>';
 
       if (!resultados || resultados.length === 0) {
         html += '<p>El punto consultado <strong>no se encuentra dentro de ningún polígono</strong> de los archivos PRC.</p>';
