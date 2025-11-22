@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>GeoIA - Reporte del punto consultado (4 PRC)</title>
+  <title>GeoIA - Reporte del punto consultado (PRC Atacama)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link
@@ -16,7 +16,8 @@
       margin: 0;
       padding: 24px;
       background: #f4f5f7;
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
     }
     .card {
       max-width: 1100px;
@@ -27,8 +28,11 @@
       box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
     }
     h1 { margin: 0 0 4px; font-size: 24px; }
-    .subtitle { font-size: 14px; color: #6b7280; margin-bottom: 24px; }
-
+    .subtitle {
+      margin: 0 0 24px;
+      font-size: 14px;
+      color: #6b7280;
+    }
     .stats {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -45,13 +49,19 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: #9ca3af;
+      margin-bottom: 4px;
     }
     .stat-value {
       font-size: 16px;
       font-weight: 600;
       color: #111827;
     }
-
+    h2 { font-size: 18px; margin: 20px 0 6px; }
+    .section-text {
+      font-size: 13px;
+      color: #6b7280;
+      margin: 0 0 12px;
+    }
     #map {
       width: 100%;
       height: 360px;
@@ -59,166 +69,291 @@
       overflow: hidden;
       margin-bottom: 24px;
     }
-
-    table {
+    #prc-container {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    #prc-container table {
       border-collapse: collapse;
       width: 100%;
       margin-top: 6px;
     }
-    th, td {
+    #prc-container th,
+    #prc-container td {
       border: 1px solid #e5e7eb;
       padding: 4px 6px;
       font-size: 12px;
     }
-    th { background: #f3f4f6; }
+    #prc-container th {
+      background: #f3f4f6;
+    }
   </style>
 </head>
 <body>
-
   <div class="card">
     <h1>GeoIA - Reporte del punto consultado</h1>
     <p class="subtitle">
-      Incluye coordenadas en WGS84, UTM 19S y análisis sobre los instrumentos:
-      <br>
-      <b>IPT_03_PRC_Copiapo.kml, IPT_03_PRC_Caldera.kml, IPT_03_PRC_Chañaral.kml y PRICOST_Atacama.kml</b>
+      Reporte generado a partir del punto seleccionado en el visor principal.
+      Incluye coordenadas en WGS84, UTM 19S (EPSG:32719) y evaluación del punto
+      sobre los polígonos de los instrumentos PRC/SCC de la Región de Atacama.
     </p>
 
     <div class="stats">
-      <div class="stat-box"><div class="stat-label">Latitud</div><div class="stat-value" id="lat-wgs84">-</div></div>
-      <div class="stat-box"><div class="stat-label">Longitud</div><div class="stat-value" id="lon-wgs84">-</div></div>
-      <div class="stat-box"><div class="stat-label">Este UTM</div><div class="stat-value" id="utm-e">-</div></div>
-      <div class="stat-box"><div class="stat-label">Norte UTM</div><div class="stat-value" id="utm-n">-</div></div>
+      <div class="stat-box">
+        <div class="stat-label">Latitud (WGS84)</div>
+        <div class="stat-value" id="lat-wgs84">-</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Longitud (WGS84)</div>
+        <div class="stat-value" id="lon-wgs84">-</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Este (UTM 19S, m)</div>
+        <div class="stat-value" id="utm-e">-</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Norte (UTM 19S, m)</div>
+        <div class="stat-value" id="utm-n">-</div>
+      </div>
     </div>
 
     <h2>Mapa de referencia</h2>
+    <p class="section-text">
+      Vista centrada en el punto consultado. El marcador indica la ubicación de la consulta.
+      Los polígonos PRC/SCC que contengan el punto se dibujan sobre este mapa.
+    </p>
     <div id="map"></div>
 
-    <h2>Consulta PRC (4 instrumentos)</h2>
-    <div id="prc-container">Procesando...</div>
+    <h2>Consulta PRC / SCC (punto sobre polígonos)</h2>
+    <p class="section-text">
+      Evaluación del punto sobre los polígonos de los archivos comunales e intercomunales
+      de la Región de Atacama. El algoritmo es robusto para polígonos cóncavos y considera
+      además una pequeña tolerancia alrededor del punto para bordes.
+    </p>
+    <div id="prc-container">
+      Cargando consulta PRC/SCC...
+    </div>
   </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/proj4@2.9.1/dist/proj4.js"></script>
-<script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js"></script>
-<script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/proj4@2.9.1/dist/proj4.js"></script>
+  <script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js"></script>
+  <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
 
-<script>
-function getParam(name) {
-  return new URLSearchParams(window.location.search).get(name);
-}
+  <script>
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
 
-const lat = parseFloat(getParam("lat"));
-const lon = parseFloat(getParam("lon"));
+    const lat = parseFloat(getParam('lat'));
+    const lon = parseFloat(getParam('lon'));
 
-document.getElementById("lat-wgs84").textContent = lat.toFixed(6);
-document.getElementById("lon-wgs84").textContent = lon.toFixed(6);
+    if (!isNaN(lat) && !isNaN(lon)) {
+      document.getElementById('lat-wgs84').textContent = lat.toFixed(6);
+      document.getElementById('lon-wgs84').textContent = lon.toFixed(6);
+    }
 
-proj4.defs("EPSG:32719", "+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs");
+    proj4.defs('EPSG:32719',
+      '+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs'
+    );
 
-const utm = proj4("EPSG:4326", "EPSG:32719", [lon, lat]);
-document.getElementById("utm-e").textContent = utm[0].toFixed(3);
-document.getElementById("utm-n").textContent = utm[1].toFixed(3);
+    if (!isNaN(lat) && !isNaN(lon)) {
+      const utm = proj4('EPSG:4326', 'EPSG:32719', [lon, lat]);
+      const este = utm[0];
+      const norte = utm[1];
+      document.getElementById('utm-e').textContent = este.toFixed(3);
+      document.getElementById('utm-n').textContent = norte.toFixed(3);
+    }
 
-// --- Mapa ---
-var map = L.map("map").setView([lat, lon], 17);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19
-}).addTo(map);
-L.marker([lat, lon]).addTo(map).bindPopup("Punto consultado").openPopup();
+    var map = L.map('map').setView([lat || -27.37, lon || -70.33], 17);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-// --- Instrumentos PRC ---
-const PRC_CAPAS = [
-  { id: "COPIAPO", nombre: "PRC Copiapó", archivo: "capas/IPT_03_PRC_Copiapo.kml" },
-  { id: "CALDERA", nombre: "PRC Caldera", archivo: "capas/IPT_03_PRC_Caldera.kml" },
-  { id: "CHAÑARAL", nombre: "PRC Chañaral", archivo: "capas/IPT_03_PRC_Chañaral.kml" },
-  { id: "PRICOST", nombre: "PRC Intercomunal Costero", archivo: "capas/PRICOST_Atacama.kml" }
-];
+    if (!isNaN(lat) && !isNaN(lon)) {
+      var marker = L.marker([lat, lon]).addTo(map);
+      marker.bindPopup(
+        'Punto consultado<br>Lat: ' + lat.toFixed(6) +
+        '<br>Lon: ' + lon.toFixed(6)
+      ).openPopup();
+    }
 
-function nombrePoligono(props) {
-  return props.name || props.NOMBRE || props.ZONA || "Polígono sin nombre";
-}
+    // ---- CONFIGURACIÓN DE CAPAS PRC / SCC ----
+    const PRC_CAPAS = [
+      { id: 'PRC_COPIAPO',      nombre: 'PRC Comunal Copiapó',                 archivo: 'capas/IPT_03_PRC_Copiapo.kml' },
+      { id: 'PRC_CALDERA',      nombre: 'PRC Comunal Caldera',                 archivo: 'capas/IPT_03_PRC_Caldera.kml' },
+      { id: 'PRC_CHAÑARAL',     nombre: 'PRC Comunal Chañaral',                archivo: 'capas/IPT_03_PRC_Chañaral.kml' },
+      { id: 'PRC_DIEGO_ALMAGRO',nombre: 'PRC Comunal Diego de Almagro',        archivo: 'capas/IPT_03_PRC_Diego_de_Almagro.kml' },
+      { id: 'PRC_FREIRINA',     nombre: 'PRC Comunal Freirina',                archivo: 'capas/IPT_03_PRC_Freirina.kml' },
+      { id: 'PRC_HUASCO',       nombre: 'PRC Comunal Huasco',                  archivo: 'capas/IPT_03_PRC_Huasco.kml' },
+      { id: 'PRC_VALLENAR',     nombre: 'PRC Comunal Vallenar',                archivo: 'capas/IPT_03_PRC_Vallenar.kml' },
+      { id: 'SCC_ELSALADO',     nombre: 'SCC El Salado',                       archivo: 'capas/IPT_03_SCC_ElSalado.kml' },
+      { id: 'SCC_FLAMENCO',     nombre: 'SCC Flamenco',                        archivo: 'capas/IPT_03_SCC_Flamenco.kml' },
+      { id: 'SCC_PORTOFINO',    nombre: 'SCC Portofino',                       archivo: 'capas/IPT_03_SCC_Portofino.kml' },
+      { id: 'PRICOST',          nombre: 'PRC Intercomunal Costero de Atacama', archivo: 'capas/PRICOST_Atacama.kml' }
+    ];
 
-function consultarArchivo(lat, lon, cfg) {
-  return new Promise((resolve) => {
-    let capa = omnivore.kml(cfg.archivo);
-    capa.on("ready", function () {
-      const geojson = this.toGeoJSON();
-      const pt = turf.point([lon, lat]);
-      let encontrados = [];
+    function nombrePoligono(props) {
+      if (!props) return 'Polígono sin nombre';
+      return props.name ||
+             props.Nombre ||
+             props.NOMBRE ||
+             props.ZONA ||
+             props.Zona ||
+             props.CODIGO ||
+             JSON.stringify(props);
+    }
 
-      geojson.features.forEach(f => {
-        if (!f.geometry) return;
-        const tipo = f.geometry.type;
-        if (tipo !== "Polygon" && tipo !== "MultiPolygon") return;
+    // Consulta PRC/SCC en un solo archivo KML (robusta)
+    function consultarPRCEnArchivo(lat, lon, cfg) {
+      return new Promise(function(resolve) {
+        var loader = omnivore.kml(cfg.archivo);
 
-        let ok = false;
-        try { ok = turf.booleanPointInPolygon(pt, f); } catch {}
-        if (!ok) {
+        loader.on('ready', function() {
           try {
-            const buf = turf.buffer(pt, 0.002, { units: "kilometers" });
-            ok = turf.booleanIntersects(buf, f);
-          } catch {}
-        }
-        if (ok) {
-          encontrados.push({
-            nombre: nombrePoligono(f.properties),
-            props: f.properties,
-            feature: f,
-            instrumento: cfg.nombre
-          });
-        }
-      });
+            var geojson = this.toGeoJSON();
+            var features = geojson.features || [];
+            var pt = turf.point([lon, lat]);
 
-      resolve(encontrados);
-    });
+            var resultados = [];
 
-    capa.on("error", () => resolve([]));
-  });
-}
+            for (var i = 0; i < features.length; i++) {
+              var f = features[i];
+              if (!f.geometry) continue;
 
-async function ejecutarConsulta() {
-  let resultados = [];
-  for (let cfg of PRC_CAPAS) {
-    let r = await consultarArchivo(lat, lon, cfg);
-    resultados = resultados.concat(r);
-  }
+              var t = f.geometry.type;
+              if (t !== 'Polygon' && t !== 'MultiPolygon') continue;
 
-  let html = "";
-  if (resultados.length === 0) {
-    html = "<p>No se encontraron zonas PRC para este punto.</p>";
-  } else {
-    let agrupado = {};
-    resultados.forEach(r => {
-      if (!agrupado[r.instrumento]) agrupado[r.instrumento] = [];
-      agrupado[r.instrumento].push(r);
-    });
+              var dentro = false;
+              try {
+                dentro = turf.booleanPointInPolygon(pt, f);
+              } catch (e) {
+                console.warn('Error booleanPointInPolygon', e);
+              }
 
-    Object.keys(agrupado).forEach(inst => {
-      html += `<h3>${inst}</h3>`;
-      agrupado[inst].forEach((item, i) => {
-        html += `<p><b>Polígono ${i+1}:</b> ${item.nombre}</p>`;
-        html += `<table><tr><th>Atributo</th><th>Valor</th></tr>`;
-        Object.keys(item.props || {}).forEach(k => {
-          html += `<tr><td>${k}</td><td>${item.props[k]}</td></tr>`;
+              if (!dentro) {
+                try {
+                  var buf = turf.buffer(pt, 0.002, { units: 'kilometers' }); // ~2 m
+                  dentro = turf.booleanIntersects(buf, f);
+                } catch (e2) {
+                  console.warn('Error en buffer/intersects', e2);
+                }
+              }
+
+              if (dentro) {
+                resultados.push({
+                  feature: f,
+                  props: f.properties || {},
+                  nombre: nombrePoligono(f.properties || {}),
+                  instrumento: cfg.nombre
+                });
+              }
+            }
+
+            resolve(resultados);
+          } catch (e) {
+            console.warn('Error procesando', cfg.nombre, e);
+            resolve([]);
+          }
         });
-        html += "</table>";
+
+        loader.on('error', function(err) {
+          console.warn('Error cargando KML de', cfg.nombre, err);
+          resolve([]);
+        });
       });
-    });
+    }
 
-    resultados.forEach(r => {
-      try {
-        L.geoJSON(r.feature, {
-          style: { color: "#2563eb", weight: 2, fillOpacity: 0.25 }
-        }).addTo(map);
-      } catch {}
-    });
-  }
+    // Consulta global en todas las capas (secuencial para evitar fallos globales)
+    async function consultarPRCGlobal(lat, lon) {
+      let todos = [];
+      for (const cfg of PRC_CAPAS) {
+        try {
+          const res = await consultarPRCEnArchivo(lat, lon, cfg);
+          todos = todos.concat(res);
+        } catch (e) {
+          console.warn('Error en consulta de', cfg.nombre, e);
+        }
+      }
+      return todos;
+    }
 
-  document.getElementById("prc-container").innerHTML = html;
-}
+    function construirHTML(resultados) {
+      var html = '<section><h3>Consulta PRC / SCC</h3>';
 
-ejecutarConsulta();
-</script>
+      if (!resultados || resultados.length === 0) {
+        html += '<p>El punto consultado <strong>no se encuentra dentro de ningún polígono</strong> de los archivos PRC/SCC cargados.</p>';
+        html += '</section>';
+        return html;
+      }
 
+      // Agrupar por instrumento
+      var porInstrumento = {};
+      resultados.forEach(function(r) {
+        var inst = r.instrumento || 'PRC/SCC';
+        if (!porInstrumento[inst]) {
+          porInstrumento[inst] = [];
+        }
+        porInstrumento[inst].push(r);
+      });
+
+      Object.keys(porInstrumento).forEach(function(inst) {
+        var lista = porInstrumento[inst];
+        html += '<h4 style="margin-top:12px;">' + inst + '</h4>';
+        html += '<p>Se encontraron ' + lista.length + ' polígonos que contienen el punto.</p>';
+
+        lista.forEach(function(r, idx) {
+          html += '<p style="margin:4px 0;"><strong>Polígono ' + (idx + 1) +
+                  ':</strong> ' + r.nombre + '</p>';
+
+          var props = r.props || {};
+          var keys = Object.keys(props);
+          if (keys.length > 0) {
+            html += '<table><tr><th>Atributo</th><th>Valor</th></tr>';
+            keys.forEach(function(k) {
+              html += '<tr><td>' + k + '</td><td>' + props[k] + '</td></tr>';
+            });
+            html += '</table>';
+          }
+        });
+      });
+
+      html += '</section>';
+      return html;
+    }
+
+    if (!isNaN(lat) && !isNaN(lon)) {
+      consultarPRCGlobal(lat, lon)
+        .then(function(resultados) {
+          // dibujar polígonos en el mapa
+          resultados.forEach(function(r) {
+            try {
+              L.geoJSON(r.feature, {
+                style: {
+                  color: '#2563eb',
+                  weight: 2,
+                  fillOpacity: 0.2
+                }
+              }).addTo(map);
+            } catch (e) {
+              console.warn('Error al dibujar polígono', e);
+            }
+          });
+
+          document.getElementById('prc-container').innerHTML =
+            construirHTML(resultados);
+        })
+        .catch(function(err) {
+          console.error('Error en consulta PRC/SCC:', err);
+          document.getElementById('prc-container').innerHTML =
+            '<section><h3>Consulta PRC / SCC</h3><p>Error al procesar los archivos KML.</p></section>';
+        });
+    } else {
+      document.getElementById('prc-container').innerHTML =
+        '<section><h3>Consulta PRC / SCC</h3><p>No se recibieron coordenadas válidas.</p></section>';
+    }
+  </script>
 </body>
 </html>
