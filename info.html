@@ -195,13 +195,39 @@
       }
     );
 
-    capaMapa.addTo(map);
+    // Leer preferencia de mapa base desde localStorage (heredar del visor principal)
+    var baseChoice = null;
+    try {
+      baseChoice = localStorage.getItem('geoia_baseLayer');
+    } catch (e) {
+      baseChoice = null;
+    }
 
+    if (baseChoice === 'satelital') {
+      capaSatelite.addTo(map);
+    } else {
+      capaMapa.addTo(map);
+    }
+
+    // Control de capas (Mapa / Satelital)
     L.control.layers(
       { 'Mapa': capaMapa, 'Satelital': capaSatelite },
       null,
       { position: 'topright' }
     ).addTo(map);
+
+    // Si el usuario cambia el mapa base aquí, también actualizamos la preferencia global
+    map.on('baselayerchange', function (e) {
+      try {
+        if (e.name === 'Mapa') {
+          localStorage.setItem('geoia_baseLayer', 'mapa');
+        } else if (e.name === 'Satelital') {
+          localStorage.setItem('geoia_baseLayer', 'satelital');
+        }
+      } catch (err) {
+        console.warn('No se pudo guardar la preferencia de mapa base (overview):', err);
+      }
+    });
 
     if (!isNaN(lat) && !isNaN(lon)) {
       var marker = L.marker([lat, lon]).addTo(map);
