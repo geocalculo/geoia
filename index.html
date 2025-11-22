@@ -102,10 +102,32 @@
     // Inicializar mapa con vista por defecto (fallback: Copiapó)
     var map = L.map('map').setView([-27.37, -70.33], 13);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // Capas base
+    var capaMapa = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    });
+
+    var capaSatelite = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      {
+        maxZoom: 19,
+        attribution: 'Imagery © Esri'
+      }
+    );
+
+    // Agregar capa base por defecto
+    capaMapa.addTo(map);
+
+    // Control de capas (Mapa / Satelital) en la esquina superior derecha
+    L.control.layers(
+      {
+        'Mapa': capaMapa,
+        'Satelital': capaSatelite
+      },
+      null,
+      { position: 'topright' }
+    ).addTo(map);
 
     // Geolocalización aproximada del usuario (HTML5)
     // Objetivo: centrar en su ubicación a escala ~1:10.000 (zoom ~16)
