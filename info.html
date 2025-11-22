@@ -93,6 +93,42 @@
       margin-top: -4px;
       margin-bottom: 10px;
     }
+  
+    .coords {
+      margin-bottom: 16px;
+      font-size: 12px;
+    }
+    .coords-table {
+      border-collapse: collapse;
+      margin-right: 12px;
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+    .coords-table th {
+      text-align: left;
+      font-size: 11px;
+      color: #6b7280;
+      padding: 2px 4px;
+    }
+    .coords-table td {
+      font-size: 12px;
+      padding: 2px 4px;
+      white-space: nowrap;
+    }
+    .coord-label {
+      font-weight: 600;
+      margin-right: 4px;
+    }
+    @media (max-width: 640px) {
+      .coords {
+        font-size: 11px;
+      }
+      .coords-table {
+        display: block;
+        margin-right: 0;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -104,24 +140,32 @@
       sobre los polígonos de los instrumentos PRC/SCC de la Región de Atacama.
     </p>
 
-    <div class="stats">
-      <div class="stat-box">
-        <div class="stat-label">Latitud (WGS84)</div>
-        <div class="stat-value" id="lat-wgs84">-</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">Longitud (WGS84)</div>
-        <div class="stat-value" id="lon-wgs84">-</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">Este (UTM 19S, m)</div>
-        <div class="stat-value" id="utm-e">-</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">Norte (UTM 19S, m)</div>
-        <div class="stat-value" id="utm-n">-</div>
-      </div>
+    <div class="coords">
+      <table class="coords-table">
+        <thead>
+          <tr><th colspan="2">Coordenadas WGS84</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="coord-label">Lat:</span> <span id="lat-wgs84">-</span></td>
+            <td><span class="coord-label">Lon:</span> <span id="lon-wgs84">-</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="coords-table">
+        <thead>
+          <tr><th colspan="2">Coordenadas UTM 19S (EPSG:32719)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="coord-label">Este:</span> <span id="utm-e">-</span></td>
+            <td><span class="coord-label">Norte:</span> <span id="utm-n">-</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+
 
     <h2>Mapa de referencia</h2>
     <p class="section-text">
