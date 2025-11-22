@@ -87,6 +87,12 @@
     #prc-container th {
       background: #f3f4f6;
     }
+    .hint-click {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: -4px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -121,6 +127,10 @@
     <p class="section-text">
       Vista centrada en el punto consultado. El marcador indica la ubicación de la consulta.
       Los polígonos PRC/SCC que contengan el punto se dibujan sobre este mapa.
+    </p>
+    <p class="hint-click">
+      Tip: puedes hacer clic nuevamente en este mapa para abrir un <strong>nuevo reporte</strong>
+      sobre un nuevo punto (se abrirá en una pestaña adicional).
     </p>
     <div id="map"></div>
 
@@ -166,11 +176,32 @@
       document.getElementById('utm-n').textContent = norte.toFixed(3);
     }
 
-    var map = L.map('map').setView([lat || -27.37, lon || -70.33], 17);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // --- Mapa overview con selector de mapa base (Mapa / Satelital) ---
+    var map = L.map('map').setView(
+      [!isNaN(lat) ? lat : -27.37, !isNaN(lon) ? lon : -70.33],
+      !isNaN(lat) && !isNaN(lon) ? 17 : 13
+    );
+
+    var capaMapa = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    });
+
+    var capaSatelite = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      {
+        maxZoom: 19,
+        attribution: 'Imagery © Esri'
+      }
+    );
+
+    capaMapa.addTo(map);
+
+    L.control.layers(
+      { 'Mapa': capaMapa, 'Satelital': capaSatelite },
+      null,
+      { position: 'topright' }
+    ).addTo(map);
 
     if (!isNaN(lat) && !isNaN(lon)) {
       var marker = L.marker([lat, lon]).addTo(map);
@@ -179,6 +210,16 @@
         '<br>Lon: ' + lon.toFixed(6)
       ).openPopup();
     }
+
+    // Permitir nueva consulta directamente desde el overview:
+    // clic en el mapa abre info.html en una pestaña nueva con el nuevo punto.
+    map.on('click', function(e) {
+      var nlat = e.latlng.lat;
+      var nlon = e.latlng.lng;
+      var url = 'info.html?lat=' + encodeURIComponent(nlat) +
+                '&lon=' + encodeURIComponent(nlon);
+      window.open(url, '_blank');
+    });
 
     // ---- CONFIGURACIÓN DE CAPAS PRC / SCC ----
     const PRC_CAPAS = [
