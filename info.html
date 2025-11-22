@@ -279,10 +279,16 @@
       });
     }
 
+
     // Consulta global en todas las capas
+    // Se hace robusta: si una capa falla, las demás igual se procesan.
     function consultarPRC(lat, lon) {
       const promesas = PRC_CAPAS.map(function(cfg) {
-        return consultarPRCEnArchivo(lat, lon, cfg);
+        return consultarPRCEnArchivo(lat, lon, cfg)
+          .catch(function(err) {
+            console.warn('Error al procesar capa PRC:', cfg.nombre, err);
+            return []; // capa con error no aporta resultados, pero no rompe todo
+          });
       });
 
       return Promise.all(promesas).then(function(listas) {
@@ -293,6 +299,7 @@
         return todos;
       });
     }
+
 
     function construirHTML(resultados) {
       var html = '<section><h3>Consulta PRC sobre archivos IPT_03_PRC_Copiapo.kml, IPT_03_PRC_Caldera.kml y PRICOST_Atacama.kml</h3>';
