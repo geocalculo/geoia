@@ -247,7 +247,7 @@
       <section class="section">
         <h2>Consulta PRC / SCC (punto sobre polígonos de toda la región)</h2>
         <p>
-          Evaluación del punto sobre todos los polígonos de los instrumentos PRC/SCC.
+          Evaluación del punto sobre todos los polígonos de los instrumentos PRC/SCC. 
         </p>
         <div id="resultado-prc" style="margin-top:0.5rem; font-size:0.95rem;"></div>
         <ul id="lista-coincidencias" class="coincidencias"></ul>
@@ -305,8 +305,8 @@
     crossorigin=""
   ></script>
 
-  <!-- Proj4 para coordenadas UTM -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.1/proj4.js" integrity="sha512-bVmL59OstkCfyhMDnwUdIBcyKyxM/oZhIu7lq+SIURMi5A+tg1mzRi51gfYWS+ytfV/6s5wx2cgHBw0tSmyYVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Proj4 para coordenadas UTM (sin integrity para evitar bloqueo) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.1/proj4.js"></script>
 
   <!-- tokml para exportar GeoJSON a KML -->
   <script src="https://unpkg.com/tokml@0.4.0/tokml.js"></script>
@@ -432,13 +432,21 @@
     // Conversión WGS84 -> UTM 19S (EPSG:32719) usando proj4
     function actualizarUTM(lat, lon) {
       try {
+        if (typeof proj4 === "undefined") {
+          console.error("proj4 no está definido; el script no se cargó correctamente.");
+          return;
+        }
+
+        // Definir EPSG:32719 si no existe
         if (!proj4.defs["EPSG:32719"]) {
           proj4.defs(
             "EPSG:32719",
             "+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs"
           );
         }
+
         const utm = proj4("EPSG:4326", "EPSG:32719", [lon, lat]);
+
         document.getElementById("utm-e-display").textContent = utm[0]
           .toFixed(3)
           .replace(".", ",");
