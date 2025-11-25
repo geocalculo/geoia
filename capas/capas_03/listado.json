@@ -1,0 +1,17 @@
+{
+  "region": "03",
+  "nombre": "Atacama",
+  "kml": [
+    "IPT_03_PRC_Caldera.kml",
+    "IPT_03_PRC_Chanaral.kml",
+    "IPT_03_PRC_Copiapo.kml",
+    "IPT_03_PRC_Diego_de_Almagro.kml",
+    "IPT_03_PRC_Freirina.kml",
+    "IPT_03_PRC_Huasco.kml",
+    "IPT_03_PRC_Vallenar.kml",
+    "IPT_03_SCC_ElSalado.kml",
+    "IPT_03_SCC_Flamenco.kml",
+    "IPT_03_SCC_Portofino.kml",
+    "PRICOST_Atacama.kml"
+  ]
+}

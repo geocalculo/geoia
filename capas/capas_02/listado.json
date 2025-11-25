@@ -1,0 +1,28 @@
+{
+  "region": "02",
+  "nombre": "Antofagasta",
+  "kml": [
+    "PRC_02_Antofagasta.kml",
+    "PRC_02_Calama.kml",
+    "PRC_02_Mejillones.kml",
+    "PRC_02_Mejillones_Meseta.kml",
+    "PRC_02_Mejillones_Portuaria.kml",
+    "PRC_02_Ollague.kml",
+    "PRC_02_SanPedroAtacama.kml",
+    "PRC_02_SanPedroAtacama_Peine.kml",
+    "PRC_02_SanPedroAtacama_Toconao.kml",
+    "PRC_02_Taltal.kml",
+    "PRC_02_Tocopilla.kml",
+    "PRC_Sierra_Gorda.kml",
+    "SECC_02_Antofagasta_LaChimba.kml",
+    "SECC_02_Antofagasta_LaNegra.kml",
+    "SECC_02_Calama_SanJuan.kml",
+    "SECC_02_Calama_Topater.kml",
+    "SECC_02_Mejillones_CostaneraSur.kml",
+    "SECC_02_Mejillones_IndPequena.kml",
+    "SECC_02_Mejillones_ItataHornitos.kml",
+    "SECC_02_SanPedroAtacama_Pozo.kml",
+    "SECC_02_SanPedroAtacama_Quitar.kml",
+    "SECC_02_Taltal_Cifuncho.kml"
+  ]
+}

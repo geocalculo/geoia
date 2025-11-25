@@ -123,23 +123,59 @@ function construirHTMLDesdeResultados(resultados) {
 }
 
 // Función principal: lee manifest.json y ejecuta la consulta; también dibuja polígonos en el mapa
+// Función principal: lee manifest.json (o listado.json) y ejecuta la consulta; también dibuja polígonos en el mapa
 function consultaPRCEnTodasLasCapas(lat, lon, manifestPath, map) {
   return fetch(manifestPath)
     .then(function(resp) {
       if (!resp.ok) {
-        throw new Error('No se pudo leer manifest.json');
+        throw new Error('No se pudo leer manifest/listado de KML');
       }
       return resp.json();
     })
     .then(function(data) {
-      var files = (data && Array.isArray(data.kml_files)) ? data.kml_files : [];
+      // Soporta tanto "kml_files" como "kml"
+      var files = [];
+      if (data) {
+        if (Array.isArray(data.kml_files)) {
+          files = data.kml_files;
+        } else if (Array.isArray(data.kml)) {
+          files = data.kml;
+        }
+      }
 
       if (files.length === 0) {
         return construirHTMLDesdeResultados([]);
       }
 
+      // Carpeta base donde está el manifest/listado
+      var lastSlash = manifestPath.lastIndexOf('/');
+      var baseDir = lastSlash >= 0 ? manifestPath.substring(0, lastSlash + 1) : '';
+
       var promises = files.map(function(fname) {
-        var kmlPathRel = 'capas/' + fname;
+        var kmlPathRel;
+
+        if (fname.indexOf('/') !== -1) {
+          // El JSON ya trae subcarpeta, se respeta tal cual respecto a baseDir
+          kmlPathRel = baseDir + fname;
+        } else {
+          // Intentar inferir región desde el nombre: IPT_03_..., PRC_02_..., etc.
+          var partes = fname.split('_');
+          var region = (partes.length > 1) ? partes[1] : null;
+
+          if (region && /^\d+$/.test(region)) {
+            // Si manifest está en "capas/", los KML viven en "capas/capas_XX/"
+            if (/\/capas\/?$/.test(baseDir)) {
+              kmlPathRel = baseDir + 'capas_' + region + '/' + fname;
+            } else {
+              // Si el manifest ya está dentro de "capas_XX", usamos esa misma carpeta
+              kmlPathRel = baseDir + fname;
+            }
+          } else {
+            // Sin región detectable: usar la misma carpeta del manifest
+            kmlPathRel = baseDir + fname;
+          }
+        }
+
         return consultaSobreCapa(lat, lon, kmlPathRel)
           .catch(function(err) {
             console.error('Error consultando capa', kmlPathRel, err);
@@ -160,7 +196,7 @@ function consultaPRCEnTodasLasCapas(lat, lon, manifestPath, map) {
                     fillOpacity: 0.2
                   }
                 }).addTo(map);
-              } catch(e) {
+              } catch (e) {
                 console.warn('No se pudo dibujar polígono en el mapa', e);
               }
             });
@@ -170,4 +206,7 @@ function consultaPRCEnTodasLasCapas(lat, lon, manifestPath, map) {
         return construirHTMLDesdeResultados(resultados);
       });
     });
+}
+
+
 }

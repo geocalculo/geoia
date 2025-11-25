@@ -2,462 +2,873 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>GeoIPT - Reporte del punto consultado (PRC Atacama)</title>
+  <title>GeoIPT - Reporte del punto consultado</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Leaflet -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""
   />
+
   <style>
-    * { box-sizing: border-box; }
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 24px;
-      background: #f4f5f7;
+      padding: 0;
+    }
+
+    body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   Roboto, Helvetica, Arial, sans-serif;
+        Roboto, Helvetica, Arial, sans-serif;
+      background: #e5e7eb;
+      color: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem 0.5rem;
     }
-    .card {
-      max-width: 1100px;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 24px 32px 32px;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+
+    .page {
+      width: 100%;
+      max-width: 1000px;
     }
-    h1 { margin: 0 0 4px; font-size: 24px; }
-    .subtitle {
-      margin: 0 0 24px;
-      font-size: 14px;
-      color: #6b7280;
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-    .stat-box {
+
+    #report-wrapper {
       background: #f9fafb;
-      border-radius: 12px;
-      padding: 10px 14px;
+      border-radius: 1.5rem;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
+      padding: 2rem 2.5rem;
     }
-    .stat-label {
-      font-size: 11px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #9ca3af;
-      margin-bottom: 4px;
-    }
-    .stat-value {
-      font-size: 16px;
-      font-weight: 600;
-      color: #111827;
-    }
-    h2 { font-size: 18px; margin: 20px 0 6px; }
-    .section-text {
-      font-size: 13px;
-      color: #6b7280;
-      margin: 0 0 12px;
-    }
-    #map {
-      width: 100%;
-      height: 360px;
-      border-radius: 14px;
-      overflow: hidden;
-      margin-bottom: 24px;
-    }
-    #prc-container {
-      margin-top: 8px;
-      font-size: 14px;
-    }
-    #prc-container table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-top: 6px;
-    }
-    #prc-container th,
-    #prc-container td {
-      border: 1px solid #e5e7eb;
-      padding: 4px 6px;
-      font-size: 12px;
-    }
-    #prc-container th {
-      background: #f3f4f6;
-    }
-    .hint-click {
-      font-size: 11px;
-      color: #9ca3af;
-      margin-top: -4px;
-      margin-bottom: 10px;
-    }
-  
-    .coords {
-      margin-bottom: 16px;
-      font-size: 12px;
-    }
-    .coords-table {
-      border-collapse: collapse;
-      margin-right: 12px;
-      margin-bottom: 4px;
-      display: inline-block;
-    }
-    .coords-table th {
-      text-align: left;
-      font-size: 11px;
-      color: #6b7280;
-      padding: 2px 4px;
-    }
-    .coords-table td {
-      font-size: 12px;
-      padding: 2px 4px;
-      white-space: nowrap;
-    }
-    .coord-label {
-      font-weight: 600;
-      margin-right: 4px;
-    }
+
     @media (max-width: 640px) {
-      .coords {
-        font-size: 11px;
-      }
-      .coords-table {
-        display: block;
-        margin-right: 0;
+      #report-wrapper {
+        padding: 1.5rem 1.25rem;
+        border-radius: 0.75rem;
       }
     }
 
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .coords-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+    }
+
+    .coords-block strong {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+
+    .coords-block span {
+      display: inline-block;
+      margin-right: 0.35rem;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      margin: 1.25rem 0 0.35rem;
+    }
+
+    .tip {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+
+    #map {
+      width: 100%;
+      height: 380px;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid #d1d5db;
+      margin-bottom: 1.75rem;
+    }
+
+    .section {
+      margin-top: 1rem;
+    }
+
+    .section p {
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: #4b5563;
+    }
+
+    .section strong {
+      color: #111827;
+    }
+
+    .resultado-ok {
+      color: #059669;
+      font-weight: 600;
+    }
+
+    .resultado-nok {
+      color: #b91c1c;
+      font-weight: 600;
+    }
+
+    ul.coincidencias {
+      margin-top: 0.35rem;
+      margin-left: 1rem;
+      font-size: 0.9rem;
+      color: #374151;
+    }
+
+    ul.coincidencias li {
+      margin-bottom: 0.15rem;
+    }
+
+    /* Tabla de atributos */
+    #detalle-atributos-prc {
+      margin-top: 0.75rem;
+    }
+
+    .atributos-item h4 {
+      font-size: 0.98rem;
+      margin-bottom: 0.4rem;
+      color: #111827;
+    }
+
+    table.tabla-atributos {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    table.tabla-atributos th,
+    table.tabla-atributos td {
+      border: 1px solid #e5e7eb;
+      padding: 0.35rem 0.55rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    table.tabla-atributos th {
+      width: 28%;
+      background: #f3f4f6;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    table.tabla-atributos tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+
+    /* Botones de acción */
+    .actions-row {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    button.action-button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #020617;
+      color: #f9fafb;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    button.action-button:hover {
+      opacity: 0.94;
+      transform: translateY(-0.5px);
+    }
+
+    button.action-button:active {
+      transform: translateY(0);
+      opacity: 0.88;
+    }
+
+    button.action-button svg {
+      width: 16px;
+      height: 16px;
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>GeoIPT  - Reporte del punto consultado</h1>
+  <div class="page">
+    <div id="report-wrapper">
+      <header>
+        <h1>GeoIPT - Reporte del punto consultado</h1>
+        <div class="coords-row">
+          <div class="coords-block">
+            <strong>Coordenadas WGS84</strong>
+            <span>Lat: <span id="lat-display">-</span></span>
+            <span>Lon: <span id="lon-display">-</span></span>
+          </div>
+          <div class="coords-block">
+            <strong>Coordenadas UTM 19S (EPSG:32719)</strong>
+            <span>Este: <span id="utm-e-display">-</span></span>
+            <span>Norte: <span id="utm-n-display">-</span></span>
+          </div>
+          <div class="coords-block">
+            <strong>Región</strong>
+            <span id="region-display">-</span>
+          </div>
+          <div class="coords-block">
+            <strong>Instrumento(s) consultado(s)</strong>
+            <span id="instrumento-display">-</span>
+          </div>
+        </div>
+      </header>
 
+      <section>
+        <h2>Mapa de referencia</h2>
+        <p class="tip">
+          Tip: puedes hacer clic nuevamente en este mapa para abrir un nuevo reporte sobre un nuevo punto (se abrirá en una pestaña adicional).
+        </p>
+        <div id="map"></div>
+      </section>
 
-    <div class="coords">
-      <table class="coords-table">
-        <thead>
-          <tr><th colspan="2">Coordenadas WGS84</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="coord-label">Lat:</span> <span id="lat-wgs84">-</span></td>
-            <td><span class="coord-label">Lon:</span> <span id="lon-wgs84">-</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <table class="coords-table">
-        <thead>
-          <tr><th colspan="2">Coordenadas UTM 19S (EPSG:32719)</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="coord-label">Este:</span> <span id="utm-e">-</span></td>
-            <td><span class="coord-label">Norte:</span> <span id="utm-n">-</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <section class="section">
+        <h2>Consulta PRC / SCC (punto sobre polígonos de toda la región)</h2>
+        <p>
+          Evaluación del punto sobre todos los polígonos de los instrumentos PRC/SCC de la región seleccionada. El combo del mapa principal se usa solo para zoom
+          óptico; aquí se revisan <strong>todos los KML declarados en el listado.json de la región</strong>.
+        </p>
+        <div id="resultado-prc" style="margin-top:0.5rem; font-size:0.95rem;"></div>
+        <ul id="lista-coincidencias" class="coincidencias"></ul>
 
+        <h3 id="titulo-atributos" style="margin-top: 1.5rem;">
+          Detalle de atributos del/los polígono(s)
+        </h3>
+        <p id="instrumento-atributos" class="tip"></p>
+        <div id="detalle-atributos-prc"></div>
+      </section>
 
+      <div class="nota-origen-wrapper">
+        <div class="nota-titulo" id="nota-toggle">
+          <br>
+          <span class="icono" id="nota-icono">+</span>
+          Nota sobre el origen de la información
+        </div>
 
-    <h2>Mapa de referencia</h2>
+        <div class="nota-contenido" id="nota-contenido">
+          <p>
+            Las capas utilizadas en este reporte corresponden a instrumentos de planificación territorial 
+            publicados oficialmente por el Ministerio de Vivienda y Urbanismo (MINVU) y otros organismos del Estado de Chile.
+            La información mostrada por el presente visor se basa en archivos en formato KML descargados desde la 
+            Infraestructura de Datos Espaciales del MINVU (IDE MINVU).
+          </p>
 
-    <p class="hint-click">
-      Tip: puedes hacer clic nuevamente en este mapa para abrir un <strong>nuevo reporte</strong>
-      sobre un nuevo punto (se abrirá en una pestaña adicional).
-    </p>
-    <div id="map"></div>
+          <p>
+            Los archivos oficiales, actualizados y disponibles para descarga pública, pueden ser revisados directamente en:
+            <a href="https://ide.minvu.cl/pages/descargas" target="_blank" rel="noopener">
+              https://ide.minvu.cl/pages/descargas
+            </a>.
+          </p>
 
-    <h2>Consulta PRC / SCC (punto sobre polígonos)</h2>
-    <p class="section-text">
-      Evaluación del punto sobre los polígonos de los archivos comunales e intercomunales
-      de la Región de Atacama. El algoritmo es robusto para polígonos cóncavos y considera
-      además una pequeña tolerancia alrededor del punto para bordes.
-    </p>
-    <div id="prc-container">
-      Cargando consulta PRC/SCC...
+          <p>
+            Este reporte es referencial y no reemplaza certificaciones emitidas por organismos competentes.
+          </p>
+        </div>
+      </div>
+
+      <div class="actions-row">
+        <button id="btn-descargar-kml" type="button" class="action-button">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v9m0 0 3-3m-3 3-3-3M5 18h14M6 21h12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Descargar KML
+        </button>
+      </div>
     </div>
   </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="https://cdn.jsdelivr.net/npm/proj4@2.9.1/dist/proj4.js"></script>
-  <script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js"></script>
-  <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+  <!-- Scripts -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <!-- Proj4 para coordenadas UTM -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.1/proj4.js" integrity="sha512-bVmL59OstkCfyhMDnwUdIBcyKyxM/oZhIu7lq+SIURMi5A+tg1mzRi51gfYWS+ytfV/6s5wx2cgHBw0tSmyYVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- tokml para exportar GeoJSON a KML -->
+  <script src="https://unpkg.com/tokml@0.4.0/tokml.js"></script>
 
   <script>
     function getParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
     }
 
-    const lat = parseFloat(getParam('lat'));
-    const lon = parseFloat(getParam('lon'));
-
-    if (!isNaN(lat) && !isNaN(lon)) {
-      document.getElementById('lat-wgs84').textContent = lat.toFixed(6);
-      document.getElementById('lon-wgs84').textContent = lon.toFixed(6);
+    function escapeHtml(text) {
+      if (text == null) return "";
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
-    proj4.defs('EPSG:32719',
-      '+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs'
-    );
+    // Extrae TODOS los atributos desde un Placemark KML
+    function getAttributesFromPlacemark(placemarkEl) {
+      const attrs = {};
 
-    if (!isNaN(lat) && !isNaN(lon)) {
-      const utm = proj4('EPSG:4326', 'EPSG:32719', [lon, lat]);
-      const este = utm[0];
-      const norte = utm[1];
-      document.getElementById('utm-e').textContent = este.toFixed(3);
-      document.getElementById('utm-n').textContent = norte.toFixed(3);
-    }
+      // ExtendedData/Data
+      placemarkEl.querySelectorAll("ExtendedData Data").forEach((data) => {
+        const name =
+          data.getAttribute("name") ||
+          (data.querySelector("displayName") &&
+            data.querySelector("displayName").textContent.trim());
+        const value =
+          (data.querySelector("value") &&
+            data.querySelector("value").textContent.trim()) ||
+          "";
+        if (name) attrs[name] = value;
+      });
 
-    // --- Mapa overview con selector de mapa base (Mapa / Satelital) ---
-    var map = L.map('map').setView(
-      [!isNaN(lat) ? lat : -27.37, !isNaN(lon) ? lon : -70.33],
-      !isNaN(lat) && !isNaN(lon) ? 17 : 13
-    );
+      // ExtendedData/SimpleData
+      placemarkEl.querySelectorAll("ExtendedData SimpleData").forEach((sd) => {
+        const name = sd.getAttribute("name");
+        const value = sd.textContent.trim();
+        if (name) attrs[name] = value;
+      });
 
-    var capaMapa = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; OpenStreetMap contributors'
-    });
-
-    var capaSatelite = L.tileLayer(
-      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      {
-        maxZoom: 19,
-        attribution: 'Imagery © Esri'
+      // name del Placemark
+      const nameEl = placemarkEl.querySelector("name");
+      if (nameEl) {
+        const val = nameEl.textContent.trim();
+        if (val && !attrs["NAME"]) {
+          attrs["NAME"] = val;
+        }
       }
-    );
 
-    // Leer preferencia de mapa base desde localStorage (heredar del visor principal)
-    var baseChoice = null;
-    try {
-      baseChoice = localStorage.getItem('geoia_baseLayer');
-    } catch (e) {
-      baseChoice = null;
+      // description del Placemark (sin HTML)
+      const descEl = placemarkEl.querySelector("description");
+      if (descEl && descEl.textContent.trim()) {
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = descEl.textContent;
+        const plainText = tempDiv.textContent || tempDiv.innerText || "";
+        if (plainText.trim()) {
+          attrs["DESCRIPTION"] = plainText.trim();
+        }
+      }
+
+      return attrs;
     }
 
-    if (baseChoice === 'satelital') {
-      capaSatelite.addTo(map);
-    } else {
-      capaMapa.addTo(map);
+    function renderAttributesTable(placemarkEl, index) {
+      const attrs = getAttributesFromPlacemark(placemarkEl);
+      const keys = Object.keys(attrs);
+
+      const zonaLabel = attrs["ZONA"]
+        ? `Zona : ${escapeHtml(attrs["ZONA"])}`
+        : `Polígono ${index + 1}`;
+
+      if (!keys.length) {
+        return `
+          <div class="atributos-item">
+            <h4>${zonaLabel}</h4>
+            <p>No se encontraron atributos en el KML para este polígono.</p>
+          </div>
+        `;
+      }
+
+      const rows = keys
+        .map(
+          (key) => `
+          <tr>
+            <th>${escapeHtml(key)}</th>
+            <td>${escapeHtml(attrs[key])}</td>
+          </tr>
+        `
+        )
+        .join("");
+
+      return `
+        <div class="atributos-item" style="margin-top: 1rem;">
+          <h4>${zonaLabel}</h4>
+          <table class="tabla-atributos">
+            <tbody>
+              ${rows}
+            </tbody>
+          </table>
+        </div>
+      `;
     }
 
-    // Control de capas (Mapa / Satelital)
-    L.control.layers(
-      { 'Mapa': capaMapa, 'Satelital': capaSatelite },
-      null,
-      { position: 'topright' }
-    ).addTo(map);
+    function actualizarAtributosPRC(matchingPlacemarks) {
+      const container = document.getElementById("detalle-atributos-prc");
+      if (!container) return;
 
-    // Si el usuario cambia el mapa base aquí, también actualizamos la preferencia global
-    map.on('baselayerchange', function (e) {
+      if (!matchingPlacemarks || !matchingPlacemarks.length) {
+        container.innerHTML =
+          "<p>No hay atributos que mostrar porque el punto no se encontró dentro de ningún polígono.</p>";
+        return;
+      }
+
+      container.innerHTML = matchingPlacemarks
+        .map((plc, idx) => renderAttributesTable(plc, idx))
+        .join("");
+    }
+
+    // Conversión WGS84 -> UTM 19S (EPSG:32719) usando proj4
+    function actualizarUTM(lat, lon) {
       try {
-        if (e.name === 'Mapa') {
-          localStorage.setItem('geoia_baseLayer', 'mapa');
-        } else if (e.name === 'Satelital') {
-          localStorage.setItem('geoia_baseLayer', 'satelital');
+        if (!proj4.defs["EPSG:32719"]) {
+          proj4.defs(
+            "EPSG:32719",
+            "+proj=utm +zone=19 +south +datum=WGS84 +units=m +no_defs"
+          );
         }
-      } catch (err) {
-        console.warn('No se pudo guardar la preferencia de mapa base (overview):', err);
+        const utm = proj4("EPSG:4326", "EPSG:32719", [lon, lat]);
+        document.getElementById("utm-e-display").textContent = utm[0]
+          .toFixed(3)
+          .replace(".", ",");
+        document.getElementById("utm-n-display").textContent = utm[1]
+          .toFixed(3)
+          .replace(".", ",");
+      } catch (e) {
+        console.error("Error UTM:", e);
       }
-    });
-
-    if (!isNaN(lat) && !isNaN(lon)) {
-      var marker = L.marker([lat, lon]).addTo(map);
-      marker.bindPopup(
-        'Punto consultado<br>Lat: ' + lat.toFixed(6) +
-        '<br>Lon: ' + lon.toFixed(6)
-      ).openPopup();
     }
 
-    // Permitir nueva consulta directamente desde el overview:
-    // clic en el mapa abre info.html en una pestaña nueva con el nuevo punto.
-    map.on('click', function(e) {
-      var nlat = e.latlng.lat;
-      var nlon = e.latlng.lng;
-      var url = 'info.html?lat=' + encodeURIComponent(nlat) +
-                '&lon=' + encodeURIComponent(nlon);
-      window.open(url, '_blank');
-    });
+    // Punto en polígono (Ray casting)
+    function pointInPolygon(lat, lon, polygonLatLngs) {
+      let inside = false;
+      const x = lon;
+      const y = lat;
 
-    // ---- CONFIGURACIÓN DE CAPAS PRC / SCC ----
-    const PRC_CAPAS = [
-      { id: 'PRC_COPIAPO',      nombre: 'PRC Comunal Copiapó',                 archivo: 'capas/IPT_03_PRC_Copiapo.kml' },
-      { id: 'PRC_CALDERA',      nombre: 'PRC Comunal Caldera',                 archivo: 'capas/IPT_03_PRC_Caldera.kml' },
-      { id: 'PRC_CHAÑARAL',     nombre: 'PRC Comunal Chañaral',                archivo: 'capas/IPT_03_PRC_Chañaral.kml' },
-      { id: 'PRC_DIEGO_ALMAGRO',nombre: 'PRC Comunal Diego de Almagro',        archivo: 'capas/IPT_03_PRC_Diego_de_Almagro.kml' },
-      { id: 'PRC_FREIRINA',     nombre: 'PRC Comunal Freirina',                archivo: 'capas/IPT_03_PRC_Freirina.kml' },
-      { id: 'PRC_HUASCO',       nombre: 'PRC Comunal Huasco',                  archivo: 'capas/IPT_03_PRC_Huasco.kml' },
-      { id: 'PRC_VALLENAR',     nombre: 'PRC Comunal Vallenar',                archivo: 'capas/IPT_03_PRC_Vallenar.kml' },
-      { id: 'SCC_ELSALADO',     nombre: 'SCC El Salado',                       archivo: 'capas/IPT_03_SCC_ElSalado.kml' },
-      { id: 'SCC_FLAMENCO',     nombre: 'SCC Flamenco',                        archivo: 'capas/IPT_03_SCC_Flamenco.kml' },
-      { id: 'SCC_PORTOFINO',    nombre: 'SCC Portofino',                       archivo: 'capas/IPT_03_SCC_Portofino.kml' },
-      { id: 'PRICOST',          nombre: 'PRC Intercomunal Costero de Atacama', archivo: 'capas/PRICOST_Atacama.kml' }
-    ];
+      for (let i = 0, j = polygonLatLngs.length - 1; i < polygonLatLngs.length; j = i++) {
+        const xi = polygonLatLngs[i].lng,
+          yi = polygonLatLngs[i].lat;
+        const xj = polygonLatLngs[j].lng,
+          yj = polygonLatLngs[j].lat;
 
-    function nombrePoligono(props) {
-      if (!props) return 'Polígono sin nombre';
-      return props.name ||
-             props.Nombre ||
-             props.NOMBRE ||
-             props.ZONA ||
-             props.Zona ||
-             props.CODIGO ||
-             JSON.stringify(props);
+        const intersect =
+          yi > y !== yj > y &&
+          x < ((xj - xi) * (y - yi)) / (yj - yi + 1e-12) + xi;
+        if (intersect) inside = !inside;
+      }
+      return inside;
     }
 
-    // Consulta PRC/SCC en un solo archivo KML (robusta)
-    function consultarPRCEnArchivo(lat, lon, cfg) {
-      return new Promise(function(resolve) {
-        var loader = omnivore.kml(cfg.archivo);
+    function parseKmlPolygons(kmlText) {
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(kmlText, "application/xml");
+      const placemarks = Array.from(xml.getElementsByTagName("Placemark"));
+      const results = [];
 
-        loader.on('ready', function() {
+      placemarks.forEach((pm) => {
+        const polygons = [];
+
+        pm.querySelectorAll("Polygon").forEach((poly) => {
+          const coordsEl = poly.querySelector("outerBoundaryIs coordinates, outerBoundaryIs>LinearRing>coordinates, coordinates");
+          if (!coordsEl) return;
+          const coordsText = coordsEl.textContent.trim();
+          if (!coordsText) return;
+
+          const coords = coordsText
+            .split(/\s+/)
+            .map((pair) => {
+              const parts = pair.split(",");
+              const lon = parseFloat(parts[0]);
+              const lat = parseFloat(parts[1]);
+              if (isNaN(lat) || isNaN(lon)) return null;
+              return L.latLng(lat, lon);
+            })
+            .filter(Boolean);
+
+          if (coords.length >= 3) {
+            polygons.push(coords);
+          }
+        });
+
+        pm.querySelectorAll("MultiGeometry Polygon").forEach((poly) => {
+          const coordsEl = poly.querySelector("outerBoundaryIs coordinates, outerBoundaryIs>LinearRing>coordinates, coordinates");
+          if (!coordsEl) return;
+          const coordsText = coordsEl.textContent.trim();
+          if (!coordsText) return;
+
+          const coords = coordsText
+            .split(/\s+/)
+            .map((pair) => {
+              const parts = pair.split(",");
+              const lon = parseFloat(parts[0]);
+              const lat = parseFloat(parts[1]);
+              if (isNaN(lat) || isNaN(lon)) return null;
+              return L.latLng(lat, lon);
+            })
+            .filter(Boolean);
+
+          if (coords.length >= 3) {
+            polygons.push(coords);
+          }
+        });
+
+        if (polygons.length) {
+          results.push({
+            placemarkEl: pm,
+            polygons,
+          });
+        }
+      });
+
+      return results;
+    }
+
+    async function evaluarPRC(lat, lon, regionCode) {
+      const resultadoDiv = document.getElementById("resultado-prc");
+      const listaUl = document.getElementById("lista-coincidencias");
+
+      resultadoDiv.textContent = "Evaluando polígonos PRC/SCC de la región...";
+      listaUl.innerHTML = "";
+
+      const matchingPlacemarks = [];
+      const coincidenciasArchivos = new Map();
+
+      const basePath = `capas/capas_${regionCode}/`;
+      const listadoUrl = `${basePath}listado.json`;
+
+      // limpiar capa de resultado si existe
+      if (window._geoiptResultado) {
+        window._geoiptResultado.clearLayers();
+      }
+
+      try {
+        const listadoResp = await fetch(listadoUrl);
+        if (!listadoResp.ok) {
+          throw new Error("No se pudo leer listado.json de la región " + regionCode);
+        }
+        const listado = await listadoResp.json();
+
+        let archivos = [];
+        if (Array.isArray(listado)) {
+          archivos = listado;
+        } else if (Array.isArray(listado.kml)) {
+          archivos = listado.kml;
+        }
+
+        for (const entry of archivos) {
+          let archivo = "";
+          let nombreInstrumento = "";
+
+          if (typeof entry === "string") {
+            archivo = entry;
+            nombreInstrumento = entry;
+          } else if (entry && typeof entry === "object") {
+            archivo =
+              entry.archivo || entry.kml || entry.nombre || "";
+            nombreInstrumento =
+              entry.nombre || archivo;
+          }
+
+          if (!archivo) continue;
+
+          const kmlUrl = basePath + archivo;
+
           try {
-            var geojson = this.toGeoJSON();
-            var features = geojson.features || [];
-            var pt = turf.point([lon, lat]);
+            const kmlResp = await fetch(kmlUrl);
+            if (!kmlResp.ok) {
+              console.warn("No se pudo leer KML:", kmlUrl);
+              continue;
+            }
+            const kmlText = await kmlResp.text();
+            const features = parseKmlPolygons(kmlText);
 
-            var resultados = [];
+            features.forEach((feat) => {
+              let contiene = false;
 
-            for (var i = 0; i < features.length; i++) {
-              var f = features[i];
-              if (!f.geometry) continue;
+              // atributos del Placemark original
+              const attrs = getAttributesFromPlacemark(feat.placemarkEl) || {};
 
-              var t = f.geometry.type;
-              if (t !== 'Polygon' && t !== 'MultiPolygon') continue;
-
-              var dentro = false;
-              try {
-                dentro = turf.booleanPointInPolygon(pt, f);
-              } catch (e) {
-                console.warn('Error booleanPointInPolygon', e);
-              }
-
-              if (!dentro) {
-                try {
-                  var buf = turf.buffer(pt, 0.002, { units: 'kilometers' }); // ~2 m
-                  dentro = turf.booleanIntersects(buf, f);
-                } catch (e2) {
-                  console.warn('Error en buffer/intersects', e2);
+              // nombre amigable opcional
+              if (!attrs.name) {
+                if (attrs.ZONA) {
+                  attrs.name = attrs.ZONA;
+                } else if (attrs.NOMBRE) {
+                  attrs.name = attrs.NOMBRE;
                 }
               }
 
-              if (dentro) {
-                resultados.push({
-                  feature: f,
-                  props: f.properties || {},
-                  nombre: nombrePoligono(f.properties || {}),
-                  instrumento: cfg.nombre
-                });
+              feat.polygons.forEach((polyCoords) => {
+                if (pointInPolygon(lat, lon, polyCoords)) {
+                  contiene = true;
+
+                  const polyLayer = L.polygon(polyCoords, {
+                    color: "#2563eb",
+                    weight: 2,
+                    fillColor: "#3b82f6",
+                    fillOpacity: 0.15,
+                  });
+
+                  // adjuntamos atributos para que viajen al KML
+                  polyLayer.feature = {
+                    type: "Feature",
+                    properties: attrs,
+                  };
+
+                  if (window._geoiptResultado) {
+                    polyLayer.addTo(window._geoiptResultado);
+                  } else {
+                    polyLayer.addTo(window._geoiptMap);
+                  }
+                }
+              });
+
+              if (contiene) {
+                matchingPlacemarks.push(feat.placemarkEl);
+
+                if (!coincidenciasArchivos.has(archivo)) {
+                  coincidenciasArchivos.set(archivo, {
+                    archivo,
+                    nombreInstrumento,
+                  });
+                }
               }
-            }
-
-            resolve(resultados);
-          } catch (e) {
-            console.warn('Error procesando', cfg.nombre, e);
-            resolve([]);
-          }
-        });
-
-        loader.on('error', function(err) {
-          console.warn('Error cargando KML de', cfg.nombre, err);
-          resolve([]);
-        });
-      });
-    }
-
-    // Consulta global en todas las capas (secuencial para evitar fallos globales)
-    async function consultarPRCGlobal(lat, lon) {
-      let todos = [];
-      for (const cfg of PRC_CAPAS) {
-        try {
-          const res = await consultarPRCEnArchivo(lat, lon, cfg);
-          todos = todos.concat(res);
-        } catch (e) {
-          console.warn('Error en consulta de', cfg.nombre, e);
-        }
-      }
-      return todos;
-    }
-
-    function construirHTML(resultados) {
-      var html = '<section><h3>Consulta PRC / SCC</h3>';
-
-      if (!resultados || resultados.length === 0) {
-        html += '<p>El punto consultado <strong>no se encuentra dentro de ningún polígono</strong> de los archivos PRC/SCC cargados.</p>';
-        html += '</section>';
-        return html;
-      }
-
-      // Agrupar por instrumento
-      var porInstrumento = {};
-      resultados.forEach(function(r) {
-        var inst = r.instrumento || 'PRC/SCC';
-        if (!porInstrumento[inst]) {
-          porInstrumento[inst] = [];
-        }
-        porInstrumento[inst].push(r);
-      });
-
-      Object.keys(porInstrumento).forEach(function(inst) {
-        var lista = porInstrumento[inst];
-        html += '<h4 style="margin-top:12px;">' + inst + '</h4>';
-        html += '<p>Se encontraron ' + lista.length + ' polígonos que contienen el punto.</p>';
-
-        lista.forEach(function(r, idx) {
-          html += '<p style="margin:4px 0;"><strong>Polígono ' + (idx + 1) +
-                  ':</strong> ' + r.nombre + '</p>';
-
-          var props = r.props || {};
-          var keys = Object.keys(props);
-          if (keys.length > 0) {
-            html += '<table><tr><th>Atributo</th><th>Valor</th></tr>';
-            keys.forEach(function(k) {
-              html += '<tr><td>' + k + '</td><td>' + props[k] + '</td></tr>';
             });
-            html += '</table>';
+          } catch (errKml) {
+            console.warn("Error procesando KML", kmlUrl, errKml);
           }
-        });
-      });
+        }
 
-      html += '</section>';
-      return html;
-    }
+        if (matchingPlacemarks.length > 0) {
+          resultadoDiv.innerHTML =
+            '<span class="resultado-ok">Resultado:</span> El punto consultado se encuentra dentro de uno o más polígonos de los instrumentos PRC/SCC de la región.';
+          listaUl.innerHTML = "";
 
-    if (!isNaN(lat) && !isNaN(lon)) {
-      consultarPRCGlobal(lat, lon)
-        .then(function(resultados) {
-          // dibujar polígonos en el mapa
-          resultados.forEach(function(r) {
-            try {
-              L.geoJSON(r.feature, {
-                style: {
-                  color: '#2563eb',
-                  weight: 2,
-                  fillOpacity: 0.2
-                }
-              }).addTo(map);
-            } catch (e) {
-              console.warn('Error al dibujar polígono', e);
-            }
+          coincidenciasArchivos.forEach((obj) => {
+            const li = document.createElement("li");
+            li.textContent = `Coincidencia en archivo: ${obj.archivo}`;
+            listaUl.appendChild(li);
           });
 
-          document.getElementById('prc-container').innerHTML =
-            construirHTML(resultados);
-        })
-        .catch(function(err) {
-          console.error('Error en consulta PRC/SCC:', err);
-          document.getElementById('prc-container').innerHTML =
-            '<section><h3>Consulta PRC / SCC</h3><p>Error al procesar los archivos KML.</p></section>';
-        });
-    } else {
-      document.getElementById('prc-container').innerHTML =
-        '<section><h3>Consulta PRC / SCC</h3><p>No se recibieron coordenadas válidas.</p></section>';
+          actualizarAtributosPRC(matchingPlacemarks);
+
+          // Instrumentos consultados detectados por el motor
+          const instrumentos = Array.from(coincidenciasArchivos.values())
+            .map((obj) => obj.archivo.replace(/\.kml$/i, ""))
+            .join(", ");
+
+          if (instrumentos) {
+            const instrumentoDisplay = document.getElementById("instrumento-display");
+            if (instrumentoDisplay) {
+              instrumentoDisplay.textContent = instrumentos;
+            }
+
+            const tituloAttr = document.getElementById("titulo-atributos");
+            if (tituloAttr) {
+              tituloAttr.textContent =
+                "Detalle de atributos del/los polígono(s) – " + instrumentos;
+            }
+
+            const pInstrumentoAttr = document.getElementById("instrumento-atributos");
+            if (pInstrumentoAttr) {
+              pInstrumentoAttr.textContent =
+                "Instrumento(s) consultado(s): " + instrumentos;
+            }
+          }
+        } else {
+          resultadoDiv.innerHTML =
+            '<span class="resultado-nok">Resultado:</span> El punto consultado no se encuentra dentro de ningún polígono de los archivos PRC/SCC cargados.';
+          listaUl.innerHTML = "";
+          actualizarAtributosPRC([]);
+
+          // Reset encabezados cuando no hay match
+          const instrumentoDisplay = document.getElementById("instrumento-display");
+          if (instrumentoDisplay) {
+            instrumentoDisplay.textContent = "-";
+          }
+          const tituloAttr = document.getElementById("titulo-atributos");
+          if (tituloAttr) {
+            tituloAttr.textContent = "Detalle de atributos del/los polígono(s)";
+          }
+          const pInstrumentoAttr = document.getElementById("instrumento-atributos");
+          if (pInstrumentoAttr) {
+            pInstrumentoAttr.textContent =
+              "No se encontró ningún instrumento que contenga el punto consultado.";
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        resultadoDiv.innerHTML =
+          '<span class="resultado-nok">Resultado:</span> No fue posible evaluar los polígonos PRC/SCC de la región (revisa listado.json y la ruta de los KML).';
+        listaUl.innerHTML = "";
+        actualizarAtributosPRC([]);
+
+        const instrumentoDisplay = document.getElementById("instrumento-display");
+        if (instrumentoDisplay) {
+          instrumentoDisplay.textContent = "-";
+        }
+      }
     }
+
+    function initMap(lat, lon) {
+      const map = L.map("map").setView([lat, lon], 15);
+      window._geoiptMap = map;
+
+      const osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors',
+      }).addTo(map);
+
+      const esriSat = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        {
+          maxZoom: 19,
+          attribution: "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, and the GIS User Community",
+        }
+      );
+
+      L.control.layers(
+        { "Mapa calle": osm, Satélite: esriSat },
+        {},
+        { position: "topright" }
+      ).addTo(map);
+
+      // capa vacía donde se almacenan los polígonos que hicieron match
+      window._geoiptResultado = L.featureGroup().addTo(map);
+
+      const marker = L.marker([lat, lon]).addTo(map);
+      marker.bindPopup(
+        `Punto consultado<br>Lat: ${lat.toFixed(6)}<br>Lon: ${lon.toFixed(6)}`
+      ).openPopup();
+
+      // Al hacer clic en el mapa, abrir nueva pestaña con nuevo punto
+      map.on("click", (e) => {
+        const url = new URL(window.location.href);
+        url.searchParams.set("lat", e.latlng.lat.toString());
+        url.searchParams.set("lon", e.latlng.lng.toString());
+        window.open(url.toString(), "_blank");
+      });
+    }
+
+    function initKmlButton() {
+      const btn = document.getElementById("btn-descargar-kml");
+      if (!btn) return;
+
+      btn.addEventListener("click", () => {
+        const group = window._geoiptResultado;
+        if (!group || group.getLayers().length === 0) {
+          alert("No hay ningún polígono para descargar.");
+          return;
+        }
+
+        // GeoJSON desde la capa de resultado
+        const gj = group.toGeoJSON();
+
+        // Nombre del instrumento (solo para metadata interna del KML)
+        let instrumentoRaw =
+          (document.getElementById("instrumento-display")?.textContent || "PRC")
+            .split(",")[0]
+            .trim();
+
+        let instrumento = instrumentoRaw
+          .replace(/^IPT_\d+_/i, "")
+          .replace(/_/g, " ");
+
+        // Zonas involucradas (para el nombre del Document)
+        let zonas = [];
+        gj.features.forEach((f) => {
+          if (f.properties && f.properties.ZONA) {
+            const z = String(f.properties.ZONA).trim().split(/\s+/)[0];
+            zonas.push(z);
+          }
+        });
+        zonas = [...new Set(zonas)];
+        const nombreZona = zonas.length ? zonas.join("_") : "Zona";
+
+        // Timestamp AAAAMMDD_HHMMSS
+        function timestamp() {
+          const now = new Date();
+          const YYYY = now.getFullYear();
+          const MM = String(now.getMonth() + 1).padStart(2, "0");
+          const DD = String(now.getDate()).padStart(2, "0");
+          const hh = String(now.getHours()).padStart(2, "0");
+          const mm = String(now.getMinutes()).padStart(2, "0");
+          const ss = String(now.getSeconds()).padStart(2, "0");
+          return `${YYYY}${MM}${DD}_${hh}${mm}${ss}`;
+        }
+
+        const nombreArchivo = `descargaKML_${timestamp()}.kml`;
+
+        // Convertir GeoJSON a KML
+        let kmlString = tokml(gj, {
+          documentName: instrumento,
+          name: nombreZona
+        });
+
+        // Agregar estilo azul semitransparente
+        const styleBlock = `
+  <Style id="geoipt_poly">
+    <LineStyle>
+      <color>ffeb6325</color>
+      <width>2</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>66f6823b</color>
+    </PolyStyle>
+  </Style>`;
+
+        kmlString = kmlString.replace("<Document>", "<Document>" + styleBlock);
+        kmlString = kmlString.replace(
+          /<Placemark>/g,
+          "<Placemark><styleUrl>#geoipt_poly</styleUrl>"
+        );
+
+        const blob = new Blob([kmlString], {
+          type: "application/vnd.google-earth.kml+xml;charset=utf-8"
+        });
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = nombreArchivo;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const latParam = parseFloat(getParam("lat") || "-27.0");
+      const lonParam = parseFloat(getParam("lon") || "-70.0");
+      const regionCode = getParam("region") || "--";
+
+      document.getElementById("lat-display").textContent = latParam.toFixed(6);
+      document.getElementById("lon-display").textContent = lonParam.toFixed(6);
+      document.getElementById("region-display").textContent = regionCode;
+
+      actualizarUTM(latParam, lonParam);
+      initMap(latParam, lonParam);
+      initKmlButton();
+
+      if (regionCode && regionCode !== "--") {
+        evaluarPRC(latParam, lonParam, regionCode);
+      } else {
+        document.getElementById("resultado-prc").innerHTML =
+          '<span class="resultado-nok">Resultado:</span> No se indicó código de región en la URL.';
+      }
+    });
   </script>
 </body>
 </html>

@@ -5,10 +5,10 @@
   <title>GeoIPT - Mapa de consulta Instrumentos de Planificación Territorial</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Leaflet CSS -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    crossorigin=""
   />
 
   <style>
@@ -32,266 +32,382 @@
       background: #020617;
       border-bottom: 1px solid #111827;
       padding: 8px 16px;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
     .brand {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 0.15rem;
     }
 
     .brand-title {
-      font-size: 15px;
+      font-size: 1.1rem;
       font-weight: 600;
     }
 
     .brand-subtitle {
-      font-size: 11px;
+      font-size: 0.78rem;
       color: #9ca3af;
     }
 
-    .toolbar {
+    .controls {
       display: flex;
-      align-items: center;
-      gap: 10px;
       flex-wrap: wrap;
-    }
-
-    .select-wrapper {
-      position: relative;
-      display: inline-flex;
+      gap: 0.5rem;
       align-items: center;
-      gap: 4px;
+      justify-content: flex-end;
     }
 
-    .select-label {
-      font-size: 11px;
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      min-width: 180px;
+    }
+
+    .control-group label {
+      font-size: 0.75rem;
       color: #9ca3af;
     }
 
     select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background: #0f172a;
-      color: #e5e7eb;
+      background: #020617;
       border-radius: 999px;
       border: 1px solid #1f2937;
-      padding: 6px 30px 6px 10px;
-      font-size: 12px;
-      cursor: pointer;
+      color: #e5e7eb;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.85rem;
+      outline: none;
     }
 
-    .select-wrapper::after {
-      content: "▾";
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 10px;
-      color: #9ca3af;
-      pointer-events: none;
-    }
-
-    .hint {
-      font-size: 10px;
-      color: #6b7280;
+    select:focus {
+      border-color: #3b82f6;
     }
 
     main {
       flex: 1;
-      min-height: 0;
+      display: flex;
+      justify-content: center;
+      padding: 0.75rem;
+    }
+
+    .map-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
     #map {
       width: 100%;
-      height: calc(100vh - 64px);
+      height: calc(100vh - 110px);
+      min-height: 420px;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid #1f2937;
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .hint strong {
+      color: #e5e7eb;
     }
 
     @media (max-width: 640px) {
       header {
-        flex-direction: column;
-        align-items: flex-start;
+        padding: 8px 10px;
       }
+
       #map {
-        height: calc(100vh - 88px);
+        height: calc(100vh - 130px);
+      }
+
+      .control-group {
+        min-width: 100%;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="brand">
-      <span class="brand-title">GeoIPT - Mapa de consulta PRC Beta version</span>
-      <span class="brand-subtitle">
-        Mapa limpio. Clic en cualquier punto para abrir el detalle en una pestaña nueva.
-      </span>
-    </div>
-
-    <div class="toolbar">
-      <div class="select-wrapper">
-        <span class="select-label">Instrumento:</span>
-        <select id="instrumento-select">
-          <option value="">— Selecciona PRC/SCC —</option>
-          <option value="PRC_COPIAPO">PRC Comunal Copiapó</option>
-          <option value="PRC_CALDERA">PRC Comunal Caldera</option>
-          <option value="PRC_CHAÑARAL">PRC Comunal Chañaral</option>
-          <option value="PRC_DIEGO_ALMAGRO">PRC Comunal Diego de Almagro</option>
-          <option value="PRC_FREIRINA">PRC Comunal Freirina</option>
-          <option value="PRC_HUASCO">PRC Comunal Huasco</option>
-          <option value="PRC_VALLENAR">PRC Comunal Vallenar</option>
-          <option value="SCC_ELSALADO">SCC El Salado</option>
-          <option value="SCC_FLAMENCO">SCC Flamenco</option>
-          <option value="SCC_PORTOFINO">SCC Flamenco</option>
-          <option value="SCC_PORTOFINO">SCC Portofino</option>
-          <option value="PRICOST">PRC Intercomunal Costero de Atacama</option>
-        </select>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-title">GeoIPT</div>
+        <div class="brand-subtitle">
+          Consulta rápida de instrumentos de planificación territorial (PRC / SCC)
+        </div>
       </div>
-      <div class="hint">
-        Selecciona un instrumento para hacer zoom a la extensión completa de su KML.
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="region-select">Región</label>
+          <select id="region-select">
+            <option value="">Selecciona una región</option>
+            <option value="02">02 - Antofagasta</option>
+            <option value="03">03 - Atacama</option>
+            <!-- futuro: agregar más regiones -->
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="instrumento-select">Instrumento (zoom óptico)</label>
+          <select id="instrumento-select" disabled>
+            <option value="">Selecciona un instrumento para hacer zoom</option>
+          </select>
+        </div>
       </div>
     </div>
   </header>
 
   <main>
-    <div id="map"></div>
+    <div class="map-container">
+      <div id="map"></div>
+      <p class="hint">
+        <strong>Instrucciones:</strong> Selecciona la región y haz clic en el mapa
+        para abrir un reporte detallado del punto en una nueva pestaña. El combo
+        de instrumento se usa solo para <strong>zoom óptico</strong>; la consulta
+        revisa todos los KML de la región declarados en <code>listado.json</code>.
+      </p>
+    </div>
   </main>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js"></script>
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  ></script>
 
   <script>
-    // Vista inicial: Copiapó al centro, zoom medio (~1:100.000)
-    var map = L.map('map').setView([-27.37, -70.33], 10);
-
-    // Capas base
-    var capaMapa = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; OpenStreetMap contributors'
+    // Mapa principal
+    const map = L.map('map', {
+      center: [-27.0, -70.5], // centro aproximado norte chico
+      zoom: 6,
+      minZoom: 4,
+      maxZoom: 19
     });
 
-    var capaSatelite = L.tileLayer(
-      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    const osm = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       {
         maxZoom: 19,
-        attribution: 'Imagery © Esri'
+        attribution: '&copy; OpenStreetMap contributors'
+      }
+    ).addTo(map);
+
+    const esriSat = L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      {
+        maxZoom: 19,
+        attribution:
+          "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, and the GIS User Community"
       }
     );
 
-    // Leer preferencia de mapa base desde localStorage (si existe)
-    var baseChoice = null;
-    try {
-      baseChoice = localStorage.getItem('geoia_baseLayer');
-    } catch (e) {
-      baseChoice = null;
-    }
+    L.control
+      .layers(
+        { "Mapa calle": osm, "Satélite": esriSat },
+        {},
+        { position: "topright" }
+      )
+      .addTo(map);
 
-    if (baseChoice === 'satelital') {
-      capaSatelite.addTo(map);
-    } else {
-      capaMapa.addTo(map);
-    }
+    const regionSelect = document.getElementById("region-select");
+    const instrumentoSelect = document.getElementById("instrumento-select");
 
-    // Control de capas (Mapa / Satelital)
-    L.control.layers(
-      {
-        'Mapa': capaMapa,
-        'Satelital': capaSatelite
-      },
-      null,
-      { position: 'topright' }
-    ).addTo(map);
+    // Capa para mostrar el extent del instrumento seleccionado
+    const capaZoomInstrumento = L.featureGroup().addTo(map);
 
-    // Guardar preferencia cuando el usuario cambia el mapa base
-    map.on('baselayerchange', function (e) {
+    // -------------------------
+    // Leer listado.json por región y poblar combo de instrumentos
+    // -------------------------
+    async function cargarInstrumentos(regionCode) {
+      instrumentoSelect.innerHTML = "";
+      instrumentoSelect.disabled = true;
+
+      const optDefault = document.createElement("option");
+      optDefault.value = "";
+      optDefault.textContent =
+        "Selecciona un instrumento para hacer zoom";
+      instrumentoSelect.appendChild(optDefault);
+
+      if (!regionCode) return;
+
+      const basePath = `capas/capas_${regionCode}/`;
+      const listadoUrl = `${basePath}listado.json`;
+
       try {
-        if (e.name === 'Mapa') {
-          localStorage.setItem('geoia_baseLayer', 'mapa');
-        } else if (e.name === 'Satelital') {
-          localStorage.setItem('geoia_baseLayer', 'satelital');
+        const resp = await fetch(listadoUrl);
+        if (!resp.ok) {
+          console.warn("No se pudo leer listado.json de la región", regionCode);
+          return;
+        }
+        const listado = await resp.json();
+
+        let archivos = [];
+        if (Array.isArray(listado)) {
+          archivos = listado;
+        } else if (Array.isArray(listado.kml)) {
+          archivos = listado.kml;
+        }
+
+        archivos.forEach((entry) => {
+          let archivo = "";
+          let nombre = "";
+
+          if (typeof entry === "string") {
+            archivo = entry;
+            nombre = entry;
+          } else if (entry && typeof entry === "object") {
+            archivo = entry.archivo || entry.kml || entry.nombre || "";
+            nombre = entry.nombre || archivo;
+          }
+
+          if (!archivo) return;
+
+          const opt = document.createElement("option");
+          opt.value = archivo;
+          opt.textContent = nombre.replace(/\.kml$/i, "");
+          instrumentoSelect.appendChild(opt);
+        });
+
+        if (archivos.length > 0) {
+          instrumentoSelect.disabled = false;
         }
       } catch (err) {
-        console.warn('No se pudo guardar la preferencia de mapa base:', err);
+        console.warn("Error cargando instrumentos región", regionCode, err);
+      }
+    }
+
+    // -------------------------
+    // Zoom al extent real de un KML de instrumento
+    // -------------------------
+    async function zoomAlInstrumentoPorExtent(regionCode, nombreKml) {
+      capaZoomInstrumento.clearLayers();
+
+      if (!regionCode || !nombreKml) return;
+
+      const basePath = `capas/capas_${regionCode}/`;
+      const kmlUrl = basePath + nombreKml;
+
+      try {
+        const resp = await fetch(kmlUrl);
+        if (!resp.ok) {
+          console.warn("No se pudo leer KML para zoom:", kmlUrl);
+          return;
+        }
+        const kmlText = await resp.text();
+
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(kmlText, "application/xml");
+
+        const coordEls = xml.querySelectorAll(
+          "Placemark Polygon coordinates, " +
+          "Placemark MultiGeometry Polygon coordinates, " +
+          "Placemark LineString coordinates, " +
+          "coordinates"
+        );
+
+        const puntos = [];
+
+        coordEls.forEach((el) => {
+          const txt = el.textContent.trim();
+          if (!txt) return;
+
+          txt.split(/\s+/).forEach((pair) => {
+            const partes = pair.split(",");
+            if (partes.length < 2) return;
+            const lon = parseFloat(partes[0]);
+            const lat = parseFloat(partes[1]);
+            if (!isNaN(lat) && !isNaN(lon)) {
+              puntos.push([lat, lon]);
+            }
+          });
+        });
+
+        if (!puntos.length) {
+          console.warn("No se encontraron coordenadas en", nombreKml);
+          return;
+        }
+
+        const bounds = L.latLngBounds(puntos);
+        capaZoomInstrumento.addLayer(L.rectangle(bounds, {
+          color: "#22c55e",
+          weight: 2,
+          fillOpacity: 0.05
+        }));
+        map.fitBounds(bounds, { padding: [30, 30] });
+      } catch (err) {
+        console.warn("Error procesando KML para zoom:", kmlUrl, err);
+      }
+    }
+
+    // -------------------------
+    // Eventos de UI
+    // -------------------------
+    regionSelect.addEventListener("change", () => {
+      const regionCode = regionSelect.value;
+      capaZoomInstrumento.clearLayers();
+
+      if (regionCode) {
+        // Cargar listado de instrumentos de la región para zoom óptico
+        cargarInstrumentos(regionCode);
+
+        // Ajustar vista general aproximada por región
+        if (regionCode === "03") {
+          map.setView([-27.5, -70.5], 7); // Atacama
+        } else if (regionCode === "02") {
+          map.setView([-23.5, -69.3], 7); // Antofagasta
+        }
+      } else {
+        instrumentoSelect.innerHTML = "";
+        instrumentoSelect.disabled = true;
+        map.setView([-27.0, -70.5], 6);
       }
     });
 
-    // Definición de instrumentos (solo para zoom por extensión KML)
-    var INSTRUMENTOS = {
-      'PRC_COPIAPO':      { nombre: 'PRC Comunal Copiapó',                 archivo: 'capas/IPT_03_PRC_Copiapo.kml',         bounds: null },
-      'PRC_CALDERA':      { nombre: 'PRC Comunal Caldera',                 archivo: 'capas/IPT_03_PRC_Caldera.kml',         bounds: null },
-      'PRC_CHAÑARAL':     { nombre: 'PRC Comunal Chañaral',                archivo: 'capas/IPT_03_PRC_Chañaral.kml',        bounds: null },
-      'PRC_DIEGO_ALMAGRO':{ nombre: 'PRC Comunal Diego de Almagro',        archivo: 'capas/IPT_03_PRC_Diego_de_Almagro.kml',bounds: null },
-      'PRC_FREIRINA':     { nombre: 'PRC Comunal Freirina',                archivo: 'capas/IPT_03_PRC_Freirina.kml',        bounds: null },
-      'PRC_HUASCO':       { nombre: 'PRC Comunal Huasco',                  archivo: 'capas/IPT_03_PRC_Huasco.kml',          bounds: null },
-      'PRC_VALLENAR':     { nombre: 'PRC Comunal Vallenar',                archivo: 'capas/IPT_03_PRC_Vallenar.kml',        bounds: null },
-      'SCC_ELSALADO':     { nombre: 'SCC El Salado',                       archivo: 'capas/IPT_03_SCC_ElSalado.kml',        bounds: null },
-      'SCC_FLAMENCO':     { nombre: 'SCC Flamenco',                        archivo: 'capas/IPT_03_SCC_Flamenco.kml',        bounds: null },
-      'SCC_PORTOFINO':    { nombre: 'SCC Portofino',                       archivo: 'capas/IPT_03_SCC_Portofino.kml',       bounds: null },
-      'PRICOST':          { nombre: 'PRC Intercomunal Costero de Atacama', archivo: 'capas/PRICOST_Atacama.kml',            bounds: null }
-    };
+    instrumentoSelect.addEventListener("change", () => {
+      const regionCode = regionSelect.value;
+      const archivoKml = instrumentoSelect.value;
 
-    // Función para hacer zoom a un instrumento
-    function zoomInstrumento(id) {
-      var cfg = INSTRUMENTOS[id];
-      if (!cfg) return;
+      if (!regionCode || !archivoKml) return;
 
-      // Si ya tenemos bounds calculados, usamos esos
-      if (cfg.bounds) {
-        map.fitBounds(cfg.bounds, { padding: [20, 20] });
+      // Zoom óptico al extent del instrumento seleccionado
+      zoomAlInstrumentoPorExtent(regionCode, archivoKml);
+    });
+
+    // -------------------------
+    // Click en el mapa → abrir info.html con lat/lon/region
+    // -------------------------
+    map.on("click", (e) => {
+      const regionCode = regionSelect.value;
+
+      if (!regionCode) {
+        alert("Primero selecciona una región para realizar la consulta.");
         return;
       }
 
-      // Cargar KML *solo* para obtener sus bounds
-      try {
-        var loader = omnivore.kml(cfg.archivo);
+      const lat = e.latlng.lat.toString();
+      const lon = e.latlng.lng.toString();
 
-        // No queremos ver la capa; la agregamos con estilo transparente
-        loader.on('ready', function () {
-          try {
-            loader.addTo(map);
-            if (loader.setStyle) {
-              loader.setStyle({ opacity: 0, fillOpacity: 0 });
-            }
-            cfg.bounds = loader.getBounds();
-            map.fitBounds(cfg.bounds, { padding: [20, 20] });
-          } catch (e) {
-            console.warn('No fue posible obtener bounds para', cfg.nombre, e);
-          } finally {
-            map.removeLayer(loader);
-          }
-        });
+      const url = new URL(window.location.origin + window.location.pathname.replace(/index\.html$/i, "") + "info.html");
+      url.searchParams.set("lat", lat);
+      url.searchParams.set("lon", lon);
+      url.searchParams.set("region", regionCode);
 
-        loader.on('error', function (err) {
-          console.warn('Error cargando KML de', cfg.nombre, err);
-        });
-      } catch (e) {
-        console.warn('Error creando loader KML para', cfg.nombre, e);
-      }
-    }
-
-    // Manejo del menú desplegable
-    var selectInstrumento = document.getElementById('instrumento-select');
-    selectInstrumento.addEventListener('change', function () {
-      var id = this.value;
-      if (!id) return;
-      zoomInstrumento(id);
-    });
-
-    // Clic en mapa: abre info.html en pestaña nueva con el punto consultado
-    map.on('click', function (e) {
-      var lat = e.latlng.lat;
-      var lon = e.latlng.lng;
-      var url = 'info.html?lat=' + encodeURIComponent(lat) +
-                '&lon=' + encodeURIComponent(lon);
-      window.open(url, '_blank');
+      window.open(url.toString(), "_blank");
     });
   </script>
 </body>
