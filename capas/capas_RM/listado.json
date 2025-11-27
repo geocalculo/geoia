@@ -1,0 +1,265 @@
+{
+  "region": "Región Metropolitana",
+  "codigo_region": "13",
+  "carpeta": "capas_RM",
+  "instrumentos": [
+    {
+      "archivo": "IPT_13_PRC_Cerrillos.kml",
+      "nombre": "PRC Cerrillos",
+      "tipo": "PRC",
+      "comuna": "Cerrillos"
+    },
+    {
+      "archivo": "IPT_13_PRC_Cerro_Navia.kml",
+      "nombre": "PRC Cerro Navia",
+      "tipo": "PRC",
+      "comuna": "Cerro Navia"
+    },
+    {
+      "archivo": "IPT_13_PRC_Colina.kml",
+      "nombre": "PRC Colina",
+      "tipo": "PRC",
+      "comuna": "Colina"
+    },
+    {
+      "archivo": "IPT_13_PRC_Conchali.kml",
+      "nombre": "PRC Conchalí",
+      "tipo": "PRC",
+      "comuna": "Conchalí"
+    },
+    {
+      "archivo": "IPT_13_PRC_Curacavi.kml",
+      "nombre": "PRC Curacaví",
+      "tipo": "PRC",
+      "comuna": "Curacaví"
+    },
+    {
+      "archivo": "IPT_13_PRC_El_Bosque.kml",
+      "nombre": "PRC El Bosque",
+      "tipo": "PRC",
+      "comuna": "El Bosque"
+    },
+    {
+      "archivo": "IPT_13_PRC_Estacion_Central.kml",
+      "nombre": "PRC Estación Central",
+      "tipo": "PRC",
+      "comuna": "Estación Central"
+    },
+    {
+      "archivo": "IPT_13_PRC_Huechuraba.kml",
+      "nombre": "PRC Huechuraba",
+      "tipo": "PRC",
+      "comuna": "Huechuraba"
+    },
+    {
+      "archivo": "IPT_13_PRC_Independencia.kml",
+      "nombre": "PRC Independencia",
+      "tipo": "PRC",
+      "comuna": "Independencia"
+    },
+    {
+      "archivo": "IPT_13_PRC_Isla_de_Maipo.kml",
+      "nombre": "PRC Isla de Maipo",
+      "tipo": "PRC",
+      "comuna": "Isla de Maipo"
+    },
+    {
+      "archivo": "IPT_13_PRC_Las_Condes.kml",
+      "nombre": "PRC Las Condes",
+      "tipo": "PRC",
+      "comuna": "Las Condes"
+    },
+    {
+      "archivo": "IPT_13_PRC_La_Cisterna.kml",
+      "nombre": "PRC La Cisterna",
+      "tipo": "PRC",
+      "comuna": "La Cisterna"
+    },
+    {
+      "archivo": "IPT_13_PRC_La_Florida.kml",
+      "nombre": "PRC La Florida",
+      "tipo": "PRC",
+      "comuna": "La Florida"
+    },
+    {
+      "archivo": "IPT_13_PRC_La_Granja.kml",
+      "nombre": "PRC La Granja",
+      "tipo": "PRC",
+      "comuna": "La Granja"
+    },
+    {
+      "archivo": "IPT_13_PRC_La_Pintana.kml",
+      "nombre": "PRC La Pintana",
+      "tipo": "PRC",
+      "comuna": "La Pintana"
+    },
+    {
+      "archivo": "IPT_13_PRC_La_Reina.kml",
+      "nombre": "PRC La Reina",
+      "tipo": "PRC",
+      "comuna": "La Reina"
+    },
+    {
+      "archivo": "IPT_13_PRC_Lo_Barnechea.kml",
+      "nombre": "PRC Lo Barnechea",
+      "tipo": "PRC",
+      "comuna": "Lo Barnechea"
+    },
+    {
+      "archivo": "IPT_13_PRC_Lo_Espejo.kml",
+      "nombre": "PRC Lo Espejo",
+      "tipo": "PRC",
+      "comuna": "Lo Espejo"
+    },
+    {
+      "archivo": "IPT_13_PRC_Lo_Prado.kml",
+      "nombre": "PRC Lo Prado",
+      "tipo": "PRC",
+      "comuna": "Lo Prado"
+    },
+    {
+      "archivo": "IPT_13_PRC_Macul.kml",
+      "nombre": "PRC Macul",
+      "tipo": "PRC",
+      "comuna": "Macul"
+    },
+    {
+      "archivo": "IPT_13_PRC_Maipu.kml",
+      "nombre": "PRC Maipú",
+      "tipo": "PRC",
+      "comuna": "Maipú"
+    },
+    {
+      "archivo": "IPT_13_PRC_Melipilla.kml",
+      "nombre": "PRC Melipilla",
+      "tipo": "PRC",
+      "comuna": "Melipilla"
+    },
+    {
+      "archivo": "IPT_13_PRC_Nunoa.kml",
+      "nombre": "PRC Ñuñoa",
+      "tipo": "PRC",
+      "comuna": "Ñuñoa"
+    },
+    {
+      "archivo": "IPT_13_PRC_Padre_Hurtado.kml",
+      "nombre": "PRC Padre Hurtado",
+      "tipo": "PRC",
+      "comuna": "Padre Hurtado"
+    },
+    {
+      "archivo": "IPT_13_PRC_Paine.kml",
+      "nombre": "PRC Paine",
+      "tipo": "PRC",
+      "comuna": "Paine"
+    },
+    {
+      "archivo": "IPT_13_PRC_Pedro_Aguirre_Cerda.kml",
+      "nombre": "PRC Pedro Aguirre Cerda",
+      "tipo": "PRC",
+      "comuna": "Pedro Aguirre Cerda"
+    },
+    {
+      "archivo": "IPT_13_PRC_Penaflor.kml",
+      "nombre": "PRC Peñaflor",
+      "tipo": "PRC",
+      "comuna": "Peñaflor"
+    },
+    {
+      "archivo": "IPT_13_PRC_Penalolen.kml",
+      "nombre": "PRC Peñalolén",
+      "tipo": "PRC",
+      "comuna": "Peñalolén"
+    },
+    {
+      "archivo": "IPT_13_PRC_Pirque.kml",
+      "nombre": "PRC Pirque",
+      "tipo": "PRC",
+      "comuna": "Pirque"
+    },
+    {
+      "archivo": "IPT_13_PRC_Providencia.kml",
+      "nombre": "PRC Providencia",
+      "tipo": "PRC",
+      "comuna": "Providencia"
+    },
+    {
+      "archivo": "IPT_13_PRC_Pudahuel.kml",
+      "nombre": "PRC Pudahuel",
+      "tipo": "PRC",
+      "comuna": "Pudahuel"
+    },
+    {
+      "archivo": "IPT_13_PRC_Puente_Alto.kml",
+      "nombre": "PRC Puente Alto",
+      "tipo": "PRC",
+      "comuna": "Puente Alto"
+    },
+    {
+      "archivo": "IPT_13_PRC_Quilicura.kml",
+      "nombre": "PRC Quilicura",
+      "tipo": "PRC",
+      "comuna": "Quilicura"
+    },
+    {
+      "archivo": "IPT_13_PRC_Quinta_Normal.kml",
+      "nombre": "PRC Quinta Normal",
+      "tipo": "PRC",
+      "comuna": "Quinta Normal"
+    },
+    {
+      "archivo": "IPT_13_PRC_Recoleta.kml",
+      "nombre": "PRC Recoleta",
+      "tipo": "PRC",
+      "comuna": "Recoleta"
+    },
+    {
+      "archivo": "IPT_13_PRC_Renca.kml",
+      "nombre": "PRC Renca",
+      "tipo": "PRC",
+      "comuna": "Renca"
+    },
+    {
+      "archivo": "IPT_13_PRC_Santiago.kml",
+      "nombre": "PRC Santiago",
+      "tipo": "PRC",
+      "comuna": "Santiago"
+    },
+    {
+      "archivo": "IPT_13_PRC_San_Bernardo.kml",
+      "nombre": "PRC San Bernardo",
+      "tipo": "PRC",
+      "comuna": "San Bernardo"
+    },
+    {
+      "archivo": "IPT_13_PRC_San_Joaquin.kml",
+      "nombre": "PRC San Joaquín",
+      "tipo": "PRC",
+      "comuna": "San Joaquín"
+    },
+    {
+      "archivo": "IPT_13_PRC_San_Miguel.kml",
+      "nombre": "PRC San Miguel",
+      "tipo": "PRC",
+      "comuna": "San Miguel"
+    },
+    {
+      "archivo": "IPT_13_PRC_San_Ramon.kml",
+      "nombre": "PRC San Ramón",
+      "tipo": "PRC",
+      "comuna": "San Ramón"
+    },
+    {
+      "archivo": "IPT_13_PRC_Talagante.kml",
+      "nombre": "PRC Talagante",
+      "tipo": "PRC",
+      "comuna": "Talagante"
+    },
+    {
+      "archivo": "IPT_13_PRC_Vitacura.kml",
+      "nombre": "PRC Vitacura",
+      "tipo": "PRC",
+      "comuna": "Vitacura"
+    }
+  ]
+}
