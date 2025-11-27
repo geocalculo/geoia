@@ -156,7 +156,7 @@
         <div class="control-group">
           <label for="region-select">Región</label>
           <select id="region-select">
-            <!-- Atacama por defecto -->
+            <!-- Opciones estáticas como fallback; si existe capas/regiones.json se reemplazan dinámicamente -->
             <option value="02">02 - Antofagasta</option>
             <option value="03" selected>03 - Atacama</option>
           </select>
@@ -180,6 +180,8 @@
         para abrir un reporte detallado del punto en una nueva pestaña. El combo
         de instrumento se usa solo para <strong>zoom óptico</strong>; la consulta
         revisa todos los KML de la región declarados en <code>listado.json</code>.
+        Si existe <code>capas/regiones.json</code>, la lista de regiones y el zoom
+        se cargan de ese archivo.
       </p>
     </div>
   </main>
@@ -223,6 +225,24 @@
     const instrumentoSelect = document.getElementById("instrumento-select");
 
     // -------------------------
+    // Utilitario: nombre amigable desde nombre de archivo
+    // -------------------------
+    function limpiarNombreInstrumento(nombreArchivo) {
+      if (!nombreArchivo) return "";
+
+      // quitar extensión
+      let nombre = nombreArchivo.replace(/\.[^/.]+$/, "");
+
+      // reemplazar underscores por espacio
+      nombre = nombre.replace(/_/g, " ");
+
+      // eliminar prefijo IPT_XX_ si existe
+      nombre = nombre.replace(/^IPT_\d{2}_/i, "");
+
+      return nombre.trim();
+    }
+
+    // -------------------------
     // Leer listado.json por región y poblar combo de instrumentos
     // -------------------------
     async function cargarInstrumentos(regionCode) {
@@ -248,23 +268,37 @@
         }
         const listado = await resp.json();
 
-        let archivos = [];
+        let entradas = [];
+
+        // Formatos admitidos:
+        // 1) Array simple: ["IPT_03_PRC_Copiapo.kml", ...]
         if (Array.isArray(listado)) {
-          archivos = listado;
-        } else if (Array.isArray(listado.kml)) {
-          archivos = listado.kml;
+          entradas = listado;
+        }
+        // 2) Objeto con propiedad kml: { "kml": [ ... ] }
+        else if (Array.isArray(listado.kml)) {
+          entradas = listado.kml;
+        }
+        // 3) Objeto con propiedad instrumentos: { "instrumentos": [ ... ] }
+        else if (Array.isArray(listado.instrumentos)) {
+          entradas = listado.instrumentos;
+        } else {
+          console.warn("Formato no reconocido en listado.json para región", regionCode, listado);
+          return;
         }
 
-        archivos.forEach((entry) => {
+        let contador = 0;
+
+        entradas.forEach((entry) => {
           let archivo = "";
           let nombre = "";
 
           if (typeof entry === "string") {
             archivo = entry;
-            nombre = entry;
+            nombre = limpiarNombreInstrumento(entry);
           } else if (entry && typeof entry === "object") {
-            archivo = entry.archivo || entry.kml || entry.nombre || "";
-            nombre = entry.nombre || archivo;
+            archivo = entry.archivo || entry.kml || entry.nombreArchivo || entry.nombre || "";
+            nombre = entry.nombre || limpiarNombreInstrumento(archivo);
           }
 
           if (!archivo) return;
@@ -273,9 +307,10 @@
           opt.value = archivo;
           opt.textContent = nombre.replace(/\.kml$/i, "");
           instrumentoSelect.appendChild(opt);
+          contador++;
         });
 
-        if (archivos.length > 0) {
+        if (contador > 0) {
           instrumentoSelect.disabled = false;
         }
       } catch (err) {
@@ -340,20 +375,97 @@
     }
 
     // -------------------------
+    // Cargar regiones desde capas/regiones.json (si existe)
+    // Formato sugerido:
+    // {
+    //   "regiones": [
+    //     { "codigo": "02", "nombre": "02 - Antofagasta", "centro": [-23.5,-69.3], "zoom": 7, "activo": true },
+    //     { "codigo": "03", "nombre": "03 - Atacama", "centro": [-27.5,-70.5], "zoom": 7, "activo": true }
+    //   ]
+    // }
+    // -------------------------
+    async function cargarRegionesDesdeJson() {
+      const url = "capas/regiones.json";
+      try {
+        const resp = await fetch(url);
+        if (!resp.ok) {
+          console.warn("No se encontró regiones.json, se usan opciones estáticas");
+          return;
+        }
+        const data = await resp.json();
+        if (!Array.isArray(data.regiones)) {
+          console.warn("Formato inesperado en regiones.json");
+          return;
+        }
+
+        // Limpiar opciones actuales
+        regionSelect.innerHTML = "";
+
+        data.regiones
+          .filter(r => r.activo !== false)
+          .forEach(r => {
+            const codigo = r.codigo || r.id;
+            if (!codigo) return;
+
+            const opt = document.createElement("option");
+            opt.value = codigo;
+            opt.textContent = r.nombre || codigo;
+            if (Array.isArray(r.centro)) {
+              opt.dataset.centro = JSON.stringify(r.centro);
+            }
+            if (r.zoom) {
+              opt.dataset.zoom = String(r.zoom);
+            }
+            regionSelect.appendChild(opt);
+          });
+
+        // Elegir región por defecto: 03 si existe, si no la primera
+        let defaultCodigo = "03";
+        let tiene03 = false;
+        Array.from(regionSelect.options).forEach(opt => {
+          if (opt.value === "03") tiene03 = true;
+        });
+        if (!tiene03 && regionSelect.options.length > 0) {
+          defaultCodigo = regionSelect.options[0].value;
+        }
+        regionSelect.value = defaultCodigo;
+
+        // Disparar cambio para centrar mapa y cargar instrumentos
+        regionSelect.dispatchEvent(new Event("change"));
+      } catch (err) {
+        console.warn("Error cargando regiones.json, se usan opciones estáticas", err);
+      }
+    }
+
+    // -------------------------
     // Eventos de UI
     // -------------------------
     regionSelect.addEventListener("change", () => {
       const regionCode = regionSelect.value;
 
-      if (regionCode) {
-        cargarInstrumentos(regionCode);
-
-        // Ajustar vista general aproximada por región
+      // Si la opción tiene centro/zoom desde regiones.json, usamos eso
+      const opt = regionSelect.selectedOptions[0];
+      if (opt && opt.dataset.centro) {
+        try {
+          const centro = JSON.parse(opt.dataset.centro);
+          const zoom = parseInt(opt.dataset.zoom || "7", 10);
+          if (Array.isArray(centro) && centro.length === 2) {
+            map.setView([centro[0], centro[1]], zoom);
+          }
+        } catch (e) {
+          console.warn("Error interpretando centro/zoom de regiones.json", e);
+        }
+      } else {
+        // Fallback: lógica estática previa
         if (regionCode === "03") {
           map.setView([-27.5, -70.5], 7); // Atacama
         } else if (regionCode === "02") {
           map.setView([-23.5, -69.3], 7); // Antofagasta
         }
+      }
+
+      if (regionCode) {
+        cargarInstrumentos(regionCode);
       }
     });
 
@@ -390,7 +502,7 @@
     });
 
     // -------------------------
-    // Inicialización: región Atacama por defecto
+    // Inicialización: región Atacama por defecto + intento de cargar regiones.json
     // -------------------------
     (function init() {
       const defaultRegion = regionSelect.value || "03"; // Atacama
@@ -399,7 +511,12 @@
       } else if (defaultRegion === "02") {
         map.setView([-23.5, -69.3], 7);
       }
+
+      // Cargar instrumentos para la región por defecto (por si no existe regiones.json)
       cargarInstrumentos(defaultRegion);
+
+      // Intentar sobreescribir la lista de regiones desde capas/regiones.json
+      cargarRegionesDesdeJson();
     })();
   </script>
 </body>
