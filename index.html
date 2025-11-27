@@ -2,494 +2,67 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>GeoIPT - Mapa de consulta Instrumentos de Planificación Territorial</title>
+  <title>GeoIPT · Sitio en mantenimiento</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
 
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Helvetica, Arial, sans-serif;
       background: #0b1120;
       color: #e5e7eb;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      background: #020617;
-      border-bottom: 1px solid #111827;
-      padding: 8px 16px;
-    }
-
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-    }
-
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .brand-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .brand-subtitle {
-      font-size: 0.78rem;
-      color: #9ca3af;
-    }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    .control-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-      min-width: 180px;
-    }
-
-    .control-group label {
-      font-size: 0.75rem;
-      color: #9ca3af;
-    }
-
-    select {
-      background: #020617;
-      border-radius: 999px;
-      border: 1px solid #1f2937;
-      color: #e5e7eb;
-      padding: 0.3rem 0.75rem;
-      font-size: 0.85rem;
-      outline: none;
-    }
-
-    select:focus {
-      border-color: #3b82f6;
-    }
-
-    main {
-      flex: 1;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
       display: flex;
       justify-content: center;
-      padding: 0.75rem;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 1.5rem;
     }
 
-    .map-container {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    #map {
-      width: 100%;
-      height: calc(100vh - 110px);
-      min-height: 420px;
-      border-radius: 1rem;
-      overflow: hidden;
+    .card {
+      background: #020617;
       border: 1px solid #1f2937;
+      padding: 2rem 2.5rem;
+      border-radius: 1.25rem;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      animation: fadeIn 1.2s ease-out;
     }
 
-    .hint {
-      font-size: 0.8rem;
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.95rem;
       color: #9ca3af;
+      margin-top: 0.5rem;
+      line-height: 1.45;
     }
 
-    .hint strong {
-      color: #e5e7eb;
-    }
-
-    @media (max-width: 640px) {
-      header {
-        padding: 8px 10px;
-      }
-
-      #map {
-        height: calc(100vh - 130px);
-      }
-
-      .control-group {
-        min-width: 100%;
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <div class="header-inner">
-      <div class="brand">
-        <div class="brand-title">GeoIPT</div>
-        <div class="brand-subtitle">
-          Consulta rápida de instrumentos de planificación territorial (PRC / SCC)
-        </div>
-      </div>
-
-      <div class="controls">
-        <div class="control-group">
-          <label for="region-select">Región</label>
-          <select id="region-select">
-            <!-- Fallback estático; si existe capas/regiones.json se sobreescribe -->
-            <option value="02">02 - Antofagasta</option>
-            <option value="03" selected>03 - Atacama</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="instrumento-select">Instrumento (zoom óptico)</label>
-          <select id="instrumento-select" disabled>
-            <option value="">Selecciona un instrumento para hacer zoom</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <div class="map-container">
-      <div id="map"></div>
-      <p class="hint">
-        <strong>Instrucciones:</strong> Selecciona la región (por defecto se carga Atacama) y haz clic en el mapa
-        para abrir un reporte detallado del punto en una nueva pestaña. El combo
-        de instrumento se usa solo para <strong>zoom óptico</strong>; la consulta
-        revisa todos los KML de la región declarados en <code>listado.json</code>.
-        Si existe <code>capas/regiones.json</code>, la lista de regiones y el zoom
-        se cargan dinámicamente desde ese archivo.
-      </p>
-    </div>
-  </main>
-
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-  <script>
-    // --- Mapa principal ---
-    const map = L.map('map', {
-      center: [-27.5, -70.5], // centro aprox. Atacama
-      zoom: 7,
-      minZoom: 4,
-      maxZoom: 19
-    });
-
-    const osm = L.tileLayer(
-      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-      {
-        maxZoom: 19,
-        attribution: '&copy; OpenStreetMap contributors'
-      }
-    ).addTo(map);
-
-    const esriSat = L.tileLayer(
-      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-      {
-        maxZoom: 19,
-        attribution:
-          "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, and the GIS User Community"
-      }
-    );
-
-    L.control.layers(
-      { "Mapa calle": osm, "Satélite": esriSat },
-      {},
-      { position: "topright" }
-    ).addTo(map);
-
-    const regionSelect = document.getElementById("region-select");
-    const instrumentoSelect = document.getElementById("instrumento-select");
-
-    // -------------------------
-    // Cargar instrumentos desde listado.json (MISMA LÓGICA QUE TENÍAS)
-    // -------------------------
-    async function cargarInstrumentos(regionCode) {
-      instrumentoSelect.innerHTML = "";
-      instrumentoSelect.disabled = true;
-
-      const optDefault = document.createElement("option");
-      optDefault.value = "";
-      optDefault.textContent =
-        "Selecciona un instrumento para hacer zoom";
-      instrumentoSelect.appendChild(optDefault);
-
-      if (!regionCode) return;
-
-      const basePath = `capas/capas_${regionCode}/`;
-      const listadoUrl = `${basePath}listado.json`;
-
-      try {
-        const resp = await fetch(listadoUrl);
-        if (!resp.ok) {
-          console.warn("No se pudo leer listado.json de la región", regionCode);
-          return;
-        }
-        const listado = await resp.json();
-
-        let archivos = [];
-        // Formatos que ya soportabas:
-        // 1) Array simple
-        if (Array.isArray(listado)) {
-          archivos = listado;
-        }
-        // 2) Objeto con propiedad kml
-        else if (Array.isArray(listado.kml)) {
-          archivos = listado.kml;
-        }
-
-        archivos.forEach((entry) => {
-          let archivo = "";
-          let nombre = "";
-
-          if (typeof entry === "string") {
-            archivo = entry;
-            nombre = entry;
-          } else if (entry && typeof entry === "object") {
-            archivo = entry.archivo || entry.kml || entry.nombre || "";
-            nombre = entry.nombre || archivo;
-          }
-
-          if (!archivo) return;
-
-          const opt = document.createElement("option");
-          opt.value = archivo;
-          opt.textContent = nombre.replace(/\.kml$/i, "");
-          instrumentoSelect.appendChild(opt);
-        });
-
-        if (archivos.length > 0) {
-          instrumentoSelect.disabled = false;
-        }
-      } catch (err) {
-        console.warn("Error cargando instrumentos región", regionCode, err);
-      }
-    }
-
-    // -------------------------
-    // Zoom al extent real de un KML de instrumento (solo fitBounds)
-    // -------------------------
-    async function zoomAlInstrumentoPorExtent(regionCode, nombreKml) {
-      if (!regionCode || !nombreKml) return;
-
-      const basePath = `capas/capas_${regionCode}/`;
-      const kmlUrl = basePath + nombreKml;
-
-      try {
-        const resp = await fetch(kmlUrl);
-        if (!resp.ok) {
-          console.warn("No se pudo leer KML para zoom:", kmlUrl);
-          return;
-        }
-        const kmlText = await resp.text();
-
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(kmlText, "application/xml");
-
-        const coordEls = xml.querySelectorAll(
-          "Placemark Polygon coordinates, " +
-          "Placemark MultiGeometry Polygon coordinates, " +
-          "Placemark LineString coordinates, " +
-          "coordinates"
-        );
-
-        const puntos = [];
-
-        coordEls.forEach((el) => {
-          const txt = el.textContent.trim();
-          if (!txt) return;
-
-          txt.split(/\s+/).forEach((pair) => {
-            const partes = pair.split(",");
-            if (partes.length < 2) return;
-            const lon = parseFloat(partes[0]);
-            const lat = parseFloat(partes[1]);
-            if (!isNaN(lat) && !isNaN(lon)) {
-              puntos.push([lat, lon]);
-            }
-          });
-        });
-
-        if (!puntos.length) {
-          console.warn("No se encontraron coordenadas en", nombreKml);
-          return;
-        }
-
-        const bounds = L.latLngBounds(puntos);
-        map.fitBounds(bounds, { padding: [30, 30] }); // solo zoom, sin recuadro
-      } catch (err) {
-        console.warn("Error procesando KML para zoom:", kmlUrl, err);
-      }
-    }
-
-    // -------------------------
-    // Cargar regiones desde capas/regiones.json (OPCIONAL)
-    //
-    // Formato sugerido:
-    // {
-    //   "regiones": [
-    //     { "codigo": "02", "nombre": "02 - Antofagasta", "centro": [-23.5,-69.3], "zoom": 7, "activo": true },
-    //     { "codigo": "03", "nombre": "03 - Atacama",    "centro": [-27.5,-70.5], "zoom": 7, "activo": true }
-    //   ]
-    // }
-    // -------------------------
-    async function cargarRegionesDesdeJson() {
-      const url = "capas/regiones.json";
-      try {
-        const resp = await fetch(url);
-        if (!resp.ok) {
-          console.warn("No se encontró regiones.json, se usan opciones estáticas");
-          return;
-        }
-        const data = await resp.json();
-        if (!Array.isArray(data.regiones)) {
-          console.warn("Formato inesperado en regiones.json");
-          return;
-        }
-
-        // Limpiar opciones actuales
-        regionSelect.innerHTML = "";
-
-        data.regiones
-          .filter(r => r.activo !== false)
-          .forEach(r => {
-            const codigo = r.codigo || r.id;
-            if (!codigo) return;
-
-            const opt = document.createElement("option");
-            opt.value = codigo;
-            opt.textContent = r.nombre || codigo;
-            if (Array.isArray(r.centro)) {
-              opt.dataset.centro = JSON.stringify(r.centro);
-            }
-            if (r.zoom) {
-              opt.dataset.zoom = String(r.zoom);
-            }
-            regionSelect.appendChild(opt);
-          });
-
-        // Elegir región por defecto: 03 si existe, si no la primera
-        let defaultCodigo = "03";
-        let tiene03 = false;
-        Array.from(regionSelect.options).forEach(opt => {
-          if (opt.value === "03") tiene03 = true;
-        });
-        if (!tiene03 && regionSelect.options.length > 0) {
-          defaultCodigo = regionSelect.options[0].value;
-        }
-        regionSelect.value = defaultCodigo;
-
-        // Disparar cambio para centrar mapa y cargar instrumentos
-        regionSelect.dispatchEvent(new Event("change"));
-      } catch (err) {
-        console.warn("Error cargando regiones.json, se usan opciones estáticas", err);
-      }
-    }
-
-    // -------------------------
-    // Eventos de UI
-    // -------------------------
-    regionSelect.addEventListener("change", () => {
-      const regionCode = regionSelect.value;
-
-      // Si la opción tiene centro/zoom desde regiones.json, usamos eso
-      const opt = regionSelect.selectedOptions[0];
-      if (opt && opt.dataset.centro) {
-        try {
-          const centro = JSON.parse(opt.dataset.centro);
-          const zoom = parseInt(opt.dataset.zoom || "7", 10);
-          if (Array.isArray(centro) && centro.length === 2) {
-            map.setView([centro[0], centro[1]], zoom);
-          }
-        } catch (e) {
-          console.warn("Error interpretando centro/zoom de regiones.json", e);
-        }
-      } else {
-        // Fallback: lógica estática previa
-        if (regionCode === "03") {
-          map.setView([-27.5, -70.5], 7); // Atacama
-        } else if (regionCode === "02") {
-          map.setView([-23.5, -69.3], 7); // Antofagasta
-        }
-      }
-
-      if (regionCode) {
-        cargarInstrumentos(regionCode);
-      }
-    });
-
-    instrumentoSelect.addEventListener("change", () => {
-      const regionCode = regionSelect.value;
-      const archivoKml = instrumentoSelect.value;
-      if (!regionCode || !archivoKml) return;
-
-      zoomAlInstrumentoPorExtent(regionCode, archivoKml);
-    });
-
-    // -------------------------
-    // Click en el mapa → abrir info.html
-    // Se usa la región seleccionada; si el usuario no toca nada, es 03 (Atacama)
-    // -------------------------
-    map.on("click", (e) => {
-      const regionCode = regionSelect.value || "03"; // Atacama por defecto
-
-      const lat = e.latlng.lat.toString();
-      const lon = e.latlng.lng.toString();
-
-      const url = new URL(
-        window.location.origin +
-        window.location.pathname.replace(/index\.html$/i, "") +
-        "info.html"
-      );
-      url.searchParams.set("lat", lat);
-      url.searchParams.set("lon", lon);
-      if (regionCode) {
-        url.searchParams.set("region", regionCode);
-      }
-
-      window.open(url.toString(), "_blank");
-    });
-
-    // -------------------------
-    // Inicialización: región Atacama por defecto + intento cargar regiones.json
-    // -------------------------
-    (function init() {
-      const defaultRegion = regionSelect.value || "03"; // Atacama
-      if (defaultRegion === "03") {
-        map.setView([-27.5, -70.5], 7);
-      } else if (defaultRegion === "02") {
-        map.setView([-23.5, -69.3], 7);
-      }
-
-      // Cargar instrumentos para la región por defecto (por si no existe regiones.json)
-      cargarInstrumentos(defaultRegion);
-
-      // Intentar sobreescribir la lista de regiones desde capas/regiones.json
-      cargarRegionesDesdeJson();
-    })();
-  </script>
+  <div class="card">
+    <h1>GeoIPT</h1>
+    <p><strong>Sitio en mantenimiento</strong></p>
+    <p>
+      Estamos realizando mejoras y actualizaciones.<br>
+      Por favor vuelve a intentarlo más tarde.
+    </p>
+  </div>
 </body>
 </html>
