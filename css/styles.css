@@ -48,7 +48,6 @@
   text-decoration: underline;
 }
 
-
 body {
   display: flex;
   flex-direction: column;
@@ -66,7 +65,6 @@ header h1 {
   font-size: 1.2rem;
   margin-bottom: 0.25rem;
 }
-
 
 .nota-origen {
   margin-top: 2.5rem;
@@ -104,6 +102,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  position: relative; /* 👈 nuevo: contenedor del botón de ubicación */
 }
 
 #map {
@@ -111,7 +110,30 @@ main {
   min-height: 420px;
   border-radius: 8px;
   border: 1px solid #ccc;
+  overflow: hidden; /* 👈 para que nada se salga del frame */
 }
+
+/* 👇 nuevo: botón “centrar en mi ubicación” dentro del frame del mapa */
+.locate-button {
+  position: absolute;
+  top: 16px;   /* puedes ajustar 10–30 px según lo veas en pantalla */
+  right: 16px;
+  z-index: 1000;
+  background: #fff;
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.locate-button:hover {
+  background: #f2f2f2;
+}
+/* 👆 fin bloque nuevo */
 
 #ayuda {
   background: #f5f5f7;
