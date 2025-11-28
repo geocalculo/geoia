@@ -1,0 +1,271 @@
+{
+  "region": "Región de Valparaíso",
+  "codigo_region": "05",
+  "carpeta": "capas_V",
+  "instrumentos": [
+    {
+      "archivo": "IPT_05_PRC_Algarrobo.kml",
+      "nombre": "PRC Algarrobo",
+      "tipo": "PRC",
+      "comuna": "Algarrobo"
+    },
+    {
+      "archivo": "IPT_05_PRC_Cabildo.kml",
+      "nombre": "PRC Cabildo",
+      "tipo": "PRC",
+      "comuna": "Cabildo"
+    },
+    {
+      "archivo": "IPT_05_PRC_Calera.kml",
+      "nombre": "PRC Calera",
+      "tipo": "PRC",
+      "comuna": "Calera"
+    },
+    {
+      "archivo": "IPT_05_PRC_Calle_Larga.kml",
+      "nombre": "PRC Calle Larga",
+      "tipo": "PRC",
+      "comuna": "Calle Larga"
+    },
+    {
+      "archivo": "IPT_05_PRC_Cartagena.kml",
+      "nombre": "PRC Cartagena",
+      "tipo": "PRC",
+      "comuna": "Cartagena"
+    },
+    {
+      "archivo": "IPT_05_PRC_Casablanca.kml",
+      "nombre": "PRC Casablanca",
+      "tipo": "PRC",
+      "comuna": "Casablanca"
+    },
+    {
+      "archivo": "IPT_05_PRC_Catemu.kml",
+      "nombre": "PRC Catemu",
+      "tipo": "PRC",
+      "comuna": "Catemu"
+    },
+    {
+      "archivo": "IPT_05_PRC_Concon.kml",
+      "nombre": "PRC Concón",
+      "tipo": "PRC",
+      "comuna": "Concón"
+    },
+    {
+      "archivo": "IPT_05_PRC_El_Quisco.kml",
+      "nombre": "PRC El Quisco",
+      "tipo": "PRC",
+      "comuna": "El Quisco"
+    },
+    {
+      "archivo": "IPT_05_PRC_El_Tabo.kml",
+      "nombre": "PRC El Tabo",
+      "tipo": "PRC",
+      "comuna": "El Tabo"
+    },
+    {
+      "archivo": "IPT_05_PRC_Hijuelas.kml",
+      "nombre": "PRC Hijuelas",
+      "tipo": "PRC",
+      "comuna": "Hijuelas"
+    },
+    {
+      "archivo": "IPT_05_PRC_Isla_de_Pascua.kml",
+      "nombre": "PRC Isla de Pascua",
+      "tipo": "PRC",
+      "comuna": "Isla de Pascua"
+    },
+    {
+      "archivo": "IPT_05_PRC_Juan_Fernandez.kml",
+      "nombre": "PRC Juan Fernández",
+      "tipo": "PRC",
+      "comuna": "Juan Fernández"
+    },
+    {
+      "archivo": "IPT_05_PRC_La_Ligua.kml",
+      "nombre": "PRC La Ligua",
+      "tipo": "PRC",
+      "comuna": "La Ligua"
+    },
+    {
+      "archivo": "IPT_05_PRC_Limache.kml",
+      "nombre": "PRC Limache",
+      "tipo": "PRC",
+      "comuna": "Limache"
+    },
+    {
+      "archivo": "IPT_05_PRC_Llayllay.kml",
+      "nombre": "PRC Llayllay",
+      "tipo": "PRC",
+      "comuna": "Llayllay"
+    },
+    {
+      "archivo": "IPT_05_PRC_Los_Andes.kml",
+      "nombre": "PRC Los Andes",
+      "tipo": "PRC",
+      "comuna": "Los Andes"
+    },
+    {
+      "archivo": "IPT_05_PRC_Nogales.kml",
+      "nombre": "PRC Nogales",
+      "tipo": "PRC",
+      "comuna": "Nogales"
+    },
+    {
+      "archivo": "IPT_05_PRC_Olmue.kml",
+      "nombre": "PRC Olmué",
+      "tipo": "PRC",
+      "comuna": "Olmué"
+    },
+    {
+      "archivo": "IPT_05_PRC_Panquehue.kml",
+      "nombre": "PRC Panquehue",
+      "tipo": "PRC",
+      "comuna": "Panquehue"
+    },
+    {
+      "archivo": "IPT_05_PRC_Papudo.kml",
+      "nombre": "PRC Papudo",
+      "tipo": "PRC",
+      "comuna": "Papudo"
+    },
+    {
+      "archivo": "IPT_05_PRC_Puchuncavi.kml",
+      "nombre": "PRC Puchuncaví",
+      "tipo": "PRC",
+      "comuna": "Puchuncaví"
+    },
+    {
+      "archivo": "IPT_05_PRC_Putaendo.kml",
+      "nombre": "PRC Putaendo",
+      "tipo": "PRC",
+      "comuna": "Putaendo"
+    },
+    {
+      "archivo": "IPT_05_PRC_Quillota.kml",
+      "nombre": "PRC Quillota",
+      "tipo": "PRC",
+      "comuna": "Quillota"
+    },
+    {
+      "archivo": "IPT_05_PRC_Quilpue.kml",
+      "nombre": "PRC Quilpué",
+      "tipo": "PRC",
+      "comuna": "Quilpué"
+    },
+    {
+      "archivo": "IPT_05_PRC_Quintero.kml",
+      "nombre": "PRC Quintero",
+      "tipo": "PRC",
+      "comuna": "Quintero"
+    },
+    {
+      "archivo": "IPT_05_PRC_Rinconada.kml",
+      "nombre": "PRC Rinconada",
+      "tipo": "PRC",
+      "comuna": "Rinconada"
+    },
+    {
+      "archivo": "IPT_05_PRC_Santa_Maria.kml",
+      "nombre": "PRC Santa María",
+      "tipo": "PRC",
+      "comuna": "Santa María"
+    },
+    {
+      "archivo": "IPT_05_PRC_Santo_Domingo.kml",
+      "nombre": "PRC Santo Domingo",
+      "tipo": "PRC",
+      "comuna": "Santo Domingo"
+    },
+    {
+      "archivo": "IPT_05_PRC_San_Antonio.kml",
+      "nombre": "PRC San Antonio",
+      "tipo": "PRC",
+      "comuna": "San Antonio"
+    },
+    {
+      "archivo": "IPT_05_PRC_San_Esteban.kml",
+      "nombre": "PRC San Esteban",
+      "tipo": "PRC",
+      "comuna": "San Esteban"
+    },
+    {
+      "archivo": "IPT_05_PRC_San_Felipe.kml",
+      "nombre": "PRC San Felipe",
+      "tipo": "PRC",
+      "comuna": "San Felipe"
+    },
+    {
+      "archivo": "IPT_05_PRC_SCC_El_Tabo.kml",
+      "nombre": "SCC El Tabo",
+      "tipo": "SCC",
+      "comuna": "El Tabo"
+    },
+    {
+      "archivo": "IPT_05_PRC_Valparaiso.kml",
+      "nombre": "PRC Valparaíso",
+      "tipo": "PRC",
+      "comuna": "Valparaíso"
+    },
+    {
+      "archivo": "IPT_05_PRC_Villa_Alemana.kml",
+      "nombre": "PRC Villa Alemana",
+      "tipo": "PRC",
+      "comuna": "Villa Alemana"
+    },
+    {
+      "archivo": "IPT_05_PRC_Vina_del_Mar.kml",
+      "nombre": "PRC Viña del Mar",
+      "tipo": "PRC",
+      "comuna": "Viña del Mar"
+    },
+    {
+      "archivo": "IPT_05_PRC_Zapallar.kml",
+      "nombre": "PRC Zapallar",
+      "tipo": "PRC",
+      "comuna": "Zapallar"
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Avenida_Marina.kml",
+      "nombre": "SCC Avenida Marina (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar"
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Cerro_Castillo.kml",
+      "nombre": "SCC Cerro Castillo (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar"
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Coraceros.kml",
+      "nombre": "SCC Coraceros (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar"
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Jardin_del_Mar.kml",
+      "nombre": "SCC Jardín del Mar (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar"
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Parroquia_Renaca.kml",
+      "nombre": "SCC Parroquia Reñaca (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar"
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Universidad.kml",
+      "nombre": "SCC Universidad (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar"
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Vistas_Agua_Santa.kml",
+      "nombre": "SCC Vistas Agua Santa (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar"
+    }
+  ]
+}
