@@ -1,31 +1,38 @@
-{
-  "regiones": [
-    {
-      "id": "AT",
-      "codigo_ine": "03",
-      "nombre": "Región de Atacama",
-      "carpeta": "capas_03",
-      "centro": [-27.5, -70.25],
-      "zoom": 7,
-      "activo": true
-    },
-    {
-      "id": "AN",
-      "codigo_ine": "02",
-      "nombre": "Región de Antofagasta",
-      "carpeta": "capas_02",
-      "centro": [-23.6, -69.8],
-      "zoom": 7,
-      "activo": true
-    },
-        {
-      "id": "RM",
-      "codigo_ine": "13",
-      "nombre": "Región Metropolitana",
-      "carpeta": "capas_RM",
-      "centro": [-33.6, -69.8],
-      "zoom": 7,
-      "activo": true
-    }
-  ]
-}
+[
+  {
+    "id": "AT",
+    "codigo_ine": "03",
+    "nombre": "Región de Atacama",
+    "carpeta": "capas_03",
+    "centro": [-27.5, -70.25],
+    "zoom": 7,
+    "activo": true
+  },
+  {
+    "id": "AN",
+    "codigo_ine": "02",
+    "nombre": "Región de Antofagasta",
+    "carpeta": "capas_02",
+    "centro": [-23.6, -69.8],
+    "zoom": 7,
+    "activo": true
+  },
+  {
+    "id": "RM",
+    "codigo_ine": "13",
+    "nombre": "Región Metropolitana",
+    "carpeta": "capas_RM",
+    "centro": [-33.6, -69.8],
+    "zoom": 7,
+    "activo": true
+  },
+  {
+    "id": "VA",
+    "codigo_ine": "05",
+    "nombre": "Región de Valparaiso",
+    "carpeta": "capas_05",
+    "centro": [-33.6, -71.8],
+    "zoom": 7,
+    "activo": true
+  }
+]
