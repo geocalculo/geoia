@@ -34,5 +34,14 @@
     "centro": [-33.6, -71.8],
     "zoom": 7,
     "activo": true
+  },
+  {
+    "id": "BI",
+    "codigo_ine": "08",
+    "nombre": "Región del Biobío",
+    "carpeta": "capas_08",
+    "centro": [-37.1, -72.8],
+    "zoom": 7,
+    "activo": true
   }
 ]
