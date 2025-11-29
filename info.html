@@ -371,11 +371,9 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin="">
     
-    </script>
+  </script>
 
   <script src="js/utm.js"></script>
-
-
 
   <!-- tokml para exportar GeoJSON a KML -->
   <script src="https://unpkg.com/tokml@0.4.0/tokml.js"></script>
@@ -405,6 +403,30 @@
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
     }
+
+    // ========= LOG GEOIPT (visita_info + descarga_kml) =========
+    const GEOIPT_LOG_ENDPOINT = "https://geoipt-logs-654413617072.us-central1.run.app/api/log_evento";
+
+    function logEvento(tipo, detalle) {
+      try {
+        fetch(GEOIPT_LOG_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          keepalive: true,
+          body: JSON.stringify({
+            tipo,
+            detalle: {
+              ...detalle,
+              path: window.location.pathname + window.location.search,
+              referrer: document.referrer || null
+            }
+          })
+        });
+      } catch (e) {
+        console.warn("No se pudo registrar evento", tipo, e);
+      }
+    }
+    // =========================================================
 
     // Extrae TODOS los atributos desde un Placemark KML
     function getAttributesFromPlacemark(placemarkEl) {
@@ -507,11 +529,6 @@
         .map((plc, idx) => renderAttributesTable(plc, idx))
         .join("");
     }
-
-// Conversión WGS84 -> UTM 19S (EPSG:32719) usando proj4
-
-
-
 
     // Punto en polígono (Ray casting)
     function pointInPolygon(lat, lon, polygonLatLngs) {
@@ -883,6 +900,13 @@
 
         const nombreArchivo = `descargaKML_${timestamp()}.kml`;
 
+        // LOG de descarga de KML
+        logEvento("descarga_kml", {
+          archivo: nombreArchivo,
+          instrumento,
+          zonas
+        });
+
         // Convertir GeoJSON a KML
         let kmlString = tokml(gj, {
           documentName: instrumento,
@@ -944,6 +968,14 @@
         document.getElementById("lat-display").textContent = latParam.toFixed(6);
         document.getElementById("lon-display").textContent = lonParam.toFixed(6);
         document.getElementById("region-display").textContent = regionCode;
+
+        // LOG visita al reporte
+        logEvento("visita_info", {
+          origen: "info",
+          lat: latParam,
+          lon: lonParam,
+          region: regionCode
+        });
 
         actualizarUTM(latParam, lonParam);
         initMap(latParam, lonParam);
