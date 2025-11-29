@@ -256,5 +256,28 @@
       map.setView([-27.5, -70.25], 7);
     })();
   </script>
+
+  <!-- Registro de visitas a GeoIPT (index) -->
+  <script>
+    (function registrarVisita() {
+      try {
+        fetch("https://geoipt-logs-654413617072.us-central1.run.app/api/log_evento", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          keepalive: true,
+          body: JSON.stringify({
+            tipo: "visita",
+            detalle: {
+              origen: "index",
+              path: window.location.pathname + window.location.search,
+              referrer: document.referrer || null
+            }
+          })
+        });
+      } catch (e) {
+        console.warn("No se pudo registrar la visita index:", e);
+      }
+    })();
+  </script>
 </body>
 </html>
