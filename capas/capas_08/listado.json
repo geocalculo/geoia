@@ -1,0 +1,164 @@
+{
+  "instrumentos": [
+    {
+      "archivo": "IPT_08_PNSECC_Concepcion_RiberaNorte.kml",
+      "nombre": "PNSECC Concepcion Ribera Norte",
+      "tipo": "PNSECC"
+    },
+    {
+      "archivo": "IPT_08_PNSECC_Lago_Lanalhue.kml",
+      "nombre": "PNSECC Lago Lanalhue",
+      "tipo": "PNSECC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Alto_Biobio.kml",
+      "nombre": "PRC Alto Biobio",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Antuco.kml",
+      "nombre": "PRC Antuco",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Arauco.kml",
+      "nombre": "PRC Arauco",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Cabrero.kml",
+      "nombre": "PRC Cabrero",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Canete.kml",
+      "nombre": "PRC Canete",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Chiguayante.kml",
+      "nombre": "PRC Chiguayante",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Concepcion.kml",
+      "nombre": "PRC Concepcion",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Contulmo.kml",
+      "nombre": "PRC Contulmo",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Coronel.kml",
+      "nombre": "PRC Coronel",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Curanilahue.kml",
+      "nombre": "PRC Curanilahue",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Florida.kml",
+      "nombre": "PRC Florida",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Hualpen.kml",
+      "nombre": "PRC Hualpen",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Hualqui.kml",
+      "nombre": "PRC Hualqui",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Laja.kml",
+      "nombre": "PRC Laja",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Lebu.kml",
+      "nombre": "PRC Lebu",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Los_Alamos.kml",
+      "nombre": "PRC Los Alamos",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Los_Angeles.kml",
+      "nombre": "PRC Los Angeles",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Lota.kml",
+      "nombre": "PRC Lota",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Mulchen.kml",
+      "nombre": "PRC Mulchen",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Nacimiento.kml",
+      "nombre": "PRC Nacimiento",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Negrete.kml",
+      "nombre": "PRC Negrete",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Penco.kml",
+      "nombre": "PRC Penco",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Santa_Barbara.kml",
+      "nombre": "PRC Santa Barbara",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Santa_Juana.kml",
+      "nombre": "PRC Santa Juana",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_San_Carlos.kml",
+      "nombre": "PRC San Carlos",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_San_Pedro_de_la_Paz.kml",
+      "nombre": "PRC San Pedro de la Paz",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Talcahuano.kml",
+      "nombre": "PRC Talcahuano",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Tirua.kml",
+      "nombre": "PRC Tirua",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Tome.kml",
+      "nombre": "PRC Tome",
+      "tipo": "PRC"
+    },
+    {
+      "archivo": "IPT_08_PRC_Yumbel.kml",
+      "nombre": "PRC Yumbel",
+      "tipo": "PRC"
+    }
+  ]
+}
