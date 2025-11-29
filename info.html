@@ -405,14 +405,17 @@
     }
 
     // ========= LOG GEOIPT (visita_info + descarga_kml) =========
-    const GEOIPT_LOG_ENDPOINT = "https://geoipt-logs-654413617072.us-central1.run.app/api/log_evento";
+   
+    const GEOIPT_LOG_ENDPOINT =
+      "https://geoipt-logs-654413617072.us-central1.run.app/log_evento";
 
     function logEvento(tipo, detalle) {
       try {
         fetch(GEOIPT_LOG_ENDPOINT, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          mode: "no-cors",
           keepalive: true,
+          headers: { "Content-Type": "text/plain" },
           body: JSON.stringify({
             tipo,
             detalle: {
@@ -427,6 +430,7 @@
       }
     }
     // =========================================================
+
 
     // Extrae TODOS los atributos desde un Placemark KML
     function getAttributesFromPlacemark(placemarkEl) {
