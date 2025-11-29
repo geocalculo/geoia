@@ -259,12 +259,19 @@
 
   <!-- Registro de visitas a GeoIPT (index) -->
   <script>
+
+  <!-- Registro de visitas a GeoIPT (index) -->
+  <script>
     (function registrarVisita() {
+      const GEOIPT_LOG_ENDPOINT =
+        "https://geoipt-logs-654413617072.us-central1.run.app/log_evento";
+
       try {
-        fetch("https://geoipt-logs-654413617072.us-central1.run.app/api/log_evento", {
+        fetch(GEOIPT_LOG_ENDPOINT, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          mode: "no-cors",
           keepalive: true,
+          headers: { "Content-Type": "text/plain" },
           body: JSON.stringify({
             tipo: "visita",
             detalle: {
@@ -278,6 +285,12 @@
         console.warn("No se pudo registrar la visita index:", e);
       }
     })();
+  </script>
+</body>
+</html>
+
+
+    
   </script>
 </body>
 </html>
