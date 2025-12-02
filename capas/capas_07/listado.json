@@ -1,0 +1,121 @@
+{
+  "region": "Región del Maule",
+  "codigo_region": "07",
+  "carpeta": "capas_07",
+  "instrumentos": [
+    {
+      "archivo": "IPT_07_PRC_Cauquenes.kml",
+      "nombre": "PRC Cauquenes",
+      "tipo": "PRC",
+      "comuna": "Cauquenes"
+    },
+    {
+      "archivo": "IPT_07_PRC_Colbun.kml",
+      "nombre": "PRC Colbún",
+      "tipo": "PRC",
+      "comuna": "Colbún"
+    },
+    {
+      "archivo": "IPT_07_PRC_Constitucion.kml",
+      "nombre": "PRC Constitución",
+      "tipo": "PRC",
+      "comuna": "Constitución"
+    },
+    {
+      "archivo": "IPT_07_PRC_Curepto.kml",
+      "nombre": "PRC Curepto",
+      "tipo": "PRC",
+      "comuna": "Curepto"
+    },
+    {
+      "archivo": "IPT_07_PRC_Curico.kml",
+      "nombre": "PRC Curicó",
+      "tipo": "PRC",
+      "comuna": "Curicó"
+    },
+    {
+      "archivo": "IPT_07_PRC_Linares.kml",
+      "nombre": "PRC Linares",
+      "tipo": "PRC",
+      "comuna": "Linares"
+    },
+    {
+      "archivo": "IPT_07_PRC_Maule.kml",
+      "nombre": "PRC Maule",
+      "tipo": "PRC",
+      "comuna": "Maule"
+    },
+    {
+      "archivo": "IPT_07_PRC_Molina.kml",
+      "nombre": "PRC Molina",
+      "tipo": "PRC",
+      "comuna": "Molina"
+    },
+    {
+      "archivo": "IPT_07_PRC_Parral.kml",
+      "nombre": "PRC Parral",
+      "tipo": "PRC",
+      "comuna": "Parral"
+    },
+    {
+      "archivo": "IPT_07_PRC_Pelluhue.kml",
+      "nombre": "PRC Pelluhue",
+      "tipo": "PRC",
+      "comuna": "Pelluhue"
+    },
+    {
+      "archivo": "IPT_07_PRC_Pencahue.kml",
+      "nombre": "PRC Pencahue",
+      "tipo": "PRC",
+      "comuna": "Pencahue"
+    },
+    {
+      "archivo": "IPT_07_PRC_Romeral.kml",
+      "nombre": "PRC Romeral",
+      "tipo": "PRC",
+      "comuna": "Romeral"
+    },
+    {
+      "archivo": "IPT_07_PRC_San_Clemente.kml",
+      "nombre": "PRC San Clemente",
+      "tipo": "PRC",
+      "comuna": "San Clemente"
+    },
+    {
+      "archivo": "IPT_07_PRC_San_Javier.kml",
+      "nombre": "PRC San Javier",
+      "tipo": "PRC",
+      "comuna": "San Javier"
+    },
+    {
+      "archivo": "IPT_07_PRC_Talca.kml",
+      "nombre": "PRC Talca",
+      "tipo": "PRC",
+      "comuna": "Talca"
+    },
+    {
+      "archivo": "IPT_07_PRC_Teno.kml",
+      "nombre": "PRC Teno",
+      "tipo": "PRC",
+      "comuna": "Teno"
+    },
+    {
+      "archivo": "IPT_07_PRC_Vichuquen.kml",
+      "nombre": "PRC Vichuquén",
+      "tipo": "PRC",
+      "comuna": "Vichuquén"
+    },
+    {
+      "archivo": "IPT_07_PRC_Villa_Alegre.kml",
+      "nombre": "PRC Villa Alegre",
+      "tipo": "PRC",
+      "comuna": "Villa Alegre"
+    },
+    {
+      "archivo": "IPT_07_PRC_Yerbas_Buenas.kml",
+      "nombre": "PRC Yerbas Buenas",
+      "tipo": "PRC",
+      "comuna": "Yerbas Buenas"
+    }
+  ]
+}
