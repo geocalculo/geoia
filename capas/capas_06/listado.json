@@ -1,0 +1,199 @@
+{
+  "region": "Región de O'Higgins",
+  "codigo_region": "06",
+  "carpeta": "capas_06",
+  "instrumentos": [
+    {
+      "archivo": "IPT_06_PNSECC_Graneros_Estacion.kml",
+      "nombre": "PNSECC Graneros Estación",
+      "tipo": "PNSECC",
+      "comuna": "Graneros"
+    },
+    {
+      "archivo": "IPT_06_PNSECC_Las_Cabras_ElManzano_Llallauquen.kml",
+      "nombre": "PNSECC Las Cabras El Manzano Llallauquén",
+      "tipo": "PNSECC",
+      "comuna": "Las Cabras"
+    },
+    {
+      "archivo": "IPT_06_PRC_Chepica.kml",
+      "nombre": "PRC Chépica",
+      "tipo": "PRC",
+      "comuna": "Chépica"
+    },
+    {
+      "archivo": "IPT_06_PRC_Chimbarongo.kml",
+      "nombre": "PRC Chimbarongo",
+      "tipo": "PRC",
+      "comuna": "Chimbarongo"
+    },
+    {
+      "archivo": "IPT_06_PRC_Codegua.kml",
+      "nombre": "PRC Codegua",
+      "tipo": "PRC",
+      "comuna": "Codegua"
+    },
+    {
+      "archivo": "IPT_06_PRC_Codegua_La_Compania.kml",
+      "nombre": "PRC Codegua La Compañía",
+      "tipo": "PRC",
+      "comuna": "Codegua"
+    },
+    {
+      "archivo": "IPT_06_PRC_Coinco.kml",
+      "nombre": "PRC Coinco",
+      "tipo": "PRC",
+      "comuna": "Coinco"
+    },
+    {
+      "archivo": "IPT_06_PRC_Coltauco.kml",
+      "nombre": "PRC Coltauco",
+      "tipo": "PRC",
+      "comuna": "Coltauco"
+    },
+    {
+      "archivo": "IPT_06_PRC_Donihue.kml",
+      "nombre": "PRC Doñihue",
+      "tipo": "PRC",
+      "comuna": "Doñihue"
+    },
+    {
+      "archivo": "IPT_06_PRC_Graneros.kml",
+      "nombre": "PRC Graneros",
+      "tipo": "PRC",
+      "comuna": "Graneros"
+    },
+    {
+      "archivo": "IPT_06_PRC_Las_Cabras.kml",
+      "nombre": "PRC Las Cabras",
+      "tipo": "PRC",
+      "comuna": "Las Cabras"
+    },
+    {
+      "archivo": "IPT_06_PRC_La_Estrella.kml",
+      "nombre": "PRC La Estrella",
+      "tipo": "PRC",
+      "comuna": "La Estrella"
+    },
+    {
+      "archivo": "IPT_06_PRC_Litueche.kml",
+      "nombre": "PRC Litueche",
+      "tipo": "PRC",
+      "comuna": "Litueche"
+    },
+    {
+      "archivo": "IPT_06_PRC_Lolol.kml",
+      "nombre": "PRC Lolol",
+      "tipo": "PRC",
+      "comuna": "Lolol"
+    },
+    {
+      "archivo": "IPT_06_PRC_Malloa.kml",
+      "nombre": "PRC Malloa",
+      "tipo": "PRC",
+      "comuna": "Malloa"
+    },
+    {
+      "archivo": "IPT_06_PRC_Mostazal.kml",
+      "nombre": "PRC Mostazal",
+      "tipo": "PRC",
+      "comuna": "Mostazal"
+    },
+    {
+      "archivo": "IPT_06_PRC_Navidad.kml",
+      "nombre": "PRC Navidad",
+      "tipo": "PRC",
+      "comuna": "Navidad"
+    },
+    {
+      "archivo": "IPT_06_PRC_Olivar.kml",
+      "nombre": "PRC Olivar",
+      "tipo": "PRC",
+      "comuna": "Olivar"
+    },
+    {
+      "archivo": "IPT_06_PRC_Palmilla.kml",
+      "nombre": "PRC Palmilla",
+      "tipo": "PRC",
+      "comuna": "Palmilla"
+    },
+    {
+      "archivo": "IPT_06_PRC_Paredones.kml",
+      "nombre": "PRC Paredones",
+      "tipo": "PRC",
+      "comuna": "Paredones"
+    },
+    {
+      "archivo": "IPT_06_PRC_Peralillo.kml",
+      "nombre": "PRC Peralillo",
+      "tipo": "PRC",
+      "comuna": "Peralillo"
+    },
+    {
+      "archivo": "IPT_06_PRC_Peumo.kml",
+      "nombre": "PRC Peumo",
+      "tipo": "PRC",
+      "comuna": "Peumo"
+    },
+    {
+      "archivo": "IPT_06_PRC_Pichidegua.kml",
+      "nombre": "PRC Pichidegua",
+      "tipo": "PRC",
+      "comuna": "Pichidegua"
+    },
+    {
+      "archivo": "IPT_06_PRC_Pichilemu.kml",
+      "nombre": "PRC Pichilemu",
+      "tipo": "PRC",
+      "comuna": "Pichilemu"
+    },
+    {
+      "archivo": "IPT_06_PRC_Placilla.kml",
+      "nombre": "PRC Placilla",
+      "tipo": "PRC",
+      "comuna": "Placilla"
+    },
+    {
+      "archivo": "IPT_06_PRC_Qta_Tilcoco.kml",
+      "nombre": "PRC Quinta de Tilcoco",
+      "tipo": "PRC",
+      "comuna": "Quinta de Tilcoco"
+    },
+    {
+      "archivo": "IPT_06_PRC_Rancagua.kml",
+      "nombre": "PRC Rancagua",
+      "tipo": "PRC",
+      "comuna": "Rancagua"
+    },
+    {
+      "archivo": "IPT_06_PRC_Rengo.kml",
+      "nombre": "PRC Rengo",
+      "tipo": "PRC",
+      "comuna": "Rengo"
+    },
+    {
+      "archivo": "IPT_06_PRC_Requinoa.kml",
+      "nombre": "PRC Requínoa",
+      "tipo": "PRC",
+      "comuna": "Requínoa"
+    },
+    {
+      "archivo": "IPT_06_PRC_Santa_Cruz.kml",
+      "nombre": "PRC Santa Cruz",
+      "tipo": "PRC",
+      "comuna": "Santa Cruz"
+    },
+    {
+      "archivo": "IPT_06_PRC_San_Fernando.kml",
+      "nombre": "PRC San Fernando",
+      "tipo": "PRC",
+      "comuna": "San Fernando"
+    },
+    {
+      "archivo": "IPT_06_PRC_San_Vicente.kml",
+      "nombre": "PRC San Vicente",
+      "tipo": "PRC",
+      "comuna": "San Vicente de Tagua Tagua"
+    }
+  ]
+}
