@@ -1,0 +1,55 @@
+{
+  "region": "Región de Magallanes",
+  "codigo_region": "12",
+  "carpeta": "capas_12",
+  "instrumentos": [
+    {
+      "archivo": "IPT_12_PNSECC_Cerro_Castillo.kml",
+      "nombre": "PNSECC Cerro Castillo",
+      "tipo": "PNSECC",
+      "comuna": "Torres del Paine"
+    },
+    {
+      "archivo": "IPT_12_PNSECC_Rio_Serrano.kml",
+      "nombre": "PNSECC Río Serrano",
+      "tipo": "PNSECC",
+      "comuna": "Torres del Paine"
+    },
+    {
+      "archivo": "IPT_12_PRC_Laguna_Blanca.kml",
+      "nombre": "PRC Laguna Blanca",
+      "tipo": "PRC",
+      "comuna": "Laguna Blanca"
+    },
+    {
+      "archivo": "IPT_12_PRC_Porvenir.kml",
+      "nombre": "PRC Porvenir",
+      "tipo": "PRC",
+      "comuna": "Porvenir"
+    },
+    {
+      "archivo": "IPT_12_PRC_Puerto_Natales.kml",
+      "nombre": "PRC Puerto Natales",
+      "tipo": "PRC",
+      "comuna": "Natales"
+    },
+    {
+      "archivo": "IPT_12_PRC_Puerto_Williams_CaboHornos.kml",
+      "nombre": "PRC Puerto Williams Cabo de Hornos",
+      "tipo": "PRC",
+      "comuna": "Cabo de Hornos"
+    },
+    {
+      "archivo": "IPT_12_PRC_Punta_Arenas.kml",
+      "nombre": "PRC Punta Arenas",
+      "tipo": "PRC",
+      "comuna": "Punta Arenas"
+    },
+    {
+      "archivo": "IPT_12_PRC_Punta_Delgada_San_Gregorio.kml",
+      "nombre": "PRC Punta Delgada San Gregorio",
+      "tipo": "PRC",
+      "comuna": "San Gregorio"
+    }
+  ]
+}
