@@ -1,0 +1,97 @@
+{
+  "region": "Región de Los Ríos",
+  "codigo_region": "14",
+  "carpeta": "capas_14",
+  "instrumentos": [
+    {
+      "archivo": "IPT_14_PNOSECC_Futrono_Bahia_Coique.kml",
+      "nombre": "PNOSECC Futrono Bahía Coique",
+      "tipo": "PNOSECC",
+      "comuna": "Futrono"
+    },
+    {
+      "archivo": "IPT_14_PNOSECC_Lago_Ranco_Ignao.kml",
+      "nombre": "PNOSECC Lago Ranco Ignao",
+      "tipo": "PNOSECC",
+      "comuna": "Lago Ranco"
+    },
+    {
+      "archivo": "IPT_14_PNOSECC_Panguipulli_Puyumen.kml",
+      "nombre": "PNOSECC Panguipulli Puyumen",
+      "tipo": "PNOSECC",
+      "comuna": "Panguipulli"
+    },
+    {
+      "archivo": "IPT_14_PNOSECC_Valdivia_Barrios_Bajos.kml",
+      "nombre": "PNOSECC Valdivia Barrios Bajos",
+      "tipo": "PNOSECC",
+      "comuna": "Valdivia"
+    },
+    {
+      "archivo": "IPT_14_PRC_Corral.kml",
+      "nombre": "PRC Corral",
+      "tipo": "PRC",
+      "comuna": "Corral"
+    },
+    {
+      "archivo": "IPT_14_PRC_Futrono.kml",
+      "nombre": "PRC Futrono",
+      "tipo": "PRC",
+      "comuna": "Futrono"
+    },
+    {
+      "archivo": "IPT_14_PRC_Lago_Ranco.kml",
+      "nombre": "PRC Lago Ranco",
+      "tipo": "PRC",
+      "comuna": "Lago Ranco"
+    },
+    {
+      "archivo": "IPT_14_PRC_Lanco.kml",
+      "nombre": "PRC Lanco",
+      "tipo": "PRC",
+      "comuna": "Lanco"
+    },
+    {
+      "archivo": "IPT_14_PRC_La_Union.kml",
+      "nombre": "PRC La Unión",
+      "tipo": "PRC",
+      "comuna": "La Unión"
+    },
+    {
+      "archivo": "IPT_14_PRC_Los_Lagos.kml",
+      "nombre": "PRC Los Lagos",
+      "tipo": "PRC",
+      "comuna": "Los Lagos"
+    },
+    {
+      "archivo": "IPT_14_PRC_Mafil.kml",
+      "nombre": "PRC Máfil",
+      "tipo": "PRC",
+      "comuna": "Máfil"
+    },
+    {
+      "archivo": "IPT_14_PRC_Paillaco.kml",
+      "nombre": "PRC Paillaco",
+      "tipo": "PRC",
+      "comuna": "Paillaco"
+    },
+    {
+      "archivo": "IPT_14_PRC_Panguipulli.kml",
+      "nombre": "PRC Panguipulli",
+      "tipo": "PRC",
+      "comuna": "Panguipulli"
+    },
+    {
+      "archivo": "IPT_14_PRC_Rio_Bueno.kml",
+      "nombre": "PRC Río Bueno",
+      "tipo": "PRC",
+      "comuna": "Río Bueno"
+    },
+    {
+      "archivo": "IPT_14_PRC_Valdivia.kml",
+      "nombre": "PRC Valdivia",
+      "tipo": "PRC",
+      "comuna": "Valdivia"
+    }
+  ]
+}
