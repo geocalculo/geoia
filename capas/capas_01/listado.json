@@ -1,0 +1,37 @@
+{
+  "region": "Región de Tarapacá",
+  "codigo_region": "01",
+  "carpeta": "capas_01",
+  "instrumentos": [
+    {
+      "archivo": "IPT_01_PRC_Alto_Hospicio.kml",
+      "nombre": "PRC Alto Hospicio",
+      "tipo": "PRC",
+      "comuna": "Alto Hospicio"
+    },
+    {
+      "archivo": "IPT_01_PRC_Huara.kml",
+      "nombre": "PRC Huara",
+      "tipo": "PRC",
+      "comuna": "Huara"
+    },
+    {
+      "archivo": "IPT_01_PRC_Iquique.kml",
+      "nombre": "PRC Iquique",
+      "tipo": "PRC",
+      "comuna": "Iquique"
+    },
+    {
+      "archivo": "IPT_01_PRC_Pica.kml",
+      "nombre": "PRC Pica",
+      "tipo": "PRC",
+      "comuna": "Pica"
+    },
+    {
+      "archivo": "IPT_01_PRC_Pozo_al_Monte.kml",
+      "nombre": "PRC Pozo Al Monte",
+      "tipo": "PRC",
+      "comuna": "Pozo Al Monte"
+    }
+  ]
+}
