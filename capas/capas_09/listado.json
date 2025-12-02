@@ -1,0 +1,145 @@
+{
+  "region": "Región de La Araucanía",
+  "codigo_region": "09",
+  "carpeta": "capas_09",
+  "instrumentos": [
+    {
+      "archivo": "IPT_09_PRC_Angol.kml",
+      "nombre": "PRC Angol",
+      "tipo": "PRC",
+      "comuna": "Angol"
+    },
+    {
+      "archivo": "IPT_09_PRC_Carahue.kml",
+      "nombre": "PRC Carahue",
+      "tipo": "PRC",
+      "comuna": "Carahue"
+    },
+    {
+      "archivo": "IPT_09_PRC_Collipulli.kml",
+      "nombre": "PRC Collipulli",
+      "tipo": "PRC",
+      "comuna": "Collipulli"
+    },
+    {
+      "archivo": "IPT_09_PRC_Curacautin.kml",
+      "nombre": "PRC Curacautín",
+      "tipo": "PRC",
+      "comuna": "Curacautín"
+    },
+    {
+      "archivo": "IPT_09_PRC_Freire.kml",
+      "nombre": "PRC Freire",
+      "tipo": "PRC",
+      "comuna": "Freire"
+    },
+    {
+      "archivo": "IPT_09_PRC_Gorbea.kml",
+      "nombre": "PRC Gorbea",
+      "tipo": "PRC",
+      "comuna": "Gorbea"
+    },
+    {
+      "archivo": "IPT_09_PRC_Lautaro.kml",
+      "nombre": "PRC Lautaro",
+      "tipo": "PRC",
+      "comuna": "Lautaro"
+    },
+    {
+      "archivo": "IPT_09_PRC_Loncoche.kml",
+      "nombre": "PRC Loncoche",
+      "tipo": "PRC",
+      "comuna": "Loncoche"
+    },
+    {
+      "archivo": "IPT_09_PRC_Lonquimay_Villa_Portales.kml",
+      "nombre": "PRC Lonquimay Villa Portales",
+      "tipo": "PRC",
+      "comuna": "Lonquimay"
+    },
+    {
+      "archivo": "IPT_09_PRC_Nueva_Imperial.kml",
+      "nombre": "PRC Nueva Imperial",
+      "tipo": "PRC",
+      "comuna": "Nueva Imperial"
+    },
+    {
+      "archivo": "IPT_09_PRC_Padre_Las_Casas.kml",
+      "nombre": "PRC Padre Las Casas",
+      "tipo": "PRC",
+      "comuna": "Padre Las Casas"
+    },
+    {
+      "archivo": "IPT_09_PRC_Pitrufquen.kml",
+      "nombre": "PRC Pitrufquén",
+      "tipo": "PRC",
+      "comuna": "Pitrufquén"
+    },
+    {
+      "archivo": "IPT_09_PRC_Pucon.kml",
+      "nombre": "PRC Pucón",
+      "tipo": "PRC",
+      "comuna": "Pucón"
+    },
+    {
+      "archivo": "IPT_09_PRC_Puerto_Saavedra.kml",
+      "nombre": "PRC Puerto Saavedra",
+      "tipo": "PRC",
+      "comuna": "Puerto Saavedra"
+    },
+    {
+      "archivo": "IPT_09_PRC_Renaico.kml",
+      "nombre": "PRC Renaico",
+      "tipo": "PRC",
+      "comuna": "Renaico"
+    },
+    {
+      "archivo": "IPT_09_PRC_Renaico_Tijeral.kml",
+      "nombre": "PRC Renaico Tijeral",
+      "tipo": "PRC",
+      "comuna": "Renaico"
+    },
+    {
+      "archivo": "IPT_09_PRC_Temuco.kml",
+      "nombre": "PRC Temuco",
+      "tipo": "PRC",
+      "comuna": "Temuco"
+    },
+    {
+      "archivo": "IPT_09_PRC_Temuco_Cajon.kml",
+      "nombre": "PRC Temuco Cajón",
+      "tipo": "PRC",
+      "comuna": "Temuco"
+    },
+    {
+      "archivo": "IPT_09_PRC_Tolten_Queule.kml",
+      "nombre": "PRC Toltén Queule",
+      "tipo": "PRC",
+      "comuna": "Toltén"
+    },
+    {
+      "archivo": "IPT_09_PRC_Tolten_Villa_Ohiggins.kml",
+      "nombre": "PRC Toltén Villa O'Higgins",
+      "tipo": "PRC",
+      "comuna": "Toltén"
+    },
+    {
+      "archivo": "IPT_09_PRC_Traiguen.kml",
+      "nombre": "PRC Traiguén",
+      "tipo": "PRC",
+      "comuna": "Traiguén"
+    },
+    {
+      "archivo": "IPT_09_PRC_Victoria.kml",
+      "nombre": "PRC Victoria",
+      "tipo": "PRC",
+      "comuna": "Victoria"
+    },
+    {
+      "archivo": "IPT_09_PRC_Villarrica.kml",
+      "nombre": "PRC Villarrica",
+      "tipo": "PRC",
+      "comuna": "Villarrica"
+    }
+  ]
+}
