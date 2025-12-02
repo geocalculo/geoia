@@ -1,0 +1,25 @@
+{
+  "region": "Región de Arica y Parinacota",
+  "codigo_region": "15",
+  "carpeta": "capas_15",
+  "instrumentos": [
+    {
+      "archivo": "IPT_15_PRC_Arica.kml",
+      "nombre": "PRC Arica",
+      "tipo": "PRC",
+      "comuna": "Arica"
+    },
+    {
+      "archivo": "IPT_15_PRC_Arica_SECC_San_MIguel.kml",
+      "nombre": "SECC Arica San Miguel",
+      "tipo": "SECC",
+      "comuna": "Arica"
+    },
+    {
+      "archivo": "IPT_15_PRC_Putre.kml",
+      "nombre": "PRC Putre",
+      "tipo": "PRC",
+      "comuna": "Putre"
+    }
+  ]
+}
