@@ -1,0 +1,61 @@
+{
+  "region": "Región de Aysén",
+  "codigo_region": "11",
+  "carpeta": "capas_11",
+  "instrumentos": [
+    {
+      "archivo": "IPT_11_PNSECC_Melinka_Guatecas.kml",
+      "nombre": "PNSECC Melinka Guatecas",
+      "tipo": "PNSECC",
+      "comuna": "Guaitecas"
+    },
+    {
+      "archivo": "IPT_11_PNSECC_Rio_Ibanez_Cerro_Castillo.kml",
+      "nombre": "PNSECC Río Ibáñez Cerro Castillo",
+      "tipo": "PNSECC",
+      "comuna": "Río Ibáñez"
+    },
+    {
+      "archivo": "IPT_11_PRC_Cisnes.kml",
+      "nombre": "PRC Cisnes",
+      "tipo": "PRC",
+      "comuna": "Cisnes"
+    },
+    {
+      "archivo": "IPT_11_PRC_Coyhaique.kml",
+      "nombre": "PRC Coyhaique",
+      "tipo": "PRC",
+      "comuna": "Coyhaique"
+    },
+    {
+      "archivo": "IPT_11_PRC_Lago_Verde.kml",
+      "nombre": "PRC Lago Verde",
+      "tipo": "PRC",
+      "comuna": "Lago Verde"
+    },
+    {
+      "archivo": "IPT_11_PRC_La_Junta.kml",
+      "nombre": "PRC La Junta",
+      "tipo": "PRC",
+      "comuna": "Cisnes"
+    },
+    {
+      "archivo": "IPT_11_PRC_Puerto_Aysen.kml",
+      "nombre": "PRC Puerto Aysén",
+      "tipo": "PRC",
+      "comuna": "Aysén"
+    },
+    {
+      "archivo": "IPT_11_PRC_Puerto_Chacabuco.kml",
+      "nombre": "PRC Puerto Chacabuco",
+      "tipo": "PRC",
+      "comuna": "Aysén"
+    },
+    {
+      "archivo": "IPT_11_PRC_Puyuhuapi.kml",
+      "nombre": "PRC Puyuhuapi",
+      "tipo": "PRC",
+      "comuna": "Cisnes"
+    }
+  ]
+}
