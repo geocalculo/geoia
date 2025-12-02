@@ -1,0 +1,115 @@
+{
+  "region": "Región de Ñuble",
+  "codigo_region": "16",
+  "carpeta": "capas_16",
+  "instrumentos": [
+    {
+      "archivo": "IPT_16_PRC_Bulnes.kml",
+      "nombre": "PRC Bulnes",
+      "tipo": "PRC",
+      "comuna": "Bulnes"
+    },
+    {
+      "archivo": "IPT_16_PRC_Chillan.kml",
+      "nombre": "PRC Chillán",
+      "tipo": "PRC",
+      "comuna": "Chillán"
+    },
+    {
+      "archivo": "IPT_16_PRC_Chillan_Viejo.kml",
+      "nombre": "PRC Chillán Viejo",
+      "tipo": "PRC",
+      "comuna": "Chillán Viejo"
+    },
+    {
+      "archivo": "IPT_16_PRC_Cobquecura.kml",
+      "nombre": "PRC Cobquecura",
+      "tipo": "PRC",
+      "comuna": "Cobquecura"
+    },
+    {
+      "archivo": "IPT_16_PRC_Coelemu.kml",
+      "nombre": "PRC Coelemu",
+      "tipo": "PRC",
+      "comuna": "Coelemu"
+    },
+    {
+      "archivo": "IPT_16_PRC_El_Carmen.kml",
+      "nombre": "PRC El Carmen",
+      "tipo": "PRC",
+      "comuna": "El Carmen"
+    },
+    {
+      "archivo": "IPT_16_PRC_Ninhue.kml",
+      "nombre": "PRC Ninhue",
+      "tipo": "PRC",
+      "comuna": "Ninhue"
+    },
+    {
+      "archivo": "IPT_16_PRC_Niquen.kml",
+      "nombre": "PRC Ñiquén",
+      "tipo": "PRC",
+      "comuna": "Ñiquén"
+    },
+    {
+      "archivo": "IPT_16_PRC_Pemuco.kml",
+      "nombre": "PRC Pemuco",
+      "tipo": "PRC",
+      "comuna": "Pemuco"
+    },
+    {
+      "archivo": "IPT_16_PRC_Pinto.kml",
+      "nombre": "PRC Pinto",
+      "tipo": "PRC",
+      "comuna": "Pinto"
+    },
+    {
+      "archivo": "IPT_16_PRC_Portezuelo.kml",
+      "nombre": "PRC Portezuelo",
+      "tipo": "PRC",
+      "comuna": "Portezuelo"
+    },
+    {
+      "archivo": "IPT_16_PRC_Quillon.kml",
+      "nombre": "PRC Quillón",
+      "tipo": "PRC",
+      "comuna": "Quillón"
+    },
+    {
+      "archivo": "IPT_16_PRC_Quirihue.kml",
+      "nombre": "PRC Quirihue",
+      "tipo": "PRC",
+      "comuna": "Quirihue"
+    },
+    {
+      "archivo": "IPT_16_PRC_Ranquil.kml",
+      "nombre": "PRC Ránquil",
+      "tipo": "PRC",
+      "comuna": "Ránquil"
+    },
+    {
+      "archivo": "IPT_16_PRC_San_Carlos.kml",
+      "nombre": "PRC San Carlos",
+      "tipo": "PRC",
+      "comuna": "San Carlos"
+    },
+    {
+      "archivo": "IPT_16_PRC_San_Fabian.kml",
+      "nombre": "PRC San Fabián",
+      "tipo": "PRC",
+      "comuna": "San Fabián"
+    },
+    {
+      "archivo": "IPT_16_PRC_San_Ignacio.kml",
+      "nombre": "PRC San Ignacio",
+      "tipo": "PRC",
+      "comuna": "San Ignacio"
+    },
+    {
+      "archivo": "IPT_16_PRC_Yungay.kml",
+      "nombre": "PRC Yungay",
+      "tipo": "PRC",
+      "comuna": "Yungay"
+    }
+  ]
+}
