@@ -1,0 +1,157 @@
+{
+  "region": "Región de Los Lagos",
+  "codigo_region": "10",
+  "carpeta": "capas_10",
+  "instrumentos": [
+    {
+      "archivo": "IPT_10_PNSECC_Chaiten_Villa_Santa_Lucia.kml",
+      "nombre": "PNSECC Chaitén Villa Santa Lucía",
+      "tipo": "PNSECC",
+      "comuna": "Chaitén"
+    },
+    {
+      "archivo": "IPT_10_PNSECC_Puntilla_Niquen_Entre_Lagos.kml",
+      "nombre": "PNSECC Puntilla Niquén Entre Lagos",
+      "tipo": "PNSECC",
+      "comuna": "Puyehue"
+    },
+    {
+      "archivo": "IPT_10_PNSECC_San_Juan_BahiaMansa.kml",
+      "nombre": "PNSECC San Juan Bahía Mansa",
+      "tipo": "PNSECC",
+      "comuna": "San Juan de la Costa"
+    },
+    {
+      "archivo": "IPT_10_PNSECC_San_Juan_Costa_Pauacho.kml",
+      "nombre": "PNSECC San Juan Costa Pauacho",
+      "tipo": "PNSECC",
+      "comuna": "San Juan de la Costa"
+    },
+    {
+      "archivo": "IPT_10_PRC_Ancud.kml",
+      "nombre": "PRC Ancud",
+      "tipo": "PRC",
+      "comuna": "Ancud"
+    },
+    {
+      "archivo": "IPT_10_PRC_Calbuco.kml",
+      "nombre": "PRC Calbuco",
+      "tipo": "PRC",
+      "comuna": "Calbuco"
+    },
+    {
+      "archivo": "IPT_10_PRC_Castro.kml",
+      "nombre": "PRC Castro",
+      "tipo": "PRC",
+      "comuna": "Castro"
+    },
+    {
+      "archivo": "IPT_10_PRC_Chonchi.kml",
+      "nombre": "PRC Chonchi",
+      "tipo": "PRC",
+      "comuna": "Chonchi"
+    },
+    {
+      "archivo": "IPT_10_PRC_Fresia.kml",
+      "nombre": "PRC Fresia",
+      "tipo": "PRC",
+      "comuna": "Fresia"
+    },
+    {
+      "archivo": "IPT_10_PRC_Frutillar.kml",
+      "nombre": "PRC Frutillar",
+      "tipo": "PRC",
+      "comuna": "Frutillar"
+    },
+    {
+      "archivo": "IPT_10_PRC_Llanquihue.kml",
+      "nombre": "PRC Llanquihue",
+      "tipo": "PRC",
+      "comuna": "Llanquihue"
+    },
+    {
+      "archivo": "IPT_10_PRC_Maullin.kml",
+      "nombre": "PRC Maullín",
+      "tipo": "PRC",
+      "comuna": "Maullín"
+    },
+    {
+      "archivo": "IPT_10_PRC_Osorno.kml",
+      "nombre": "PRC Osorno",
+      "tipo": "PRC",
+      "comuna": "Osorno"
+    },
+    {
+      "archivo": "IPT_10_PRC_Palena.kml",
+      "nombre": "PRC Palena",
+      "tipo": "PRC",
+      "comuna": "Palena"
+    },
+    {
+      "archivo": "IPT_10_PRC_Puerto_Montt.kml",
+      "nombre": "PRC Puerto Montt",
+      "tipo": "PRC",
+      "comuna": "Puerto Montt"
+    },
+    {
+      "archivo": "IPT_10_PRC_Puerto_Octay.kml",
+      "nombre": "PRC Puerto Octay",
+      "tipo": "PRC",
+      "comuna": "Puerto Octay"
+    },
+    {
+      "archivo": "IPT_10_PRC_Puerto_Varas.kml",
+      "nombre": "PRC Puerto Varas",
+      "tipo": "PRC",
+      "comuna": "Puerto Varas"
+    },
+    {
+      "archivo": "IPT_10_PRC_Purranque.kml",
+      "nombre": "PRC Purranque",
+      "tipo": "PRC",
+      "comuna": "Purranque"
+    },
+    {
+      "archivo": "IPT_10_PRC_Puyehue.kml",
+      "nombre": "PRC Puyehue",
+      "tipo": "PRC",
+      "comuna": "Puyehue"
+    },
+    {
+      "archivo": "IPT_10_PRC_Queilen.kml",
+      "nombre": "PRC Queilen",
+      "tipo": "PRC",
+      "comuna": "Queilen"
+    },
+    {
+      "archivo": "IPT_10_PRC_Queilen_Puyehue_Bahia_El_Encanto.kml",
+      "nombre": "PRC Queilen Puyehue Bahía El Encanto",
+      "tipo": "PRC",
+      "comuna": "Queilen / Puyehue"
+    },
+    {
+      "archivo": "IPT_10_PRC_Quellon.kml",
+      "nombre": "PRC Quellón",
+      "tipo": "PRC",
+      "comuna": "Quellón"
+    },
+    {
+      "archivo": "IPT_10_PRC_Quinchao_Achao.kml",
+      "nombre": "PRC Quinchao Achao",
+      "tipo": "PRC",
+      "comuna": "Quinchao"
+    },
+    {
+      "archivo": "IPT_10_PRC_Rio_Negro.kml",
+      "nombre": "PRC Río Negro",
+      "tipo": "PRC",
+      "comuna": "Río Negro"
+    },
+    {
+      "archivo": "IPT_10_PRC_San_Pablo.kml",
+      "nombre": "PRC San Pablo",
+      "tipo": "PRC",
+      "comuna": "San Pablo"
+    }
+  ]
+}
