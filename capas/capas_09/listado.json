@@ -7,139 +7,369 @@
       "archivo": "IPT_09_PRC_Angol.kml",
       "nombre": "PRC Angol",
       "tipo": "PRC",
-      "comuna": "Angol"
+      "comuna": "Angol",
+      "bbox": [
+        [
+          -37.82553987136866,
+          -72.74001238350017
+        ],
+        [
+          -37.778909082261755,
+          -72.66370397885957
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Carahue.kml",
       "nombre": "PRC Carahue",
       "tipo": "PRC",
-      "comuna": "Carahue"
+      "comuna": "Carahue",
+      "bbox": [
+        [
+          -38.71999732741252,
+          -73.33362369228153
+        ],
+        [
+          -38.62377061261038,
+          -73.13076469438678
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Collipulli.kml",
       "nombre": "PRC Collipulli",
       "tipo": "PRC",
-      "comuna": "Collipulli"
+      "comuna": "Collipulli",
+      "bbox": [
+        [
+          -37.970246194306306,
+          -72.48623707802822
+        ],
+        [
+          -37.78113905589103,
+          -72.38648650799335
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Curacautin.kml",
       "nombre": "PRC Curacautín",
       "tipo": "PRC",
-      "comuna": "Curacautín"
+      "comuna": "Curacautín",
+      "bbox": [
+        [
+          -38.4506297844699,
+          -71.90626138127959
+        ],
+        [
+          -38.42949040794161,
+          -71.87010356905114
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Freire.kml",
       "nombre": "PRC Freire",
       "tipo": "PRC",
-      "comuna": "Freire"
+      "comuna": "Freire",
+      "bbox": [
+        [
+          -38.87327420118971,
+          -72.61866311261647
+        ],
+        [
+          -38.850563457950734,
+          -72.59685016849443
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Gorbea.kml",
       "nombre": "PRC Gorbea",
       "tipo": "PRC",
-      "comuna": "Gorbea"
+      "comuna": "Gorbea",
+      "bbox": [
+        [
+          -39.11339737050325,
+          -72.69572052231719
+        ],
+        [
+          -39.08598162230262,
+          -72.66433284573043
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Lautaro.kml",
       "nombre": "PRC Lautaro",
       "tipo": "PRC",
-      "comuna": "Lautaro"
+      "comuna": "Lautaro",
+      "bbox": [
+        [
+          -38.642406471033965,
+          -72.46566146706859
+        ],
+        [
+          -38.51041775899078,
+          -72.41631468117995
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Loncoche.kml",
       "nombre": "PRC Loncoche",
       "tipo": "PRC",
-      "comuna": "Loncoche"
+      "comuna": "Loncoche",
+      "bbox": [
+        [
+          -39.38484937676637,
+          -72.64907310021127
+        ],
+        [
+          -39.34999675256849,
+          -72.60579973708478
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Lonquimay_Villa_Portales.kml",
       "nombre": "PRC Lonquimay Villa Portales",
       "tipo": "PRC",
-      "comuna": "Lonquimay"
+      "comuna": "Lonquimay",
+      "bbox": [
+        [
+          -38.46698347004846,
+          -71.3791707141294
+        ],
+        [
+          -38.444978155542266,
+          -71.34763104574563
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Nueva_Imperial.kml",
       "nombre": "PRC Nueva Imperial",
       "tipo": "PRC",
-      "comuna": "Nueva Imperial"
+      "comuna": "Nueva Imperial",
+      "bbox": [
+        [
+          -38.78528785523155,
+          -72.9692835679284
+        ],
+        [
+          -38.730115924915694,
+          -72.93008172609616
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Padre_Las_Casas.kml",
       "nombre": "PRC Padre Las Casas",
       "tipo": "PRC",
-      "comuna": "Padre Las Casas"
+      "comuna": "Padre Las Casas",
+      "bbox": [
+        [
+          -38.774410920144874,
+          -72.60997632182695
+        ],
+        [
+          -38.74880175312187,
+          -72.58310732754117
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Pitrufquen.kml",
       "nombre": "PRC Pitrufquén",
       "tipo": "PRC",
-      "comuna": "Pitrufquén"
+      "comuna": "Pitrufquén",
+      "bbox": [
+        [
+          -38.99914753023266,
+          -72.66284772090536
+        ],
+        [
+          -38.97119062832699,
+          -72.61701627543069
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Pucon.kml",
       "nombre": "PRC Pucón",
       "tipo": "PRC",
-      "comuna": "Pucón"
+      "comuna": "Pucón",
+      "bbox": [
+        [
+          -39.29472557599219,
+          -72.00898109777067
+        ],
+        [
+          -39.26055564115421,
+          -71.93571512123746
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Puerto_Saavedra.kml",
       "nombre": "PRC Puerto Saavedra",
       "tipo": "PRC",
-      "comuna": "Puerto Saavedra"
+      "comuna": "Puerto Saavedra",
+      "bbox": [
+        [
+          -38.8018950134128,
+          -73.40742692654133
+        ],
+        [
+          -38.77729175613543,
+          -73.38783097027995
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Renaico.kml",
       "nombre": "PRC Renaico",
       "tipo": "PRC",
-      "comuna": "Renaico"
+      "comuna": "Renaico",
+      "bbox": [
+        [
+          -37.68285640749344,
+          -72.59493412714295
+        ],
+        [
+          -37.6662776806302,
+          -72.57419879664106
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Renaico_Tijeral.kml",
       "nombre": "PRC Renaico Tijeral",
       "tipo": "PRC",
-      "comuna": "Renaico"
+      "comuna": "Renaico",
+      "bbox": [
+        [
+          -37.74094846258379,
+          -72.62708779235513
+        ],
+        [
+          -37.72869533082777,
+          -72.60883314585034
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Temuco.kml",
       "nombre": "PRC Temuco",
       "tipo": "PRC",
-      "comuna": "Temuco"
+      "comuna": "Temuco",
+      "bbox": [
+        [
+          -38.79196463080427,
+          -72.82473496858789
+        ],
+        [
+          -38.6253632069795,
+          -72.46956527690176
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Temuco_Cajon.kml",
       "nombre": "PRC Temuco Cajón",
       "tipo": "PRC",
-      "comuna": "Temuco"
+      "comuna": "Temuco",
+      "bbox": [
+        [
+          -38.68724993971859,
+          -72.51818878295397
+        ],
+        [
+          -38.66406005686658,
+          -72.48602182281289
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Tolten_Queule.kml",
       "nombre": "PRC Toltén Queule",
       "tipo": "PRC",
-      "comuna": "Toltén"
+      "comuna": "Toltén",
+      "bbox": [
+        [
+          -39.40294429427596,
+          -73.2183498528938
+        ],
+        [
+          -39.39059425267903,
+          -73.18945639672089
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Tolten_Villa_Ohiggins.kml",
       "nombre": "PRC Toltén Villa O'Higgins",
       "tipo": "PRC",
-      "comuna": "Toltén"
+      "comuna": "Toltén",
+      "bbox": [
+        [
+          -39.251811269819356,
+          -73.22163983484205
+        ],
+        [
+          -39.24605468478528,
+          -73.215992636086
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Traiguen.kml",
       "nombre": "PRC Traiguén",
       "tipo": "PRC",
-      "comuna": "Traiguén"
+      "comuna": "Traiguén",
+      "bbox": [
+        [
+          -38.26563193865297,
+          -72.69171262878557
+        ],
+        [
+          -38.2377727302314,
+          -72.65295560432665
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Victoria.kml",
       "nombre": "PRC Victoria",
       "tipo": "PRC",
-      "comuna": "Victoria"
+      "comuna": "Victoria",
+      "bbox": [
+        [
+          -38.2469610972708,
+          -72.35518429650251
+        ],
+        [
+          -38.21970422072733,
+          -72.31367694336494
+        ]
+      ]
     },
     {
       "archivo": "IPT_09_PRC_Villarrica.kml",
       "nombre": "PRC Villarrica",
       "tipo": "PRC",
-      "comuna": "Villarrica"
+      "comuna": "Villarrica",
+      "bbox": [
+        [
+          -39.49914286709667,
+          -72.25376734738059
+        ],
+        [
+          -39.25629291503214,
+          -72.12968274917691
+        ]
+      ]
     }
   ]
 }

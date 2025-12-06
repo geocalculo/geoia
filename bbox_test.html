@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>GeoIPT - BBOX Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <!-- Estilos propios (puede quedar casi vacío, no usamos .panel ni .map-container) -->
+  <link rel="stylesheet" href="css/bbox_test.css" />
+
+  <style>
+
+
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #020617;
+      color: #e5e7eb;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    header {
+      background: #020617;
+      border-bottom: 1px solid #111827;
+      padding: 10px 16px;
+    }
+
+    header h1 {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    #map {
+      height: 420px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      margin-top: 24px;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+      color: #38bdf8;
+    }
+
+    p {
+      margin: 4px 0;
+      line-height: 1.4;
+    }
+
+    pre {
+      margin: 0;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    #btn-reporte {
+      padding: 10px 22px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #22c55e;
+      color: #ffffff;
+      cursor: pointer;
+      margin-top: 24px;
+      opacity: 0.5; /* JS lo ajusta cuando se habilita */
+    }
+
+    #btn-reporte:disabled {
+      cursor: default;
+    }
+
+    .btn-container {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<!-- prueba commit 17:30hrs -->
+
+
+<body>
+  <div class="container">
+  <header>
+    <h1>Reporte GeoIPT - Reporte del punto consultado</h1>
+  </header>
+
+  <main>
+    <!-- Mapa -->
+    <div id="map"></div>
+
+    <!-- Datos del punto y BBOX -->
+    <!-- <h2>Punto consultado</h2> -->
+    <!-- <p id="txt-punto">(cargando punto...)</p> -->
+    <!-- <p><strong>BBOX de la pantalla (N, E, S, W):</strong> <span id="txt-bbox">(cargando bbox...)</span></p> -->
+
+    <!-- IPT que intersectan el BBOX -->
+    <!-- <h2>Instrumentos IPT.kml que intersectan este BBOX</h2> -->
+    <!-- <pre id="txt-instrumentos">(cargando...)</pre> -->
+
+    <!-- IPT cuya geometría contiene el clic -->
+    <!-- <h2>Instrumentos donde la geometría contiene el punto clic</h2> -->
+    <!-- <pre id="txt-instrumentos-punto">(aún sin evaluar)</pre> -->
+
+    <!-- Metadata de los polígonos encontrados -->
+
+    <h2>Metadata de la Zona</h2>
+
+<table id="tabla-metadata" style="
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: #0f172a;
+  color: #e5e7eb;
+  font-size: 0.9rem;
+">
+  <tbody>
+    <tr><th style="text-align:left; padding:6px; border-bottom:1px solid #1e293b;">Campo</th>
+        <th style="text-align:left; padding:6px; border-bottom:1px solid #1e293b;">Valor</th></tr>
+
+    <tr><td>REG</td><td id="md-reg">–</td></tr>
+    <tr><td>COM</td><td id="md-com">–</td></tr>
+    <tr><td>LOCALIDAD</td><td id="md-loc">–</td></tr>
+    <tr><td>ZONA</td><td id="md-zona">–</td></tr>
+    <tr><td>NOMBRE</td><td id="md-nombre">–</td></tr>
+    <tr><td>UPERM</td><td id="md-uperm">–</td></tr>
+    <tr><td>UPROH</td><td id="md-uproh">–</td></tr>
+    <tr><td>Capa</td><td id="md-capa">–</td></tr>
+    <tr><td>CUT</td><td id="md-cut">–</td></tr>
+  </tbody>
+</table>
+
+
+
+<p style="margin-top:10px;">
+  <a id="link-kml" href="#" style="
+      color:#38bdf8;
+      text-decoration:underline;
+      font-size:0.95rem;
+      cursor:pointer;
+      opacity:0.5;
+      pointer-events:none;
+  ">Descargar KML de la zona consultada</a>
+</p>
+
+
+    <!-- Log de depuración -->
+    <!-- <h2>Log de depuración</h2> -->
+    <!-- <pre id="txt-log">(debug inactivo)</pre> -->
+  </main>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Turf para punto-en-polígono -->
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+
+  <!-- toGeoJSON para convertir KML -> GeoJSON -->
+  <script src="https://unpkg.com/@tmcw/togeojson@4.5.0/dist/togeojson.umd.js"></script>
+
+  <!-- Lógica propia -->
+  <script src="js/bbox_test.js"></script>
+  </div>
+  <footer style="
+  text-align:center;
+  padding:16px;
+  margin-top:40px;
+  color:#64748b;
+  font-size:0.8rem;
+  border-top:1px solid #1e293b;
+">
+  © GeoIPT — geocalculo.cl
+</footer>
+
+</body>
+</html>

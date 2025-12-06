@@ -7,109 +7,289 @@
       "archivo": "IPT_16_PRC_Bulnes.kml",
       "nombre": "PRC Bulnes",
       "tipo": "PRC",
-      "comuna": "Bulnes"
+      "comuna": "Bulnes",
+      "bbox": [
+        [
+          -36.843875818146515,
+          -72.3626762803432
+        ],
+        [
+          -36.71928373503584,
+          -72.18851420058844
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Chillan.kml",
       "nombre": "PRC Chillán",
       "tipo": "PRC",
-      "comuna": "Chillán"
+      "comuna": "Chillán",
+      "bbox": [
+        [
+          -36.66824041354964,
+          -72.46206873106738
+        ],
+        [
+          -36.52470938670636,
+          -71.87505744580663
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Chillan_Viejo.kml",
       "nombre": "PRC Chillán Viejo",
       "tipo": "PRC",
-      "comuna": "Chillán Viejo"
+      "comuna": "Chillán Viejo",
+      "bbox": [
+        [
+          -36.71373463807645,
+          -72.29544746837838
+        ],
+        [
+          -36.609858110436754,
+          -72.09776893573728
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Cobquecura.kml",
       "nombre": "PRC Cobquecura",
       "tipo": "PRC",
-      "comuna": "Cobquecura"
+      "comuna": "Cobquecura",
+      "bbox": [
+        [
+          -36.28254109170419,
+          -72.82888292663465
+        ],
+        [
+          -36.00278931012491,
+          -72.7559053536479
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Coelemu.kml",
       "nombre": "PRC Coelemu",
       "tipo": "PRC",
-      "comuna": "Coelemu"
+      "comuna": "Coelemu",
+      "bbox": [
+        [
+          -36.515817887116825,
+          -72.88921647081716
+        ],
+        [
+          -36.387720946316946,
+          -72.67412720027218
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_El_Carmen.kml",
       "nombre": "PRC El Carmen",
       "tipo": "PRC",
-      "comuna": "El Carmen"
+      "comuna": "El Carmen",
+      "bbox": [
+        [
+          -36.90613576100526,
+          -72.05828999114205
+        ],
+        [
+          -36.88916652004159,
+          -71.99739212385524
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Ninhue.kml",
       "nombre": "PRC Ninhue",
       "tipo": "PRC",
-      "comuna": "Ninhue"
+      "comuna": "Ninhue",
+      "bbox": [
+        [
+          -36.412447679694154,
+          -72.41552265948897
+        ],
+        [
+          -36.38097787355483,
+          -72.39016574696845
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Niquen.kml",
       "nombre": "PRC Ñiquén",
       "tipo": "PRC",
-      "comuna": "Ñiquén"
+      "comuna": "Ñiquén",
+      "bbox": [
+        [
+          -36.37919107401058,
+          -71.90899878869942
+        ],
+        [
+          -36.270783636605934,
+          -71.75875629432484
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Pemuco.kml",
       "nombre": "PRC Pemuco",
       "tipo": "PRC",
-      "comuna": "Pemuco"
+      "comuna": "Pemuco",
+      "bbox": [
+        [
+          -36.98696493403814,
+          -72.10961848585778
+        ],
+        [
+          -36.96638015624027,
+          -72.08375770303535
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Pinto.kml",
       "nombre": "PRC Pinto",
       "tipo": "PRC",
-      "comuna": "Pinto"
+      "comuna": "Pinto",
+      "bbox": [
+        [
+          -36.930866899792036,
+          -71.66900980378797
+        ],
+        [
+          -36.83735864812341,
+          -71.37030713570887
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Portezuelo.kml",
       "nombre": "PRC Portezuelo",
       "tipo": "PRC",
-      "comuna": "Portezuelo"
+      "comuna": "Portezuelo",
+      "bbox": [
+        [
+          -36.536145361152265,
+          -72.44640061304305
+        ],
+        [
+          -36.51837140824758,
+          -72.41068365221429
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Quillon.kml",
       "nombre": "PRC Quillón",
       "tipo": "PRC",
-      "comuna": "Quillón"
+      "comuna": "Quillón",
+      "bbox": [
+        [
+          -36.776621695198735,
+          -72.50481578601801
+        ],
+        [
+          -36.724734273374445,
+          -72.41307590770683
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Quirihue.kml",
       "nombre": "PRC Quirihue",
       "tipo": "PRC",
-      "comuna": "Quirihue"
+      "comuna": "Quirihue",
+      "bbox": [
+        [
+          -36.31206715354444,
+          -72.56714254589086
+        ],
+        [
+          -36.25307895772706,
+          -72.5146627078967
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Ranquil.kml",
       "nombre": "PRC Ránquil",
       "tipo": "PRC",
-      "comuna": "Ránquil"
+      "comuna": "Ránquil",
+      "bbox": [
+        [
+          -36.66792504431218,
+          -72.61249548981833
+        ],
+        [
+          -36.5955675273591,
+          -72.44896191083171
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_San_Carlos.kml",
       "nombre": "PRC San Carlos",
       "tipo": "PRC",
-      "comuna": "San Carlos"
+      "comuna": "San Carlos",
+      "bbox": [
+        [
+          -36.55652526586138,
+          -72.09164648266375
+        ],
+        [
+          -36.34894354327777,
+          -71.71113720840883
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_San_Fabian.kml",
       "nombre": "PRC San Fabián",
       "tipo": "PRC",
-      "comuna": "San Fabián"
+      "comuna": "San Fabián",
+      "bbox": [
+        [
+          -36.561002714273684,
+          -71.55634401718294
+        ],
+        [
+          -36.549189865729815,
+          -71.53932125279925
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_San_Ignacio.kml",
       "nombre": "PRC San Ignacio",
       "tipo": "PRC",
-      "comuna": "San Ignacio"
+      "comuna": "San Ignacio",
+      "bbox": [
+        [
+          -36.88988380287542,
+          -72.10674549592468
+        ],
+        [
+          -36.78953471704745,
+          -71.95755585544919
+        ]
+      ]
     },
     {
       "archivo": "IPT_16_PRC_Yungay.kml",
       "nombre": "PRC Yungay",
       "tipo": "PRC",
-      "comuna": "Yungay"
+      "comuna": "Yungay",
+      "bbox": [
+        [
+          -37.12982247886269,
+          -72.03245906648046
+        ],
+        [
+          -37.11057584939273,
+          -72.00178830839812
+        ]
+      ]
     }
   ]
 }

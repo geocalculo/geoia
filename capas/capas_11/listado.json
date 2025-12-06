@@ -7,7 +7,17 @@
       "archivo": "IPT_11_PNSECC_Melinka_Guatecas.kml",
       "nombre": "PNSECC Melinka Guatecas",
       "tipo": "PNSECC",
-      "comuna": "Guaitecas"
+      "comuna": "Guaitecas",
+      "bbox": [
+        [
+          -43.90087746754692,
+          -73.75030484192844
+        ],
+        [
+          -43.887032649572824,
+          -73.73431911485298
+        ]
+      ]
     },
     {
       "archivo": "IPT_11_PNSECC_Rio_Ibanez_Cerro_Castillo.kml",
@@ -19,25 +29,65 @@
       "archivo": "IPT_11_PRC_Cisnes.kml",
       "nombre": "PRC Cisnes",
       "tipo": "PRC",
-      "comuna": "Cisnes"
+      "comuna": "Cisnes",
+      "bbox": [
+        [
+          -44.73820462546124,
+          -72.6917648659035
+        ],
+        [
+          -44.72010884073943,
+          -72.66898771179044
+        ]
+      ]
     },
     {
       "archivo": "IPT_11_PRC_Coyhaique.kml",
       "nombre": "PRC Coyhaique",
       "tipo": "PRC",
-      "comuna": "Coyhaique"
+      "comuna": "Coyhaique",
+      "bbox": [
+        [
+          -45.61111919289856,
+          -72.1173107985934
+        ],
+        [
+          -45.55329039489441,
+          -72.01197961713655
+        ]
+      ]
     },
     {
       "archivo": "IPT_11_PRC_Lago_Verde.kml",
       "nombre": "PRC Lago Verde",
       "tipo": "PRC",
-      "comuna": "Lago Verde"
+      "comuna": "Lago Verde",
+      "bbox": [
+        [
+          -44.244957592187866,
+          -71.86005006485429
+        ],
+        [
+          -44.235704308732586,
+          -71.84463905293124
+        ]
+      ]
     },
     {
       "archivo": "IPT_11_PRC_La_Junta.kml",
       "nombre": "PRC La Junta",
       "tipo": "PRC",
-      "comuna": "Cisnes"
+      "comuna": "Cisnes",
+      "bbox": [
+        [
+          -43.98425613806846,
+          -72.41590467966556
+        ],
+        [
+          -43.96634885321804,
+          -72.39838114609917
+        ]
+      ]
     },
     {
       "archivo": "IPT_11_PRC_Puerto_Aysen.kml",
@@ -55,7 +105,17 @@
       "archivo": "IPT_11_PRC_Puyuhuapi.kml",
       "nombre": "PRC Puyuhuapi",
       "tipo": "PRC",
-      "comuna": "Cisnes"
+      "comuna": "Cisnes",
+      "bbox": [
+        [
+          -44.32784473103265,
+          -72.57360453570509
+        ],
+        [
+          -44.31856659522749,
+          -72.55177485817144
+        ]
+      ]
     }
   ]
 }

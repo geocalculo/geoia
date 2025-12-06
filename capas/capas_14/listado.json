@@ -7,91 +7,241 @@
       "archivo": "IPT_14_PNOSECC_Futrono_Bahia_Coique.kml",
       "nombre": "PNOSECC Futrono Bahía Coique",
       "tipo": "PNOSECC",
-      "comuna": "Futrono"
+      "comuna": "Futrono",
+      "bbox": [
+        [
+          -40.14990962229977,
+          -72.4914606219869
+        ],
+        [
+          -40.12730044356357,
+          -72.44068332703097
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PNOSECC_Lago_Ranco_Ignao.kml",
       "nombre": "PNOSECC Lago Ranco Ignao",
       "tipo": "PNOSECC",
-      "comuna": "Lago Ranco"
+      "comuna": "Lago Ranco",
+      "bbox": [
+        [
+          -40.335889146280664,
+          -72.56066785585573
+        ],
+        [
+          -40.3266693713987,
+          -72.54876258715247
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PNOSECC_Panguipulli_Puyumen.kml",
       "nombre": "PNOSECC Panguipulli Puyumen",
       "tipo": "PNOSECC",
-      "comuna": "Panguipulli"
+      "comuna": "Panguipulli",
+      "bbox": [
+        [
+          -39.68509983865326,
+          -72.28265009804953
+        ],
+        [
+          -39.680354972760156,
+          -72.27758464193722
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PNOSECC_Valdivia_Barrios_Bajos.kml",
       "nombre": "PNOSECC Valdivia Barrios Bajos",
       "tipo": "PNOSECC",
-      "comuna": "Valdivia"
+      "comuna": "Valdivia",
+      "bbox": [
+        [
+          -39.83099814639517,
+          -73.25201809986363
+        ],
+        [
+          -39.81749108174865,
+          -73.23407340547232
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PRC_Corral.kml",
       "nombre": "PRC Corral",
       "tipo": "PRC",
-      "comuna": "Corral"
+      "comuna": "Corral",
+      "bbox": [
+        [
+          -39.90143883022056,
+          -73.45117799488239
+        ],
+        [
+          -39.85745105867011,
+          -73.41445381575708
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PRC_Futrono.kml",
       "nombre": "PRC Futrono",
       "tipo": "PRC",
-      "comuna": "Futrono"
+      "comuna": "Futrono",
+      "bbox": [
+        [
+          -40.141379888168096,
+          -72.4025992561294
+        ],
+        [
+          -40.11994018399819,
+          -72.37146609120656
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PRC_Lago_Ranco.kml",
       "nombre": "PRC Lago Ranco",
       "tipo": "PRC",
-      "comuna": "Lago Ranco"
+      "comuna": "Lago Ranco",
+      "bbox": [
+        [
+          -40.32860649937921,
+          -72.4917612722519
+        ],
+        [
+          -40.314877134295166,
+          -72.46473665520845
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PRC_Lanco.kml",
       "nombre": "PRC Lanco",
       "tipo": "PRC",
-      "comuna": "Lanco"
+      "comuna": "Lanco",
+      "bbox": [
+        [
+          -39.45982041544253,
+          -72.79159631461832
+        ],
+        [
+          -39.44404029877926,
+          -72.75638647414632
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PRC_La_Union.kml",
       "nombre": "PRC La Unión",
       "tipo": "PRC",
-      "comuna": "La Unión"
+      "comuna": "La Unión",
+      "bbox": [
+        [
+          -40.317628509865415,
+          -73.09720775320515
+        ],
+        [
+          -40.26423320664264,
+          -73.04558514659122
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PRC_Los_Lagos.kml",
       "nombre": "PRC Los Lagos",
       "tipo": "PRC",
-      "comuna": "Los Lagos"
+      "comuna": "Los Lagos",
+      "bbox": [
+        [
+          -39.87393913459416,
+          -72.8245906286361
+        ],
+        [
+          -39.85533267353046,
+          -72.78730055496868
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PRC_Mafil.kml",
       "nombre": "PRC Máfil",
       "tipo": "PRC",
-      "comuna": "Máfil"
+      "comuna": "Máfil",
+      "bbox": [
+        [
+          -39.67267996069726,
+          -72.96159964206159
+        ],
+        [
+          -39.64723701578543,
+          -72.93389248071773
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PRC_Paillaco.kml",
       "nombre": "PRC Paillaco",
       "tipo": "PRC",
-      "comuna": "Paillaco"
+      "comuna": "Paillaco",
+      "bbox": [
+        [
+          -40.159334690727654,
+          -72.90377191096543
+        ],
+        [
+          -39.98218425364844,
+          -72.82668748854478
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PRC_Panguipulli.kml",
       "nombre": "PRC Panguipulli",
       "tipo": "PRC",
-      "comuna": "Panguipulli"
+      "comuna": "Panguipulli",
+      "bbox": [
+        [
+          -39.655439504094836,
+          -72.35117824022826
+        ],
+        [
+          -39.63279213652613,
+          -72.31069432080866
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PRC_Rio_Bueno.kml",
       "nombre": "PRC Río Bueno",
       "tipo": "PRC",
-      "comuna": "Río Bueno"
+      "comuna": "Río Bueno",
+      "bbox": [
+        [
+          -40.351836900438414,
+          -72.9759534061806
+        ],
+        [
+          -40.324361156916424,
+          -72.9226933282734
+        ]
+      ]
     },
     {
       "archivo": "IPT_14_PRC_Valdivia.kml",
       "nombre": "PRC Valdivia",
       "tipo": "PRC",
-      "comuna": "Valdivia"
+      "comuna": "Valdivia",
+      "bbox": [
+        [
+          -39.883768660538834,
+          -73.41267876276027
+        ],
+        [
+          -39.777703466894785,
+          -73.18169497433453
+        ]
+      ]
     }
   ]
 }

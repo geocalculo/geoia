@@ -7,31 +7,81 @@
       "archivo": "IPT_01_PRC_Alto_Hospicio.kml",
       "nombre": "PRC Alto Hospicio",
       "tipo": "PRC",
-      "comuna": "Alto Hospicio"
+      "comuna": "Alto Hospicio",
+      "bbox": [
+        [
+          -20.333756519931626,
+          -70.12161726065213
+        ],
+        [
+          -20.23058956689235,
+          -70.0601657512212
+        ]
+      ]
     },
     {
       "archivo": "IPT_01_PRC_Huara.kml",
       "nombre": "PRC Huara",
       "tipo": "PRC",
-      "comuna": "Huara"
+      "comuna": "Huara",
+      "bbox": [
+        [
+          -19.599107639359723,
+          -70.21779604097824
+        ],
+        [
+          -19.58746619018053,
+          -70.20447006303954
+        ]
+      ]
     },
     {
       "archivo": "IPT_01_PRC_Iquique.kml",
       "nombre": "PRC Iquique",
       "tipo": "PRC",
-      "comuna": "Iquique"
+      "comuna": "Iquique",
+      "bbox": [
+        [
+          -20.812705555017317,
+          -70.20729659985818
+        ],
+        [
+          -20.141061950348664,
+          -70.10991000024626
+        ]
+      ]
     },
     {
       "archivo": "IPT_01_PRC_Pica.kml",
       "nombre": "PRC Pica",
       "tipo": "PRC",
-      "comuna": "Pica"
+      "comuna": "Pica",
+      "bbox": [
+        [
+          -20.492667207226997,
+          -69.33493270421303
+        ],
+        [
+          -20.48103242653195,
+          -69.31112300313076
+        ]
+      ]
     },
     {
       "archivo": "IPT_01_PRC_Pozo_al_Monte.kml",
       "nombre": "PRC Pozo Al Monte",
       "tipo": "PRC",
-      "comuna": "Pozo Al Monte"
+      "comuna": "Pozo Al Monte",
+      "bbox": [
+        [
+          -20.268832818674596,
+          -69.79025481846135
+        ],
+        [
+          -20.24848090492867,
+          -69.78184782569751
+        ]
+      ]
     }
   ]
 }

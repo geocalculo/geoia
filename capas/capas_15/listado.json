@@ -7,19 +7,49 @@
       "archivo": "IPT_15_PRC_Arica.kml",
       "nombre": "PRC Arica",
       "tipo": "PRC",
-      "comuna": "Arica"
+      "comuna": "Arica",
+      "bbox": [
+        [
+          -18.5475166477322,
+          -70.33649428804044
+        ],
+        [
+          -18.351676179345255,
+          -70.27097286309157
+        ]
+      ]
     },
     {
       "archivo": "IPT_15_PRC_Arica_SECC_San_MIguel.kml",
       "nombre": "SECC Arica San Miguel",
       "tipo": "SECC",
-      "comuna": "Arica"
+      "comuna": "Arica",
+      "bbox": [
+        [
+          -18.521275573036327,
+          -70.18023848783429
+        ],
+        [
+          -18.515335262355105,
+          -70.17359508128095
+        ]
+      ]
     },
     {
       "archivo": "IPT_15_PRC_Putre.kml",
       "nombre": "PRC Putre",
       "tipo": "PRC",
-      "comuna": "Putre"
+      "comuna": "Putre",
+      "bbox": [
+        [
+          -18.199784766908415,
+          -69.56510068221294
+        ],
+        [
+          -18.19432657761947,
+          -69.55567910051359
+        ]
+      ]
     }
   ]
 }

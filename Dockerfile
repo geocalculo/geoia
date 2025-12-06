@@ -1,17 +1,12 @@
-# Imagen base ligera de Node
-FROM node:18-alpine
+# Imagen base con Nginx
+FROM nginx:alpine
 
-# Directorio de trabajo dentro del contenedor
-WORKDIR /usr/src/app
+# Copiar el sitio web completo dentro de la carpeta pública
+COPY . /usr/share/nginx/html
 
-# Copiamos todo el sitio (index.html, info.html, capas, etc.)
-COPY . .
+# Ajustar Nginx para escuchar en el puerto $PORT (Cloud Run usa 8080)
+RUN sed -i 's/listen       80;/listen       8080;/' /etc/nginx/conf.d/default.conf
 
-# Instalamos http-server para servir contenido estático
-RUN npm install -g http-server
+EXPOSE 8080
 
-# Cloud Run expone el puerto en la variable de entorno PORT
-ENV PORT=8080
-
-# Comando de arranque: servidor estático en el puerto $PORT
-CMD ["sh", "-c", "http-server -p $PORT ."]
+CMD ["nginx", "-g", "daemon off;"]

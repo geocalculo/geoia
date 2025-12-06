@@ -7,103 +7,273 @@
       "archivo": "IPT_07_PRC_Cauquenes.kml",
       "nombre": "PRC Cauquenes",
       "tipo": "PRC",
-      "comuna": "Cauquenes"
+      "comuna": "Cauquenes",
+      "bbox": [
+        [
+          -35.99572360576203,
+          -72.36570235167024
+        ],
+        [
+          -35.936785876054614,
+          -72.29352238666344
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Colbun.kml",
       "nombre": "PRC Colbún",
       "tipo": "PRC",
-      "comuna": "Colbún"
+      "comuna": "Colbún",
+      "bbox": [
+        [
+          -35.76886652372489,
+          -71.4272112727225
+        ],
+        [
+          -35.67730332077816,
+          -71.26300767610465
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Constitucion.kml",
       "nombre": "PRC Constitución",
       "tipo": "PRC",
-      "comuna": "Constitución"
+      "comuna": "Constitución",
+      "bbox": [
+        [
+          -35.35051827484364,
+          -72.4399054333394
+        ],
+        [
+          -35.31551580252837,
+          -72.39223992934478
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Curepto.kml",
       "nombre": "PRC Curepto",
       "tipo": "PRC",
-      "comuna": "Curepto"
+      "comuna": "Curepto",
+      "bbox": [
+        [
+          -35.258076903719335,
+          -72.04079952675686
+        ],
+        [
+          -35.08571566983728,
+          -71.9691992780949
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Curico.kml",
       "nombre": "PRC Curicó",
       "tipo": "PRC",
-      "comuna": "Curicó"
+      "comuna": "Curicó",
+      "bbox": [
+        [
+          -35.13534273867833,
+          -71.27662143430783
+        ],
+        [
+          -34.925169361574056,
+          -71.13843279892343
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Linares.kml",
       "nombre": "PRC Linares",
       "tipo": "PRC",
-      "comuna": "Linares"
+      "comuna": "Linares",
+      "bbox": [
+        [
+          -35.87197570152252,
+          -71.64479373250532
+        ],
+        [
+          -35.81540119295537,
+          -71.54652987703065
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Maule.kml",
       "nombre": "PRC Maule",
       "tipo": "PRC",
-      "comuna": "Maule"
+      "comuna": "Maule",
+      "bbox": [
+        [
+          -35.544792181428384,
+          -71.7229723219198
+        ],
+        [
+          -35.44416655459612,
+          -71.65197739770214
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Molina.kml",
       "nombre": "PRC Molina",
       "tipo": "PRC",
-      "comuna": "Molina"
+      "comuna": "Molina",
+      "bbox": [
+        [
+          -35.45690426145508,
+          -71.38078577385156
+        ],
+        [
+          -35.04378259181297,
+          -71.02012862787548
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Parral.kml",
       "nombre": "PRC Parral",
       "tipo": "PRC",
-      "comuna": "Parral"
+      "comuna": "Parral",
+      "bbox": [
+        [
+          -36.29614025814778,
+          -71.84904466284168
+        ],
+        [
+          -36.122660566627474,
+          -71.6398609480891
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Pelluhue.kml",
       "nombre": "PRC Pelluhue",
       "tipo": "PRC",
-      "comuna": "Pelluhue"
+      "comuna": "Pelluhue",
+      "bbox": [
+        [
+          -35.85872868241778,
+          -72.64815230162534
+        ],
+        [
+          -35.79072378425668,
+          -72.542948646854
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Pencahue.kml",
       "nombre": "PRC Pencahue",
       "tipo": "PRC",
-      "comuna": "Pencahue"
+      "comuna": "Pencahue",
+      "bbox": [
+        [
+          -35.44810048324715,
+          -71.87943803921289
+        ],
+        [
+          -35.38284807092403,
+          -71.78466902447579
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Romeral.kml",
       "nombre": "PRC Romeral",
       "tipo": "PRC",
-      "comuna": "Romeral"
+      "comuna": "Romeral",
+      "bbox": [
+        [
+          -35.00491085844321,
+          -71.17699917207035
+        ],
+        [
+          -34.943382649238586,
+          -70.80148307445498
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_San_Clemente.kml",
       "nombre": "PRC San Clemente",
       "tipo": "PRC",
-      "comuna": "San Clemente"
+      "comuna": "San Clemente",
+      "bbox": [
+        [
+          -35.551974321272546,
+          -71.53577490525858
+        ],
+        [
+          -35.489430576659004,
+          -71.4708021811673
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_San_Javier.kml",
       "nombre": "PRC San Javier",
       "tipo": "PRC",
-      "comuna": "San Javier"
+      "comuna": "San Javier",
+      "bbox": [
+        [
+          -35.61443926797511,
+          -71.75146610832012
+        ],
+        [
+          -35.57757410496313,
+          -71.69759207708572
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Talca.kml",
       "nombre": "PRC Talca",
       "tipo": "PRC",
-      "comuna": "Talca"
+      "comuna": "Talca",
+      "bbox": [
+        [
+          -35.48255323678758,
+          -71.7286900464109
+        ],
+        [
+          -35.3491446623029,
+          -71.54183805373998
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Teno.kml",
       "nombre": "PRC Teno",
       "tipo": "PRC",
-      "comuna": "Teno"
+      "comuna": "Teno",
+      "bbox": [
+        [
+          -34.882034945234196,
+          -71.27304861623159
+        ],
+        [
+          -34.84274671445879,
+          -71.14699167837385
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Vichuquen.kml",
       "nombre": "PRC Vichuquén",
       "tipo": "PRC",
-      "comuna": "Vichuquén"
+      "comuna": "Vichuquén",
+      "bbox": [
+        [
+          -34.85544794791042,
+          -72.08015523020056
+        ],
+        [
+          -34.789990436106876,
+          -72.03078346789556
+        ]
+      ]
     },
     {
       "archivo": "IPT_07_PRC_Villa_Alegre.kml",
@@ -115,7 +285,17 @@
       "archivo": "IPT_07_PRC_Yerbas_Buenas.kml",
       "nombre": "PRC Yerbas Buenas",
       "tipo": "PRC",
-      "comuna": "Yerbas Buenas"
+      "comuna": "Yerbas Buenas",
+      "bbox": [
+        [
+          -35.761690515012724,
+          -71.59448457355211
+        ],
+        [
+          -35.73808239535222,
+          -71.56925744508622
+        ]
+      ]
     }
   ]
 }

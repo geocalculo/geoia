@@ -1,0 +1,148 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, Helvetica, Arial, sans-serif;
+  background: #0b1120;
+  color: #e5e7eb;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: #020617;
+  border-bottom: 1px solid #111827;
+  padding: 8px 16px;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.brand { display: flex; flex-direction: column; gap: 0.15rem; }
+.brand-title { font-size: 1.1rem; font-weight: 600; }
+.brand-subtitle { font-size: 0.78rem; color: #9ca3af; }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 180px;
+  font-size: 0.8rem;
+}
+
+.control-group label {
+  color: #9ca3af;
+}
+
+select {
+  background: #020617;
+  border-radius: 999px;
+  border: 1px solid #1f2937;
+  color: #e5e7eb;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+main {
+  flex: 1;
+  position: relative;
+}
+
+.map-container {
+  max-width: 1200px;
+  margin: 10px auto 16px;
+  position: relative;
+}
+
+#map {
+  width: 100%;
+  height: 520px;        /* fijo para evitar mapa negro */
+  min-height: 520px;
+  border-radius: 1rem;
+  border: 1px solid #1f2937;
+}
+
+.hint {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* Botón mira de rifle */
+#mira-rifle {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  z-index: 5000;
+  width: 46px;
+  height: 46px;
+  background: #ffffffee;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #d1d5db;
+  backdrop-filter: blur(6px);
+}
+
+#mira-rifle::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #111827;
+  box-shadow: 0 0 0 1px #111827;
+}
+
+#mira-rifle::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 18px;
+  background: #111827;
+}
+
+
+/* Contenedor flotante del overview (franja delgada) */
+#overview-container {
+  position: absolute;
+  right: 18px;          /* distancia al borde derecho */
+  bottom: 18px;         /* distancia al borde inferior */
+  width: 110px;         /* MUY delgado */
+  height: 480px;        /* alto, estilo “tira” vertical */
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  overflow: hidden;     /* recorta el mapa al rectángulo */
+}
+
+/* El mapa interno ocupa todo el contenedor */
+#overview-map {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* El mini-mapa interno */
+#overview-map {
+  width: 100%;
+  height: 100%;
+}

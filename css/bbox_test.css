@@ -1,0 +1,88 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #020617;
+  color: #e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;   /* evita scroll horizontal en móvil */
+
+h1 { font-size: 1.1rem; }
+
+#map {
+  width: 100%;
+  height: 60vh;         /* 60% del alto visible de la pantalla */
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+
+.panel {
+  width: 1100px;
+  max-width: 100%;
+  background: #0b1120;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 0.86rem;
+}
+
+pre {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  /* Eliminación total de scroll interno */
+  max-height: none !important;
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+}
+
+
+button {
+  margin-top: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: none;
+  background: #22c55e;
+  color: #022c22;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.86rem;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+
+#tabla-metadata th, #tabla-metadata td {
+  border:1px solid #334155;
+  padding:6px 10px;
+}
+
+#tabla-metadata th {
+  background:#1e293b;
+  color:#38bdf8;
+  text-align:left;
+}
+
+main {
+  max-width: 100%;      /* en móvil ocupa todo el ancho */
+  margin: 0 auto;
+  padding: 12px 8px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 12px; /* para que no pegue en bordes en móvil */
+}

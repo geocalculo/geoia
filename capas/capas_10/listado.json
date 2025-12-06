@@ -7,13 +7,33 @@
       "archivo": "IPT_10_PNSECC_Chaiten_Villa_Santa_Lucia.kml",
       "nombre": "PNSECC Chaitén Villa Santa Lucía",
       "tipo": "PNSECC",
-      "comuna": "Chaitén"
+      "comuna": "Chaitén",
+      "bbox": [
+        [
+          -43.42285598587797,
+          -72.37649133959434
+        ],
+        [
+          -43.401509494042244,
+          -72.34998907959314
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PNSECC_Puntilla_Niquen_Entre_Lagos.kml",
       "nombre": "PNSECC Puntilla Niquén Entre Lagos",
       "tipo": "PNSECC",
-      "comuna": "Puyehue"
+      "comuna": "Puyehue",
+      "bbox": [
+        [
+          -40.72364969906836,
+          -72.4396523176735
+        ],
+        [
+          -40.704054807884816,
+          -72.41093490892881
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PNSECC_San_Juan_BahiaMansa.kml",
@@ -31,97 +51,257 @@
       "archivo": "IPT_10_PRC_Ancud.kml",
       "nombre": "PRC Ancud",
       "tipo": "PRC",
-      "comuna": "Ancud"
+      "comuna": "Ancud",
+      "bbox": [
+        [
+          -41.8886958695288,
+          -73.83916024687518
+        ],
+        [
+          -41.85731617249188,
+          -73.7857535338123
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Calbuco.kml",
       "nombre": "PRC Calbuco",
       "tipo": "PRC",
-      "comuna": "Calbuco"
+      "comuna": "Calbuco",
+      "bbox": [
+        [
+          -41.81263324847192,
+          -73.47633124634004
+        ],
+        [
+          -41.74134048624307,
+          -73.12245451208611
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Castro.kml",
       "nombre": "PRC Castro",
       "tipo": "PRC",
-      "comuna": "Castro"
+      "comuna": "Castro",
+      "bbox": [
+        [
+          -42.51218273757804,
+          -73.80910161016864
+        ],
+        [
+          -42.42569450384669,
+          -73.74354081924676
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Chonchi.kml",
       "nombre": "PRC Chonchi",
       "tipo": "PRC",
-      "comuna": "Chonchi"
+      "comuna": "Chonchi",
+      "bbox": [
+        [
+          -42.63496245338626,
+          -73.79449711184604
+        ],
+        [
+          -42.612528203244636,
+          -73.75832507682824
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Fresia.kml",
       "nombre": "PRC Fresia",
       "tipo": "PRC",
-      "comuna": "Fresia"
+      "comuna": "Fresia",
+      "bbox": [
+        [
+          -41.16512282913451,
+          -73.43756946500226
+        ],
+        [
+          -41.14198253604404,
+          -73.40161091014893
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Frutillar.kml",
       "nombre": "PRC Frutillar",
       "tipo": "PRC",
-      "comuna": "Frutillar"
+      "comuna": "Frutillar",
+      "bbox": [
+        [
+          -41.175075431780314,
+          -73.07056219070641
+        ],
+        [
+          -41.104004210035846,
+          -73.00098342454075
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Llanquihue.kml",
       "nombre": "PRC Llanquihue",
       "tipo": "PRC",
-      "comuna": "Llanquihue"
+      "comuna": "Llanquihue",
+      "bbox": [
+        [
+          -41.27965843392304,
+          -73.02013119703592
+        ],
+        [
+          -41.24301566785985,
+          -72.98327095123172
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Maullin.kml",
       "nombre": "PRC Maullín",
       "tipo": "PRC",
-      "comuna": "Maullín"
+      "comuna": "Maullín",
+      "bbox": [
+        [
+          -41.64143951975125,
+          -73.61504498527053
+        ],
+        [
+          -41.6130794340248,
+          -73.58487886832457
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Osorno.kml",
       "nombre": "PRC Osorno",
       "tipo": "PRC",
-      "comuna": "Osorno"
+      "comuna": "Osorno",
+      "bbox": [
+        [
+          -40.603943516092414,
+          -73.18459614786462
+        ],
+        [
+          -40.539501508007525,
+          -73.07868649372197
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Palena.kml",
       "nombre": "PRC Palena",
       "tipo": "PRC",
-      "comuna": "Palena"
+      "comuna": "Palena",
+      "bbox": [
+        [
+          -43.6235829438435,
+          -71.81117822765418
+        ],
+        [
+          -43.61316298024656,
+          -71.78950909151789
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Puerto_Montt.kml",
       "nombre": "PRC Puerto Montt",
       "tipo": "PRC",
-      "comuna": "Puerto Montt"
+      "comuna": "Puerto Montt",
+      "bbox": [
+        [
+          -41.5464401390628,
+          -73.09769021865402
+        ],
+        [
+          -41.37101320213622,
+          -72.86636486787421
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Puerto_Octay.kml",
       "nombre": "PRC Puerto Octay",
       "tipo": "PRC",
-      "comuna": "Puerto Octay"
+      "comuna": "Puerto Octay",
+      "bbox": [
+        [
+          -40.99710954331247,
+          -72.89426876018749
+        ],
+        [
+          -40.964557588334934,
+          -72.85870259527196
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Puerto_Varas.kml",
       "nombre": "PRC Puerto Varas",
       "tipo": "PRC",
-      "comuna": "Puerto Varas"
+      "comuna": "Puerto Varas",
+      "bbox": [
+        [
+          -41.35047558780872,
+          -73.0122083326428
+        ],
+        [
+          -41.2907323202976,
+          -72.92186584228298
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Purranque.kml",
       "nombre": "PRC Purranque",
       "tipo": "PRC",
-      "comuna": "Purranque"
+      "comuna": "Purranque",
+      "bbox": [
+        [
+          -40.95870876356357,
+          -73.18459502537479
+        ],
+        [
+          -40.900881359539845,
+          -73.14175016552467
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Puyehue.kml",
       "nombre": "PRC Puyehue",
       "tipo": "PRC",
-      "comuna": "Puyehue"
+      "comuna": "Puyehue",
+      "bbox": [
+        [
+          -40.698960800672616,
+          -72.61280054933941
+        ],
+        [
+          -40.67903459844445,
+          -72.58183897447303
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Queilen.kml",
       "nombre": "PRC Queilen",
       "tipo": "PRC",
-      "comuna": "Queilen"
+      "comuna": "Queilen",
+      "bbox": [
+        [
+          -42.899518467151246,
+          -73.47991265603589
+        ],
+        [
+          -42.87979155886789,
+          -73.46171891159405
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Queilen_Puyehue_Bahia_El_Encanto.kml",
@@ -133,25 +313,65 @@
       "archivo": "IPT_10_PRC_Quellon.kml",
       "nombre": "PRC Quellón",
       "tipo": "PRC",
-      "comuna": "Quellón"
+      "comuna": "Quellón",
+      "bbox": [
+        [
+          -43.14737620702459,
+          -73.65118216090798
+        ],
+        [
+          -43.10566879310325,
+          -73.58440239178626
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Quinchao_Achao.kml",
       "nombre": "PRC Quinchao Achao",
       "tipo": "PRC",
-      "comuna": "Quinchao"
+      "comuna": "Quinchao",
+      "bbox": [
+        [
+          -42.476413085800196,
+          -73.50471450142653
+        ],
+        [
+          -42.46579257452881,
+          -73.476508290644
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_Rio_Negro.kml",
       "nombre": "PRC Río Negro",
       "tipo": "PRC",
-      "comuna": "Río Negro"
+      "comuna": "Río Negro",
+      "bbox": [
+        [
+          -40.813180740015,
+          -73.22363633559935
+        ],
+        [
+          -40.78234719363623,
+          -73.19708095871805
+        ]
+      ]
     },
     {
       "archivo": "IPT_10_PRC_San_Pablo.kml",
       "nombre": "PRC San Pablo",
       "tipo": "PRC",
-      "comuna": "San Pablo"
+      "comuna": "San Pablo",
+      "bbox": [
+        [
+          -40.427040013124376,
+          -73.02158519836414
+        ],
+        [
+          -40.39952864001378,
+          -73.00093298085095
+        ]
+      ]
     }
   ]
 }

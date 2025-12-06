@@ -1,0 +1,695 @@
+{
+  "region": "Región Metropolitana",
+  "codigo_region": "13",
+  "carpeta": "capas_13",
+  "instrumentos": [
+    {
+      "archivo": "IPT_13_PRC_Cerrillos.kml",
+      "nombre": "PRC Cerrillos",
+      "tipo": "PRC",
+      "comuna": "Cerrillos",
+      "bbox": [
+        [
+          -33.53165739214717,
+          -70.7399937332398
+        ],
+        [
+          -33.473038747051135,
+          -70.6854764743464
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Cerro_Navia.kml",
+      "nombre": "PRC Cerro Navia",
+      "tipo": "PRC",
+      "comuna": "Cerro Navia",
+      "bbox": [
+        [
+          -33.43860974134018,
+          -70.78221387564447
+        ],
+        [
+          -33.411212665424806,
+          -70.715987093974
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Colina.kml",
+      "nombre": "PRC Colina",
+      "tipo": "PRC",
+      "comuna": "Colina",
+      "bbox": [
+        [
+          -33.33071224100024,
+          -70.7506819942262
+        ],
+        [
+          -33.00405115629233,
+          -70.60858727615486
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Conchali.kml",
+      "nombre": "PRC Conchalí",
+      "tipo": "PRC",
+      "comuna": "Conchalí",
+      "bbox": [
+        [
+          -33.40331999612175,
+          -70.70107284440506
+        ],
+        [
+          -33.36570457185503,
+          -70.65658948862475
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Curacavi.kml",
+      "nombre": "PRC Curacaví",
+      "tipo": "PRC",
+      "comuna": "Curacaví",
+      "bbox": [
+        [
+          -33.41826821771623,
+          -71.1806774163953
+        ],
+        [
+          -33.38277555547204,
+          -71.10881002464095
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_El_Bosque.kml",
+      "nombre": "PRC El Bosque",
+      "tipo": "PRC",
+      "comuna": "El Bosque",
+      "bbox": [
+        [
+          -33.58528229879814,
+          -70.70105885409461
+        ],
+        [
+          -33.53897720153888,
+          -70.65332003754844
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Estacion_Central.kml",
+      "nombre": "PRC Estación Central",
+      "tipo": "PRC",
+      "comuna": "Estación Central",
+      "bbox": [
+        [
+          -33.48149581011991,
+          -70.73376151175546
+        ],
+        [
+          -33.44313222789159,
+          -70.67096623062392
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Huechuraba.kml",
+      "nombre": "PRC Huechuraba",
+      "tipo": "PRC",
+      "comuna": "Huechuraba",
+      "bbox": [
+        [
+          -33.40351426370614,
+          -70.69401777692035
+        ],
+        [
+          -33.33594501220671,
+          -70.60107697065483
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Independencia.kml",
+      "nombre": "PRC Independencia",
+      "tipo": "PRC",
+      "comuna": "Independencia",
+      "bbox": [
+        [
+          -33.43191344619298,
+          -70.68245759228361
+        ],
+        [
+          -33.39873219630597,
+          -70.64978971752338
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Isla_de_Maipo.kml",
+      "nombre": "PRC Isla de Maipo",
+      "tipo": "PRC",
+      "comuna": "Isla de Maipo",
+      "bbox": [
+        [
+          -33.78039856280875,
+          -70.9173017927199
+        ],
+        [
+          -33.7301226994891,
+          -70.85223176337848
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Las_Condes.kml",
+      "nombre": "PRC Las Condes",
+      "tipo": "PRC",
+      "comuna": "Las Condes",
+      "bbox": [
+        [
+          -33.43549604465467,
+          -70.60809928004875
+        ],
+        [
+          -33.36265762734483,
+          -70.47722509931786
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_La_Cisterna.kml",
+      "nombre": "PRC La Cisterna",
+      "tipo": "PRC",
+      "comuna": "La Cisterna",
+      "bbox": [
+        [
+          -33.54888295002515,
+          -70.68557458940003
+        ],
+        [
+          -33.510593403378756,
+          -70.64451011403028
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_La_Florida.kml",
+      "nombre": "PRC La Florida",
+      "tipo": "PRC",
+      "comuna": "La Florida",
+      "bbox": [
+        [
+          -33.57123614993566,
+          -70.61526557097511
+        ],
+        [
+          -33.50305164953424,
+          -70.51851981482396
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_La_Granja.kml",
+      "nombre": "PRC La Granja",
+      "tipo": "PRC",
+      "comuna": "La Granja",
+      "bbox": [
+        [
+          -33.56003352297628,
+          -70.63736984162446
+        ],
+        [
+          -33.51271491915338,
+          -70.6094789831008
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_La_Pintana.kml",
+      "nombre": "PRC La Pintana",
+      "tipo": "PRC",
+      "comuna": "La Pintana",
+      "bbox": [
+        [
+          -33.62767865721675,
+          -70.67083303096501
+        ],
+        [
+          -33.554806798096955,
+          -70.60526981815006
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_La_Reina.kml",
+      "nombre": "PRC La Reina",
+      "tipo": "PRC",
+      "comuna": "La Reina",
+      "bbox": [
+        [
+          -33.46579921687765,
+          -70.5849976703122
+        ],
+        [
+          -33.42819234719779,
+          -70.50421637986211
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Lo_Barnechea.kml",
+      "nombre": "PRC Lo Barnechea",
+      "tipo": "PRC",
+      "comuna": "Lo Barnechea",
+      "bbox": [
+        [
+          -33.37647558896721,
+          -70.57623964129162
+        ],
+        [
+          -33.30370396096069,
+          -70.24500701366291
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Lo_Espejo.kml",
+      "nombre": "PRC Lo Espejo",
+      "tipo": "PRC",
+      "comuna": "Lo Espejo",
+      "bbox": [
+        [
+          -33.53932977009346,
+          -70.70641629395452
+        ],
+        [
+          -33.50193739897128,
+          -70.67087893719733
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Lo_Prado.kml",
+      "nombre": "PRC Lo Prado",
+      "tipo": "PRC",
+      "comuna": "Lo Prado",
+      "bbox": [
+        [
+          -33.458574772557625,
+          -70.74131164450388
+        ],
+        [
+          -33.436145392223736,
+          -70.7051830889126
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Macul.kml",
+      "nombre": "PRC Macul",
+      "tipo": "PRC",
+      "comuna": "Macul",
+      "bbox": [
+        [
+          -33.51050263747508,
+          -70.62344463587563
+        ],
+        [
+          -33.46904120337462,
+          -70.5766926554937
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Maipu.kml",
+      "nombre": "PRC Maipú",
+      "tipo": "PRC",
+      "comuna": "Maipú",
+      "bbox": [
+        [
+          -33.57267027793537,
+          -70.80393941964275
+        ],
+        [
+          -33.45772003146179,
+          -70.71724050393277
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Melipilla.kml",
+      "nombre": "PRC Melipilla",
+      "tipo": "PRC",
+      "comuna": "Melipilla",
+      "bbox": [
+        [
+          -33.712046470535434,
+          -71.24697422339328
+        ],
+        [
+          -33.64264328937085,
+          -71.14592280369139
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Nunoa.kml",
+      "nombre": "PRC Ñuñoa",
+      "tipo": "PRC",
+      "comuna": "Ñuñoa",
+      "bbox": [
+        [
+          -33.47544603613273,
+          -70.63173859617308
+        ],
+        [
+          -33.433278035188394,
+          -70.57035212455146
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Padre_Hurtado.kml",
+      "nombre": "PRC Padre Hurtado",
+      "tipo": "PRC",
+      "comuna": "Padre Hurtado",
+      "bbox": [
+        [
+          -33.5900409248244,
+          -70.83106685240989
+        ],
+        [
+          -33.55423313954106,
+          -70.78343391010334
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Paine.kml",
+      "nombre": "PRC Paine",
+      "tipo": "PRC",
+      "comuna": "Paine",
+      "bbox": [
+        [
+          -33.90374821901793,
+          -70.89144679544479
+        ],
+        [
+          -33.768224262039375,
+          -70.63013345354679
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Pedro_Aguirre_Cerda.kml",
+      "nombre": "PRC Pedro Aguirre Cerda",
+      "tipo": "PRC",
+      "comuna": "Pedro Aguirre Cerda",
+      "bbox": [
+        [
+          -33.51051702799998,
+          -70.69447554099997
+        ],
+        [
+          -33.47586324399998,
+          -70.65545136199995
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Penaflor.kml",
+      "nombre": "PRC Peñaflor",
+      "tipo": "PRC",
+      "comuna": "Peñaflor",
+      "bbox": [
+        [
+          -33.63287173518515,
+          -70.9102160848708
+        ],
+        [
+          -33.58967969279041,
+          -70.84387889735312
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Penalolen.kml",
+      "nombre": "PRC Peñalolén",
+      "tipo": "PRC",
+      "comuna": "Peñalolén",
+      "bbox": [
+        [
+          -33.51269041192819,
+          -70.5896037298278
+        ],
+        [
+          -33.45840723912921,
+          -70.51360773996433
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Pirque.kml",
+      "nombre": "PRC Pirque",
+      "tipo": "PRC",
+      "comuna": "Pirque",
+      "bbox": [
+        [
+          -33.64745314786823,
+          -70.58841030454678
+        ],
+        [
+          -33.62119482726494,
+          -70.55389682749188
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Providencia.kml",
+      "nombre": "PRC Providencia",
+      "tipo": "PRC",
+      "comuna": "Providencia",
+      "bbox": [
+        [
+          -33.450455155780965,
+          -70.63662435582133
+        ],
+        [
+          -33.408680398055196,
+          -70.58178815419751
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Pudahuel.kml",
+      "nombre": "PRC Pudahuel",
+      "tipo": "PRC",
+      "comuna": "Pudahuel",
+      "bbox": [
+        [
+          -33.471308856340364,
+          -70.82984196325353
+        ],
+        [
+          -33.37291410353995,
+          -70.72932589559397
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Puente_Alto.kml",
+      "nombre": "PRC Puente Alto",
+      "tipo": "PRC",
+      "comuna": "Puente Alto",
+      "bbox": [
+        [
+          -33.642137276282135,
+          -70.63088205493877
+        ],
+        [
+          -33.54648654633939,
+          -70.49340696659823
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Quilicura.kml",
+      "nombre": "PRC Quilicura",
+      "tipo": "PRC",
+      "comuna": "Quilicura",
+      "bbox": [
+        [
+          -33.38333082427942,
+          -70.74823887281062
+        ],
+        [
+          -33.36166823378049,
+          -70.69315661839194
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Quinta_Normal.kml",
+      "nombre": "PRC Quinta Normal",
+      "tipo": "PRC",
+      "comuna": "Quinta Normal",
+      "bbox": [
+        [
+          -33.44918321576422,
+          -70.72299602323535
+        ],
+        [
+          -33.40760456789934,
+          -70.67110873718656
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Recoleta.kml",
+      "nombre": "PRC Recoleta",
+      "tipo": "PRC",
+      "comuna": "Recoleta",
+      "bbox": [
+        [
+          -33.43602922431788,
+          -70.65894248107429
+        ],
+        [
+          -33.37640044688407,
+          -70.60913071628572
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Renca.kml",
+      "nombre": "PRC Renca",
+      "tipo": "PRC",
+      "comuna": "Renca",
+      "bbox": [
+        [
+          -33.42646549585596,
+          -70.78278780927793
+        ],
+        [
+          -33.3802053672367,
+          -70.67045640063479
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Santiago.kml",
+      "nombre": "PRC Santiago",
+      "tipo": "PRC",
+      "comuna": "Santiago",
+      "bbox": [
+        [
+          -33.47912150202287,
+          -70.69275513960429
+        ],
+        [
+          -33.42512895464185,
+          -70.62428211321718
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_San_Bernardo.kml",
+      "nombre": "PRC San Bernardo",
+      "tipo": "PRC",
+      "comuna": "San Bernardo",
+      "bbox": [
+        [
+          -33.677880560945106,
+          -70.75088148602474
+        ],
+        [
+          -33.523660050441606,
+          -70.62776995196312
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_San_Joaquin.kml",
+      "nombre": "PRC San Joaquín",
+      "tipo": "PRC",
+      "comuna": "San Joaquín",
+      "bbox": [
+        [
+          -33.519034212372716,
+          -70.64248873415809
+        ],
+        [
+          -33.469513304352304,
+          -70.61058242919634
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_San_Miguel.kml",
+      "nombre": "PRC San Miguel",
+      "tipo": "PRC",
+      "comuna": "San Miguel",
+      "bbox": [
+        [
+          -33.51875742386191,
+          -70.67087962786489
+        ],
+        [
+          -33.476078948424366,
+          -70.63594991763394
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_San_Ramon.kml",
+      "nombre": "PRC San Ramón",
+      "tipo": "PRC",
+      "comuna": "San Ramón",
+      "bbox": [
+        [
+          -33.558210000232464,
+          -70.65511434136339
+        ],
+        [
+          -33.517251467655576,
+          -70.6301368198698
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Talagante.kml",
+      "nombre": "PRC Talagante",
+      "tipo": "PRC",
+      "comuna": "Talagante",
+      "bbox": [
+        [
+          -33.71496017176759,
+          -70.96290553978326
+        ],
+        [
+          -33.629717043377134,
+          -70.84446159886517
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_13_PRC_Vitacura.kml",
+      "nombre": "PRC Vitacura",
+      "tipo": "PRC",
+      "comuna": "Vitacura",
+      "bbox": [
+        [
+          -33.410489901437714,
+          -70.61375813928454
+        ],
+        [
+          -33.35021000568285,
+          -70.517429630531
+        ]
+      ]
+    }
+  ]
+}

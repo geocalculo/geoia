@@ -7,49 +7,129 @@
       "archivo": "IPT_12_PNSECC_Cerro_Castillo.kml",
       "nombre": "PNSECC Cerro Castillo",
       "tipo": "PNSECC",
-      "comuna": "Torres del Paine"
+      "comuna": "Torres del Paine",
+      "bbox": [
+        [
+          -51.26029982415061,
+          -72.35812231649217
+        ],
+        [
+          -51.251568498032576,
+          -72.33870953130281
+        ]
+      ]
     },
     {
       "archivo": "IPT_12_PNSECC_Rio_Serrano.kml",
       "nombre": "PNSECC Río Serrano",
       "tipo": "PNSECC",
-      "comuna": "Torres del Paine"
+      "comuna": "Torres del Paine",
+      "bbox": [
+        [
+          -51.25250590956246,
+          -73.01491895783842
+        ],
+        [
+          -51.22696287383593,
+          -72.96768678980952
+        ]
+      ]
     },
     {
       "archivo": "IPT_12_PRC_Laguna_Blanca.kml",
       "nombre": "PRC Laguna Blanca",
       "tipo": "PRC",
-      "comuna": "Laguna Blanca"
+      "comuna": "Laguna Blanca",
+      "bbox": [
+        [
+          -52.430834420715,
+          -71.41803790185048
+        ],
+        [
+          -52.423230579934476,
+          -71.41072317620285
+        ]
+      ]
     },
     {
       "archivo": "IPT_12_PRC_Porvenir.kml",
       "nombre": "PRC Porvenir",
       "tipo": "PRC",
-      "comuna": "Porvenir"
+      "comuna": "Porvenir",
+      "bbox": [
+        [
+          -53.31381647887381,
+          -70.44336971579891
+        ],
+        [
+          -53.28362772604433,
+          -70.3284826097111
+        ]
+      ]
     },
     {
       "archivo": "IPT_12_PRC_Puerto_Natales.kml",
       "nombre": "PRC Puerto Natales",
       "tipo": "PRC",
-      "comuna": "Natales"
+      "comuna": "Natales",
+      "bbox": [
+        [
+          -51.743617775531376,
+          -72.51688906557696
+        ],
+        [
+          -51.71510134164821,
+          -72.47113654905962
+        ]
+      ]
     },
     {
       "archivo": "IPT_12_PRC_Puerto_Williams_CaboHornos.kml",
       "nombre": "PRC Puerto Williams Cabo de Hornos",
       "tipo": "PRC",
-      "comuna": "Cabo de Hornos"
+      "comuna": "Cabo de Hornos",
+      "bbox": [
+        [
+          -54.939895585456114,
+          -67.62344723711146
+        ],
+        [
+          -54.932126899402235,
+          -67.5900843897793
+        ]
+      ]
     },
     {
       "archivo": "IPT_12_PRC_Punta_Arenas.kml",
       "nombre": "PRC Punta Arenas",
       "tipo": "PRC",
-      "comuna": "Punta Arenas"
+      "comuna": "Punta Arenas",
+      "bbox": [
+        [
+          -53.239230119453026,
+          -70.97233744394725
+        ],
+        [
+          -53.017296489873615,
+          -70.82510008233538
+        ]
+      ]
     },
     {
       "archivo": "IPT_12_PRC_Punta_Delgada_San_Gregorio.kml",
       "nombre": "PRC Punta Delgada San Gregorio",
       "tipo": "PRC",
-      "comuna": "San Gregorio"
+      "comuna": "San Gregorio",
+      "bbox": [
+        [
+          -52.32063328745723,
+          -69.69907174769433
+        ],
+        [
+          -52.308908288492226,
+          -69.66674390893502
+        ]
+      ]
     }
   ]
 }

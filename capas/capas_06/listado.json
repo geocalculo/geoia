@@ -13,187 +13,497 @@
       "archivo": "IPT_06_PNSECC_Las_Cabras_ElManzano_Llallauquen.kml",
       "nombre": "PNSECC Las Cabras El Manzano Llallauquén",
       "tipo": "PNSECC",
-      "comuna": "Las Cabras"
+      "comuna": "Las Cabras",
+      "bbox": [
+        [
+          -34.26131242463204,
+          -71.47241168122228
+        ],
+        [
+          -34.193284488891074,
+          -71.40777635375566
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Chepica.kml",
       "nombre": "PRC Chépica",
       "tipo": "PRC",
-      "comuna": "Chépica"
+      "comuna": "Chépica",
+      "bbox": [
+        [
+          -34.76897735505294,
+          -71.30243932922542
+        ],
+        [
+          -34.706689710634976,
+          -71.1880720017535
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Chimbarongo.kml",
       "nombre": "PRC Chimbarongo",
       "tipo": "PRC",
-      "comuna": "Chimbarongo"
+      "comuna": "Chimbarongo",
+      "bbox": [
+        [
+          -34.72011789692372,
+          -71.05573239679748
+        ],
+        [
+          -34.68296639016844,
+          -71.01821433614575
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Codegua.kml",
       "nombre": "PRC Codegua",
       "tipo": "PRC",
-      "comuna": "Codegua"
+      "comuna": "Codegua",
+      "bbox": [
+        [
+          -34.05034352081436,
+          -70.67769001905307
+        ],
+        [
+          -34.03084894226573,
+          -70.63700486109771
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Codegua_La_Compania.kml",
       "nombre": "PRC Codegua La Compañía",
       "tipo": "PRC",
-      "comuna": "Codegua"
+      "comuna": "Codegua",
+      "bbox": [
+        [
+          -34.090820968243065,
+          -70.68237513761493
+        ],
+        [
+          -34.07607646793308,
+          -70.6736709547089
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Coinco.kml",
       "nombre": "PRC Coinco",
       "tipo": "PRC",
-      "comuna": "Coinco"
+      "comuna": "Coinco",
+      "bbox": [
+        [
+          -34.294426417550504,
+          -70.99067928083942
+        ],
+        [
+          -34.24261536497661,
+          -70.91534140573616
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Coltauco.kml",
       "nombre": "PRC Coltauco",
       "tipo": "PRC",
-      "comuna": "Coltauco"
+      "comuna": "Coltauco",
+      "bbox": [
+        [
+          -34.298907575072626,
+          -71.0928127865629
+        ],
+        [
+          -34.27324192422019,
+          -71.05977238991765
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Donihue.kml",
       "nombre": "PRC Doñihue",
       "tipo": "PRC",
-      "comuna": "Doñihue"
+      "comuna": "Doñihue",
+      "bbox": [
+        [
+          -34.23923685356083,
+          -70.9793807251246
+        ],
+        [
+          -34.18456054608056,
+          -70.86695543608508
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Graneros.kml",
       "nombre": "PRC Graneros",
       "tipo": "PRC",
-      "comuna": "Graneros"
+      "comuna": "Graneros",
+      "bbox": [
+        [
+          -34.096091698961054,
+          -70.74610676217722
+        ],
+        [
+          -34.054160634470314,
+          -70.67494710385145
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Las_Cabras.kml",
       "nombre": "PRC Las Cabras",
       "tipo": "PRC",
-      "comuna": "Las Cabras"
+      "comuna": "Las Cabras",
+      "bbox": [
+        [
+          -34.297278501179626,
+          -71.31537720326322
+        ],
+        [
+          -34.27955621446341,
+          -71.2972481957888
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_La_Estrella.kml",
       "nombre": "PRC La Estrella",
       "tipo": "PRC",
-      "comuna": "La Estrella"
+      "comuna": "La Estrella",
+      "bbox": [
+        [
+          -34.212320237485905,
+          -71.66353857257687
+        ],
+        [
+          -34.19728700228543,
+          -71.64163518827378
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Litueche.kml",
       "nombre": "PRC Litueche",
       "tipo": "PRC",
-      "comuna": "Litueche"
+      "comuna": "Litueche",
+      "bbox": [
+        [
+          -34.13154293088703,
+          -71.7376434170562
+        ],
+        [
+          -34.105432638160025,
+          -71.71359868127541
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Lolol.kml",
       "nombre": "PRC Lolol",
       "tipo": "PRC",
-      "comuna": "Lolol"
+      "comuna": "Lolol",
+      "bbox": [
+        [
+          -34.74632900447187,
+          -71.67082261795566
+        ],
+        [
+          -34.71971024377464,
+          -71.63640197996514
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Malloa.kml",
       "nombre": "PRC Malloa",
       "tipo": "PRC",
-      "comuna": "Malloa"
+      "comuna": "Malloa",
+      "bbox": [
+        [
+          -34.47690246185776,
+          -70.95946447622069
+        ],
+        [
+          -34.4351992115633,
+          -70.88937131917322
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Mostazal.kml",
       "nombre": "PRC Mostazal",
       "tipo": "PRC",
-      "comuna": "Mostazal"
+      "comuna": "Mostazal",
+      "bbox": [
+        [
+          -34.02208982378959,
+          -70.72126708883788
+        ],
+        [
+          -33.962465171927356,
+          -70.63781556431269
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Navidad.kml",
       "nombre": "PRC Navidad",
       "tipo": "PRC",
-      "comuna": "Navidad"
+      "comuna": "Navidad",
+      "bbox": [
+        [
+          -34.02031962601463,
+          -71.88918526942707
+        ],
+        [
+          -33.90240777506274,
+          -71.72581293455976
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Olivar.kml",
       "nombre": "PRC Olivar",
       "tipo": "PRC",
-      "comuna": "Olivar"
+      "comuna": "Olivar",
+      "bbox": [
+        [
+          -34.217261301279045,
+          -70.8353307929093
+        ],
+        [
+          -34.19507190448053,
+          -70.75254388441078
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Palmilla.kml",
       "nombre": "PRC Palmilla",
       "tipo": "PRC",
-      "comuna": "Palmilla"
+      "comuna": "Palmilla",
+      "bbox": [
+        [
+          -34.60947588018821,
+          -71.38096350963005
+        ],
+        [
+          -34.518867241437576,
+          -71.3431907398102
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Paredones.kml",
       "nombre": "PRC Paredones",
       "tipo": "PRC",
-      "comuna": "Paredones"
+      "comuna": "Paredones",
+      "bbox": [
+        [
+          -34.772587085257115,
+          -72.05403350217372
+        ],
+        [
+          -34.634801570000825,
+          -71.82805069208347
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Peralillo.kml",
       "nombre": "PRC Peralillo",
       "tipo": "PRC",
-      "comuna": "Peralillo"
+      "comuna": "Peralillo",
+      "bbox": [
+        [
+          -34.48400512082852,
+          -71.55354118228391
+        ],
+        [
+          -34.446048975000764,
+          -71.46986519456155
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Peumo.kml",
       "nombre": "PRC Peumo",
       "tipo": "PRC",
-      "comuna": "Peumo"
+      "comuna": "Peumo",
+      "bbox": [
+        [
+          -34.40517110046305,
+          -71.18999493843214
+        ],
+        [
+          -34.377986112932376,
+          -71.15396491712879
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Pichidegua.kml",
       "nombre": "PRC Pichidegua",
       "tipo": "PRC",
-      "comuna": "Pichidegua"
+      "comuna": "Pichidegua",
+      "bbox": [
+        [
+          -34.375141651639915,
+          -71.40901373959237
+        ],
+        [
+          -34.29166683475676,
+          -71.25169762930518
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Pichilemu.kml",
       "nombre": "PRC Pichilemu",
       "tipo": "PRC",
-      "comuna": "Pichilemu"
+      "comuna": "Pichilemu",
+      "bbox": [
+        [
+          -34.491176982082585,
+          -72.05180140283198
+        ],
+        [
+          -34.37789330585776,
+          -71.9746102621318
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Placilla.kml",
       "nombre": "PRC Placilla",
       "tipo": "PRC",
-      "comuna": "Placilla"
+      "comuna": "Placilla",
+      "bbox": [
+        [
+          -34.64196159331242,
+          -71.1238106145486
+        ],
+        [
+          -34.63150906849554,
+          -71.11008747742926
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Qta_Tilcoco.kml",
       "nombre": "PRC Quinta de Tilcoco",
       "tipo": "PRC",
-      "comuna": "Quinta de Tilcoco"
+      "comuna": "Quinta de Tilcoco",
+      "bbox": [
+        [
+          -34.372268532836934,
+          -71.0274388290082
+        ],
+        [
+          -34.33715495788754,
+          -70.94073243447022
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Rancagua.kml",
       "nombre": "PRC Rancagua",
       "tipo": "PRC",
-      "comuna": "Rancagua"
+      "comuna": "Rancagua",
+      "bbox": [
+        [
+          -34.207334232253885,
+          -70.78903281711425
+        ],
+        [
+          -34.117439164518544,
+          -70.6807590766665
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Rengo.kml",
       "nombre": "PRC Rengo",
       "tipo": "PRC",
-      "comuna": "Rengo"
+      "comuna": "Rengo",
+      "bbox": [
+        [
+          -34.42854543776097,
+          -70.91286166354473
+        ],
+        [
+          -34.32668532089094,
+          -70.82942186243672
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Requinoa.kml",
       "nombre": "PRC Requínoa",
       "tipo": "PRC",
-      "comuna": "Requínoa"
+      "comuna": "Requínoa",
+      "bbox": [
+        [
+          -34.30408148547108,
+          -70.85807502539092
+        ],
+        [
+          -34.219447705735575,
+          -70.76668022253959
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_Santa_Cruz.kml",
       "nombre": "PRC Santa Cruz",
       "tipo": "PRC",
-      "comuna": "Santa Cruz"
+      "comuna": "Santa Cruz",
+      "bbox": [
+        [
+          -34.651421161394744,
+          -71.38140795898369
+        ],
+        [
+          -34.61993152850751,
+          -71.3394377820561
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_San_Fernando.kml",
       "nombre": "PRC San Fernando",
       "tipo": "PRC",
-      "comuna": "San Fernando"
+      "comuna": "San Fernando",
+      "bbox": [
+        [
+          -34.61702721551357,
+          -71.01452969898493
+        ],
+        [
+          -34.554653330505005,
+          -70.96083637216839
+        ]
+      ]
     },
     {
       "archivo": "IPT_06_PRC_San_Vicente.kml",
       "nombre": "PRC San Vicente",
       "tipo": "PRC",
-      "comuna": "San Vicente de Tagua Tagua"
+      "comuna": "San Vicente de Tagua Tagua",
+      "bbox": [
+        [
+          -34.45115301795176,
+          -71.10975180222528
+        ],
+        [
+          -34.41043575324644,
+          -71.04922728272716
+        ]
+      ]
     }
   ]
 }
