@@ -149,7 +149,7 @@ function initMapa() {
       west.toFixed(8),
     ].join(",");
 
-    const url = new URL("GeoIPT - BBOX Test.html", window.location.href);
+    const url = new URL("bbox_test.html", window.location.href);
     url.searchParams.set("lat", lat.toFixed(6));
     url.searchParams.set("lon", lon.toFixed(6));
     url.searchParams.set("bbox", bboxStr);
