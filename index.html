@@ -1,9 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XHNJ5PB7QP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Configuración de Analytics (la que ya tenías)
+  gtag('config', 'G-XHNJ5PB7QP');
+
+  // Configuración de Google Ads (ESTA ES LA QUE QUITA EL AVISO EN TU CUENTA)
+  // Sustituye AW-123456789 por tu ID real de Google Ads
+  gtag('config', 'AW-123456789'); 
+</script>
+
   <meta charset="UTF-8" />
   <title>GeoIPT - Mapa de consulta Instrumentos de Planificación Territorial</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="./favicon.ico" sizes="any">
+    <link rel="shortcut icon" href="./favicon.ico">
+    <link rel="apple-touch-icon" href="./img/logo_GeoIPT.png">
+
 
   <!-- Leaflet CSS -->
   <link
@@ -16,18 +37,8 @@
   <!-- Estilos propios -->
   <link rel="stylesheet" href="css/index.css" />
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XHNJ5PB7QP">
-</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <link rel="stylesheet" href="css/onboarding.css">
 
-  gtag('config', 'G-XHNJ5PB7QP');
-</script>
-
-  
 </head>
 
 <body>
@@ -165,5 +176,8 @@
 
   <!-- Lógica propia -->
   <script src="js/index.js"></script>
+
+  <script src="js/onboarding.js"></script>
+
 </body>
 </html>
