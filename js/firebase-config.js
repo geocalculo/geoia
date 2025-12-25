@@ -1,7 +1,7 @@
 // js/firebase-config.js
 export const firebaseConfig = {
   apiKey: "AIzaSyBieuI5VcIRskIYjInss9TlkggcIeaDRZI",
-  authDomain: "geoipt-a8b68.firebaseapp.com",
+  authDomain: "geoipt.cl", // ⬅️ CAMBIO PRINCIPAL: usar tu dominio en producción
   projectId: "geoipt-a8b68",
   storageBucket: "geoipt-a8b68.firebasestorage.app",
   messagingSenderId: "1057527927342",
