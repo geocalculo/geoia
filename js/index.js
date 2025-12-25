@@ -321,7 +321,6 @@ async function cargarInstrumentos(regionCode) {
   }
 }
 
-
 async function zoomAlInstrumento(regionCode, archivo) {
   if (!archivo) return;
 
@@ -360,6 +359,93 @@ async function zoomAlInstrumento(regionCode, archivo) {
     console.warn("No se pudo procesar el KML:", e);
   }
 }
+
+// -------------------------
+// ✅ INTRO OVERLAY (3 láminas bloqueantes)
+// -------------------------
+(function geoiptIntroBlockingSlides() {
+  const overlay = document.getElementById("geoipt-intro");
+  if (!overlay) return;
+
+  const KEY = "geoipt_intro_done_v1";
+
+  if (localStorage.getItem(KEY) === "1") {
+    overlay.classList.add("hidden");
+    return;
+  }
+
+  const img = document.getElementById("geoiptIntroImg");
+  const h = document.getElementById("geoiptIntroH");
+  const p = document.getElementById("geoiptIntroP");
+  const steps = document.getElementById("geoiptIntroSteps");
+  const btnNext = document.getElementById("geoiptIntroNext");
+  const btnSkip = document.getElementById("geoiptIntroSkip");
+  const dots = Array.from(overlay.querySelectorAll(".geoipt-intro-dots .dot"));
+
+  const slides = [
+    {
+      img: "assets/intro/01_portada_geoipt.png",
+      h: "🔍 Zoom urbano",
+      p: "Acércate hasta ver claramente el área urbana.",
+      alt: "Paso 1: Zoom urbano"
+    },
+    {
+      img: "assets/intro/02_reporte_geoipt.png",
+      h: "📍 Click en el punto",
+      p: "Haz clic dentro del área urbana para consultar la zona normativa.",
+      alt: "Paso 2: Click y reporte"
+    },
+    {
+      img: "assets/intro/03_descarga_geoipt.png",
+      h: "⬇️ Descarga zona PRC",
+      p: "Descarga la zona normativa en KML lista para Google Earth o GIS.",
+      alt: "Paso 3: Descarga KML"
+    }
+  ];
+
+  let i = 0;
+
+  function render() {
+    const s = slides[i];
+    if (img) { img.src = s.img; img.alt = s.alt; }
+    if (h) h.textContent = s.h;
+    if (p) p.textContent = s.p;
+    if (steps) steps.textContent = `${i + 1} / ${slides.length}`;
+    dots.forEach((d, k) => d.classList.toggle("active", k === i));
+    if (btnNext) btnNext.textContent = (i === slides.length - 1) ? "Comenzar" : "Siguiente";
+  }
+
+  function finish() {
+    overlay.classList.add("hidden");
+    localStorage.setItem(KEY, "1");
+  }
+
+  if (btnNext) {
+    btnNext.addEventListener("click", () => {
+      if (i < slides.length - 1) {
+        i += 1;
+        render();
+      } else {
+        finish();
+      }
+    });
+  }
+
+  if (btnSkip) btnSkip.addEventListener("click", finish);
+
+  dots.forEach((d) => {
+    d.style.cursor = "pointer";
+    d.addEventListener("click", () => {
+      const k = parseInt(d.getAttribute("data-i"), 10);
+      if (!Number.isNaN(k)) {
+        i = k;
+        render();
+      }
+    });
+  });
+
+  render();
+})();
 
 // -------------------------
 // INICIO

@@ -14,6 +14,7 @@ header {
   background: #020617;
   border-bottom: 1px solid #111827;
   padding: 8px 16px;
+  position: relative;
 }
 
 .header-inner {
@@ -72,7 +73,7 @@ main {
 
 #map {
   width: 100%;
-  height: 520px;        /* fijo para evitar mapa negro */
+  height: 520px;
   min-height: 520px;
   border-radius: 1rem;
   border: 1px solid #1f2937;
@@ -119,30 +120,201 @@ main {
   background: #111827;
 }
 
+/* ========================================
+   MODAL DE AUTENTICACIÓN
+======================================== */
 
-/* Contenedor flotante del overview (franja delgada) */
-#overview-container {
-  position: absolute;
-  right: 18px;          /* distancia al borde derecho */
-  bottom: 18px;         /* distancia al borde inferior */
-  width: 110px;         /* MUY delgado */
-  height: 480px;        /* alto, estilo “tira” vertical */
+.auth-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeIn 0.2s ease;
+}
+
+.auth-modal.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.auth-modal-content {
   background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
-  z-index: 9999;
-  overflow: hidden;     /* recorta el mapa al rectángulo */
+  border-radius: 12px;
+  padding: 24px 28px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
 }
 
-/* El mapa interno ocupa todo el contenedor */
-#overview-map {
-  width: 100%;
-  height: 100%;
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
+.auth-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  color: #6b7280;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
 
-/* El mini-mapa interno */
-#overview-map {
-  width: 100%;
-  height: 100%;
+.auth-modal-close:hover {
+  color: #111827;
+}
+
+.auth-modal-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  margin-bottom: -2px;
+}
+
+.auth-tab.active {
+  color: #111827;
+  border-bottom-color: #3b82f6;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-form.hidden {
+  display: none;
+}
+
+.auth-form input {
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #111827;
+  background: #ffffff;
+  transition: border-color 0.2s;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.auth-submit {
+  padding: 12px 16px;
+  background: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+.auth-submit:hover {
+  background: #2563eb;
+}
+
+.auth-submit:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.auth-message {
+  min-height: 20px;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 4px;
+}
+
+.auth-message.error {
+  color: #dc2626;
+}
+
+.auth-message.success {
+  color: #16a34a;
+}
+
+/* Botón en header */
+.btn-header-login {
+  padding: 8px 18px;
+  background: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-header-login:hover {
+  background: #2563eb;
+}
+
+.btn-header-login.logged-in {
+  background: #16a34a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .btn-header-login {
+    position: static;
+    margin-top: 8px;
+  }
 }

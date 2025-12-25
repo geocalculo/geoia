@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GeoIPT - Acceso</title>
+</head>
+<body>
+  <h2>Crear cuenta</h2>
+  <input id="regEmail" type="email" placeholder="Correo" />
+  <input id="regPass" type="password" placeholder="Contraseña" />
+  <button id="btnRegister">Registrarme</button>
+
+  <h2>Iniciar sesión</h2>
+  <input id="logEmail" type="email" placeholder="Correo" />
+  <input id="logPass" type="password" placeholder="Contraseña" />
+  <button id="btnLogin">Entrar</button>
+
+  <hr />
+  <button id="btnLogout" style="display:none;">Cerrar sesión</button>
+
+  <p id="status"></p>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+    // ✅ IMPORTA TU CONFIG REAL
+    import { firebaseConfig } from "./js/firebase-config.js";
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const $ = (id) => document.getElementById(id);
+    const status = $("status");
+    const btnLogout = $("btnLogout");
+
+    $("btnRegister").onclick = async () => {
+      try {
+        const email = $("regEmail").value.trim();
+        const pass  = $("regPass").value;
+        await createUserWithEmailAndPassword(auth, email, pass);
+        status.textContent = "✅ Cuenta creada y sesión iniciada.";
+      } catch (e) {
+        status.textContent = "❌ " + (e?.message || e);
+      }
+    };
+
+    $("btnLogin").onclick = async () => {
+      try {
+        const email = $("logEmail").value.trim();
+        const pass  = $("logPass").value;
+        await signInWithEmailAndPassword(auth, email, pass);
+        status.textContent = "✅ Sesión iniciada.";
+      } catch (e) {
+        status.textContent = "❌ " + (e?.message || e);
+      }
+    };
+
+    btnLogout.onclick = async () => {
+      await signOut(auth);
+    };
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        btnLogout.style.display = "inline-block";
+        status.textContent = `✅ Logueado: ${user.email}`;
+      } else {
+        btnLogout.style.display = "none";
+        status.textContent = "ℹ️ No has iniciado sesión.";
+      }
+    });
+
+    // Helper global (por si lo usas desde bbox_test.js)
+    window.getIdTokenGeoIPT = async () => {
+      const user = auth.currentUser;
+      if (!user) return null;
+      return await user.getIdToken(false);
+    };
+  </script>
+</body>
+</html>
