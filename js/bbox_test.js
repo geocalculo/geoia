@@ -31,6 +31,22 @@ const bboxParam = urlParams.get("bbox");
 const zoomParam = parseInt(urlParams.get("zoom"), 10);
 const zoom = Number.isFinite(zoomParam) ? zoomParam : 14;
 
+let btnKml = null;
+
+function initKmlButton() {
+  btnKml = document.getElementById("btn-kml");
+  if (!btnKml) return;
+
+  btnKml.disabled = true;
+  btnKml.classList.remove("is-ready");
+
+  btnKml.addEventListener("click", () => {
+    if (!featuresSeleccionadas || !featuresSeleccionadas.length) return;
+    descargarKmlZona();
+  });
+}
+
+
 let bboxPantalla = null;
 if (bboxParam) {
   const s = bboxParam.split(",");
@@ -69,6 +85,10 @@ const map = L.map("map").setView(
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19
 }).addTo(map);
+
+// ✅ Inicializa el botón KML (debe existir en el HTML)
+initKmlButton();
+
 
 
 // Punto del clic original: marcador con popup
@@ -244,7 +264,7 @@ async function obtenerIptQueContienenElPunto(listaIpt) {
   }
 
   const metaBox = document.getElementById("txt-metadata-poligono");
-  const linkKml = document.getElementById("link-kml");
+  // const linkKml = document.getElementById("link-kml");
 
   // Si hay matches, dibujamos y mostramos metadata
   if (featuresParaDibujar.length > 0) {
@@ -286,15 +306,29 @@ if (featuresParaDibujar.length > 0) {
     // 👉 Guardamos selección para exportar
     featuresSeleccionadas = featuresParaDibujar;
 
+    // ✅ Habilitar botón KML
+    if (btnKml) {
+      btnKml.disabled = false;
+      btnKml.classList.add("is-ready");
+    }
+
+
+
     // 👉 Activar enlace de descarga KML
+
+    // 👉 Activar enlace de descarga KML (LIBRE)
     if (linkKml) {
+      linkKml.style.display = "inline";     // ✅ clave: sacar el display:none del HTML
       linkKml.style.opacity = "1";
       linkKml.style.pointerEvents = "auto";
+      linkKml.href = "#";                   // por si quedó algo anterior
+
       linkKml.onclick = function (e) {
         e.preventDefault();
-        descargarKmlZona();
+        descargarKmlZona();                 // esto dispara la descarga con Blob + click()
       };
     }
+
 
   } else {
     // Sin matches
@@ -305,12 +339,13 @@ if (featuresParaDibujar.length > 0) {
 
     // limpiar selección y desactivar botón
     featuresSeleccionadas = [];
-    if (linkKml) {
-      linkKml.style.opacity = "0.5";
-      linkKml.style.pointerEvents = "none";
-      linkKml.onclick = null;
-      linkKml.href = "#";
+
+    // ❌ Bloquear botón KML
+    if (btnKml) {
+      btnKml.disabled = true;
+      btnKml.classList.remove("is-ready");
     }
+
   }
 
   return resultado;

@@ -86,3 +86,39 @@ main {
     margin: 0 auto;
     padding: 0 12px; /* para que no pegue en bordes en móvil */
 }
+.kml-bar{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin: 10px 0 14px 0; /* espacio entre mapa y título */
+}
+
+.kml-btn{
+  appearance:none;
+  border:1px solid #1e293b;
+  background:#0b1220;
+  color:#e5e7eb;
+  font-weight:800;
+  letter-spacing:.5px;
+  padding:10px 22px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.kml-btn:hover{
+  transform: translateY(-1px);
+  border-color:#334155;
+}
+
+.kml-btn:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.kml-btn.is-ready{
+  opacity:1;
+  border-color: rgba(56,189,248,.65);
+  box-shadow: 0 0 0 4px rgba(56,189,248,.12);
+}
