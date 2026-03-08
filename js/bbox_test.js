@@ -458,7 +458,7 @@ function featureToKmlPlacemark(feature, props, nombreFallback) {
 }
 
 function actualizarTablaDesdeTexto(texto, carpeta, archivo) {
-  // Convierte líneas del tipo "REG: Atacama" en un diccionario {REG: "Atacama", ...}
+  // Convierte líneas del tipo "REG: Atacama" en un diccionario { REG: "Atacama", ... }
   const map = {};
   const lineas = (texto || "").split(/\r?\n/);
 
@@ -475,7 +475,24 @@ function actualizarTablaDesdeTexto(texto, carpeta, archivo) {
     if (el) el.textContent = val ?? "–";
   };
 
-  // Campos que te interesan
+  const setHtml = (id, html) => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html ?? "–";
+  };
+
+  // Función local: desde IPT_03_PRC_Copiapo.kml -> PRC_copiapo
+  const slugInstrumentoDesdeArchivo = (archivoKml) => {
+    if (!archivoKml) return "";
+    const sinExt = archivoKml.replace(/\.kml$/i, "");
+    const partes = sinExt.split("_");
+    const idxPRC = partes.indexOf("PRC");
+    if (idxPRC < 0) return "";
+
+    const resto = partes.slice(idxPRC + 1).join("_").toLowerCase();
+    return resto ? `PRC_${resto}` : "";
+  };
+
+  // Campos principales
   set("md-reg", map.REG || "–");
   set("md-com", map.COM || "–");
   set("md-loc", map.LOCALIDAD || map.LOC || "–");
@@ -483,8 +500,29 @@ function actualizarTablaDesdeTexto(texto, carpeta, archivo) {
   set("md-nombre", map.NOMBRE || map.NOM || "–");
   set("md-uperm", map.UPERM || "–");
   set("md-uproh", map.UPROH || "–");
-  set("md-capa", archivo ? `${carpeta}/${archivo}` : "–");
   set("md-cut", map.CUT || "–");
+
+  // Campo CAPA -> mostrar link al HTML del PRC
+  if (archivo && carpeta) {
+    const slug = slugInstrumentoDesdeArchivo(archivo);
+
+    if (slug) {
+      // carpeta = "capas_03" -> html_03
+      const sufijo = carpeta.replace("capas_", "");
+      const carpetaHtml = `html_${sufijo}`;
+
+      const href = `capas/${carpeta}/${carpetaHtml}/${slug}.html`;
+
+      setHtml(
+        "md-capa",
+        `<a href="${href}" target="_blank" rel="noopener" style="color:#4fc3f7;font-weight:600;text-decoration:underline;">${slug}</a>`
+      );
+    } else {
+      set("md-capa", `${carpeta}/${archivo}`);
+    }
+  } else {
+    set("md-capa", "–");
+  }
 }
 
 
