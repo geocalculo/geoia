@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>GeoIPT - Reporte PDF</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<style>
+:root{
+--bg:#ffffff;
+--panel:#f7f9fc;
+--panel2:#eef3f8;
+--text:#111111;
+--muted:#5f6b7a;
+--line:#d6dee8;
+--accent:#0b63a3;
+--accent2:#0b4f7c;
+--ok:#17603a;
+--ok-bg:#e7f6ec;
+--ok-line:#b8e0c5;
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+background:var(--bg);
+color:var(--text);
+}
+
+.page{
+max-width:980px;
+margin:auto;
+padding:24px;
+}
+
+.report-shell{
+background:white;
+border:1px solid var(--line);
+border-radius:18px;
+overflow:hidden;
+box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
+
+.report-header{
+padding:22px 28px 16px;
+border-bottom:1px solid var(--line);
+display:flex;
+justify-content:space-between;
+}
+
+.brand{
+font-size:28px;
+font-weight:700;
+color:#16324a;
+}
+
+.brand small{
+display:block;
+font-size:13px;
+color:var(--muted);
+}
+
+.meta-top{
+text-align:right;
+font-size:12px;
+color:var(--muted);
+}
+
+.report-body{
+padding:24px 28px 28px;
+}
+
+.section-title{
+margin:0 0 12px;
+color:var(--accent2);
+font-size:20px;
+font-weight:700;
+}
+
+.map-wrap{
+background:#f7f9fc;
+border:1px solid var(--line);
+border-radius:14px;
+padding:12px;
+margin-bottom:18px;
+}
+
+#map{
+width:100%;
+height:340px;
+border-radius:10px;
+border:1px solid #cfd8e3;
+}
+
+.caption{
+margin-top:10px;
+font-size:12px;
+color:var(--muted);
+}
+
+.summary-grid{
+display:grid;
+grid-template-columns:1.2fr .8fr;
+gap:18px;
+margin:18px 0 20px;
+}
+
+.card{
+background:var(--panel);
+border:1px solid var(--line);
+border-radius:14px;
+padding:16px 18px;
+}
+
+.card h3{
+margin:0 0 10px;
+color:var(--accent2);
+font-size:14px;
+text-transform:uppercase;
+}
+
+.mini-list{
+display:grid;
+grid-template-columns:120px 1fr;
+gap:8px 10px;
+font-size:14px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:white;
+border:1px solid var(--line);
+border-radius:14px;
+font-size:14px;
+}
+
+th,td{
+padding:11px 12px;
+border-bottom:1px solid #e7edf4;
+}
+
+th{
+background:var(--panel2);
+color:var(--accent2);
+}
+
+a.pdf-link{
+color:#0b63a3;
+font-weight:600;
+text-decoration:underline;
+}
+
+.report-footer{
+border-top:1px solid var(--line);
+padding:16px 28px 20px;
+color:var(--muted);
+font-size:12px;
+display:flex;
+justify-content:space-between;
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<div id="report-root" class="report-shell">
+
+<div class="report-header">
+<div class="brand">
+GeoIPT
+<small>Reporte técnico del punto consultado</small>
+</div>
+
+<div class="meta-top">
+<div>Fecha: <span id="fecha-reporte">-</span></div>
+<div>Punto: <span id="txt-punto">-</span></div>
+<div>BBOX: <span id="txt-bbox">-</span></div>
+</div>
+</div>
+
+<div class="report-body">
+
+<h2 class="section-title">Mapa de ubicación y zona coincidente</h2>
+
+<div class="map-wrap">
+<div id="map"></div>
+<div class="caption">
+Mapa base OpenStreetMap con resaltado de la zona IPT que contiene el punto consultado.
+</div>
+</div>
+
+<div class="summary-grid">
+
+<div class="card">
+<h3>Resumen de consulta</h3>
+<div class="mini-list">
+<div>Región</div><div id="sum-reg">-</div>
+<div>Comuna</div><div id="sum-com">-</div>
+<div>Localidad</div><div id="sum-loc">-</div>
+<div>Zona</div><div id="sum-zona">-</div>
+<div>Nombre</div><div id="sum-nombre">-</div>
+<div>CUT</div><div id="sum-cut">-</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Estado</h3>
+<div class="status">Descarga libre habilitada</div>
+<p style="margin-top:12px;font-size:13px;color:var(--muted)">
+Este PDF resume la primera coincidencia válida encontrada para el punto consultado dentro del flujo GeoIPT.
+</p>
+</div>
+
+</div>
+
+<h2 class="section-title">Metadata de la zona</h2>
+
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Valor</th>
+</tr>
+</thead>
+
+<tbody>
+<tr><td>REG</td><td id="md-reg">-</td></tr>
+<tr><td>COM</td><td id="md-com">-</td></tr>
+<tr><td>LOCALIDAD</td><td id="md-loc">-</td></tr>
+<tr><td>ZONA</td><td id="md-zona">-</td></tr>
+<tr><td>NOMBRE</td><td id="md-nombre">-</td></tr>
+<tr><td>UPERM</td><td id="md-uperm">-</td></tr>
+<tr><td>UPROH</td><td id="md-uproh">-</td></tr>
+<tr><td>Capa</td><td id="md-capa">-</td></tr>
+<tr><td>CUT</td><td id="md-cut">-</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<div class="report-footer">
+<div>GeoIPT - geocalculo.cl</div>
+<div>Documento generado automáticamente</div>
+</div>
+
+</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+<script src="https://unpkg.com/@tmcw/togeojson@4.5.0/dist/togeojson.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+<script src="js/report.js"></script>
+
+</body>
+</html>
