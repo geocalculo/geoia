@@ -101,16 +101,29 @@
   </header>
 
   <main>
-    <div class="map-container">
-      <div id="map"></div>
-      <p class="hint">
-        <strong>Instrucciones:</strong>
-        Selecciona región e instrumento para ubicarte. Luego haz clic en el mapa
-        para abrir el <strong>motor BBOX</strong> (bbox_test.html) con el punto consultado y el área visible;
-        allí se determinarán los IPT.kml a explorar y se generará el reporte en info.html.
-      </p>
+    <div class="layout-home">
 
-      <div id="mira-rifle" title="Ir a mi ubicación"></div>
+      <aside class="geoipt-side-banner" aria-label="Banner promocional GeoEVA">
+        <iframe
+          src="banners/banner_geoeva_01.html"
+          title="Banner GeoEVA"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+      </aside>
+
+      <div class="map-container">
+        <div id="map"></div>
+        <p class="hint">
+          <strong>Instrucciones:</strong>
+          Selecciona región e instrumento para ubicarte. Luego haz clic en el mapa
+          para abrir el <strong>motor BBOX</strong> (bbox_test.html) con el punto consultado y el área visible;
+          allí se determinarán los IPT.kml a explorar y se generará el reporte en info.html.
+        </p>
+
+        <div id="mira-rifle" title="Ir a mi ubicación"></div>
+      </div>
+
     </div>
   </main>
 

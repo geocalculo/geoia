@@ -1,8 +1,12 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-  Roboto, Helvetica, Arial, sans-serif;
+    Roboto, Helvetica, Arial, sans-serif;
   background: #0b1120;
   color: #e5e7eb;
   min-height: 100vh;
@@ -27,9 +31,21 @@ header {
   gap: 0.75rem;
 }
 
-.brand { display: flex; flex-direction: column; gap: 0.15rem; }
-.brand-title { font-size: 1.1rem; font-weight: 600; }
-.brand-subtitle { font-size: 0.78rem; color: #9ca3af; }
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.brand-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.brand-subtitle {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
 
 .controls {
   display: flex;
@@ -60,15 +76,52 @@ select {
   outline: none;
 }
 
+/* ========================================
+   MAIN + LAYOUT HOME CON BANNER IZQUIERDO
+======================================== */
+
 main {
   flex: 1;
   position: relative;
+  padding: 10px 16px 16px;
 }
 
+.layout-home {
+  max-width: 1380px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+/* Banner lateral izquierdo */
+.geoipt-side-banner {
+  width: 170px;
+  min-width: 170px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.geoipt-side-banner iframe {
+  width: 150px;
+  min-width: 150px;
+  height: 600px;
+  border: 0;
+  display: block;
+  background: transparent;
+  border-radius: 12px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+}
+
+/* Mapa */
 .map-container {
-  max-width: 1200px;
-  margin: 10px auto 16px;
+  flex: 1 1 auto;
+  max-width: none;
+  margin: 0;
   position: relative;
+  min-width: 0;
 }
 
 #map {
@@ -144,8 +197,12 @@ main {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .auth-modal-content {
@@ -306,15 +363,55 @@ main {
   background: #16a34a;
 }
 
-/* Responsive */
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1280px) {
+  .geoipt-side-banner {
+    display: none;
+  }
+
+  .layout-home {
+    max-width: 1200px;
+    display: block;
+  }
+
+  .map-container {
+    width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .header-inner {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .btn-header-login {
     position: static;
     margin-top: 8px;
+  }
+
+  main {
+    padding: 10px 10px 16px;
+  }
+
+  .layout-home {
+    display: block;
+    max-width: 100%;
+  }
+
+  .geoipt-side-banner {
+    display: none;
+  }
+
+  .map-container {
+    width: 100%;
+  }
+
+  #map {
+    height: 520px;
+    min-height: 520px;
   }
 }
