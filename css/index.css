@@ -4,6 +4,11 @@
   padding: 0;
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
@@ -14,66 +19,89 @@ body {
   flex-direction: column;
 }
 
+/* ========================================
+   HEADER
+======================================== */
+
 header {
   background: #020617;
   border-bottom: 1px solid #111827;
-  padding: 8px 16px;
+  padding: 10px 16px;
   position: relative;
+  z-index: 20;
 }
 
 .header-inner {
-  max-width: 1200px;
+  max-width: 1380px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 0.9rem 1rem;
 }
 
 .brand {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.12rem;
+  min-width: 220px;
 }
 
 .brand-title {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #f8fafc;
 }
 
 .brand-subtitle {
-  font-size: 0.78rem;
-  color: #9ca3af;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  line-height: 1.2;
 }
 
 .controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
+  gap: 0.65rem;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .control-group {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.2rem;
   min-width: 180px;
   font-size: 0.8rem;
 }
 
 .control-group label {
-  color: #9ca3af;
+  color: #94a3b8;
+  font-size: 0.78rem;
 }
 
 select {
   background: #020617;
   border-radius: 999px;
-  border: 1px solid #1f2937;
+  border: 1px solid #243041;
   color: #e5e7eb;
-  padding: 0.3rem 0.75rem;
-  font-size: 0.85rem;
+  padding: 0.42rem 0.9rem;
+  font-size: 0.87rem;
   outline: none;
+  min-height: 38px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+select:hover {
+  border-color: #334155;
+}
+
+select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
 }
 
 /* ========================================
@@ -83,7 +111,7 @@ select {
 main {
   flex: 1;
   position: relative;
-  padding: 10px 16px 16px;
+  padding: 14px 18px 18px;
 }
 
 .layout-home {
@@ -91,31 +119,48 @@ main {
   margin: 0 auto;
   display: flex;
   align-items: flex-start;
-  gap: 18px;
+  gap: 22px;
 }
 
-/* Banner lateral izquierdo */
+/* ========================================
+   BANNER LATERAL IZQUIERDO (DESKTOP)
+======================================== */
+
 .geoipt-side-banner {
-  width: 170px;
-  min-width: 170px;
+  width: 260px;
+  min-width: 260px;
   flex-shrink: 0;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
+.geoipt-side-banner-inner {
+  width: 100%;
+  background: linear-gradient(180deg, #091121 0%, #060d1a 100%);
+  border: 1px solid #1f2937;
+  border-radius: 18px;
+  padding: 10px;
+  box-shadow:
+    0 14px 38px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
 .geoipt-side-banner iframe {
-  width: 150px;
-  min-width: 150px;
-  height: 600px;
+  width: 100%;
+  height: 520px;
   border: 0;
   display: block;
   background: transparent;
   border-radius: 12px;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
 }
 
-/* Mapa */
+/* ========================================
+   MAPA
+======================================== */
+
 .map-container {
   flex: 1 1 auto;
   max-width: none;
@@ -124,29 +169,45 @@ main {
   min-width: 0;
 }
 
+.map-shell {
+  background: linear-gradient(180deg, #071120 0%, #081223 100%);
+  border: 1px solid #1f2937;
+  border-radius: 20px;
+  padding: 12px;
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
 #map {
   width: 100%;
   height: 520px;
   min-height: 520px;
-  border-radius: 1rem;
-  border: 1px solid #1f2937;
+  border-radius: 16px;
+  border: 1px solid #263244;
+  overflow: hidden;
 }
 
 .hint {
-  margin-top: 6px;
-  font-size: 0.8rem;
+  margin-top: 8px;
+  font-size: 0.82rem;
+  line-height: 1.4;
   color: #9ca3af;
+  padding: 0 2px;
 }
 
-/* Botón mira de rifle */
+/* ========================================
+   BOTÓN MIRA DE RIFLE
+======================================== */
+
 #mira-rifle {
   position: absolute;
-  bottom: 25px;
-  right: 25px;
+  bottom: 28px;
+  right: 28px;
   z-index: 5000;
-  width: 46px;
-  height: 46px;
-  background: #ffffffee;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -154,6 +215,13 @@ main {
   cursor: pointer;
   border: 1px solid #d1d5db;
   backdrop-filter: blur(6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+#mira-rifle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.26);
 }
 
 #mira-rifle::before {
@@ -179,11 +247,10 @@ main {
 
 .auth-modal {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.72);
   backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
@@ -207,13 +274,13 @@ main {
 
 .auth-modal-content {
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 24px 28px;
   width: 90%;
   max-width: 400px;
   position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
+  animation: slideUp 0.28s ease;
 }
 
 @keyframes slideUp {
@@ -238,7 +305,7 @@ main {
   cursor: pointer;
   line-height: 1;
   padding: 4px 8px;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
 .auth-modal-close:hover {
@@ -270,7 +337,7 @@ main {
   font-weight: 500;
   cursor: pointer;
   border-bottom: 3px solid transparent;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   margin-bottom: -2px;
 }
 
@@ -296,7 +363,7 @@ main {
   font-size: 0.95rem;
   color: #111827;
   background: #ffffff;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .auth-form input:focus {
@@ -315,11 +382,15 @@ main {
   font-weight: 500;
   cursor: pointer;
   margin-top: 8px;
-  transition: background 0.2s;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .auth-submit:hover {
   background: #2563eb;
+}
+
+.auth-submit:active {
+  transform: translateY(1px);
 }
 
 .auth-submit:disabled {
@@ -342,25 +413,52 @@ main {
   color: #16a34a;
 }
 
-/* Botón en header */
+/* ========================================
+   BOTÓN LOGIN EN HEADER
+======================================== */
+
 .btn-header-login {
   padding: 8px 18px;
   background: #3b82f6;
   color: #ffffff;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  min-height: 38px;
+  transition: background 0.2s ease, transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
 .btn-header-login:hover {
   background: #2563eb;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
+}
+
+.btn-header-login:active {
+  transform: translateY(1px);
 }
 
 .btn-header-login.logged-in {
   background: #16a34a;
+}
+
+/* ========================================
+   LEAFLET AJUSTES FINOS
+======================================== */
+
+.leaflet-container {
+  background: #0f172a;
+}
+
+.leaflet-control-zoom a {
+  border-radius: 8px !important;
+}
+
+.leaflet-control-layers {
+  border-radius: 12px !important;
+  overflow: hidden;
 }
 
 /* ========================================
@@ -383,14 +481,27 @@ main {
 }
 
 @media (max-width: 768px) {
+  header {
+    padding: 10px 12px;
+  }
+
   .header-inner {
     flex-direction: column;
     align-items: flex-start;
   }
 
+  .controls {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .control-group {
+    min-width: min(100%, 260px);
+  }
+
   .btn-header-login {
     position: static;
-    margin-top: 8px;
+    margin-top: 4px;
   }
 
   main {
@@ -410,8 +521,19 @@ main {
     width: 100%;
   }
 
+  .map-shell {
+    padding: 10px;
+    border-radius: 16px;
+  }
+
   #map {
     height: 520px;
     min-height: 520px;
+    border-radius: 14px;
+  }
+
+  #mira-rifle {
+    right: 20px;
+    bottom: 24px;
   }
 }
