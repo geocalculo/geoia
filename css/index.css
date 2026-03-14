@@ -6,7 +6,9 @@
 
 html,
 body {
+  width: 100%;
   min-height: 100%;
+  height: 100%;
 }
 
 body {
@@ -15,8 +17,10 @@ body {
   background: #0b1120;
   color: #e5e7eb;
   min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 /* ========================================
@@ -29,11 +33,13 @@ header {
   padding: 10px 16px;
   position: relative;
   z-index: 20;
+  flex-shrink: 0;
 }
 
 .header-inner {
-  max-width: 1380px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -109,17 +115,21 @@ select:focus {
 ======================================== */
 
 main {
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   position: relative;
   padding: 14px 18px 18px;
+  overflow: hidden;
 }
 
 .layout-home {
-  max-width: 1380px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
   display: flex;
-  align-items: flex-start;
-  gap: 22px;
+  align-items: stretch;
+  gap: 18px;
 }
 
 /* ========================================
@@ -129,10 +139,11 @@ main {
 .geoipt-side-banner {
   width: 260px;
   min-width: 260px;
-  flex-shrink: 0;
+  max-width: 260px;
+  flex: 0 0 260px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 .geoipt-side-banner-inner {
@@ -149,12 +160,16 @@ main {
 
 .geoipt-side-banner iframe {
   width: 100%;
-  height: 520px;
-  border: 0;
+  height: 100%;
+  min-height: 520px;
+  border: 1px solid #1f2937;
   display: block;
-  background: transparent;
-  border-radius: 12px;
+  background: #060d1a;
+  border-radius: 18px;
   overflow: hidden;
+  box-shadow:
+    0 14px 38px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 /* ========================================
@@ -163,10 +178,14 @@ main {
 
 .map-container {
   flex: 1 1 auto;
+  width: auto;
   max-width: none;
   margin: 0;
   position: relative;
   min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .map-shell {
@@ -181,11 +200,12 @@ main {
 
 #map {
   width: 100%;
-  height: 520px;
+  height: calc(100vh - 170px);
   min-height: 520px;
   border-radius: 16px;
   border: 1px solid #263244;
   overflow: hidden;
+  background: #0f172a;
 }
 
 .hint {
@@ -194,6 +214,7 @@ main {
   line-height: 1.4;
   color: #9ca3af;
   padding: 0 2px;
+  flex-shrink: 0;
 }
 
 /* ========================================
@@ -466,21 +487,42 @@ main {
 ======================================== */
 
 @media (max-width: 1280px) {
+  body {
+    overflow: auto;
+    height: auto;
+  }
+
+  main {
+    overflow: visible;
+  }
+
   .geoipt-side-banner {
     display: none;
   }
 
   .layout-home {
-    max-width: 1200px;
     display: block;
+    width: 100%;
+    height: auto;
   }
 
   .map-container {
     width: 100%;
+    display: block;
+  }
+
+  #map {
+    height: 520px;
+    min-height: 520px;
   }
 }
 
 @media (max-width: 768px) {
+  body {
+    overflow: auto;
+    height: auto;
+  }
+
   header {
     padding: 10px 12px;
   }
@@ -506,11 +548,13 @@ main {
 
   main {
     padding: 10px 10px 16px;
+    overflow: visible;
   }
 
   .layout-home {
     display: block;
-    max-width: 100%;
+    width: 100%;
+    height: auto;
   }
 
   .geoipt-side-banner {
@@ -519,6 +563,7 @@ main {
 
   .map-container {
     width: 100%;
+    display: block;
   }
 
   .map-shell {
