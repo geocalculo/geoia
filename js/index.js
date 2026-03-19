@@ -400,3 +400,31 @@ document.addEventListener("DOMContentLoaded", () => {
     hint.style.top = e.clientY + "px";
   });
 })();
+
+function initMobileMapHint() {
+  const hint = document.getElementById("mobile-map-hint");
+  if (!hint) return;
+
+  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+  if (!isMobile) {
+    hint.remove();
+    return;
+  }
+
+  const showDelay = 700;   // espera inicial
+  const visibleTime = 1800; // tiempo visible
+
+  window.setTimeout(() => {
+    hint.classList.add("is-visible");
+
+    window.setTimeout(() => {
+      hint.classList.remove("is-visible");
+
+      window.setTimeout(() => {
+        hint.remove();
+      }, 400);
+    }, visibleTime);
+  }, showDelay);
+}
+
+window.addEventListener("load", initMobileMapHint);
