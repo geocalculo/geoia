@@ -412,7 +412,7 @@ function initMobileMapHint() {
   }
 
   const showDelay = 700;   // espera inicial
-  const visibleTime = 1800; // tiempo visible
+  const visibleTime = 2800; // tiempo visible
 
   window.setTimeout(() => {
     hint.classList.add("is-visible");

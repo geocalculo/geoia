@@ -132,6 +132,55 @@ main {
   gap: 18px;
 }
 
+/* =========================
+   MOBILE MAP HINT
+========================= */
+#mobile-map-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 88px;
+  transform: translateX(-50%) translateY(8px);
+  z-index: 9999;
+
+  max-width: min(88vw, 320px);
+  padding: 10px 14px;
+  border-radius: 14px;
+
+  background: rgba(15, 23, 42, 0.88);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.25;
+  text-align: center;
+
+  box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    visibility 0.35s ease;
+
+  pointer-events: none;
+}
+
+/* visible */
+#mobile-map-hint.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* solo móvil/tablet angosto */
+@media (min-width: 768px) {
+  #mobile-map-hint {
+    display: none;
+  }
+}
+
+
 /* ========================================
    BANNER LATERAL IZQUIERDO (DESKTOP)
 ======================================== */
