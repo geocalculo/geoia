@@ -464,3 +464,37 @@ document.addEventListener("DOMContentLoaded", () => {
     zoomAlInstrumento(regionSelect.value, instrumentoSelect.value);
   });
 });
+
+(function initMapHintOnce() {
+
+  // ✅ SOLO desktop
+  if (window.innerWidth < 768) return;
+
+  const hint = document.getElementById("map-hint");
+  if (!hint) return;
+
+  const KEY = "geoipt_hint_seen_v1";
+
+  if (localStorage.getItem(KEY) === "1") return;
+
+  let activo = true;
+
+  setTimeout(() => {
+    if (activo) hint.classList.add("visible");
+  }, 800);
+
+  document.addEventListener("mousemove", (e) => {
+    if (!activo) return;
+    hint.style.left = e.clientX + "px";
+    hint.style.top = e.clientY + "px";
+  });
+
+  document.addEventListener("mousedown", () => {
+    if (!activo) return;
+
+    activo = false;
+    hint.classList.remove("visible");
+    localStorage.setItem(KEY, "1");
+  });
+
+})();

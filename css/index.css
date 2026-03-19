@@ -582,3 +582,23 @@ main {
     bottom: 24px;
   }
 }
+
+.map-hint {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(12px, 12px);
+  background: rgba(2, 6, 23, 0.9);
+  color: #e5e7eb;
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.map-hint.visible {
+  opacity: 1;
+}

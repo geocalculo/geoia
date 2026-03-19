@@ -55,7 +55,6 @@
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
     crossorigin=""
   />
 
@@ -70,7 +69,6 @@
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXSX7XCP"
     height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
-  <!-- End Google Tag Manager (noscript) -->
 
   <!-- LinkedIn Insight Tag (noscript) -->
   <noscript>
@@ -115,7 +113,14 @@
       </aside>
 
       <div class="map-container">
+
+        <!-- 🔥 HINT NUEVO -->
+        <div id="map-hint" class="map-hint">
+          Haz clic en zona urbana para ver detalles
+        </div>
+
         <div id="map"></div>
+
         <p class="hint">
           <strong>Instrucciones:</strong>
           Selecciona región e instrumento para ubicarte. Luego haz clic en el mapa
@@ -128,11 +133,7 @@
     </div>
   </main>
 
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script src="js/index.js"></script>
   <script src="js/onboarding.js" charset="utf-8"></script>
