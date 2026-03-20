@@ -257,20 +257,25 @@ async function obtenerIptQueContienenElPunto(listaIpt) {
   const resultado = [];
   const featuresParaDibujar = [];
 
-  for (const ipt of listaIpt) {
-    if (await iptContienePunto(ipt, featuresParaDibujar)) {
-      resultado.push(ipt);
-    }
+for (let i = 0; i < listaIpt.length; i++) {
+  const ipt = listaIpt[i];
+
+  const tramo = 72 + ((i + 1) / listaIpt.length) * 18;
+  setLoadingProgress(tramo, "Analizando geometría...");
+
+  if (await iptContienePunto(ipt, featuresParaDibujar)) {
+    resultado.push(ipt);
   }
+}
 
   const metaBox = document.getElementById("txt-metadata-poligono");
-  // const linkKml = document.getElementById("link-kml");
+  const linkKml = document.getElementById("link-kml");
 
   // Si hay matches, dibujamos y mostramos metadata
   if (featuresParaDibujar.length > 0) {
     // dibujar polígono(s) azul(es)
-if (featuresParaDibujar.length > 0) {
-  dibujarPoligonosMatch(featuresParaDibujar.map(f => f.feature));
+  if (featuresParaDibujar.length > 0) {
+    dibujarPoligonosMatch(featuresParaDibujar.map(f => f.feature));
 
   const metaBox = document.getElementById("txt-metadata-poligono");
   let texto = "";
@@ -676,71 +681,107 @@ async function ejecutarFlujo() {
   const preMeta = document.getElementById("txt-metadata-poligono");
   const btn = document.getElementById("btn-reporte");
 
-  if (btn) {
-    btn.disabled = true;
-    btn.style.opacity = 0.5;
-    btn.onclick = null;
-  }
+  try {
+    if (btn) {
+      btn.disabled = true;
+      btn.style.opacity = 0.5;
+      btn.onclick = null;
+    }
 
-  if (pre1) pre1.textContent = "(Cargando regiones que intersectan el BBOX...)";
-  if (pre2) pre2.textContent = "";
-  if (preMeta) preMeta.textContent = "(sin datos aún)";
+    if (pre1) pre1.textContent = "(Cargando regiones que intersectan el BBOX...)";
+    if (pre2) pre2.textContent = "";
+    if (preMeta) preMeta.textContent = "(sin datos aún)";
 
-  // PASO 1
-  const regiones = await obtenerRegionesIntersectadas();
+    setLoadingProgress(15, "Buscando regiones...");
 
-  // PASO 2
-  if (pre1) pre1.textContent = "(Cargando IPT de las regiones intersectadas...)";
-  const iptEnPantalla = await obtenerIptEnPantalla(regiones);
+    // PASO 1
+    const regiones = await obtenerRegionesIntersectadas();
 
-  if (pre1) pre1.textContent = JSON.stringify(iptEnPantalla, null, 2);
+    setLoadingProgress(38, "Cargando instrumentos...");
 
-  if (!iptEnPantalla.length) {
+    // PASO 2
+    if (pre1) pre1.textContent = "(Cargando IPT de las regiones intersectadas...)";
+    const iptEnPantalla = await obtenerIptEnPantalla(regiones);
+
+    if (pre1) pre1.textContent = JSON.stringify(iptEnPantalla, null, 2);
+
+    if (!iptEnPantalla.length) {
+      setLoadingProgress(100, "Sin resultados");
+
+      if (pre2) {
+        pre2.textContent =
+          "⚠ No hay IPT cuyo BBOX intersecte la pantalla en este clic.\n" +
+          "Sugerencia: regrese al mapa principal y haga clic sobre un área urbana.";
+      }
+      if (preMeta) {
+        preMeta.textContent =
+          "(no se encontraron IPT intersectando el BBOX para este clic)";
+      }
+
+      prepararBotonReporte([]);
+
+      setTimeout(() => {
+        hideLoadingOverlay();
+      }, 250);
+
+      if (NO_MATCH_DELAY_MS >= 0) {
+        setTimeout(cerrarPestana, Math.max(NO_MATCH_DELAY_MS, 350));
+      }
+      return;
+    }
+
+    setLoadingProgress(72, "Analizando geometría...");
+
+    // PASO 3
+    if (pre2) pre2.textContent = "(Analizando geometría de los IPT en pantalla...)";
+    const iptConPunto = await obtenerIptQueContienenElPunto(iptEnPantalla);
+
+    if (!iptConPunto.length) {
+      setLoadingProgress(100, "Sin resultados");
+
+      if (pre2) {
+        pre2.textContent =
+          "⚠ Ningún IPT tiene polígonos que contengan exactamente el punto clic.\n" +
+          "Sugerencia: regrese al mapa principal y haga clic sobre un área urbana.";
+      }
+      if (preMeta) {
+        preMeta.textContent =
+          "(ningún polígono de los IPT intersectados contiene el punto clic)";
+      }
+
+      prepararBotonReporte([]);
+
+      setTimeout(() => {
+        hideLoadingOverlay();
+      }, 250);
+
+      if (NO_MATCH_DELAY_MS >= 0) {
+        setTimeout(cerrarPestana, Math.max(NO_MATCH_DELAY_MS, 350));
+      }
+      return;
+    }
+
     if (pre2) {
-      pre2.textContent =
-        "⚠ No hay IPT cuyo BBOX intersecte la pantalla en este clic.\n" +
-        "Sugerencia: regrese al mapa principal y haga clic sobre un área urbana.";
+      pre2.textContent = JSON.stringify(iptConPunto, null, 2);
     }
-    if (preMeta) {
-      preMeta.textContent =
-        "(no se encontraron IPT intersectando el BBOX para este clic)";
-    }
-    prepararBotonReporte([]);
 
-    if (NO_MATCH_DELAY_MS >= 0) {
-      setTimeout(cerrarPestana, NO_MATCH_DELAY_MS);
-    }
-    return;
+    setLoadingProgress(92, "Generando reporte...");
+
+    // PASO 4
+    prepararBotonReporte(iptConPunto);
+
+    setLoadingProgress(100, "Listo");
+
+    setTimeout(() => {
+      hideLoadingOverlay();
+    }, 320);
+
+  } catch (err) {
+    console.error("Error en ejecutarFlujo():", err);
+    setLoadingProgress(100, "Error");
+    setTimeout(() => {
+      hideLoadingOverlay();
+    }, 250);
   }
-
-  // PASO 3
-  if (pre2) pre2.textContent = "(Analizando geometría de los IPT en pantalla...)";
-  const iptConPunto = await obtenerIptQueContienenElPunto(iptEnPantalla);
-
-  if (!iptConPunto.length) {
-    if (pre2) {
-      pre2.textContent =
-        "⚠ Ningún IPT tiene polígonos que contengan exactamente el punto clic.\n" +
-        "Sugerencia: regrese al mapa principal y haga clic sobre un área urbana.";
-    }
-    if (preMeta) {
-      preMeta.textContent =
-        "(ningún polígono de los IPT intersectados contiene el punto clic)";
-    }
-    prepararBotonReporte([]);
-
-    if (NO_MATCH_DELAY_MS >= 0) {
-      setTimeout(cerrarPestana, NO_MATCH_DELAY_MS);
-    }
-    return;
-  }
-
-  if (pre2) {
-    pre2.textContent = JSON.stringify(iptConPunto, null, 2);
-  }
-
-  // PASO 4: habilitar botón reporte
-  prepararBotonReporte(iptConPunto);
 }
-
 ejecutarFlujo();
