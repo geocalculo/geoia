@@ -33,6 +33,15 @@ const zoom = Number.isFinite(zoomParam) ? zoomParam : 14;
 
 let btnKml = null;
 
+window.dataLayer = window.dataLayer || [];
+
+function trackDownloadKml(source) {
+  window.dataLayer.push({
+    event: "download_kml",
+    source: source
+  });
+}
+
 function initKmlButton() {
   btnKml = document.getElementById("btn-kml");
   if (!btnKml) return;
@@ -42,6 +51,7 @@ function initKmlButton() {
 
   btnKml.addEventListener("click", () => {
     if (!featuresSeleccionadas || !featuresSeleccionadas.length) return;
+    trackDownloadKml("button");
     descargarKmlZona();
   });
 }
@@ -330,6 +340,7 @@ for (let i = 0; i < listaIpt.length; i++) {
 
       linkKml.onclick = function (e) {
         e.preventDefault();
+        trackDownloadKml("link");
         descargarKmlZona();                 // esto dispara la descarga con Blob + click()
       };
     }
