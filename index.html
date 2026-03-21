@@ -13,7 +13,6 @@
   </script>
   <!-- End Google Tag Manager -->
 
-
   <title>GeoIPT - Mapa de consulta Instrumentos de Planificación Territorial</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -35,11 +34,14 @@
 
   <!-- Google Tag Manager (noscript) -->
   <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXSX7XCP"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NXSX7XCP"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden">
+    </iframe>
   </noscript>
-
-
+  <!-- End Google Tag Manager (noscript) -->
 
   <header>
     <div class="header-inner">
@@ -68,6 +70,8 @@
 
   <main>
     <div class="layout-home">
+
+      <!-- Banner izquierdo: GeoEVA -->
       <aside class="geoipt-side-banner" aria-label="Banner promocional GeoEVA">
         <iframe
           src="banners/banner_geoeva_01.html"
@@ -77,9 +81,10 @@
         </iframe>
       </aside>
 
+      <!-- Contenido central -->
       <div class="map-container">
 
-        <!-- 🔥 HINT NUEVO -->
+        <!-- Hint desktop -->
         <div id="map-hint" class="map-hint">
           Haz clic en zona urbana para ver detalles
         </div>
@@ -95,11 +100,21 @@
 
         <div id="mira-rifle" title="Ir a mi ubicación"></div>
       </div>
+
+      <!-- Banner derecho: GeoNEMO -->
+      <aside class="geoipt-side-banner right" aria-label="Banner promocional GeoNEMO">
+        <iframe
+          src="banners/banner_GeoNEMO.html"
+          title="Banner GeoNEMO"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+      </aside>
+
     </div>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
   <script src="js/index.js"></script>
 
   <div id="mobile-map-hint" aria-hidden="true">

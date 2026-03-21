@@ -646,3 +646,16 @@ main {
   z-index: 9999;
   opacity: 1; /* 👈 CAMBIO CLAVE */
 }
+
+/* ========================================
+   BANNER DERECHO (GeoNEMO)
+======================================== */
+
+.geoipt-side-banner.right {
+  /* mantiene mismo tamaño que el izquierdo */
+}
+
+/* opcional: separación visual más clara */
+.geoipt-side-banner.right iframe {
+  border: 1px solid #1f2937;
+}
