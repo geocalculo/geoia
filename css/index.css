@@ -698,3 +698,24 @@ main {
 .leaflet-bottom {
   bottom: 60px !important;
 }
+
+.geoipt-side-banner {
+  display: flex;
+  justify-content: center;   /* 👈 centra horizontal */
+  align-items: center;       /* opcional: centra vertical */
+}
+
+.geoipt-side-banner iframe {
+  display: block;
+  margin: 0 auto;            /* refuerzo de centrado */
+}
+
+.geoipt-side-banner {
+  display: flex;
+  justify-content: center;
+}
+
+.geoipt-side-banner.right {
+  display: flex;
+  justify-content: center;
+}
