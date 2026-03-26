@@ -4,11 +4,13 @@
   padding: 0;
 }
 
-html,
-body {
+/* =========================
+   BASE
+========================= */
+
+html, body {
   width: 100%;
   min-height: 100%;
-  height: 100%;
 }
 
 body {
@@ -16,76 +18,54 @@ body {
     Roboto, Helvetica, Arial, sans-serif;
   background: #0b1120;
   color: #e5e7eb;
-  min-height: 100vh;
-  height: 100vh;
+
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
-/* ========================================
+/* =========================
    HEADER
-======================================== */
+========================= */
 
 header {
   background: #020617;
   border-bottom: 1px solid #111827;
-  padding: 10px 16px;
-  position: relative;
+  padding: 8px 16px;
   z-index: 20;
-  flex-shrink: 0;
 }
 
 .header-inner {
   width: 100%;
-  max-width: none;
-  margin: 0;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.9rem 1rem;
+  gap: 1rem;
 }
 
 .brand {
   display: flex;
   flex-direction: column;
-  gap: 0.12rem;
-  min-width: 220px;
 }
 
 .brand-title {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  line-height: 1.1;
-  color: #f8fafc;
 }
 
 .brand-subtitle {
   font-size: 0.8rem;
   color: #94a3b8;
-  line-height: 1.2;
 }
 
 .controls {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  align-items: flex-end;
-  justify-content: flex-end;
+  gap: 0.6rem;
 }
 
 .control-group {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  min-width: 180px;
   font-size: 0.8rem;
-}
-
-.control-group label {
-  color: #94a3b8;
-  font-size: 0.78rem;
 }
 
 select {
@@ -93,629 +73,154 @@ select {
   border-radius: 999px;
   border: 1px solid #243041;
   color: #e5e7eb;
-  padding: 0.42rem 0.9rem;
-  font-size: 0.87rem;
-  outline: none;
-  min-height: 38px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease,
-    background-color 0.2s ease;
-}
-
-select:hover {
-  border-color: #334155;
-}
-
-select:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
-}
-
-/* ========================================
-   MAIN + LAYOUT HOME CON BANNER IZQUIERDO
-======================================== */
-
-main {
-  flex: 1 1 auto;
-  min-height: 0;
-  position: relative;
-  padding: 14px 18px 18px;
-  overflow: hidden;
-}
-
-.layout-home {
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-  margin: 0;
-  display: flex;
-  align-items: stretch;
-  gap: 18px;
+  padding: 6px 10px;
+  min-height: 36px;
 }
 
 /* =========================
-   MOBILE MAP HINT
+   MAIN LAYOUT
 ========================= */
-#mobile-map-hint {
-  position: fixed;
-  left: 50%;
-  bottom: 88px;
-  transform: translateX(-50%) translateY(8px);
-  z-index: 9999;
 
-  max-width: min(88vw, 320px);
-  padding: 10px 14px;
-  border-radius: 14px;
-
-  background: rgba(15, 23, 42, 0.88);
-  color: #fff;
-  font-size: 14px;
-  line-height: 1.25;
-  text-align: center;
-
-  box-shadow: 0 10px 28px rgba(0,0,0,0.22);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease,
-    visibility 0.35s ease;
-
-  pointer-events: none;
+main {
+  flex: 1;
+  padding: 12px;
 }
 
-/* visible */
-#mobile-map-hint.is-visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
+.layout-home {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  height: calc(100vh - 80px);
 }
 
-/* solo móvil/tablet angosto */
-@media (min-width: 768px) {
-  #mobile-map-hint {
-    display: none;
-  }
-}
-
-
-/* ========================================
-   BANNER LATERAL IZQUIERDO (DESKTOP)
-======================================== */
+/* =========================
+   BANNERS
+========================= */
 
 .geoipt-side-banner {
   width: 260px;
   min-width: 260px;
   max-width: 260px;
   flex: 0 0 260px;
+
   display: flex;
   justify-content: center;
-  align-items: stretch;
-}
-
-.geoipt-side-banner-inner {
-  width: 100%;
-  background: linear-gradient(180deg, #091121 0%, #060d1a 100%);
-  border: 1px solid #1f2937;
-  border-radius: 18px;
-  padding: 10px;
-  box-shadow:
-    0 14px 38px rgba(0, 0, 0, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
-  overflow: hidden;
+  align-items: flex-start;
 }
 
 .geoipt-side-banner iframe {
-  width: 100%;
-  height: 100%;
-  min-height: 520px;
-  border: 1px solid #1f2937;
   display: block;
-  background: #060d1a;
-  border-radius: 18px;
+  width: 120px;
+  height: 600px;
+  min-height: 600px;
+  margin: 0 auto;
+  border: none;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow:
-    0 14px 38px rgba(0, 0, 0, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  background: transparent;
 }
-
-/* ========================================
+/* =========================
    MAPA
-======================================== */
+========================= */
 
 .map-container {
-  flex: 1 1 auto;
-  width: auto;
-  max-width: none;
-  margin: 0;
-  position: relative;
-  min-width: 0;
-  min-height: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-.map-shell {
-  background: linear-gradient(180deg, #071120 0%, #081223 100%);
-  border: 1px solid #1f2937;
-  border-radius: 20px;
-  padding: 12px;
-  box-shadow:
-    0 18px 40px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  min-width: 0;
 }
 
 #map {
-  width: 100%;
-  height: calc(100vh - 170px);
-  min-height: 520px;
-  border-radius: 16px;
-  border: 1px solid #263244;
-  overflow: hidden;
-  background: #0f172a;
-}
-
-.hint {
-  margin-top: 8px;
-  font-size: 0.82rem;
-  line-height: 1.4;
-  color: #9ca3af;
-  padding: 0 2px;
-  flex-shrink: 0;
-}
-
-/* ========================================
-   BOTÓN MIRA DE RIFLE
-======================================== */
-
-#mira-rifle {
-  position: absolute;
-  bottom: 28px;
-  right: 28px;
-  z-index: 5000;
-  width: 48px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: 1px solid #d1d5db;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-#mira-rifle:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.26);
-}
-
-#mira-rifle::before {
-  content: "";
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 2px solid #111827;
-  box-shadow: 0 0 0 1px #111827;
-}
-
-#mira-rifle::after {
-  content: "";
-  position: absolute;
-  width: 2px;
-  height: 18px;
-  background: #111827;
-}
-
-/* ========================================
-   MODAL DE AUTENTICACIÓN
-======================================== */
-
-.auth-modal {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(4px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
-  animation: fadeIn 0.2s ease;
-}
-
-.auth-modal.hidden {
-  display: none;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.auth-modal-content {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 24px 28px;
-  width: 90%;
-  max-width: 400px;
-  position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
-  animation: slideUp 0.28s ease;
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.auth-modal-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: transparent;
-  border: none;
-  font-size: 28px;
-  color: #6b7280;
-  cursor: pointer;
-  line-height: 1;
-  padding: 4px 8px;
-  transition: color 0.2s ease;
-}
-
-.auth-modal-close:hover {
-  color: #111827;
-}
-
-.auth-modal-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 16px;
-  text-align: center;
-}
-
-.auth-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #e5e7eb;
-}
-
-.auth-tab {
   flex: 1;
-  padding: 10px 16px;
-  background: transparent;
-  border: none;
-  color: #6b7280;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: all 0.2s ease;
-  margin-bottom: -2px;
-}
-
-.auth-tab.active {
-  color: #111827;
-  border-bottom-color: #3b82f6;
-}
-
-.auth-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.auth-form.hidden {
-  display: none;
-}
-
-.auth-form input {
-  padding: 12px 14px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  color: #111827;
-  background: #ffffff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.auth-form input:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.auth-submit {
-  padding: 12px 16px;
-  background: #3b82f6;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: background 0.2s ease, transform 0.15s ease;
-}
-
-.auth-submit:hover {
-  background: #2563eb;
-}
-
-.auth-submit:active {
-  transform: translateY(1px);
-}
-
-.auth-submit:disabled {
-  background: #9ca3af;
-  cursor: not-allowed;
-}
-
-.auth-message {
-  min-height: 20px;
-  font-size: 0.85rem;
-  text-align: center;
-  margin-top: 4px;
-}
-
-.auth-message.error {
-  color: #dc2626;
-}
-
-.auth-message.success {
-  color: #16a34a;
-}
-
-/* ========================================
-   BOTÓN LOGIN EN HEADER
-======================================== */
-
-.btn-header-login {
-  padding: 8px 18px;
-  background: #3b82f6;
-  color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  min-height: 38px;
-  transition: background 0.2s ease, transform 0.15s ease,
-    box-shadow 0.2s ease;
-}
-
-.btn-header-login:hover {
-  background: #2563eb;
-  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.22);
-}
-
-.btn-header-login:active {
-  transform: translateY(1px);
-}
-
-.btn-header-login.logged-in {
-  background: #16a34a;
-}
-
-/* ========================================
-   LEAFLET AJUSTES FINOS
-======================================== */
-
-.leaflet-container {
-  background: #0f172a;
-}
-
-.leaflet-control-zoom a {
-  border-radius: 8px !important;
-}
-
-.leaflet-control-layers {
-  border-radius: 12px !important;
+  border-radius: 12px;
   overflow: hidden;
 }
 
-/* ========================================
-   RESPONSIVE
-======================================== */
-
-@media (max-width: 1280px) {
-  body {
-    overflow: auto;
-    height: auto;
-  }
-
-  main {
-    overflow: visible;
-  }
-
-  .geoipt-side-banner {
-    display: none;
-  }
-
-  .layout-home {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .map-container {
-    width: 100%;
-    display: block;
-  }
-
-  #map {
-    height: 520px;
-    min-height: 520px;
-  }
-}
-
-@media (max-width: 768px) {
-  body {
-    overflow: auto;
-    height: auto;
-  }
-
-  header {
-    padding: 10px 12px;
-  }
-
-  .header-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .controls {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .control-group {
-    min-width: min(100%, 260px);
-  }
-
-  .btn-header-login {
-    position: static;
-    margin-top: 4px;
-  }
-
-  main {
-    padding: 10px 10px 16px;
-    overflow: visible;
-  }
-
-  .layout-home {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .geoipt-side-banner {
-    display: none;
-  }
-
-  .map-container {
-    width: 100%;
-    display: block;
-  }
-
-  .map-shell {
-    padding: 10px;
-    border-radius: 16px;
-  }
-
-  #map {
-    height: 520px;
-    min-height: 520px;
-    border-radius: 14px;
-  }
-
-  #mira-rifle {
-    right: 20px;
-    bottom: 24px;
-  }
-}
+/* =========================
+   HINT
+========================= */
 
 .map-hint {
   position: fixed;
-  top: 0;
-  left: 0;
-  transform: translate(12px, 12px);
+  top: 12px;
+  left: 12px;
   background: rgba(2, 6, 23, 0.9);
-  color: #e5e7eb;
   padding: 6px 10px;
-  font-size: 13px;
   border-radius: 8px;
-  pointer-events: none;
+  font-size: 13px;
   z-index: 9999;
-  opacity: 1; /* 👈 CAMBIO CLAVE */
 }
 
-/* ========================================
-   BANNER DERECHO (GeoNEMO)
-======================================== */
+/* =========================
+   BOTÓN UBICACIÓN
+========================= */
 
-.geoipt-side-banner.right {
-  /* mantiene mismo tamaño que el izquierdo */
+#mira-rifle {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 46px;
+  height: 46px;
+  background: #fff;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-/* opcional: separación visual más clara */
-.geoipt-side-banner.right iframe {
-  border: 1px solid #1f2937;
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 1024px) {
+
+  .layout-home {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .geoipt-side-banner {
+    display: none;
+  }
+
+  #map {
+    height: 520px;
+  }
 }
+
+/* =========================
+   BARRA MOBILE
+========================= */
 
 #ecosystem-bar {
   position: fixed;
   bottom: 0;
-  left: 0;
   width: 100%;
   height: 56px;
   background: #020617;
-  border-top: 1px solid #111827;
   display: flex;
-  z-index: 9999;
 }
 
-/* Botones */
 #ecosystem-bar a {
   flex: 1;
   text-align: center;
   line-height: 56px;
   color: #19f0c2;
   text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
 }
 
-/* Hover (desktop fallback) */
-#ecosystem-bar a:hover {
-  background: #111827;
-}
-
-/* SOLO MOBILE */
 @media (min-width: 768px) {
   #ecosystem-bar {
     display: none;
   }
 }
 
+/* =========================
+   LEAFLET FIX
+========================= */
+
+.leaflet-container {
+  background: #0f172a;
+}
+
 .leaflet-bottom {
   bottom: 60px !important;
-}
-
-.geoipt-side-banner {
-  display: flex;
-  justify-content: center;   /* 👈 centra horizontal */
-  align-items: center;       /* opcional: centra vertical */
-}
-
-.geoipt-side-banner iframe {
-  display: block;
-  margin: 0 auto;            /* refuerzo de centrado */
-}
-
-.geoipt-side-banner {
-  display: flex;
-  justify-content: center;
-}
-
-.geoipt-side-banner.right {
-  display: flex;
-  justify-content: center;
 }

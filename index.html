@@ -41,10 +41,11 @@
       style="display:none;visibility:hidden">
     </iframe>
   </noscript>
-  <!-- End Google Tag Manager (noscript) -->
 
+  <!-- ================= HEADER ================= -->
   <header>
     <div class="header-inner">
+
       <div class="brand">
         <div class="brand-title">GeoIPT</div>
         <div class="brand-subtitle">
@@ -65,14 +66,17 @@
           </select>
         </div>
       </div>
+
     </div>
   </header>
 
+  <!-- ================= MAIN ================= -->
   <main>
+
     <div class="layout-home">
 
-      <!-- Banner izquierdo: GeoEVA -->
-      <aside class="geoipt-side-banner" aria-label="Banner promocional GeoEVA">
+      <!-- ===== Banner izquierdo ===== -->
+      <aside class="geoipt-side-banner left" aria-label="Banner promocional GeoEVA">
         <iframe
           src="banners/banner_geoeva_01.html"
           title="Banner GeoEVA"
@@ -81,10 +85,9 @@
         </iframe>
       </aside>
 
-      <!-- Contenido central -->
-      <div class="map-container">
+      <!-- ===== MAPA ===== -->
+      <section class="map-container">
 
-        <!-- Hint desktop -->
         <div id="map-hint" class="map-hint">
           Haz clic en zona urbana para ver detalles
         </div>
@@ -94,14 +97,14 @@
         <p class="hint">
           <strong>Instrucciones:</strong>
           Selecciona región e instrumento para ubicarte. Luego haz clic en el mapa
-          para abrir el <strong>motor BBOX</strong> (bbox_test.html) con el punto consultado y el área visible;
-          allí se determinarán los IPT.kml a explorar y se generará el reporte en info.html.
+          para abrir el <strong>motor BBOX</strong> (bbox_test.html).
         </p>
 
         <div id="mira-rifle" title="Ir a mi ubicación"></div>
-      </div>
 
-      <!-- Banner derecho: GeoNEMO -->
+      </section>
+
+      <!-- ===== Banner derecho ===== -->
       <aside class="geoipt-side-banner right" aria-label="Banner promocional GeoNEMO">
         <iframe
           src="banners/banner_GeoNEMO.html"
@@ -112,35 +115,26 @@
       </aside>
 
     </div>
+
   </main>
 
+  <!-- ================= JS ================= -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/index.js"></script>
 
+  <!-- ================= MOBILE HINT ================= -->
   <div id="mobile-map-hint" aria-hidden="true">
     Toca el mapa en zona urbana para explorar
   </div>
 
-  <!-- Contador de visitas -->
-  <div id="visitor-counter" style="
-    position:fixed;
-    bottom:10px;
-    right:12px;
-    font-size:12px;
-    font-family:Inter, Arial, sans-serif;
-    color:#9ca3af;
-    background:rgba(0,0,0,0.6);
-    padding:6px 10px;
-    border-radius:8px;
-    backdrop-filter: blur(6px);
-    z-index:9999;
-  ">
-    Visitas: 
+  <!-- ================= CONTADOR ================= -->
+  <div id="visitor-counter">
+    Visitas:
     <img src="https://api.visitorbadge.io/api/visitors?path=geoipt.cl&countColor=%2322c55e"
-        alt="contador visitas"
-        style="vertical-align:middle;">
+         alt="contador visitas">
   </div>
 
+  <!-- ================= BARRA MOBILE ================= -->
   <div id="ecosystem-bar">
     <a href="https://geoeva.cl?utm_source=geoipt&utm_medium=mobile_bar&utm_campaign=ecosistema">
       GeoEVA.cl
