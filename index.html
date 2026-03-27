@@ -92,12 +92,27 @@
           Haz clic en zona urbana para ver detalles
         </div>
 
+        <!-- ===== Buscador nacional ===== -->
+        <div class="map-search-wrap" id="map-search-wrap">
+          <label for="prc-search" class="sr-only">Buscar PRC o comuna</label>
+          <input
+            type="text"
+            id="prc-search"
+            class="map-search-input"
+            placeholder="Buscar PRC, SCC o comuna..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <div id="prc-search-results" class="map-search-results" hidden></div>
+        </div>
+
         <div id="map"></div>
 
         <p class="hint">
           <strong>Instrucciones:</strong>
-          Selecciona región e instrumento para ubicarte. Luego haz clic en el mapa
-          para abrir el <strong>motor BBOX</strong> (bbox_test.html).
+          Puedes usar <strong>Región + Instrumento</strong> o buscar directamente
+          por <strong>PRC / SCC / comuna</strong>. Luego haz clic en el mapa para abrir el
+          <strong>motor BBOX</strong> (bbox_test.html).
         </p>
 
         <div id="mira-rifle" title="Ir a mi ubicación"></div>

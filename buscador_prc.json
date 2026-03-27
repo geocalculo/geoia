@@ -1,0 +1,6058 @@
+[
+  {
+    "region_nombre": "Región de Tarapacá",
+    "region_codigo": "01",
+    "carpeta": "capas_01",
+    "archivo": "IPT_01_PRC_Alto_Hospicio.kml",
+    "nombre": "PRC Alto Hospicio",
+    "tipo": "PRC",
+    "comuna": "Alto Hospicio",
+    "bbox": [
+      [
+        -20.333756519931626,
+        -70.12161726065213
+      ],
+      [
+        -20.23058956689235,
+        -70.0601657512212
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Tarapacá",
+    "region_codigo": "01",
+    "carpeta": "capas_01",
+    "archivo": "IPT_01_PRC_Huara.kml",
+    "nombre": "PRC Huara",
+    "tipo": "PRC",
+    "comuna": "Huara",
+    "bbox": [
+      [
+        -19.599107639359723,
+        -70.21779604097824
+      ],
+      [
+        -19.58746619018053,
+        -70.20447006303954
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Tarapacá",
+    "region_codigo": "01",
+    "carpeta": "capas_01",
+    "archivo": "IPT_01_PRC_Iquique.kml",
+    "nombre": "PRC Iquique",
+    "tipo": "PRC",
+    "comuna": "Iquique",
+    "bbox": [
+      [
+        -20.812705555017317,
+        -70.20729659985818
+      ],
+      [
+        -20.141061950348664,
+        -70.10991000024626
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Tarapacá",
+    "region_codigo": "01",
+    "carpeta": "capas_01",
+    "archivo": "IPT_01_PRC_Pica.kml",
+    "nombre": "PRC Pica",
+    "tipo": "PRC",
+    "comuna": "Pica",
+    "bbox": [
+      [
+        -20.492667207226997,
+        -69.33493270421303
+      ],
+      [
+        -20.48103242653195,
+        -69.31112300313076
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Tarapacá",
+    "region_codigo": "01",
+    "carpeta": "capas_01",
+    "archivo": "IPT_01_PRC_Pozo_al_Monte.kml",
+    "nombre": "PRC Pozo Al Monte",
+    "tipo": "PRC",
+    "comuna": "Pozo Al Monte",
+    "bbox": [
+      [
+        -20.268832818674596,
+        -69.79025481846135
+      ],
+      [
+        -20.24848090492867,
+        -69.78184782569751
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_02_Antofagasta.kml",
+    "nombre": "PRC Antofagasta",
+    "tipo": "PRC",
+    "comuna": "Antofagasta",
+    "bbox": [
+      [
+        -23.844938890225638,
+        -70.63254459793495
+      ],
+      [
+        -23.294359235402805,
+        -70.23959100734548
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_02_Calama.kml",
+    "nombre": "PRC Calama",
+    "tipo": "PRC",
+    "comuna": "Calama",
+    "bbox": [
+      [
+        -22.514965315266977,
+        -68.95201789026173
+      ],
+      [
+        -22.430063612669617,
+        -68.88594979078141
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_02_Mejillones.kml",
+    "nombre": "PRC Mejillones",
+    "tipo": "PRC",
+    "comuna": "Mejillones",
+    "bbox": [
+      [
+        -23.122736460776146,
+        -70.58250916565979
+      ],
+      [
+        -22.89135289374183,
+        -70.27826455945488
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_02_Mejillones_Meseta.kml",
+    "nombre": "PRC Mejillones Meseta",
+    "tipo": "PRC",
+    "comuna": "Mejillones",
+    "bbox": [
+      [
+        -23.120638615766214,
+        -70.44079608423765
+      ],
+      [
+        -23.078788421130227,
+        -70.36915700777682
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_02_Mejillones_Portuaria.kml",
+    "nombre": "PRC Mejillones Portuaria",
+    "tipo": "PRC",
+    "comuna": "Mejillones",
+    "bbox": [
+      [
+        -23.122736460776146,
+        -70.58250916565979
+      ],
+      [
+        -22.89135289374183,
+        -70.27826455945488
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_02_Ollague.kml",
+    "nombre": "PRC Ollagüe",
+    "tipo": "PRC",
+    "comuna": "Ollagüe",
+    "bbox": [
+      [
+        -21.229567273748177,
+        -68.30049585395412
+      ],
+      [
+        -21.02010766103596,
+        -68.19799036575274
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_02_SanPedroAtacama_Peine.kml",
+    "nombre": "PRC Peine",
+    "tipo": "PRC",
+    "comuna": "Peine (San Pedro de Atacama)",
+    "bbox": [
+      [
+        -23.69897635328953,
+        -68.10035598522269
+      ],
+      [
+        -23.53193814120273,
+        -67.98470967960394
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_02_SanPedroAtacama.kml",
+    "nombre": "PRC San Pedro de Atacama",
+    "tipo": "PRC",
+    "comuna": "San Pedro de Atacama",
+    "bbox": [
+      [
+        -23.017730438358345,
+        -68.27915919754834
+      ],
+      [
+        -22.777061289197498,
+        -67.9691919057454
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_Sierra_Gorda.kml",
+    "nombre": "PRC Sierra Gorda",
+    "tipo": "PRC",
+    "comuna": "Sierra Gorda",
+    "bbox": [
+      [
+        -23.76329463284022,
+        -69.38124067749189
+      ],
+      [
+        -22.94900741125403,
+        -68.69208587961998
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_02_Taltal.kml",
+    "nombre": "PRC Taltal",
+    "tipo": "PRC",
+    "comuna": "Taltal",
+    "bbox": [
+      [
+        -25.478559863171935,
+        -70.60841322690248
+      ],
+      [
+        -24.93364056746467,
+        -69.57644052186494
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_02_SanPedroAtacama_Toconao.kml",
+    "nombre": "PRC Toconao",
+    "tipo": "PRC",
+    "comuna": "Toconao (San Pedro de Atacama)",
+    "bbox": [
+      [
+        -23.238153853921634,
+        -68.08988981583796
+      ],
+      [
+        -23.10918793992017,
+        -68.01346648112721
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "PRC_02_Tocopilla.kml",
+    "nombre": "PRC Tocopilla",
+    "tipo": "PRC",
+    "comuna": "Tocopilla",
+    "bbox": [
+      [
+        -22.1647354956917,
+        -70.2459087371817
+      ],
+      [
+        -22.03087587925426,
+        -70.17609958598864
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "SECC_02_Taltal_Cifuncho.kml",
+    "nombre": "SCC Cifuncho",
+    "tipo": "SCC",
+    "comuna": "Taltal",
+    "bbox": [
+      [
+        -25.067565671953012,
+        -70.7258340635146
+      ],
+      [
+        -25.015594480942244,
+        -70.69068249897424
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "SECC_02_Mejillones_CostaneraSur.kml",
+    "nombre": "SCC Costanera Sur",
+    "tipo": "SCC",
+    "comuna": "Mejillones",
+    "bbox": [
+      [
+        -23.119533889026172,
+        -70.50628993227092
+      ],
+      [
+        -23.03932097043315,
+        -70.43550333780321
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "SECC_02_Mejillones_IndPequena.kml",
+    "nombre": "SCC Industrial Pequeña",
+    "tipo": "SCC",
+    "comuna": "Mejillones",
+    "bbox": [
+      [
+        -23.1141240269307,
+        -70.44177135544399
+      ],
+      [
+        -23.09646905065648,
+        -70.42752774181479
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "SECC_02_Mejillones_ItataHornitos.kml",
+    "nombre": "SCC Itata Hornitos",
+    "tipo": "SCC",
+    "comuna": "Mejillones",
+    "bbox": [
+      [
+        -22.98904090269121,
+        -70.32784785932395
+      ],
+      [
+        -22.856874218270015,
+        -70.27153275772378
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "SECC_02_Antofagasta_LaChimba.kml",
+    "nombre": "SCC La Chimba",
+    "tipo": "SCC",
+    "comuna": "Antofagasta",
+    "bbox": [
+      [
+        -23.570609118621125,
+        -70.40967215056465
+      ],
+      [
+        -23.532665162480157,
+        -70.38864461370152
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "SECC_02_Antofagasta_LaNegra.kml",
+    "nombre": "SCC La Negra",
+    "tipo": "SCC",
+    "comuna": "Antofagasta",
+    "bbox": [
+      [
+        -23.84397215812336,
+        -70.34030392222029
+      ],
+      [
+        -23.72263698040026,
+        -70.27634009147204
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "SECC_02_SanPedroAtacama_Pozo.kml",
+    "nombre": "SCC Pozo",
+    "tipo": "SCC",
+    "comuna": "San Pedro de Atacama",
+    "bbox": [
+      [
+        -22.91704650894574,
+        -68.24072331621002
+      ],
+      [
+        -22.89184326965713,
+        -68.20964603869083
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "SECC_02_SanPedroAtacama_Quitar.kml",
+    "nombre": "SCC Quitor",
+    "tipo": "SCC",
+    "comuna": "San Pedro de Atacama",
+    "bbox": [
+      [
+        -22.925487306266184,
+        -68.22013809438037
+      ],
+      [
+        -22.90540506696807,
+        -68.18366619263077
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "SECC_02_Calama_SanJuan.kml",
+    "nombre": "SCC San Juan",
+    "tipo": "SCC",
+    "comuna": "Calama",
+    "bbox": [
+      [
+        -22.40295342146663,
+        -68.92140627047684
+      ],
+      [
+        -22.34556876545795,
+        -68.86780100863255
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Antofagasta",
+    "region_codigo": "02",
+    "carpeta": "capas_02",
+    "archivo": "SECC_02_Calama_Topater.kml",
+    "nombre": "SCC Topater",
+    "tipo": "SCC",
+    "comuna": "Calama",
+    "bbox": [
+      [
+        -22.452005076100633,
+        -68.9539891530485
+      ],
+      [
+        -22.40286217284219,
+        -68.92782466013738
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Atacama",
+    "region_codigo": "03",
+    "carpeta": "capas_03",
+    "archivo": "IPT_03_PRC_Caldera.kml",
+    "nombre": "PRC Caldera",
+    "tipo": "PRC",
+    "comuna": "Caldera",
+    "bbox": [
+      [
+        -27.092123604222685,
+        -70.84895501943134
+      ],
+      [
+        -27.012694779548386,
+        -70.78388951849044
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Atacama",
+    "region_codigo": "03",
+    "carpeta": "capas_03",
+    "archivo": "IPT_03_PRC_Chanaral.kml",
+    "nombre": "PRC Chañaral",
+    "tipo": "PRC",
+    "comuna": "Chañaral",
+    "bbox": [
+      [
+        -26.352977810685886,
+        -70.65566458060063
+      ],
+      [
+        -26.265127557572445,
+        -70.60227631074059
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Atacama",
+    "region_codigo": "03",
+    "carpeta": "capas_03",
+    "archivo": "IPT_03_PRC_Copiapo.kml",
+    "nombre": "PRC Copiapó",
+    "tipo": "PRC",
+    "comuna": "Copiapó",
+    "bbox": [
+      [
+        -27.457050532403716,
+        -70.40824008731933
+      ],
+      [
+        -27.183408468908294,
+        -70.17430258296088
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Atacama",
+    "region_codigo": "03",
+    "carpeta": "capas_03",
+    "archivo": "IPT_03_PRC_Diego_de_Almagro.kml",
+    "nombre": "PRC Diego de Almagro",
+    "tipo": "PRC",
+    "comuna": "Diego de Almagro",
+    "bbox": [
+      [
+        -26.42554447447335,
+        -70.12561748569892
+      ],
+      [
+        -26.32525874093175,
+        -70.023820971361
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Atacama",
+    "region_codigo": "03",
+    "carpeta": "capas_03",
+    "archivo": "IPT_03_PRC_Freirina.kml",
+    "nombre": "PRC Freirina",
+    "tipo": "PRC",
+    "comuna": "Freirina",
+    "bbox": [
+      [
+        -29.0984788430478,
+        -71.19419563463588
+      ],
+      [
+        -28.5001573730402,
+        -70.60680737786835
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Atacama",
+    "region_codigo": "03",
+    "carpeta": "capas_03",
+    "archivo": "IPT_03_PRC_Huasco.kml",
+    "nombre": "PRC Huasco",
+    "tipo": "PRC",
+    "comuna": "Huasco",
+    "bbox": [
+      [
+        -28.477786052357267,
+        -71.27200452214942
+      ],
+      [
+        -28.483098909349927,
+        -71.21985141274659
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Atacama",
+    "region_codigo": "03",
+    "carpeta": "capas_03",
+    "archivo": "IPT_03_PRC_Vallenar.kml",
+    "nombre": "PRC Vallenar",
+    "tipo": "PRC",
+    "comuna": "Vallenar",
+    "bbox": [
+      [
+        -28.61441458682938,
+        -70.80402456099166
+      ],
+      [
+        -28.51777987277551,
+        -70.72894920989765
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Atacama",
+    "region_codigo": "03",
+    "carpeta": "capas_03",
+    "archivo": "PRICOST_Atacama.kml",
+    "nombre": "PRI Costero Atacama",
+    "tipo": "PRI",
+    "comuna": "Región de Atacama",
+    "bbox": [
+      [
+        -29.53500000199994,
+        -71.59191000099997
+      ],
+      [
+        -25.28583968499992,
+        -68.26308429999995
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Atacama",
+    "region_codigo": "03",
+    "carpeta": "capas_03",
+    "archivo": "IPT_03_SCC_ElSalado.kml",
+    "nombre": "SCC El Salado",
+    "tipo": "SCC",
+    "comuna": "Diego de Almagro",
+    "bbox": [
+      [
+        -26.25046596687376,
+        -70.62152625923942
+      ],
+      [
+        -26.22370864802642,
+        -70.60261601920757
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Atacama",
+    "region_codigo": "03",
+    "carpeta": "capas_03",
+    "archivo": "IPT_03_SCC_Flamenco.kml",
+    "nombre": "SCC Flamenco",
+    "tipo": "SCC",
+    "comuna": "Chañaral",
+    "bbox": [
+      [
+        -26.74515530956439,
+        -70.79436549025795
+      ],
+      [
+        -26.724430373187605,
+        -70.76292476310809
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Atacama",
+    "region_codigo": "03",
+    "carpeta": "capas_03",
+    "archivo": "IPT_03_SCC_Portofino.kml",
+    "nombre": "SCC Portofino",
+    "tipo": "SCC",
+    "comuna": "Chañaral",
+    "bbox": [
+      [
+        -26.63985773987929,
+        -70.7630810030214
+      ],
+      [
+        -26.5877490106929,
+        -70.74071437573348
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Andacollo.kml",
+    "nombre": "PRC Andacollo",
+    "tipo": "PRC",
+    "comuna": "Andacollo",
+    "bbox": [
+      [
+        -30.2622764546059,
+        -71.0974812470956
+      ],
+      [
+        -30.2237881452138,
+        -71.0750875349344
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Combarbala.kml",
+    "nombre": "PRC Combarbala",
+    "tipo": "PRC",
+    "comuna": "Combarbala",
+    "bbox": [
+      [
+        -31.1899059228663,
+        -71.016300039066
+      ],
+      [
+        -31.1665417000754,
+        -70.9926818573777
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Coquimbo.kml",
+    "nombre": "PRC Coquimbo",
+    "tipo": "PRC",
+    "comuna": "Coquimbo",
+    "bbox": [
+      [
+        -30.3076321263573,
+        -71.5752467661592
+      ],
+      [
+        -29.9326561892904,
+        -71.2349671621652
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Illapel.kml",
+    "nombre": "PRC Illapel",
+    "tipo": "PRC",
+    "comuna": "Illapel",
+    "bbox": [
+      [
+        -31.6567769394122,
+        -71.2071745213039
+      ],
+      [
+        -31.6147897691808,
+        -71.1403308532121
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_La_Higuera.kml",
+    "nombre": "PRC La Higuera",
+    "tipo": "PRC",
+    "comuna": "La Higuera",
+    "bbox": [
+      [
+        -29.630574941059,
+        -71.469444747319
+      ],
+      [
+        -29.2362649380017,
+        -71.00862572453
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_La_Serena.kml",
+    "nombre": "PRC La Serena",
+    "tipo": "PRC",
+    "comuna": "La Serena",
+    "bbox": [
+      [
+        -29.9737938903426,
+        -71.3019723136044
+      ],
+      [
+        -29.7611960001941,
+        -71.1911443880359
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Los_Vilos.kml",
+    "nombre": "PRC Los Vilos",
+    "tipo": "PRC",
+    "comuna": "Los Vilos",
+    "bbox": [
+      [
+        -32.1556750479848,
+        -71.5382012547443
+      ],
+      [
+        -31.8885953902133,
+        -71.4902763641755
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Monte_Patria.kml",
+    "nombre": "PRC Monte Patria",
+    "tipo": "PRC",
+    "comuna": "Monte Patria",
+    "bbox": [
+      [
+        -30.974871551949,
+        -71.0240057963353
+      ],
+      [
+        -30.6778957454276,
+        -70.6537283154516
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Ovalle.kml",
+    "nombre": "PRC Ovalle",
+    "tipo": "PRC",
+    "comuna": "Ovalle",
+    "bbox": [
+      [
+        -30.6532188737813,
+        -71.2521021132886
+      ],
+      [
+        -30.534145799006,
+        -71.1548008047852
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Paiguano.kml",
+    "nombre": "PRC Paiguano",
+    "tipo": "PRC",
+    "comuna": "Paiguano",
+    "bbox": [
+      [
+        -30.1378155924586,
+        -70.5289417159002
+      ],
+      [
+        -30.0130356034591,
+        -70.4878897131508
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Punitaqui.kml",
+    "nombre": "PRC Punitaqui",
+    "tipo": "PRC",
+    "comuna": "Punitaqui",
+    "bbox": [
+      [
+        -30.8494565378584,
+        -71.2733070189831
+      ],
+      [
+        -30.7890331348724,
+        -71.2424583359302
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Rio_Hurtado.kml",
+    "nombre": "PRC Rio Hurtado",
+    "tipo": "PRC",
+    "comuna": "Rio Hurtado",
+    "bbox": [
+      [
+        -30.4131909238773,
+        -70.9555445131494
+      ],
+      [
+        -30.2735310985754,
+        -70.6646572012605
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Salamanca.kml",
+    "nombre": "PRC Salamanca",
+    "tipo": "PRC",
+    "comuna": "Salamanca",
+    "bbox": [
+      [
+        -31.7892179624078,
+        -70.9851948084174
+      ],
+      [
+        -31.766813546433,
+        -70.9533260232541
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Coquimbo",
+    "region_codigo": "04",
+    "carpeta": "capas_04",
+    "archivo": "IPT_04_PRC_Vicuna.kml",
+    "nombre": "PRC Vicuna",
+    "tipo": "PRC",
+    "comuna": "Vicuna",
+    "bbox": [
+      [
+        -30.046450740465,
+        -70.9782503140919
+      ],
+      [
+        -29.9484339816155,
+        -70.5531464837572
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Algarrobo.kml",
+    "nombre": "PRC Algarrobo",
+    "tipo": "PRC",
+    "comuna": "Algarrobo",
+    "bbox": [
+      [
+        -33.38543395544475,
+        -71.69886949331136
+      ],
+      [
+        -33.30570953771451,
+        -71.6350905659787
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Cabildo.kml",
+    "nombre": "PRC Cabildo",
+    "tipo": "PRC",
+    "comuna": "Cabildo",
+    "bbox": [
+      [
+        -32.445245342662815,
+        -71.10215132999575
+      ],
+      [
+        -32.38795267829913,
+        -71.04986356954223
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Calera.kml",
+    "nombre": "PRC Calera",
+    "tipo": "PRC",
+    "comuna": "Calera",
+    "bbox": [
+      [
+        -32.802797436633305,
+        -71.22713933913647
+      ],
+      [
+        -32.763346259603715,
+        -71.17029819475847
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Calle_Larga.kml",
+    "nombre": "PRC Calle Larga",
+    "tipo": "PRC",
+    "comuna": "Calle Larga",
+    "bbox": [
+      [
+        -32.902568962205535,
+        -70.6575866089759
+      ],
+      [
+        -32.84060294909677,
+        -70.57878660049747
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Cartagena.kml",
+    "nombre": "PRC Cartagena",
+    "tipo": "PRC",
+    "comuna": "Cartagena",
+    "bbox": [
+      [
+        -33.561302091180245,
+        -71.62725615414234
+      ],
+      [
+        -33.516999840721176,
+        -71.5827794124185
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Casablanca.kml",
+    "nombre": "PRC Casablanca",
+    "tipo": "PRC",
+    "comuna": "Casablanca",
+    "bbox": [
+      [
+        -33.46570924411112,
+        -71.71590527045707
+      ],
+      [
+        -33.18228358201231,
+        -71.2933482424407
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Catemu.kml",
+    "nombre": "PRC Catemu",
+    "tipo": "PRC",
+    "comuna": "Catemu",
+    "bbox": [
+      [
+        -32.78251633863443,
+        -70.97246161723992
+      ],
+      [
+        -32.77097724421737,
+        -70.95674562672795
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Concon.kml",
+    "nombre": "PRC Concón",
+    "tipo": "PRC",
+    "comuna": "Concón",
+    "bbox": [
+      [
+        -32.96183364376456,
+        -71.55535443167625
+      ],
+      [
+        -32.916543745914154,
+        -71.43302997621187
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_El_Quisco.kml",
+    "nombre": "PRC El Quisco",
+    "tipo": "PRC",
+    "comuna": "El Quisco",
+    "bbox": [
+      [
+        -33.446092132236075,
+        -71.70996249187256
+      ],
+      [
+        -33.37183374726685,
+        -71.65476528735594
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_El_Tabo.kml",
+    "nombre": "PRC El Tabo",
+    "tipo": "PRC",
+    "comuna": "El Tabo",
+    "bbox": [
+      [
+        -33.52102599397243,
+        -71.68288674039215
+      ],
+      [
+        -33.439009702112,
+        -71.59508288138602
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Hijuelas.kml",
+    "nombre": "PRC Hijuelas",
+    "tipo": "PRC",
+    "comuna": "Hijuelas",
+    "bbox": [
+      [
+        -32.843012831278315,
+        -71.17413058864973
+      ],
+      [
+        -32.78586720912257,
+        -71.10184355002326
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Isla_de_Pascua.kml",
+    "nombre": "PRC Isla de Pascua",
+    "tipo": "PRC",
+    "comuna": "Isla de Pascua",
+    "bbox": [
+      [
+        -27.171470940736477,
+        -109.44675231009428
+      ],
+      [
+        -27.13592474956658,
+        -109.41073596032274
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Juan_Fernandez.kml",
+    "nombre": "PRC Juan Fernández",
+    "tipo": "PRC",
+    "comuna": "Juan Fernández",
+    "bbox": [
+      [
+        -33.69323813422097,
+        -78.94925829088203
+      ],
+      [
+        -33.620336749243826,
+        -78.81024720045545
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_La_Ligua.kml",
+    "nombre": "PRC La Ligua",
+    "tipo": "PRC",
+    "comuna": "La Ligua",
+    "bbox": [
+      [
+        -32.45956580203753,
+        -71.24708113012645
+      ],
+      [
+        -32.44413905637678,
+        -71.22116189229648
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Limache.kml",
+    "nombre": "PRC Limache",
+    "tipo": "PRC",
+    "comuna": "Limache",
+    "bbox": [
+      [
+        -33.027365176387235,
+        -71.28916313081622
+      ],
+      [
+        -32.97421067437767,
+        -71.244537859266
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Llayllay.kml",
+    "nombre": "PRC Llayllay",
+    "tipo": "PRC",
+    "comuna": "Llayllay",
+    "bbox": [
+      [
+        -32.851563423854806,
+        -70.98424865213211
+      ],
+      [
+        -32.82943960062633,
+        -70.93045029433803
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Los_Andes.kml",
+    "nombre": "PRC Los Andes",
+    "tipo": "PRC",
+    "comuna": "Los Andes",
+    "bbox": [
+      [
+        -32.85945188762009,
+        -70.63367942943744
+      ],
+      [
+        -32.80464558197834,
+        -70.53035656204797
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Nogales.kml",
+    "nombre": "PRC Nogales",
+    "tipo": "PRC",
+    "comuna": "Nogales",
+    "bbox": [
+      [
+        -32.74883139722133,
+        -71.22666113829543
+      ],
+      [
+        -32.68029340670643,
+        -71.1955238364058
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Olmue.kml",
+    "nombre": "PRC Olmué",
+    "tipo": "PRC",
+    "comuna": "Olmué",
+    "bbox": [
+      [
+        -33.00867559872863,
+        -71.22141204268245
+      ],
+      [
+        -32.98099295626545,
+        -71.13612503002942
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Panquehue.kml",
+    "nombre": "PRC Panquehue",
+    "tipo": "PRC",
+    "comuna": "Panquehue",
+    "bbox": [
+      [
+        -32.786509795238366,
+        -70.8570175520241
+      ],
+      [
+        -32.76490226598669,
+        -70.82672637817596
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Papudo.kml",
+    "nombre": "PRC Papudo",
+    "tipo": "PRC",
+    "comuna": "Papudo",
+    "bbox": [
+      [
+        -32.527163968025434,
+        -71.46368179808422
+      ],
+      [
+        -32.42596144559092,
+        -71.30403196255924
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Puchuncavi.kml",
+    "nombre": "PRC Puchuncaví",
+    "tipo": "PRC",
+    "comuna": "Puchuncaví",
+    "bbox": [
+      [
+        -32.75187975310542,
+        -71.51060377314771
+      ],
+      [
+        -32.62495351898017,
+        -71.40015069394369
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Putaendo.kml",
+    "nombre": "PRC Putaendo",
+    "tipo": "PRC",
+    "comuna": "Putaendo",
+    "bbox": [
+      [
+        -32.635003852700954,
+        -70.72256405234896
+      ],
+      [
+        -32.61889820521954,
+        -70.71129194330975
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Quillota.kml",
+    "nombre": "PRC Quillota",
+    "tipo": "PRC",
+    "comuna": "Quillota",
+    "bbox": [
+      [
+        -32.904425058737665,
+        -71.27376539474064
+      ],
+      [
+        -32.8542486058544,
+        -71.22585012197793
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Quilpue.kml",
+    "nombre": "PRC Quilpué",
+    "tipo": "PRC",
+    "comuna": "Quilpué",
+    "bbox": [
+      [
+        -33.09079102667314,
+        -71.49023632950968
+      ],
+      [
+        -32.99981948479363,
+        -71.38913876364664
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Quintero.kml",
+    "nombre": "PRC Quintero",
+    "tipo": "PRC",
+    "comuna": "Quintero",
+    "bbox": [
+      [
+        -32.80356879723038,
+        -71.54631299530594
+      ],
+      [
+        -32.76470643035966,
+        -71.4924509772984
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Rinconada.kml",
+    "nombre": "PRC Rinconada",
+    "tipo": "PRC",
+    "comuna": "Rinconada",
+    "bbox": [
+      [
+        -32.878183259072884,
+        -70.71115916134634
+      ],
+      [
+        -32.82787723502534,
+        -70.66054409789773
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_San_Antonio.kml",
+    "nombre": "PRC San Antonio",
+    "tipo": "PRC",
+    "comuna": "San Antonio",
+    "bbox": [
+      [
+        -33.73757248109798,
+        -71.63893860619648
+      ],
+      [
+        -33.55130397816211,
+        -71.41486161597619
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_San_Esteban.kml",
+    "nombre": "PRC San Esteban",
+    "tipo": "PRC",
+    "comuna": "San Esteban",
+    "bbox": [
+      [
+        -32.82720644711325,
+        -70.60734010395139
+      ],
+      [
+        -32.78776617974075,
+        -70.54494659599456
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_San_Felipe.kml",
+    "nombre": "PRC San Felipe",
+    "tipo": "PRC",
+    "comuna": "San Felipe",
+    "bbox": [
+      [
+        -32.79284302221656,
+        -70.75571367618045
+      ],
+      [
+        -32.7312273408937,
+        -70.6738438136392
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Santa_Maria.kml",
+    "nombre": "PRC Santa María",
+    "tipo": "PRC",
+    "comuna": "Santa María",
+    "bbox": [
+      [
+        -32.757049715012634,
+        -70.66444170911844
+      ],
+      [
+        -32.73891389456546,
+        -70.64685840641427
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Santo_Domingo.kml",
+    "nombre": "PRC Santo Domingo",
+    "tipo": "PRC",
+    "comuna": "Santo Domingo",
+    "bbox": [
+      [
+        -33.67086503974013,
+        -71.64108957894513
+      ],
+      [
+        -33.621200832612125,
+        -71.58413656120786
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Valparaiso.kml",
+    "nombre": "PRC Valparaíso",
+    "tipo": "PRC",
+    "comuna": "Valparaíso",
+    "bbox": [
+      [
+        -33.08172538466996,
+        -71.66283009488885
+      ],
+      [
+        -33.01744856972758,
+        -71.5559037983007
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Villa_Alemana.kml",
+    "nombre": "PRC Villa Alemana",
+    "tipo": "PRC",
+    "comuna": "Villa Alemana",
+    "bbox": [
+      [
+        -33.082951474932514,
+        -71.40098054967113
+      ],
+      [
+        -33.02059060719642,
+        -71.29749238437421
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Vina_del_Mar.kml",
+    "nombre": "PRC Viña del Mar",
+    "tipo": "PRC",
+    "comuna": "Viña del Mar",
+    "bbox": [
+      [
+        -33.101762700393664,
+        -71.58921126263354
+      ],
+      [
+        -32.944652725988426,
+        -71.4723866906602
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_Zapallar.kml",
+    "nombre": "PRC Zapallar",
+    "tipo": "PRC",
+    "comuna": "Zapallar",
+    "bbox": [
+      [
+        -32.63345357231772,
+        -71.47963696185751
+      ],
+      [
+        -32.49756320392512,
+        -71.39286127193783
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_SCC_VdelMar_Avenida_Marina.kml",
+    "nombre": "SCC Avenida Marina (Viña del Mar)",
+    "tipo": "SCC",
+    "comuna": "Viña del Mar",
+    "bbox": [
+      [
+        -33.023908200883376,
+        -71.55958593530492
+      ],
+      [
+        -33.02190006836613,
+        -71.55173792835299
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_SCC_VdelMar_Cerro_Castillo.kml",
+    "nombre": "SCC Cerro Castillo (Viña del Mar)",
+    "tipo": "SCC",
+    "comuna": "Viña del Mar",
+    "bbox": [
+      [
+        -33.02461361790239,
+        -71.56787213975038
+      ],
+      [
+        -33.0193839243254,
+        -71.56085345431495
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_SCC_VdelMar_Coraceros.kml",
+    "nombre": "SCC Coraceros (Viña del Mar)",
+    "tipo": "SCC",
+    "comuna": "Viña del Mar",
+    "bbox": [
+      [
+        -33.00819179490701,
+        -71.5505838062875
+      ],
+      [
+        -33.00506805593966,
+        -71.54628710067232
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_PRC_SCC_El_Tabo.kml",
+    "nombre": "SCC El Tabo",
+    "tipo": "SCC",
+    "comuna": "El Tabo",
+    "bbox": [
+      [
+        -33.50088605508145,
+        -71.6239762433713
+      ],
+      [
+        -33.49246044653932,
+        -71.61738646182654
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_SCC_VdelMar_Jardin_del_Mar.kml",
+    "nombre": "SCC Jardín del Mar (Viña del Mar)",
+    "tipo": "SCC",
+    "comuna": "Viña del Mar",
+    "bbox": [
+      [
+        -32.98487219642203,
+        -71.54603805086082
+      ],
+      [
+        -32.97201445500705,
+        -71.52751884767139
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_SCC_VdelMar_Parroquia_Renaca.kml",
+    "nombre": "SCC Parroquia Reñaca (Viña del Mar)",
+    "tipo": "SCC",
+    "comuna": "Viña del Mar",
+    "bbox": [
+      [
+        -32.97447274003066,
+        -71.54482156399727
+      ],
+      [
+        -32.973787111048324,
+        -71.54420535424278
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_SCC_VdelMar_Universidad.kml",
+    "nombre": "SCC Universidad (Viña del Mar)",
+    "tipo": "SCC",
+    "comuna": "Viña del Mar",
+    "bbox": [
+      [
+        -33.07677917565806,
+        -71.55340565199829
+      ],
+      [
+        -33.069706636599996,
+        -71.54362996629825
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Valparaíso",
+    "region_codigo": "05",
+    "carpeta": "capas_05",
+    "archivo": "IPT_05_SCC_VdelMar_Vistas_Agua_Santa.kml",
+    "nombre": "SCC Vistas Agua Santa (Viña del Mar)",
+    "tipo": "SCC",
+    "comuna": "Viña del Mar",
+    "bbox": [
+      [
+        -33.04893606967748,
+        -71.57641048357732
+      ],
+      [
+        -33.033141964824395,
+        -71.56427465810556
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PNSECC_Graneros_Estacion.kml",
+    "nombre": "PNSECC Graneros Estación",
+    "tipo": "PNSECC",
+    "comuna": "Graneros",
+    "bbox": []
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PNSECC_Las_Cabras_ElManzano_Llallauquen.kml",
+    "nombre": "PNSECC Las Cabras El Manzano Llallauquén",
+    "tipo": "PNSECC",
+    "comuna": "Las Cabras",
+    "bbox": [
+      [
+        -34.26131242463204,
+        -71.47241168122228
+      ],
+      [
+        -34.193284488891074,
+        -71.40777635375566
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Chimbarongo.kml",
+    "nombre": "PRC Chimbarongo",
+    "tipo": "PRC",
+    "comuna": "Chimbarongo",
+    "bbox": [
+      [
+        -34.72011789692372,
+        -71.05573239679748
+      ],
+      [
+        -34.68296639016844,
+        -71.01821433614575
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Chepica.kml",
+    "nombre": "PRC Chépica",
+    "tipo": "PRC",
+    "comuna": "Chépica",
+    "bbox": [
+      [
+        -34.76897735505294,
+        -71.30243932922542
+      ],
+      [
+        -34.706689710634976,
+        -71.1880720017535
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Codegua.kml",
+    "nombre": "PRC Codegua",
+    "tipo": "PRC",
+    "comuna": "Codegua",
+    "bbox": [
+      [
+        -34.05034352081436,
+        -70.67769001905307
+      ],
+      [
+        -34.03084894226573,
+        -70.63700486109771
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Codegua_La_Compania.kml",
+    "nombre": "PRC Codegua La Compañía",
+    "tipo": "PRC",
+    "comuna": "Codegua",
+    "bbox": [
+      [
+        -34.090820968243065,
+        -70.68237513761493
+      ],
+      [
+        -34.07607646793308,
+        -70.6736709547089
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Coinco.kml",
+    "nombre": "PRC Coinco",
+    "tipo": "PRC",
+    "comuna": "Coinco",
+    "bbox": [
+      [
+        -34.294426417550504,
+        -70.99067928083942
+      ],
+      [
+        -34.24261536497661,
+        -70.91534140573616
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Coltauco.kml",
+    "nombre": "PRC Coltauco",
+    "tipo": "PRC",
+    "comuna": "Coltauco",
+    "bbox": [
+      [
+        -34.298907575072626,
+        -71.0928127865629
+      ],
+      [
+        -34.27324192422019,
+        -71.05977238991765
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Donihue.kml",
+    "nombre": "PRC Doñihue",
+    "tipo": "PRC",
+    "comuna": "Doñihue",
+    "bbox": [
+      [
+        -34.23923685356083,
+        -70.9793807251246
+      ],
+      [
+        -34.18456054608056,
+        -70.86695543608508
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Graneros.kml",
+    "nombre": "PRC Graneros",
+    "tipo": "PRC",
+    "comuna": "Graneros",
+    "bbox": [
+      [
+        -34.096091698961054,
+        -70.74610676217722
+      ],
+      [
+        -34.054160634470314,
+        -70.67494710385145
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_La_Estrella.kml",
+    "nombre": "PRC La Estrella",
+    "tipo": "PRC",
+    "comuna": "La Estrella",
+    "bbox": [
+      [
+        -34.212320237485905,
+        -71.66353857257687
+      ],
+      [
+        -34.19728700228543,
+        -71.64163518827378
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Las_Cabras.kml",
+    "nombre": "PRC Las Cabras",
+    "tipo": "PRC",
+    "comuna": "Las Cabras",
+    "bbox": [
+      [
+        -34.297278501179626,
+        -71.31537720326322
+      ],
+      [
+        -34.27955621446341,
+        -71.2972481957888
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Litueche.kml",
+    "nombre": "PRC Litueche",
+    "tipo": "PRC",
+    "comuna": "Litueche",
+    "bbox": [
+      [
+        -34.13154293088703,
+        -71.7376434170562
+      ],
+      [
+        -34.105432638160025,
+        -71.71359868127541
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Lolol.kml",
+    "nombre": "PRC Lolol",
+    "tipo": "PRC",
+    "comuna": "Lolol",
+    "bbox": [
+      [
+        -34.74632900447187,
+        -71.67082261795566
+      ],
+      [
+        -34.71971024377464,
+        -71.63640197996514
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Malloa.kml",
+    "nombre": "PRC Malloa",
+    "tipo": "PRC",
+    "comuna": "Malloa",
+    "bbox": [
+      [
+        -34.47690246185776,
+        -70.95946447622069
+      ],
+      [
+        -34.4351992115633,
+        -70.88937131917322
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Mostazal.kml",
+    "nombre": "PRC Mostazal",
+    "tipo": "PRC",
+    "comuna": "Mostazal",
+    "bbox": [
+      [
+        -34.02208982378959,
+        -70.72126708883788
+      ],
+      [
+        -33.962465171927356,
+        -70.63781556431269
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Navidad.kml",
+    "nombre": "PRC Navidad",
+    "tipo": "PRC",
+    "comuna": "Navidad",
+    "bbox": [
+      [
+        -34.02031962601463,
+        -71.88918526942707
+      ],
+      [
+        -33.90240777506274,
+        -71.72581293455976
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Olivar.kml",
+    "nombre": "PRC Olivar",
+    "tipo": "PRC",
+    "comuna": "Olivar",
+    "bbox": [
+      [
+        -34.217261301279045,
+        -70.8353307929093
+      ],
+      [
+        -34.19507190448053,
+        -70.75254388441078
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Palmilla.kml",
+    "nombre": "PRC Palmilla",
+    "tipo": "PRC",
+    "comuna": "Palmilla",
+    "bbox": [
+      [
+        -34.60947588018821,
+        -71.38096350963005
+      ],
+      [
+        -34.518867241437576,
+        -71.3431907398102
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Paredones.kml",
+    "nombre": "PRC Paredones",
+    "tipo": "PRC",
+    "comuna": "Paredones",
+    "bbox": [
+      [
+        -34.772587085257115,
+        -72.05403350217372
+      ],
+      [
+        -34.634801570000825,
+        -71.82805069208347
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Peralillo.kml",
+    "nombre": "PRC Peralillo",
+    "tipo": "PRC",
+    "comuna": "Peralillo",
+    "bbox": [
+      [
+        -34.48400512082852,
+        -71.55354118228391
+      ],
+      [
+        -34.446048975000764,
+        -71.46986519456155
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Peumo.kml",
+    "nombre": "PRC Peumo",
+    "tipo": "PRC",
+    "comuna": "Peumo",
+    "bbox": [
+      [
+        -34.40517110046305,
+        -71.18999493843214
+      ],
+      [
+        -34.377986112932376,
+        -71.15396491712879
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Pichidegua.kml",
+    "nombre": "PRC Pichidegua",
+    "tipo": "PRC",
+    "comuna": "Pichidegua",
+    "bbox": [
+      [
+        -34.375141651639915,
+        -71.40901373959237
+      ],
+      [
+        -34.29166683475676,
+        -71.25169762930518
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Pichilemu.kml",
+    "nombre": "PRC Pichilemu",
+    "tipo": "PRC",
+    "comuna": "Pichilemu",
+    "bbox": [
+      [
+        -34.491176982082585,
+        -72.05180140283198
+      ],
+      [
+        -34.37789330585776,
+        -71.9746102621318
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Placilla.kml",
+    "nombre": "PRC Placilla",
+    "tipo": "PRC",
+    "comuna": "Placilla",
+    "bbox": [
+      [
+        -34.64196159331242,
+        -71.1238106145486
+      ],
+      [
+        -34.63150906849554,
+        -71.11008747742926
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Qta_Tilcoco.kml",
+    "nombre": "PRC Quinta de Tilcoco",
+    "tipo": "PRC",
+    "comuna": "Quinta de Tilcoco",
+    "bbox": [
+      [
+        -34.372268532836934,
+        -71.0274388290082
+      ],
+      [
+        -34.33715495788754,
+        -70.94073243447022
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Rancagua.kml",
+    "nombre": "PRC Rancagua",
+    "tipo": "PRC",
+    "comuna": "Rancagua",
+    "bbox": [
+      [
+        -34.207334232253885,
+        -70.78903281711425
+      ],
+      [
+        -34.117439164518544,
+        -70.6807590766665
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Rengo.kml",
+    "nombre": "PRC Rengo",
+    "tipo": "PRC",
+    "comuna": "Rengo",
+    "bbox": [
+      [
+        -34.42854543776097,
+        -70.91286166354473
+      ],
+      [
+        -34.32668532089094,
+        -70.82942186243672
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Requinoa.kml",
+    "nombre": "PRC Requínoa",
+    "tipo": "PRC",
+    "comuna": "Requínoa",
+    "bbox": [
+      [
+        -34.30408148547108,
+        -70.85807502539092
+      ],
+      [
+        -34.219447705735575,
+        -70.76668022253959
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_San_Fernando.kml",
+    "nombre": "PRC San Fernando",
+    "tipo": "PRC",
+    "comuna": "San Fernando",
+    "bbox": [
+      [
+        -34.61702721551357,
+        -71.01452969898493
+      ],
+      [
+        -34.554653330505005,
+        -70.96083637216839
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_San_Vicente.kml",
+    "nombre": "PRC San Vicente",
+    "tipo": "PRC",
+    "comuna": "San Vicente de Tagua Tagua",
+    "bbox": [
+      [
+        -34.45115301795176,
+        -71.10975180222528
+      ],
+      [
+        -34.41043575324644,
+        -71.04922728272716
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de O'Higgins",
+    "region_codigo": "06",
+    "carpeta": "capas_06",
+    "archivo": "IPT_06_PRC_Santa_Cruz.kml",
+    "nombre": "PRC Santa Cruz",
+    "tipo": "PRC",
+    "comuna": "Santa Cruz",
+    "bbox": [
+      [
+        -34.651421161394744,
+        -71.38140795898369
+      ],
+      [
+        -34.61993152850751,
+        -71.3394377820561
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Cauquenes.kml",
+    "nombre": "PRC Cauquenes",
+    "tipo": "PRC",
+    "comuna": "Cauquenes",
+    "bbox": [
+      [
+        -35.99572360576203,
+        -72.36570235167024
+      ],
+      [
+        -35.936785876054614,
+        -72.29352238666344
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Colbun.kml",
+    "nombre": "PRC Colbún",
+    "tipo": "PRC",
+    "comuna": "Colbún",
+    "bbox": [
+      [
+        -35.76886652372489,
+        -71.4272112727225
+      ],
+      [
+        -35.67730332077816,
+        -71.26300767610465
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Constitucion.kml",
+    "nombre": "PRC Constitución",
+    "tipo": "PRC",
+    "comuna": "Constitución",
+    "bbox": [
+      [
+        -35.35051827484364,
+        -72.4399054333394
+      ],
+      [
+        -35.31551580252837,
+        -72.39223992934478
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Curepto.kml",
+    "nombre": "PRC Curepto",
+    "tipo": "PRC",
+    "comuna": "Curepto",
+    "bbox": [
+      [
+        -35.258076903719335,
+        -72.04079952675686
+      ],
+      [
+        -35.08571566983728,
+        -71.9691992780949
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Curico.kml",
+    "nombre": "PRC Curicó",
+    "tipo": "PRC",
+    "comuna": "Curicó",
+    "bbox": [
+      [
+        -35.13534273867833,
+        -71.27662143430783
+      ],
+      [
+        -34.925169361574056,
+        -71.13843279892343
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Linares.kml",
+    "nombre": "PRC Linares",
+    "tipo": "PRC",
+    "comuna": "Linares",
+    "bbox": [
+      [
+        -35.87197570152252,
+        -71.64479373250532
+      ],
+      [
+        -35.81540119295537,
+        -71.54652987703065
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Maule.kml",
+    "nombre": "PRC Maule",
+    "tipo": "PRC",
+    "comuna": "Maule",
+    "bbox": [
+      [
+        -35.544792181428384,
+        -71.7229723219198
+      ],
+      [
+        -35.44416655459612,
+        -71.65197739770214
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Molina.kml",
+    "nombre": "PRC Molina",
+    "tipo": "PRC",
+    "comuna": "Molina",
+    "bbox": [
+      [
+        -35.45690426145508,
+        -71.38078577385156
+      ],
+      [
+        -35.04378259181297,
+        -71.02012862787548
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Parral.kml",
+    "nombre": "PRC Parral",
+    "tipo": "PRC",
+    "comuna": "Parral",
+    "bbox": [
+      [
+        -36.29614025814778,
+        -71.84904466284168
+      ],
+      [
+        -36.122660566627474,
+        -71.6398609480891
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Pelluhue.kml",
+    "nombre": "PRC Pelluhue",
+    "tipo": "PRC",
+    "comuna": "Pelluhue",
+    "bbox": [
+      [
+        -35.85872868241778,
+        -72.64815230162534
+      ],
+      [
+        -35.79072378425668,
+        -72.542948646854
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Pencahue.kml",
+    "nombre": "PRC Pencahue",
+    "tipo": "PRC",
+    "comuna": "Pencahue",
+    "bbox": [
+      [
+        -35.44810048324715,
+        -71.87943803921289
+      ],
+      [
+        -35.38284807092403,
+        -71.78466902447579
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Romeral.kml",
+    "nombre": "PRC Romeral",
+    "tipo": "PRC",
+    "comuna": "Romeral",
+    "bbox": [
+      [
+        -35.00491085844321,
+        -71.17699917207035
+      ],
+      [
+        -34.943382649238586,
+        -70.80148307445498
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_San_Clemente.kml",
+    "nombre": "PRC San Clemente",
+    "tipo": "PRC",
+    "comuna": "San Clemente",
+    "bbox": [
+      [
+        -35.551974321272546,
+        -71.53577490525858
+      ],
+      [
+        -35.489430576659004,
+        -71.4708021811673
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_San_Javier.kml",
+    "nombre": "PRC San Javier",
+    "tipo": "PRC",
+    "comuna": "San Javier",
+    "bbox": [
+      [
+        -35.61443926797511,
+        -71.75146610832012
+      ],
+      [
+        -35.57757410496313,
+        -71.69759207708572
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Talca.kml",
+    "nombre": "PRC Talca",
+    "tipo": "PRC",
+    "comuna": "Talca",
+    "bbox": [
+      [
+        -35.48255323678758,
+        -71.7286900464109
+      ],
+      [
+        -35.3491446623029,
+        -71.54183805373998
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Teno.kml",
+    "nombre": "PRC Teno",
+    "tipo": "PRC",
+    "comuna": "Teno",
+    "bbox": [
+      [
+        -34.882034945234196,
+        -71.27304861623159
+      ],
+      [
+        -34.84274671445879,
+        -71.14699167837385
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Vichuquen.kml",
+    "nombre": "PRC Vichuquén",
+    "tipo": "PRC",
+    "comuna": "Vichuquén",
+    "bbox": [
+      [
+        -34.85544794791042,
+        -72.08015523020056
+      ],
+      [
+        -34.789990436106876,
+        -72.03078346789556
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Villa_Alegre.kml",
+    "nombre": "PRC Villa Alegre",
+    "tipo": "PRC",
+    "comuna": "Villa Alegre",
+    "bbox": []
+  },
+  {
+    "region_nombre": "Región del Maule",
+    "region_codigo": "07",
+    "carpeta": "capas_07",
+    "archivo": "IPT_07_PRC_Yerbas_Buenas.kml",
+    "nombre": "PRC Yerbas Buenas",
+    "tipo": "PRC",
+    "comuna": "Yerbas Buenas",
+    "bbox": [
+      [
+        -35.761690515012724,
+        -71.59448457355211
+      ],
+      [
+        -35.73808239535222,
+        -71.56925744508622
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PNSECC_Concepcion_RiberaNorte.kml",
+    "nombre": "PNSECC Concepción Ribera Norte",
+    "tipo": "PNSECC",
+    "comuna": "Concepción",
+    "bbox": [
+      [
+        -36.83860603670516,
+        -73.07512351957358
+      ],
+      [
+        -36.81808322197088,
+        -73.05431388434504
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PNSECC_Lago_Lanalhue.kml",
+    "nombre": "PNSECC Lago Lanalhue",
+    "tipo": "PNSECC",
+    "comuna": "Contulmo",
+    "bbox": []
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Alto_Biobio.kml",
+    "nombre": "PRC Alto Biobío",
+    "tipo": "PRC",
+    "comuna": "Alto Biobío",
+    "bbox": [
+      [
+        -37.889193540417786,
+        -71.64941575635103
+      ],
+      [
+        -37.870298116014744,
+        -71.63087860189277
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Antuco.kml",
+    "nombre": "PRC Antuco",
+    "tipo": "PRC",
+    "comuna": "Antuco",
+    "bbox": [
+      [
+        -37.334495970056366,
+        -71.68561189788015
+      ],
+      [
+        -37.323617678090194,
+        -71.66288578586584
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Arauco.kml",
+    "nombre": "PRC Arauco",
+    "tipo": "PRC",
+    "comuna": "Arauco",
+    "bbox": [
+      [
+        -37.26575680793698,
+        -73.35364962386465
+      ],
+      [
+        -37.17080658183931,
+        -73.17990235132275
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Cabrero.kml",
+    "nombre": "PRC Cabrero",
+    "tipo": "PRC",
+    "comuna": "Cabrero",
+    "bbox": [
+      [
+        -37.230727639355486,
+        -72.45877558711769
+      ],
+      [
+        -37.01591846685795,
+        -72.30849724913543
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Canete.kml",
+    "nombre": "PRC Cañete",
+    "tipo": "PRC",
+    "comuna": "Cañete",
+    "bbox": [
+      [
+        -37.94079448176309,
+        -73.42253677703714
+      ],
+      [
+        -37.7593768245584,
+        -73.24833537694273
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Chiguayante.kml",
+    "nombre": "PRC Chiguayante",
+    "tipo": "PRC",
+    "comuna": "Chiguayante",
+    "bbox": [
+      [
+        -36.96754054729448,
+        -73.06679199441147
+      ],
+      [
+        -36.853871424061836,
+        -72.99573005506849
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Concepcion.kml",
+    "nombre": "PRC Concepción",
+    "tipo": "PRC",
+    "comuna": "Concepción",
+    "bbox": [
+      [
+        -36.8607721546608,
+        -73.09324431081964
+      ],
+      [
+        -36.77189346590361,
+        -72.94717458365893
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Contulmo.kml",
+    "nombre": "PRC Contulmo",
+    "tipo": "PRC",
+    "comuna": "Contulmo",
+    "bbox": [
+      [
+        -38.035018419096644,
+        -73.26535418965953
+      ],
+      [
+        -37.96188288405654,
+        -73.19775309982091
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Coronel.kml",
+    "nombre": "PRC Coronel",
+    "tipo": "PRC",
+    "comuna": "Coronel",
+    "bbox": [
+      [
+        -37.08002298573553,
+        -73.54474664954087
+      ],
+      [
+        -36.89044930005017,
+        -72.95223249908223
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Curanilahue.kml",
+    "nombre": "PRC Curanilahue",
+    "tipo": "PRC",
+    "comuna": "Curanilahue",
+    "bbox": [
+      [
+        -37.49326603329552,
+        -73.36789993367184
+      ],
+      [
+        -37.4442237191941,
+        -73.31935321159979
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Florida.kml",
+    "nombre": "PRC Florida",
+    "tipo": "PRC",
+    "comuna": "Florida",
+    "bbox": [
+      [
+        -36.90757038835721,
+        -72.81266954391394
+      ],
+      [
+        -36.803406148494645,
+        -72.64580087059231
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Hualpen.kml",
+    "nombre": "PRC Hualpén",
+    "tipo": "PRC",
+    "comuna": "Hualpén",
+    "bbox": [
+      [
+        -36.823618860375845,
+        -73.22073404592808
+      ],
+      [
+        -36.74546816448024,
+        -73.06406605103068
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Hualqui.kml",
+    "nombre": "PRC Hualqui",
+    "tipo": "PRC",
+    "comuna": "Hualqui",
+    "bbox": [
+      [
+        -37.17087849564874,
+        -72.98201514186269
+      ],
+      [
+        -36.946815324056146,
+        -72.88365346593032
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Laja.kml",
+    "nombre": "PRC Laja",
+    "tipo": "PRC",
+    "comuna": "Laja",
+    "bbox": [
+      [
+        -37.30626465210592,
+        -72.72488820945965
+      ],
+      [
+        -37.22985391229248,
+        -72.53926465895329
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Lebu.kml",
+    "nombre": "PRC Lebu",
+    "tipo": "PRC",
+    "comuna": "Lebu",
+    "bbox": [
+      [
+        -37.67372735029213,
+        -73.67284315102701
+      ],
+      [
+        -37.57018942372908,
+        -73.52161758443211
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Los_Alamos.kml",
+    "nombre": "PRC Los Álamos",
+    "tipo": "PRC",
+    "comuna": "Los Álamos",
+    "bbox": [
+      [
+        -37.68257533361927,
+        -73.47997902319183
+      ],
+      [
+        -37.5941832103264,
+        -73.37517011227243
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Los_Angeles.kml",
+    "nombre": "PRC Los Ángeles",
+    "tipo": "PRC",
+    "comuna": "Los Ángeles",
+    "bbox": [
+      [
+        -37.60665026911294,
+        -72.63604178309468
+      ],
+      [
+        -37.2021638316909,
+        -72.1240162170802
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Lota.kml",
+    "nombre": "PRC Lota",
+    "tipo": "PRC",
+    "comuna": "Lota",
+    "bbox": [
+      [
+        -37.12139962133679,
+        -73.17634964509332
+      ],
+      [
+        -37.06570774591199,
+        -73.13231569825857
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Mulchen.kml",
+    "nombre": "PRC Mulchén",
+    "tipo": "PRC",
+    "comuna": "Mulchén",
+    "bbox": [
+      [
+        -37.73654040903136,
+        -72.26598335963361
+      ],
+      [
+        -37.69736200231199,
+        -72.22440270214665
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Nacimiento.kml",
+    "nombre": "PRC Nacimiento",
+    "tipo": "PRC",
+    "comuna": "Nacimiento",
+    "bbox": [
+      [
+        -37.52596829855295,
+        -72.70248415892769
+      ],
+      [
+        -37.47715701428729,
+        -72.6277792536003
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Negrete.kml",
+    "nombre": "PRC Negrete",
+    "tipo": "PRC",
+    "comuna": "Negrete",
+    "bbox": [
+      [
+        -37.592168198732516,
+        -72.58347556879097
+      ],
+      [
+        -37.57492798115105,
+        -72.51845799258395
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Penco.kml",
+    "nombre": "PRC Penco",
+    "tipo": "PRC",
+    "comuna": "Penco",
+    "bbox": [
+      [
+        -36.788908165004166,
+        -73.04871648776064
+      ],
+      [
+        -36.68826488062841,
+        -72.95823682320821
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_San_Carlos.kml",
+    "nombre": "PRC San Carlos",
+    "tipo": "PRC",
+    "comuna": "San Carlos",
+    "bbox": [
+      [
+        -36.55652526586138,
+        -72.09164648266375
+      ],
+      [
+        -36.34894354327777,
+        -71.71113720840883
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_San_Pedro_de_la_Paz.kml",
+    "nombre": "PRC San Pedro de la Paz",
+    "tipo": "PRC",
+    "comuna": "San Pedro de la Paz",
+    "bbox": [
+      [
+        -36.926668149,
+        -73.16398208423432
+      ],
+      [
+        -36.82117770913276,
+        -73.05048687393592
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Santa_Barbara.kml",
+    "nombre": "PRC Santa Bárbara",
+    "tipo": "PRC",
+    "comuna": "Santa Bárbara",
+    "bbox": [
+      [
+        -37.67523204193847,
+        -72.04096123086498
+      ],
+      [
+        -37.657519230229525,
+        -71.99883057855594
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Santa_Juana.kml",
+    "nombre": "PRC Santa Juana",
+    "tipo": "PRC",
+    "comuna": "Santa Juana",
+    "bbox": [
+      [
+        -37.192271288129625,
+        -72.98386247187436
+      ],
+      [
+        -37.144597196690995,
+        -72.92075835128524
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Talcahuano.kml",
+    "nombre": "PRC Talcahuano",
+    "tipo": "PRC",
+    "comuna": "Talcahuano",
+    "bbox": [
+      [
+        -36.79591392611703,
+        -73.16679469532292
+      ],
+      [
+        -36.61781089821517,
+        -73.04994361290632
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Tirua.kml",
+    "nombre": "PRC Tirúa",
+    "tipo": "PRC",
+    "comuna": "Tirúa",
+    "bbox": [
+      [
+        -38.351651558393876,
+        -73.50375474594064
+      ],
+      [
+        -38.23452906758057,
+        -73.46998253648236
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Tome.kml",
+    "nombre": "PRC Tomé",
+    "tipo": "PRC",
+    "comuna": "Tomé",
+    "bbox": [
+      [
+        -36.70668286708949,
+        -73.00831541421049
+      ],
+      [
+        -36.51748677001637,
+        -72.77254816746998
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región del Biobío",
+    "region_codigo": "08",
+    "carpeta": "capas_08",
+    "archivo": "IPT_08_PRC_Yumbel.kml",
+    "nombre": "PRC Yumbel",
+    "tipo": "PRC",
+    "comuna": "Yumbel",
+    "bbox": [
+      [
+        -37.218747836994716,
+        -72.64009621304966
+      ],
+      [
+        -36.98323950805734,
+        -72.41807035896512
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Angol.kml",
+    "nombre": "PRC Angol",
+    "tipo": "PRC",
+    "comuna": "Angol",
+    "bbox": [
+      [
+        -37.82553987136866,
+        -72.74001238350017
+      ],
+      [
+        -37.778909082261755,
+        -72.66370397885957
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Carahue.kml",
+    "nombre": "PRC Carahue",
+    "tipo": "PRC",
+    "comuna": "Carahue",
+    "bbox": [
+      [
+        -38.71999732741252,
+        -73.33362369228153
+      ],
+      [
+        -38.62377061261038,
+        -73.13076469438678
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Collipulli.kml",
+    "nombre": "PRC Collipulli",
+    "tipo": "PRC",
+    "comuna": "Collipulli",
+    "bbox": [
+      [
+        -37.970246194306306,
+        -72.48623707802822
+      ],
+      [
+        -37.78113905589103,
+        -72.38648650799335
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Curacautin.kml",
+    "nombre": "PRC Curacautín",
+    "tipo": "PRC",
+    "comuna": "Curacautín",
+    "bbox": [
+      [
+        -38.4506297844699,
+        -71.90626138127959
+      ],
+      [
+        -38.42949040794161,
+        -71.87010356905114
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Freire.kml",
+    "nombre": "PRC Freire",
+    "tipo": "PRC",
+    "comuna": "Freire",
+    "bbox": [
+      [
+        -38.87327420118971,
+        -72.61866311261647
+      ],
+      [
+        -38.850563457950734,
+        -72.59685016849443
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Gorbea.kml",
+    "nombre": "PRC Gorbea",
+    "tipo": "PRC",
+    "comuna": "Gorbea",
+    "bbox": [
+      [
+        -39.11339737050325,
+        -72.69572052231719
+      ],
+      [
+        -39.08598162230262,
+        -72.66433284573043
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Lautaro.kml",
+    "nombre": "PRC Lautaro",
+    "tipo": "PRC",
+    "comuna": "Lautaro",
+    "bbox": [
+      [
+        -38.642406471033965,
+        -72.46566146706859
+      ],
+      [
+        -38.51041775899078,
+        -72.41631468117995
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Loncoche.kml",
+    "nombre": "PRC Loncoche",
+    "tipo": "PRC",
+    "comuna": "Loncoche",
+    "bbox": [
+      [
+        -39.38484937676637,
+        -72.64907310021127
+      ],
+      [
+        -39.34999675256849,
+        -72.60579973708478
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Lonquimay_Villa_Portales.kml",
+    "nombre": "PRC Lonquimay Villa Portales",
+    "tipo": "PRC",
+    "comuna": "Lonquimay",
+    "bbox": [
+      [
+        -38.46698347004846,
+        -71.3791707141294
+      ],
+      [
+        -38.444978155542266,
+        -71.34763104574563
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Nueva_Imperial.kml",
+    "nombre": "PRC Nueva Imperial",
+    "tipo": "PRC",
+    "comuna": "Nueva Imperial",
+    "bbox": [
+      [
+        -38.78528785523155,
+        -72.9692835679284
+      ],
+      [
+        -38.730115924915694,
+        -72.93008172609616
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Padre_Las_Casas.kml",
+    "nombre": "PRC Padre Las Casas",
+    "tipo": "PRC",
+    "comuna": "Padre Las Casas",
+    "bbox": [
+      [
+        -38.774410920144874,
+        -72.60997632182695
+      ],
+      [
+        -38.74880175312187,
+        -72.58310732754117
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Pitrufquen.kml",
+    "nombre": "PRC Pitrufquén",
+    "tipo": "PRC",
+    "comuna": "Pitrufquén",
+    "bbox": [
+      [
+        -38.99914753023266,
+        -72.66284772090536
+      ],
+      [
+        -38.97119062832699,
+        -72.61701627543069
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Pucon.kml",
+    "nombre": "PRC Pucón",
+    "tipo": "PRC",
+    "comuna": "Pucón",
+    "bbox": [
+      [
+        -39.29472557599219,
+        -72.00898109777067
+      ],
+      [
+        -39.26055564115421,
+        -71.93571512123746
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Puerto_Saavedra.kml",
+    "nombre": "PRC Puerto Saavedra",
+    "tipo": "PRC",
+    "comuna": "Puerto Saavedra",
+    "bbox": [
+      [
+        -38.8018950134128,
+        -73.40742692654133
+      ],
+      [
+        -38.77729175613543,
+        -73.38783097027995
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Renaico.kml",
+    "nombre": "PRC Renaico",
+    "tipo": "PRC",
+    "comuna": "Renaico",
+    "bbox": [
+      [
+        -37.68285640749344,
+        -72.59493412714295
+      ],
+      [
+        -37.6662776806302,
+        -72.57419879664106
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Renaico_Tijeral.kml",
+    "nombre": "PRC Renaico Tijeral",
+    "tipo": "PRC",
+    "comuna": "Renaico",
+    "bbox": [
+      [
+        -37.74094846258379,
+        -72.62708779235513
+      ],
+      [
+        -37.72869533082777,
+        -72.60883314585034
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Temuco.kml",
+    "nombre": "PRC Temuco",
+    "tipo": "PRC",
+    "comuna": "Temuco",
+    "bbox": [
+      [
+        -38.79196463080427,
+        -72.82473496858789
+      ],
+      [
+        -38.6253632069795,
+        -72.46956527690176
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Temuco_Cajon.kml",
+    "nombre": "PRC Temuco Cajón",
+    "tipo": "PRC",
+    "comuna": "Temuco",
+    "bbox": [
+      [
+        -38.68724993971859,
+        -72.51818878295397
+      ],
+      [
+        -38.66406005686658,
+        -72.48602182281289
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Tolten_Queule.kml",
+    "nombre": "PRC Toltén Queule",
+    "tipo": "PRC",
+    "comuna": "Toltén",
+    "bbox": [
+      [
+        -39.40294429427596,
+        -73.2183498528938
+      ],
+      [
+        -39.39059425267903,
+        -73.18945639672089
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Tolten_Villa_Ohiggins.kml",
+    "nombre": "PRC Toltén Villa O'Higgins",
+    "tipo": "PRC",
+    "comuna": "Toltén",
+    "bbox": [
+      [
+        -39.251811269819356,
+        -73.22163983484205
+      ],
+      [
+        -39.24605468478528,
+        -73.215992636086
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Traiguen.kml",
+    "nombre": "PRC Traiguén",
+    "tipo": "PRC",
+    "comuna": "Traiguén",
+    "bbox": [
+      [
+        -38.26563193865297,
+        -72.69171262878557
+      ],
+      [
+        -38.2377727302314,
+        -72.65295560432665
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Victoria.kml",
+    "nombre": "PRC Victoria",
+    "tipo": "PRC",
+    "comuna": "Victoria",
+    "bbox": [
+      [
+        -38.2469610972708,
+        -72.35518429650251
+      ],
+      [
+        -38.21970422072733,
+        -72.31367694336494
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de La Araucanía",
+    "region_codigo": "09",
+    "carpeta": "capas_09",
+    "archivo": "IPT_09_PRC_Villarrica.kml",
+    "nombre": "PRC Villarrica",
+    "tipo": "PRC",
+    "comuna": "Villarrica",
+    "bbox": [
+      [
+        -39.49914286709667,
+        -72.25376734738059
+      ],
+      [
+        -39.25629291503214,
+        -72.12968274917691
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PNSECC_Chaiten_Villa_Santa_Lucia.kml",
+    "nombre": "PNSECC Chaitén Villa Santa Lucía",
+    "tipo": "PNSECC",
+    "comuna": "Chaitén",
+    "bbox": [
+      [
+        -43.42285598587797,
+        -72.37649133959434
+      ],
+      [
+        -43.401509494042244,
+        -72.34998907959314
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PNSECC_Puntilla_Niquen_Entre_Lagos.kml",
+    "nombre": "PNSECC Puntilla Niquén Entre Lagos",
+    "tipo": "PNSECC",
+    "comuna": "Puyehue",
+    "bbox": [
+      [
+        -40.72364969906836,
+        -72.4396523176735
+      ],
+      [
+        -40.704054807884816,
+        -72.41093490892881
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PNSECC_San_Juan_BahiaMansa.kml",
+    "nombre": "PNSECC San Juan Bahía Mansa",
+    "tipo": "PNSECC",
+    "comuna": "San Juan de la Costa",
+    "bbox": []
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PNSECC_San_Juan_Costa_Pauacho.kml",
+    "nombre": "PNSECC San Juan Costa Pauacho",
+    "tipo": "PNSECC",
+    "comuna": "San Juan de la Costa",
+    "bbox": []
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Ancud.kml",
+    "nombre": "PRC Ancud",
+    "tipo": "PRC",
+    "comuna": "Ancud",
+    "bbox": [
+      [
+        -41.8886958695288,
+        -73.83916024687518
+      ],
+      [
+        -41.85731617249188,
+        -73.7857535338123
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Calbuco.kml",
+    "nombre": "PRC Calbuco",
+    "tipo": "PRC",
+    "comuna": "Calbuco",
+    "bbox": [
+      [
+        -41.81263324847192,
+        -73.47633124634004
+      ],
+      [
+        -41.74134048624307,
+        -73.12245451208611
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Castro.kml",
+    "nombre": "PRC Castro",
+    "tipo": "PRC",
+    "comuna": "Castro",
+    "bbox": [
+      [
+        -42.51218273757804,
+        -73.80910161016864
+      ],
+      [
+        -42.42569450384669,
+        -73.74354081924676
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Chonchi.kml",
+    "nombre": "PRC Chonchi",
+    "tipo": "PRC",
+    "comuna": "Chonchi",
+    "bbox": [
+      [
+        -42.63496245338626,
+        -73.79449711184604
+      ],
+      [
+        -42.612528203244636,
+        -73.75832507682824
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Fresia.kml",
+    "nombre": "PRC Fresia",
+    "tipo": "PRC",
+    "comuna": "Fresia",
+    "bbox": [
+      [
+        -41.16512282913451,
+        -73.43756946500226
+      ],
+      [
+        -41.14198253604404,
+        -73.40161091014893
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Frutillar.kml",
+    "nombre": "PRC Frutillar",
+    "tipo": "PRC",
+    "comuna": "Frutillar",
+    "bbox": [
+      [
+        -41.175075431780314,
+        -73.07056219070641
+      ],
+      [
+        -41.104004210035846,
+        -73.00098342454075
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Llanquihue.kml",
+    "nombre": "PRC Llanquihue",
+    "tipo": "PRC",
+    "comuna": "Llanquihue",
+    "bbox": [
+      [
+        -41.27965843392304,
+        -73.02013119703592
+      ],
+      [
+        -41.24301566785985,
+        -72.98327095123172
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Maullin.kml",
+    "nombre": "PRC Maullín",
+    "tipo": "PRC",
+    "comuna": "Maullín",
+    "bbox": [
+      [
+        -41.64143951975125,
+        -73.61504498527053
+      ],
+      [
+        -41.6130794340248,
+        -73.58487886832457
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Osorno.kml",
+    "nombre": "PRC Osorno",
+    "tipo": "PRC",
+    "comuna": "Osorno",
+    "bbox": [
+      [
+        -40.603943516092414,
+        -73.18459614786462
+      ],
+      [
+        -40.539501508007525,
+        -73.07868649372197
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Palena.kml",
+    "nombre": "PRC Palena",
+    "tipo": "PRC",
+    "comuna": "Palena",
+    "bbox": [
+      [
+        -43.6235829438435,
+        -71.81117822765418
+      ],
+      [
+        -43.61316298024656,
+        -71.78950909151789
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Puerto_Montt.kml",
+    "nombre": "PRC Puerto Montt",
+    "tipo": "PRC",
+    "comuna": "Puerto Montt",
+    "bbox": [
+      [
+        -41.5464401390628,
+        -73.09769021865402
+      ],
+      [
+        -41.37101320213622,
+        -72.86636486787421
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Puerto_Octay.kml",
+    "nombre": "PRC Puerto Octay",
+    "tipo": "PRC",
+    "comuna": "Puerto Octay",
+    "bbox": [
+      [
+        -40.99710954331247,
+        -72.89426876018749
+      ],
+      [
+        -40.964557588334934,
+        -72.85870259527196
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Puerto_Varas.kml",
+    "nombre": "PRC Puerto Varas",
+    "tipo": "PRC",
+    "comuna": "Puerto Varas",
+    "bbox": [
+      [
+        -41.35047558780872,
+        -73.0122083326428
+      ],
+      [
+        -41.2907323202976,
+        -72.92186584228298
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Purranque.kml",
+    "nombre": "PRC Purranque",
+    "tipo": "PRC",
+    "comuna": "Purranque",
+    "bbox": [
+      [
+        -40.95870876356357,
+        -73.18459502537479
+      ],
+      [
+        -40.900881359539845,
+        -73.14175016552467
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Puyehue.kml",
+    "nombre": "PRC Puyehue",
+    "tipo": "PRC",
+    "comuna": "Puyehue",
+    "bbox": [
+      [
+        -40.698960800672616,
+        -72.61280054933941
+      ],
+      [
+        -40.67903459844445,
+        -72.58183897447303
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Queilen.kml",
+    "nombre": "PRC Queilen",
+    "tipo": "PRC",
+    "comuna": "Queilen",
+    "bbox": [
+      [
+        -42.899518467151246,
+        -73.47991265603589
+      ],
+      [
+        -42.87979155886789,
+        -73.46171891159405
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Queilen_Puyehue_Bahia_El_Encanto.kml",
+    "nombre": "PRC Queilen Puyehue Bahía El Encanto",
+    "tipo": "PRC",
+    "comuna": "Queilen / Puyehue",
+    "bbox": []
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Quellon.kml",
+    "nombre": "PRC Quellón",
+    "tipo": "PRC",
+    "comuna": "Quellón",
+    "bbox": [
+      [
+        -43.14737620702459,
+        -73.65118216090798
+      ],
+      [
+        -43.10566879310325,
+        -73.58440239178626
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Quinchao_Achao.kml",
+    "nombre": "PRC Quinchao Achao",
+    "tipo": "PRC",
+    "comuna": "Quinchao",
+    "bbox": [
+      [
+        -42.476413085800196,
+        -73.50471450142653
+      ],
+      [
+        -42.46579257452881,
+        -73.476508290644
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_Rio_Negro.kml",
+    "nombre": "PRC Río Negro",
+    "tipo": "PRC",
+    "comuna": "Río Negro",
+    "bbox": [
+      [
+        -40.813180740015,
+        -73.22363633559935
+      ],
+      [
+        -40.78234719363623,
+        -73.19708095871805
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Lagos",
+    "region_codigo": "10",
+    "carpeta": "capas_10",
+    "archivo": "IPT_10_PRC_San_Pablo.kml",
+    "nombre": "PRC San Pablo",
+    "tipo": "PRC",
+    "comuna": "San Pablo",
+    "bbox": [
+      [
+        -40.427040013124376,
+        -73.02158519836414
+      ],
+      [
+        -40.39952864001378,
+        -73.00093298085095
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Aysén",
+    "region_codigo": "11",
+    "carpeta": "capas_11",
+    "archivo": "IPT_11_PNSECC_Melinka_Guatecas.kml",
+    "nombre": "PNSECC Melinka Guatecas",
+    "tipo": "PNSECC",
+    "comuna": "Guaitecas",
+    "bbox": [
+      [
+        -43.90087746754692,
+        -73.75030484192844
+      ],
+      [
+        -43.887032649572824,
+        -73.73431911485298
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Aysén",
+    "region_codigo": "11",
+    "carpeta": "capas_11",
+    "archivo": "IPT_11_PNSECC_Rio_Ibanez_Cerro_Castillo.kml",
+    "nombre": "PNSECC Río Ibáñez Cerro Castillo",
+    "tipo": "PNSECC",
+    "comuna": "Río Ibáñez",
+    "bbox": []
+  },
+  {
+    "region_nombre": "Región de Aysén",
+    "region_codigo": "11",
+    "carpeta": "capas_11",
+    "archivo": "IPT_11_PRC_Cisnes.kml",
+    "nombre": "PRC Cisnes",
+    "tipo": "PRC",
+    "comuna": "Cisnes",
+    "bbox": [
+      [
+        -44.73820462546124,
+        -72.6917648659035
+      ],
+      [
+        -44.72010884073943,
+        -72.66898771179044
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Aysén",
+    "region_codigo": "11",
+    "carpeta": "capas_11",
+    "archivo": "IPT_11_PRC_Coyhaique.kml",
+    "nombre": "PRC Coyhaique",
+    "tipo": "PRC",
+    "comuna": "Coyhaique",
+    "bbox": [
+      [
+        -45.61111919289856,
+        -72.1173107985934
+      ],
+      [
+        -45.55329039489441,
+        -72.01197961713655
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Aysén",
+    "region_codigo": "11",
+    "carpeta": "capas_11",
+    "archivo": "IPT_11_PRC_La_Junta.kml",
+    "nombre": "PRC La Junta",
+    "tipo": "PRC",
+    "comuna": "Cisnes",
+    "bbox": [
+      [
+        -43.98425613806846,
+        -72.41590467966556
+      ],
+      [
+        -43.96634885321804,
+        -72.39838114609917
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Aysén",
+    "region_codigo": "11",
+    "carpeta": "capas_11",
+    "archivo": "IPT_11_PRC_Lago_Verde.kml",
+    "nombre": "PRC Lago Verde",
+    "tipo": "PRC",
+    "comuna": "Lago Verde",
+    "bbox": [
+      [
+        -44.244957592187866,
+        -71.86005006485429
+      ],
+      [
+        -44.235704308732586,
+        -71.84463905293124
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Aysén",
+    "region_codigo": "11",
+    "carpeta": "capas_11",
+    "archivo": "IPT_11_PRC_Puerto_Aysen.kml",
+    "nombre": "PRC Puerto Aysén",
+    "tipo": "PRC",
+    "comuna": "Aysén",
+    "bbox": []
+  },
+  {
+    "region_nombre": "Región de Aysén",
+    "region_codigo": "11",
+    "carpeta": "capas_11",
+    "archivo": "IPT_11_PRC_Puerto_Chacabuco.kml",
+    "nombre": "PRC Puerto Chacabuco",
+    "tipo": "PRC",
+    "comuna": "Aysén",
+    "bbox": []
+  },
+  {
+    "region_nombre": "Región de Aysén",
+    "region_codigo": "11",
+    "carpeta": "capas_11",
+    "archivo": "IPT_11_PRC_Puyuhuapi.kml",
+    "nombre": "PRC Puyuhuapi",
+    "tipo": "PRC",
+    "comuna": "Cisnes",
+    "bbox": [
+      [
+        -44.32784473103265,
+        -72.57360453570509
+      ],
+      [
+        -44.31856659522749,
+        -72.55177485817144
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Magallanes",
+    "region_codigo": "12",
+    "carpeta": "capas_12",
+    "archivo": "IPT_12_PNSECC_Cerro_Castillo.kml",
+    "nombre": "PNSECC Cerro Castillo",
+    "tipo": "PNSECC",
+    "comuna": "Torres del Paine",
+    "bbox": [
+      [
+        -51.26029982415061,
+        -72.35812231649217
+      ],
+      [
+        -51.251568498032576,
+        -72.33870953130281
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Magallanes",
+    "region_codigo": "12",
+    "carpeta": "capas_12",
+    "archivo": "IPT_12_PNSECC_Rio_Serrano.kml",
+    "nombre": "PNSECC Río Serrano",
+    "tipo": "PNSECC",
+    "comuna": "Torres del Paine",
+    "bbox": [
+      [
+        -51.25250590956246,
+        -73.01491895783842
+      ],
+      [
+        -51.22696287383593,
+        -72.96768678980952
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Magallanes",
+    "region_codigo": "12",
+    "carpeta": "capas_12",
+    "archivo": "IPT_12_PRC_Laguna_Blanca.kml",
+    "nombre": "PRC Laguna Blanca",
+    "tipo": "PRC",
+    "comuna": "Laguna Blanca",
+    "bbox": [
+      [
+        -52.430834420715,
+        -71.41803790185048
+      ],
+      [
+        -52.423230579934476,
+        -71.41072317620285
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Magallanes",
+    "region_codigo": "12",
+    "carpeta": "capas_12",
+    "archivo": "IPT_12_PRC_Porvenir.kml",
+    "nombre": "PRC Porvenir",
+    "tipo": "PRC",
+    "comuna": "Porvenir",
+    "bbox": [
+      [
+        -53.31381647887381,
+        -70.44336971579891
+      ],
+      [
+        -53.28362772604433,
+        -70.3284826097111
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Magallanes",
+    "region_codigo": "12",
+    "carpeta": "capas_12",
+    "archivo": "IPT_12_PRC_Puerto_Natales.kml",
+    "nombre": "PRC Puerto Natales",
+    "tipo": "PRC",
+    "comuna": "Natales",
+    "bbox": [
+      [
+        -51.743617775531376,
+        -72.51688906557696
+      ],
+      [
+        -51.71510134164821,
+        -72.47113654905962
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Magallanes",
+    "region_codigo": "12",
+    "carpeta": "capas_12",
+    "archivo": "IPT_12_PRC_Puerto_Williams_CaboHornos.kml",
+    "nombre": "PRC Puerto Williams Cabo de Hornos",
+    "tipo": "PRC",
+    "comuna": "Cabo de Hornos",
+    "bbox": [
+      [
+        -54.939895585456114,
+        -67.62344723711146
+      ],
+      [
+        -54.932126899402235,
+        -67.5900843897793
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Magallanes",
+    "region_codigo": "12",
+    "carpeta": "capas_12",
+    "archivo": "IPT_12_PRC_Punta_Arenas.kml",
+    "nombre": "PRC Punta Arenas",
+    "tipo": "PRC",
+    "comuna": "Punta Arenas",
+    "bbox": [
+      [
+        -53.239230119453026,
+        -70.97233744394725
+      ],
+      [
+        -53.017296489873615,
+        -70.82510008233538
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Magallanes",
+    "region_codigo": "12",
+    "carpeta": "capas_12",
+    "archivo": "IPT_12_PRC_Punta_Delgada_San_Gregorio.kml",
+    "nombre": "PRC Punta Delgada San Gregorio",
+    "tipo": "PRC",
+    "comuna": "San Gregorio",
+    "bbox": [
+      [
+        -52.32063328745723,
+        -69.69907174769433
+      ],
+      [
+        -52.308908288492226,
+        -69.66674390893502
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Cerrillos.kml",
+    "nombre": "PRC Cerrillos",
+    "tipo": "PRC",
+    "comuna": "Cerrillos",
+    "bbox": [
+      [
+        -33.53165739214717,
+        -70.7399937332398
+      ],
+      [
+        -33.473038747051135,
+        -70.6854764743464
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Cerro_Navia.kml",
+    "nombre": "PRC Cerro Navia",
+    "tipo": "PRC",
+    "comuna": "Cerro Navia",
+    "bbox": [
+      [
+        -33.43860974134018,
+        -70.78221387564447
+      ],
+      [
+        -33.411212665424806,
+        -70.715987093974
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Colina.kml",
+    "nombre": "PRC Colina",
+    "tipo": "PRC",
+    "comuna": "Colina",
+    "bbox": [
+      [
+        -33.33071224100024,
+        -70.7506819942262
+      ],
+      [
+        -33.00405115629233,
+        -70.60858727615486
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Conchali.kml",
+    "nombre": "PRC Conchalí",
+    "tipo": "PRC",
+    "comuna": "Conchalí",
+    "bbox": [
+      [
+        -33.40331999612175,
+        -70.70107284440506
+      ],
+      [
+        -33.36570457185503,
+        -70.65658948862475
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Curacavi.kml",
+    "nombre": "PRC Curacaví",
+    "tipo": "PRC",
+    "comuna": "Curacaví",
+    "bbox": [
+      [
+        -33.41826821771623,
+        -71.1806774163953
+      ],
+      [
+        -33.38277555547204,
+        -71.10881002464095
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_El_Bosque.kml",
+    "nombre": "PRC El Bosque",
+    "tipo": "PRC",
+    "comuna": "El Bosque",
+    "bbox": [
+      [
+        -33.58528229879814,
+        -70.70105885409461
+      ],
+      [
+        -33.53897720153888,
+        -70.65332003754844
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Estacion_Central.kml",
+    "nombre": "PRC Estación Central",
+    "tipo": "PRC",
+    "comuna": "Estación Central",
+    "bbox": [
+      [
+        -33.48149581011991,
+        -70.73376151175546
+      ],
+      [
+        -33.44313222789159,
+        -70.67096623062392
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Huechuraba.kml",
+    "nombre": "PRC Huechuraba",
+    "tipo": "PRC",
+    "comuna": "Huechuraba",
+    "bbox": [
+      [
+        -33.40351426370614,
+        -70.69401777692035
+      ],
+      [
+        -33.33594501220671,
+        -70.60107697065483
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Independencia.kml",
+    "nombre": "PRC Independencia",
+    "tipo": "PRC",
+    "comuna": "Independencia",
+    "bbox": [
+      [
+        -33.43191344619298,
+        -70.68245759228361
+      ],
+      [
+        -33.39873219630597,
+        -70.64978971752338
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Isla_de_Maipo.kml",
+    "nombre": "PRC Isla de Maipo",
+    "tipo": "PRC",
+    "comuna": "Isla de Maipo",
+    "bbox": [
+      [
+        -33.78039856280875,
+        -70.9173017927199
+      ],
+      [
+        -33.7301226994891,
+        -70.85223176337848
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_La_Cisterna.kml",
+    "nombre": "PRC La Cisterna",
+    "tipo": "PRC",
+    "comuna": "La Cisterna",
+    "bbox": [
+      [
+        -33.54888295002515,
+        -70.68557458940003
+      ],
+      [
+        -33.510593403378756,
+        -70.64451011403028
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_La_Florida.kml",
+    "nombre": "PRC La Florida",
+    "tipo": "PRC",
+    "comuna": "La Florida",
+    "bbox": [
+      [
+        -33.57123614993566,
+        -70.61526557097511
+      ],
+      [
+        -33.50305164953424,
+        -70.51851981482396
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_La_Granja.kml",
+    "nombre": "PRC La Granja",
+    "tipo": "PRC",
+    "comuna": "La Granja",
+    "bbox": [
+      [
+        -33.56003352297628,
+        -70.63736984162446
+      ],
+      [
+        -33.51271491915338,
+        -70.6094789831008
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_La_Pintana.kml",
+    "nombre": "PRC La Pintana",
+    "tipo": "PRC",
+    "comuna": "La Pintana",
+    "bbox": [
+      [
+        -33.62767865721675,
+        -70.67083303096501
+      ],
+      [
+        -33.554806798096955,
+        -70.60526981815006
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_La_Reina.kml",
+    "nombre": "PRC La Reina",
+    "tipo": "PRC",
+    "comuna": "La Reina",
+    "bbox": [
+      [
+        -33.46579921687765,
+        -70.5849976703122
+      ],
+      [
+        -33.42819234719779,
+        -70.50421637986211
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Las_Condes.kml",
+    "nombre": "PRC Las Condes",
+    "tipo": "PRC",
+    "comuna": "Las Condes",
+    "bbox": [
+      [
+        -33.43549604465467,
+        -70.60809928004875
+      ],
+      [
+        -33.36265762734483,
+        -70.47722509931786
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Lo_Barnechea.kml",
+    "nombre": "PRC Lo Barnechea",
+    "tipo": "PRC",
+    "comuna": "Lo Barnechea",
+    "bbox": [
+      [
+        -33.37647558896721,
+        -70.57623964129162
+      ],
+      [
+        -33.30370396096069,
+        -70.24500701366291
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Lo_Espejo.kml",
+    "nombre": "PRC Lo Espejo",
+    "tipo": "PRC",
+    "comuna": "Lo Espejo",
+    "bbox": [
+      [
+        -33.53932977009346,
+        -70.70641629395452
+      ],
+      [
+        -33.50193739897128,
+        -70.67087893719733
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Lo_Prado.kml",
+    "nombre": "PRC Lo Prado",
+    "tipo": "PRC",
+    "comuna": "Lo Prado",
+    "bbox": [
+      [
+        -33.458574772557625,
+        -70.74131164450388
+      ],
+      [
+        -33.436145392223736,
+        -70.7051830889126
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Macul.kml",
+    "nombre": "PRC Macul",
+    "tipo": "PRC",
+    "comuna": "Macul",
+    "bbox": [
+      [
+        -33.51050263747508,
+        -70.62344463587563
+      ],
+      [
+        -33.46904120337462,
+        -70.5766926554937
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Maipu.kml",
+    "nombre": "PRC Maipú",
+    "tipo": "PRC",
+    "comuna": "Maipú",
+    "bbox": [
+      [
+        -33.57267027793537,
+        -70.80393941964275
+      ],
+      [
+        -33.45772003146179,
+        -70.71724050393277
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Melipilla.kml",
+    "nombre": "PRC Melipilla",
+    "tipo": "PRC",
+    "comuna": "Melipilla",
+    "bbox": [
+      [
+        -33.712046470535434,
+        -71.24697422339328
+      ],
+      [
+        -33.64264328937085,
+        -71.14592280369139
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Padre_Hurtado.kml",
+    "nombre": "PRC Padre Hurtado",
+    "tipo": "PRC",
+    "comuna": "Padre Hurtado",
+    "bbox": [
+      [
+        -33.5900409248244,
+        -70.83106685240989
+      ],
+      [
+        -33.55423313954106,
+        -70.78343391010334
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Paine.kml",
+    "nombre": "PRC Paine",
+    "tipo": "PRC",
+    "comuna": "Paine",
+    "bbox": [
+      [
+        -33.90374821901793,
+        -70.89144679544479
+      ],
+      [
+        -33.768224262039375,
+        -70.63013345354679
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Pedro_Aguirre_Cerda.kml",
+    "nombre": "PRC Pedro Aguirre Cerda",
+    "tipo": "PRC",
+    "comuna": "Pedro Aguirre Cerda",
+    "bbox": [
+      [
+        -33.51051702799998,
+        -70.69447554099997
+      ],
+      [
+        -33.47586324399998,
+        -70.65545136199995
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Penaflor.kml",
+    "nombre": "PRC Peñaflor",
+    "tipo": "PRC",
+    "comuna": "Peñaflor",
+    "bbox": [
+      [
+        -33.63287173518515,
+        -70.9102160848708
+      ],
+      [
+        -33.58967969279041,
+        -70.84387889735312
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Penalolen.kml",
+    "nombre": "PRC Peñalolén",
+    "tipo": "PRC",
+    "comuna": "Peñalolén",
+    "bbox": [
+      [
+        -33.51269041192819,
+        -70.5896037298278
+      ],
+      [
+        -33.45840723912921,
+        -70.51360773996433
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Pirque.kml",
+    "nombre": "PRC Pirque",
+    "tipo": "PRC",
+    "comuna": "Pirque",
+    "bbox": [
+      [
+        -33.64745314786823,
+        -70.58841030454678
+      ],
+      [
+        -33.62119482726494,
+        -70.55389682749188
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Providencia.kml",
+    "nombre": "PRC Providencia",
+    "tipo": "PRC",
+    "comuna": "Providencia",
+    "bbox": [
+      [
+        -33.450455155780965,
+        -70.63662435582133
+      ],
+      [
+        -33.408680398055196,
+        -70.58178815419751
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Pudahuel.kml",
+    "nombre": "PRC Pudahuel",
+    "tipo": "PRC",
+    "comuna": "Pudahuel",
+    "bbox": [
+      [
+        -33.471308856340364,
+        -70.82984196325353
+      ],
+      [
+        -33.37291410353995,
+        -70.72932589559397
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Puente_Alto.kml",
+    "nombre": "PRC Puente Alto",
+    "tipo": "PRC",
+    "comuna": "Puente Alto",
+    "bbox": [
+      [
+        -33.642137276282135,
+        -70.63088205493877
+      ],
+      [
+        -33.54648654633939,
+        -70.49340696659823
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Quilicura.kml",
+    "nombre": "PRC Quilicura",
+    "tipo": "PRC",
+    "comuna": "Quilicura",
+    "bbox": [
+      [
+        -33.38333082427942,
+        -70.74823887281062
+      ],
+      [
+        -33.36166823378049,
+        -70.69315661839194
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Quinta_Normal.kml",
+    "nombre": "PRC Quinta Normal",
+    "tipo": "PRC",
+    "comuna": "Quinta Normal",
+    "bbox": [
+      [
+        -33.44918321576422,
+        -70.72299602323535
+      ],
+      [
+        -33.40760456789934,
+        -70.67110873718656
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Recoleta.kml",
+    "nombre": "PRC Recoleta",
+    "tipo": "PRC",
+    "comuna": "Recoleta",
+    "bbox": [
+      [
+        -33.43602922431788,
+        -70.65894248107429
+      ],
+      [
+        -33.37640044688407,
+        -70.60913071628572
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Renca.kml",
+    "nombre": "PRC Renca",
+    "tipo": "PRC",
+    "comuna": "Renca",
+    "bbox": [
+      [
+        -33.42646549585596,
+        -70.78278780927793
+      ],
+      [
+        -33.3802053672367,
+        -70.67045640063479
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_San_Bernardo.kml",
+    "nombre": "PRC San Bernardo",
+    "tipo": "PRC",
+    "comuna": "San Bernardo",
+    "bbox": [
+      [
+        -33.677880560945106,
+        -70.75088148602474
+      ],
+      [
+        -33.523660050441606,
+        -70.62776995196312
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_San_Joaquin.kml",
+    "nombre": "PRC San Joaquín",
+    "tipo": "PRC",
+    "comuna": "San Joaquín",
+    "bbox": [
+      [
+        -33.519034212372716,
+        -70.64248873415809
+      ],
+      [
+        -33.469513304352304,
+        -70.61058242919634
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_San_Miguel.kml",
+    "nombre": "PRC San Miguel",
+    "tipo": "PRC",
+    "comuna": "San Miguel",
+    "bbox": [
+      [
+        -33.51875742386191,
+        -70.67087962786489
+      ],
+      [
+        -33.476078948424366,
+        -70.63594991763394
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_San_Ramon.kml",
+    "nombre": "PRC San Ramón",
+    "tipo": "PRC",
+    "comuna": "San Ramón",
+    "bbox": [
+      [
+        -33.558210000232464,
+        -70.65511434136339
+      ],
+      [
+        -33.517251467655576,
+        -70.6301368198698
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Santiago.kml",
+    "nombre": "PRC Santiago",
+    "tipo": "PRC",
+    "comuna": "Santiago",
+    "bbox": [
+      [
+        -33.47912150202287,
+        -70.69275513960429
+      ],
+      [
+        -33.42512895464185,
+        -70.62428211321718
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Talagante.kml",
+    "nombre": "PRC Talagante",
+    "tipo": "PRC",
+    "comuna": "Talagante",
+    "bbox": [
+      [
+        -33.71496017176759,
+        -70.96290553978326
+      ],
+      [
+        -33.629717043377134,
+        -70.84446159886517
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Vitacura.kml",
+    "nombre": "PRC Vitacura",
+    "tipo": "PRC",
+    "comuna": "Vitacura",
+    "bbox": [
+      [
+        -33.410489901437714,
+        -70.61375813928454
+      ],
+      [
+        -33.35021000568285,
+        -70.517429630531
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región Metropolitana",
+    "region_codigo": "13",
+    "carpeta": "capas_13",
+    "archivo": "IPT_13_PRC_Nunoa.kml",
+    "nombre": "PRC Ñuñoa",
+    "tipo": "PRC",
+    "comuna": "Ñuñoa",
+    "bbox": [
+      [
+        -33.47544603613273,
+        -70.63173859617308
+      ],
+      [
+        -33.433278035188394,
+        -70.57035212455146
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PNOSECC_Futrono_Bahia_Coique.kml",
+    "nombre": "PNOSECC Futrono Bahía Coique",
+    "tipo": "PNOSECC",
+    "comuna": "Futrono",
+    "bbox": [
+      [
+        -40.14990962229977,
+        -72.4914606219869
+      ],
+      [
+        -40.12730044356357,
+        -72.44068332703097
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PNOSECC_Lago_Ranco_Ignao.kml",
+    "nombre": "PNOSECC Lago Ranco Ignao",
+    "tipo": "PNOSECC",
+    "comuna": "Lago Ranco",
+    "bbox": [
+      [
+        -40.335889146280664,
+        -72.56066785585573
+      ],
+      [
+        -40.3266693713987,
+        -72.54876258715247
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PNOSECC_Panguipulli_Puyumen.kml",
+    "nombre": "PNOSECC Panguipulli Puyumen",
+    "tipo": "PNOSECC",
+    "comuna": "Panguipulli",
+    "bbox": [
+      [
+        -39.68509983865326,
+        -72.28265009804953
+      ],
+      [
+        -39.680354972760156,
+        -72.27758464193722
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PNOSECC_Valdivia_Barrios_Bajos.kml",
+    "nombre": "PNOSECC Valdivia Barrios Bajos",
+    "tipo": "PNOSECC",
+    "comuna": "Valdivia",
+    "bbox": [
+      [
+        -39.83099814639517,
+        -73.25201809986363
+      ],
+      [
+        -39.81749108174865,
+        -73.23407340547232
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PRC_Corral.kml",
+    "nombre": "PRC Corral",
+    "tipo": "PRC",
+    "comuna": "Corral",
+    "bbox": [
+      [
+        -39.90143883022056,
+        -73.45117799488239
+      ],
+      [
+        -39.85745105867011,
+        -73.41445381575708
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PRC_Futrono.kml",
+    "nombre": "PRC Futrono",
+    "tipo": "PRC",
+    "comuna": "Futrono",
+    "bbox": [
+      [
+        -40.141379888168096,
+        -72.4025992561294
+      ],
+      [
+        -40.11994018399819,
+        -72.37146609120656
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PRC_La_Union.kml",
+    "nombre": "PRC La Unión",
+    "tipo": "PRC",
+    "comuna": "La Unión",
+    "bbox": [
+      [
+        -40.317628509865415,
+        -73.09720775320515
+      ],
+      [
+        -40.26423320664264,
+        -73.04558514659122
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PRC_Lago_Ranco.kml",
+    "nombre": "PRC Lago Ranco",
+    "tipo": "PRC",
+    "comuna": "Lago Ranco",
+    "bbox": [
+      [
+        -40.32860649937921,
+        -72.4917612722519
+      ],
+      [
+        -40.314877134295166,
+        -72.46473665520845
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PRC_Lanco.kml",
+    "nombre": "PRC Lanco",
+    "tipo": "PRC",
+    "comuna": "Lanco",
+    "bbox": [
+      [
+        -39.45982041544253,
+        -72.79159631461832
+      ],
+      [
+        -39.44404029877926,
+        -72.75638647414632
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PRC_Los_Lagos.kml",
+    "nombre": "PRC Los Lagos",
+    "tipo": "PRC",
+    "comuna": "Los Lagos",
+    "bbox": [
+      [
+        -39.87393913459416,
+        -72.8245906286361
+      ],
+      [
+        -39.85533267353046,
+        -72.78730055496868
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PRC_Mafil.kml",
+    "nombre": "PRC Máfil",
+    "tipo": "PRC",
+    "comuna": "Máfil",
+    "bbox": [
+      [
+        -39.67267996069726,
+        -72.96159964206159
+      ],
+      [
+        -39.64723701578543,
+        -72.93389248071773
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PRC_Paillaco.kml",
+    "nombre": "PRC Paillaco",
+    "tipo": "PRC",
+    "comuna": "Paillaco",
+    "bbox": [
+      [
+        -40.159334690727654,
+        -72.90377191096543
+      ],
+      [
+        -39.98218425364844,
+        -72.82668748854478
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PRC_Panguipulli.kml",
+    "nombre": "PRC Panguipulli",
+    "tipo": "PRC",
+    "comuna": "Panguipulli",
+    "bbox": [
+      [
+        -39.655439504094836,
+        -72.35117824022826
+      ],
+      [
+        -39.63279213652613,
+        -72.31069432080866
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PRC_Rio_Bueno.kml",
+    "nombre": "PRC Río Bueno",
+    "tipo": "PRC",
+    "comuna": "Río Bueno",
+    "bbox": [
+      [
+        -40.351836900438414,
+        -72.9759534061806
+      ],
+      [
+        -40.324361156916424,
+        -72.9226933282734
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Los Ríos",
+    "region_codigo": "14",
+    "carpeta": "capas_14",
+    "archivo": "IPT_14_PRC_Valdivia.kml",
+    "nombre": "PRC Valdivia",
+    "tipo": "PRC",
+    "comuna": "Valdivia",
+    "bbox": [
+      [
+        -39.883768660538834,
+        -73.41267876276027
+      ],
+      [
+        -39.777703466894785,
+        -73.18169497433453
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Arica y Parinacota",
+    "region_codigo": "15",
+    "carpeta": "capas_15",
+    "archivo": "IPT_15_PRC_Arica.kml",
+    "nombre": "PRC Arica",
+    "tipo": "PRC",
+    "comuna": "Arica",
+    "bbox": [
+      [
+        -18.5475166477322,
+        -70.33649428804044
+      ],
+      [
+        -18.351676179345255,
+        -70.27097286309157
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Arica y Parinacota",
+    "region_codigo": "15",
+    "carpeta": "capas_15",
+    "archivo": "IPT_15_PRC_Putre.kml",
+    "nombre": "PRC Putre",
+    "tipo": "PRC",
+    "comuna": "Putre",
+    "bbox": [
+      [
+        -18.199784766908415,
+        -69.56510068221294
+      ],
+      [
+        -18.19432657761947,
+        -69.55567910051359
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Arica y Parinacota",
+    "region_codigo": "15",
+    "carpeta": "capas_15",
+    "archivo": "IPT_15_PRC_Arica_SECC_San_MIguel.kml",
+    "nombre": "SECC Arica San Miguel",
+    "tipo": "SECC",
+    "comuna": "Arica",
+    "bbox": [
+      [
+        -18.521275573036327,
+        -70.18023848783429
+      ],
+      [
+        -18.515335262355105,
+        -70.17359508128095
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Bulnes.kml",
+    "nombre": "PRC Bulnes",
+    "tipo": "PRC",
+    "comuna": "Bulnes",
+    "bbox": [
+      [
+        -36.843875818146515,
+        -72.3626762803432
+      ],
+      [
+        -36.71928373503584,
+        -72.18851420058844
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Chillan.kml",
+    "nombre": "PRC Chillán",
+    "tipo": "PRC",
+    "comuna": "Chillán",
+    "bbox": [
+      [
+        -36.66824041354964,
+        -72.46206873106738
+      ],
+      [
+        -36.52470938670636,
+        -71.87505744580663
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Chillan_Viejo.kml",
+    "nombre": "PRC Chillán Viejo",
+    "tipo": "PRC",
+    "comuna": "Chillán Viejo",
+    "bbox": [
+      [
+        -36.71373463807645,
+        -72.29544746837838
+      ],
+      [
+        -36.609858110436754,
+        -72.09776893573728
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Cobquecura.kml",
+    "nombre": "PRC Cobquecura",
+    "tipo": "PRC",
+    "comuna": "Cobquecura",
+    "bbox": [
+      [
+        -36.28254109170419,
+        -72.82888292663465
+      ],
+      [
+        -36.00278931012491,
+        -72.7559053536479
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Coelemu.kml",
+    "nombre": "PRC Coelemu",
+    "tipo": "PRC",
+    "comuna": "Coelemu",
+    "bbox": [
+      [
+        -36.515817887116825,
+        -72.88921647081716
+      ],
+      [
+        -36.387720946316946,
+        -72.67412720027218
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_El_Carmen.kml",
+    "nombre": "PRC El Carmen",
+    "tipo": "PRC",
+    "comuna": "El Carmen",
+    "bbox": [
+      [
+        -36.90613576100526,
+        -72.05828999114205
+      ],
+      [
+        -36.88916652004159,
+        -71.99739212385524
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Ninhue.kml",
+    "nombre": "PRC Ninhue",
+    "tipo": "PRC",
+    "comuna": "Ninhue",
+    "bbox": [
+      [
+        -36.412447679694154,
+        -72.41552265948897
+      ],
+      [
+        -36.38097787355483,
+        -72.39016574696845
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Pemuco.kml",
+    "nombre": "PRC Pemuco",
+    "tipo": "PRC",
+    "comuna": "Pemuco",
+    "bbox": [
+      [
+        -36.98696493403814,
+        -72.10961848585778
+      ],
+      [
+        -36.96638015624027,
+        -72.08375770303535
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Pinto.kml",
+    "nombre": "PRC Pinto",
+    "tipo": "PRC",
+    "comuna": "Pinto",
+    "bbox": [
+      [
+        -36.930866899792036,
+        -71.66900980378797
+      ],
+      [
+        -36.83735864812341,
+        -71.37030713570887
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Portezuelo.kml",
+    "nombre": "PRC Portezuelo",
+    "tipo": "PRC",
+    "comuna": "Portezuelo",
+    "bbox": [
+      [
+        -36.536145361152265,
+        -72.44640061304305
+      ],
+      [
+        -36.51837140824758,
+        -72.41068365221429
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Quillon.kml",
+    "nombre": "PRC Quillón",
+    "tipo": "PRC",
+    "comuna": "Quillón",
+    "bbox": [
+      [
+        -36.776621695198735,
+        -72.50481578601801
+      ],
+      [
+        -36.724734273374445,
+        -72.41307590770683
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Quirihue.kml",
+    "nombre": "PRC Quirihue",
+    "tipo": "PRC",
+    "comuna": "Quirihue",
+    "bbox": [
+      [
+        -36.31206715354444,
+        -72.56714254589086
+      ],
+      [
+        -36.25307895772706,
+        -72.5146627078967
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Ranquil.kml",
+    "nombre": "PRC Ránquil",
+    "tipo": "PRC",
+    "comuna": "Ránquil",
+    "bbox": [
+      [
+        -36.66792504431218,
+        -72.61249548981833
+      ],
+      [
+        -36.5955675273591,
+        -72.44896191083171
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_San_Carlos.kml",
+    "nombre": "PRC San Carlos",
+    "tipo": "PRC",
+    "comuna": "San Carlos",
+    "bbox": [
+      [
+        -36.55652526586138,
+        -72.09164648266375
+      ],
+      [
+        -36.34894354327777,
+        -71.71113720840883
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_San_Fabian.kml",
+    "nombre": "PRC San Fabián",
+    "tipo": "PRC",
+    "comuna": "San Fabián",
+    "bbox": [
+      [
+        -36.561002714273684,
+        -71.55634401718294
+      ],
+      [
+        -36.549189865729815,
+        -71.53932125279925
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_San_Ignacio.kml",
+    "nombre": "PRC San Ignacio",
+    "tipo": "PRC",
+    "comuna": "San Ignacio",
+    "bbox": [
+      [
+        -36.88988380287542,
+        -72.10674549592468
+      ],
+      [
+        -36.78953471704745,
+        -71.95755585544919
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Yungay.kml",
+    "nombre": "PRC Yungay",
+    "tipo": "PRC",
+    "comuna": "Yungay",
+    "bbox": [
+      [
+        -37.12982247886269,
+        -72.03245906648046
+      ],
+      [
+        -37.11057584939273,
+        -72.00178830839812
+      ]
+    ]
+  },
+  {
+    "region_nombre": "Región de Ñuble",
+    "region_codigo": "16",
+    "carpeta": "capas_16",
+    "archivo": "IPT_16_PRC_Niquen.kml",
+    "nombre": "PRC Ñiquén",
+    "tipo": "PRC",
+    "comuna": "Ñiquén",
+    "bbox": [
+      [
+        -36.37919107401058,
+        -71.90899878869942
+      ],
+      [
+        -36.270783636605934,
+        -71.75875629432484
+      ]
+    ]
+  }
+]

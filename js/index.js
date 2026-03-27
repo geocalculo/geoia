@@ -1,8 +1,15 @@
 const regionSelect = document.getElementById("region-select");
 const instrumentoSelect = document.getElementById("instrumento-select");
+
+const prcSearchInput = document.getElementById("prc-search");
+const prcSearchResults = document.getElementById("prc-search-results");
+
 let regionesData = [];
 let map;
 let marcadorPunto = null;
+let indiceBuscador = [];
+let resultadosBusquedaActual = [];
+let searchActiveIndex = -1;
 
 // Overview
 let overviewMap = null;
@@ -10,9 +17,9 @@ let overviewRect = null;
 
 window.dataLayer = window.dataLayer || [];
 
-// -------------------------
-// TRACKING
-// -------------------------
+/* -------------------------
+   TRACKING
+------------------------- */
 function cleanTrackingValue(value) {
   if (value === null || value === undefined) return undefined;
   const text = String(value).trim();
@@ -63,9 +70,9 @@ function trackGeoiptMapClick(payload = {}) {
   window.dataLayer.push(eventPayload);
 }
 
-// -------------------------
-// Utilidad: leer lat/lon si vienen por URL
-// -------------------------
+/* -------------------------
+   UTILIDADES
+------------------------- */
 function getUrlParamsLatLon() {
   const p = new URLSearchParams(window.location.search);
   const lat = parseFloat(p.get("lat"));
@@ -76,15 +83,80 @@ function getUrlParamsLatLon() {
   return { lat, lon };
 }
 
-// -------------------------
-// MAPA BASE
-// -------------------------
+function normalizarTexto(str) {
+  return String(str || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function bboxEsValido(bbox) {
+  return (
+    Array.isArray(bbox) &&
+    bbox.length === 2 &&
+    Array.isArray(bbox[0]) &&
+    Array.isArray(bbox[1]) &&
+    bbox[0].length === 2 &&
+    bbox[1].length === 2 &&
+    bbox.every(par =>
+      Array.isArray(par) &&
+      par.every(num => Number.isFinite(Number(num)))
+    )
+  );
+}
+
+function fitBoundsDesdeBbox(bbox) {
+  if (!bboxEsValido(bbox) || !map) return false;
+
+  const sw = L.latLng(Number(bbox[0][0]), Number(bbox[0][1]));
+  const ne = L.latLng(Number(bbox[1][0]), Number(bbox[1][1]));
+  const bounds = L.latLngBounds(sw, ne);
+
+  if (!bounds.isValid()) return false;
+
+  map.fitBounds(bounds, { padding: [30, 30] });
+  return true;
+}
+
+function setMapMarkerAtCenter() {
+  if (!map) return;
+  const center = map.getCenter();
+
+  if (marcadorPunto) {
+    marcadorPunto.setLatLng(center);
+  } else {
+    marcadorPunto = L.circleMarker(center, {
+      radius: 6,
+      color: "#f97316",
+      weight: 2,
+      fillColor: "#ffffff",
+      fillOpacity: 0.9
+    }).addTo(map);
+  }
+}
+
+function obtenerTextoRegionCorto(regionNombre) {
+  return String(regionNombre || "").replace(/^Región( de)? /i, "").trim();
+}
+
+/* -------------------------
+   MAPA BASE
+------------------------- */
 function initMapa() {
   const mapaCalle = L.tileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     {
       maxZoom: 19,
-      attribution: "&copy; OpenStreetMap contributors",
+      attribution: "&copy; OpenStreetMap contributors"
     }
   );
 
@@ -93,7 +165,7 @@ function initMapa() {
     {
       maxZoom: 19,
       attribution:
-        "Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP",
+        "Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP"
     }
   );
 
@@ -102,23 +174,18 @@ function initMapa() {
     zoom: 15,
     minZoom: 4,
     maxZoom: 19,
-    layers: [mapaCalle],
+    layers: [mapaCalle]
   });
 
-  L.control
-    .layers(
-      {
-        "Mapa calle": mapaCalle,
-        "Satélite": mapaSatelite,
-      },
-      {},
-      { position: "topright" }
-    )
-    .addTo(map);
+  L.control.layers(
+    {
+      "Mapa calle": mapaCalle,
+      "Satélite": mapaSatelite
+    },
+    {},
+    { position: "topright" }
+  ).addTo(map);
 
-  // ============================
-  // OVERVIEW MAP (miniatura país)
-  // ============================
   const overviewDiv = document.getElementById("overview-map");
   if (overviewDiv) {
     overviewMap = L.map("overview-map", {
@@ -128,24 +195,21 @@ function initMapa() {
       scrollWheelZoom: false,
       doubleClickZoom: false,
       boxZoom: false,
-      keyboard: false,
+      keyboard: false
     });
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 18,
+      maxZoom: 18
     }).addTo(overviewMap);
 
-    const chileBounds = L.latLngBounds(
-      [-56.0, -76.0],
-      [-17.0, -66.0]
-    );
+    const chileBounds = L.latLngBounds([-56.0, -76.0], [-17.0, -66.0]);
     overviewMap.fitBounds(chileBounds);
 
     overviewRect = L.rectangle(map.getBounds(), {
       color: "#ff2d2d",
       weight: 2,
       fillOpacity: 0,
-      interactive: false,
+      interactive: false
     }).addTo(overviewMap);
 
     map.on("moveend", () => {
@@ -155,7 +219,6 @@ function initMapa() {
     });
   }
 
-  // Si viene llamado desde info.html con lat/lon: centrar ahí
   const p = getUrlParamsLatLon();
   if (p) {
     const { lat, lon } = p;
@@ -165,16 +228,14 @@ function initMapa() {
       color: "#f97316",
       weight: 2,
       fillColor: "#ffffff",
-      fillOpacity: 0.9,
+      fillOpacity: 0.9
     }).addTo(map);
   }
 
-  // CLICK → motor BBOX (bbox_test.html) con lat, lon y BBOX
   map.on("click", (e) => {
     const lat = e.latlng.lat;
     const lon = e.latlng.lng;
 
-    // actualizar / crear marcador
     if (marcadorPunto) {
       marcadorPunto.setLatLng(e.latlng);
     } else {
@@ -183,7 +244,7 @@ function initMapa() {
         color: "#f97316",
         weight: 2,
         fillColor: "#ffffff",
-        fillOpacity: 0.9,
+        fillOpacity: 0.9
       }).addTo(map);
     }
 
@@ -197,7 +258,7 @@ function initMapa() {
       north.toFixed(8),
       east.toFixed(8),
       south.toFixed(8),
-      west.toFixed(8),
+      west.toFixed(8)
     ].join(",");
 
     const url = new URL("bbox_test.html", window.location.href);
@@ -205,18 +266,15 @@ function initMapa() {
     url.searchParams.set("lon", lon.toFixed(6));
     url.searchParams.set("bbox", bboxStr);
 
-    // Tracking del inicio del funnel
     trackGeoiptMapClick({
       lat: Number(lat.toFixed(6)),
       lon: Number(lon.toFixed(6)),
       bbox: bboxStr
     });
 
-    // IMPORTANTE: solo enviamos lat, lon, bbox
     window.open(url, "_blank");
   });
 
-  // Mira de rifle (geolocalización)
   const mira = document.getElementById("mira-rifle");
   if (mira) {
     mira.addEventListener("click", () => {
@@ -228,6 +286,7 @@ function initMapa() {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           map.setView([pos.coords.latitude, pos.coords.longitude], 16);
+          setMapMarkerAtCenter();
         },
         (err) => {
           console.error(err);
@@ -239,9 +298,9 @@ function initMapa() {
   }
 }
 
-// -------------------------
-// REGIONES
-// -------------------------
+/* -------------------------
+   REGIONES
+------------------------- */
 async function cargarRegiones() {
   try {
     const resp = await fetch("capas/regiones.json");
@@ -272,7 +331,7 @@ async function cargarRegiones() {
     if (defaultCode) {
       regionSelect.value = defaultCode;
       centrarEnRegion(defaultCode);
-      cargarInstrumentos(defaultCode);
+      await cargarInstrumentos(defaultCode);
     }
   } catch (err) {
     console.error("Error cargando regiones:", err);
@@ -291,12 +350,10 @@ function centrarEnRegion(cod) {
   map.setView([lat, lon], zoom);
 }
 
-// -------------------------
-// INSTRUMENTOS (zoom óptico)
-// -------------------------
+/* -------------------------
+   INSTRUMENTOS
+------------------------- */
 async function cargarInstrumentos(regionCode) {
-  console.log(">>> cargarInstrumentos para región:", regionCode);
-
   instrumentoSelect.innerHTML = "";
   instrumentoSelect.disabled = true;
 
@@ -306,51 +363,37 @@ async function cargarInstrumentos(regionCode) {
   instrumentoSelect.appendChild(def);
 
   const reg = obtenerRegionPorCodigo(regionCode);
-  console.log("   Región encontrada:", reg);
-
   if (!reg) {
     console.warn("No se encontró la región", regionCode);
-    alert("No se encontró la región en regiones.json: " + regionCode);
-    return;
+    return [];
   }
 
   if (!reg.carpeta) {
-    console.warn("La región NO tiene campo 'carpeta' en regiones.json:", reg);
-    alert("La región " + regionCode + " no tiene campo 'carpeta' en regiones.json");
-    return;
+    console.warn("La región no tiene campo 'carpeta' en regiones.json:", reg);
+    return [];
   }
 
   const carpetaRegion = reg.carpeta;
   const url = `capas/${carpetaRegion}/listado.json`;
-  console.log("   Leyendo listado desde URL:", url);
 
   try {
     const resp = await fetch(url);
-    console.log("   Respuesta fetch:", resp.status, resp.statusText);
-
     if (!resp.ok) {
       console.warn("No se pudo leer", url, resp.status);
-      alert("No se pudo leer " + url + " (status " + resp.status + ")");
-      return;
+      return [];
     }
 
-    let data;
-    try {
-      data = await resp.json();
-    } catch (jsonErr) {
-      console.error("   Error parseando JSON de", url, jsonErr);
-      alert("Error leyendo JSON de " + url + ". Revisa que no tenga comas de más.");
-      return;
-    }
-
-    console.log("   JSON listado:", data);
-
+    const data = await resp.json();
     const lista = data.instrumentos || data.kml || [];
-    console.log("   Cantidad de instrumentos:", lista.length);
+
+    const instrumentosNormalizados = [];
 
     lista.forEach((entry, idx) => {
       let archivo = "";
       let nombre = "";
+      let tipo = "";
+      let comuna = "";
+      let bbox = [];
 
       if (typeof entry === "string") {
         archivo = entry;
@@ -358,24 +401,40 @@ async function cargarInstrumentos(regionCode) {
       } else if (entry && typeof entry === "object") {
         archivo = entry.archivo || entry.kml || "";
         nombre = (entry.nombre || archivo || "").replace(/\.kml$/i, "");
+        tipo = entry.tipo || "";
+        comuna = entry.comuna || "";
+        bbox = entry.bbox || [];
       }
 
       if (!archivo) {
-        console.warn("   Instrumento sin archivo en índice", idx, entry);
+        console.warn("Instrumento sin archivo en índice", idx, entry);
         return;
       }
+
+      instrumentosNormalizados.push({
+        archivo,
+        nombre,
+        tipo,
+        comuna,
+        bbox,
+        carpeta: carpetaRegion
+      });
 
       const opt = document.createElement("option");
       opt.value = archivo;
       opt.textContent = nombre;
+      opt.dataset.carpeta = carpetaRegion;
+      opt.dataset.tipo = tipo;
+      opt.dataset.comuna = comuna;
+      opt.dataset.bbox = JSON.stringify(bbox || []);
       instrumentoSelect.appendChild(opt);
     });
 
     instrumentoSelect.disabled = instrumentoSelect.options.length <= 1;
-    console.log("   Opciones finales en combo:", instrumentoSelect.options.length);
+    return instrumentosNormalizados;
   } catch (e) {
     console.error("Error leyendo instrumentos:", e);
-    alert("Error leyendo instrumentos para región " + regionCode + ". Revisa la consola.");
+    return [];
   }
 }
 
@@ -394,8 +453,8 @@ async function zoomAlInstrumento(regionCode, archivo) {
       console.warn("No se pudo abrir el KML:", url);
       return;
     }
-    const txt = await resp.text();
 
+    const txt = await resp.text();
     const xml = new DOMParser().parseFromString(txt, "application/xml");
     const coords = xml.querySelectorAll("coordinates");
 
@@ -412,30 +471,254 @@ async function zoomAlInstrumento(regionCode, archivo) {
 
     if (puntos.length) {
       map.fitBounds(L.latLngBounds(puntos), { padding: [30, 30] });
+      setMapMarkerAtCenter();
     }
   } catch (e) {
     console.warn("No se pudo procesar el KML:", e);
   }
 }
 
-// -------------------------
-// INICIO
-// -------------------------
-document.addEventListener("DOMContentLoaded", () => {
-  initMapa();
-  cargarRegiones();
+/* -------------------------
+   BUSCADOR NACIONAL
+------------------------- */
+async function cargarIndiceBuscador() {
+  try {
+    const resp = await fetch("capas/buscador_prc.json");
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 
-  regionSelect.addEventListener("change", () => {
-    const code = regionSelect.value;
-    centrarEnRegion(code);
-    cargarInstrumentos(code);
+    const data = await resp.json();
+    if (!Array.isArray(data)) throw new Error("buscador_prc.json no es un array");
+
+    indiceBuscador = data
+      .filter(item => item && typeof item === "object")
+      .map(item => ({
+        region_nombre: item.region_nombre || "",
+        region_codigo: item.region_codigo || "",
+        carpeta: item.carpeta || "",
+        archivo: item.archivo || "",
+        nombre: item.nombre || "",
+        tipo: item.tipo || "",
+        comuna: item.comuna || "",
+        bbox: item.bbox || [],
+        searchText: normalizarTexto(
+          [
+            item.nombre,
+            item.comuna,
+            item.tipo,
+            item.region_nombre,
+            item.archivo
+          ].join(" ")
+        )
+      }))
+      .filter(item => item.archivo && item.nombre);
+
+  } catch (err) {
+    console.error("No se pudo cargar el índice nacional del buscador:", err);
+    indiceBuscador = [];
+  }
+}
+
+function buscarInstrumentos(query) {
+  const q = normalizarTexto(query);
+  if (!q || q.length < 2) return [];
+
+  const tokens = q.split(/\s+/).filter(Boolean);
+
+  const resultados = indiceBuscador
+    .filter(item => tokens.every(t => item.searchText.includes(t)))
+    .sort((a, b) => {
+      const aStarts = normalizarTexto(a.nombre).startsWith(q) ? 1 : 0;
+      const bStarts = normalizarTexto(b.nombre).startsWith(q) ? 1 : 0;
+      if (aStarts !== bStarts) return bStarts - aStarts;
+
+      const aComuna = normalizarTexto(a.comuna).startsWith(q) ? 1 : 0;
+      const bComuna = normalizarTexto(b.comuna).startsWith(q) ? 1 : 0;
+      if (aComuna !== bComuna) return bComuna - aComuna;
+
+      return a.nombre.localeCompare(b.nombre, "es", { sensitivity: "base" });
+    });
+
+  return resultados.slice(0, 10);
+}
+
+function ocultarResultadosBusqueda() {
+  resultadosBusquedaActual = [];
+  searchActiveIndex = -1;
+  prcSearchResults.innerHTML = "";
+  prcSearchResults.hidden = true;
+}
+
+function renderResultadosBusqueda(resultados) {
+  resultadosBusquedaActual = resultados;
+  searchActiveIndex = -1;
+
+  if (!resultados.length) {
+    prcSearchResults.innerHTML = `
+      <div class="map-search-empty">Sin coincidencias.</div>
+    `;
+    prcSearchResults.hidden = false;
+    return;
+  }
+
+  prcSearchResults.innerHTML = resultados
+    .map((item, idx) => {
+      const regionCorta = obtenerTextoRegionCorto(item.region_nombre);
+      const meta = [item.tipo, item.comuna, regionCorta].filter(Boolean).join(" · ");
+
+      return `
+        <button
+          type="button"
+          class="map-search-item"
+          data-index="${idx}"
+        >
+          <span class="map-search-title">${escapeHtml(item.nombre)}</span>
+          <span class="map-search-meta">${escapeHtml(meta)}</span>
+        </button>
+      `;
+    })
+    .join("");
+
+  prcSearchResults.hidden = false;
+
+  prcSearchResults.querySelectorAll(".map-search-item").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const idx = Number(btn.dataset.index);
+      const item = resultadosBusquedaActual[idx];
+      if (item) {
+        seleccionarResultadoBusqueda(item);
+      }
+    });
+  });
+}
+
+function actualizarItemActivoBusqueda() {
+  const items = prcSearchResults.querySelectorAll(".map-search-item");
+  items.forEach((el, idx) => {
+    el.classList.toggle("is-active", idx === searchActiveIndex);
   });
 
-  instrumentoSelect.addEventListener("change", () => {
-    zoomAlInstrumento(regionSelect.value, instrumentoSelect.value);
+  if (searchActiveIndex >= 0 && items[searchActiveIndex]) {
+    items[searchActiveIndex].scrollIntoView({ block: "nearest" });
+  }
+}
+
+async function seleccionarResultadoBusqueda(item) {
+  if (!item) return;
+
+  prcSearchInput.value = item.nombre;
+  ocultarResultadosBusqueda();
+
+  if (item.region_codigo) {
+    regionSelect.value = item.region_codigo;
+    centrarEnRegion(item.region_codigo);
+    await cargarInstrumentos(item.region_codigo);
+  }
+
+  const option = Array.from(instrumentoSelect.options).find(
+    (opt) => opt.value === item.archivo
+  );
+
+  if (option) {
+    instrumentoSelect.value = option.value;
+  }
+
+  const hizoFitBbox = fitBoundsDesdeBbox(item.bbox);
+
+  if (!hizoFitBbox) {
+    await zoomAlInstrumento(item.region_codigo, item.archivo);
+  } else {
+    setMapMarkerAtCenter();
+  }
+}
+
+function initBuscadorNacional() {
+  if (!prcSearchInput || !prcSearchResults) return;
+
+  prcSearchInput.addEventListener("input", () => {
+    const value = prcSearchInput.value.trim();
+
+    if (value.length < 2) {
+      ocultarResultadosBusqueda();
+      return;
+    }
+
+    const resultados = buscarInstrumentos(value);
+    renderResultadosBusqueda(resultados);
+  });
+
+  prcSearchInput.addEventListener("keydown", async (e) => {
+    if (prcSearchResults.hidden || !resultadosBusquedaActual.length) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      searchActiveIndex = (searchActiveIndex + 1) % resultadosBusquedaActual.length;
+      actualizarItemActivoBusqueda();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      searchActiveIndex =
+        searchActiveIndex <= 0
+          ? resultadosBusquedaActual.length - 1
+          : searchActiveIndex - 1;
+      actualizarItemActivoBusqueda();
+    } else if (e.key === "Enter") {
+      if (searchActiveIndex >= 0 && resultadosBusquedaActual[searchActiveIndex]) {
+        e.preventDefault();
+        await seleccionarResultadoBusqueda(resultadosBusquedaActual[searchActiveIndex]);
+      }
+    } else if (e.key === "Escape") {
+      ocultarResultadosBusqueda();
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    const wrap = document.getElementById("map-search-wrap");
+    if (!wrap) return;
+    if (!wrap.contains(e.target)) {
+      ocultarResultadosBusqueda();
+    }
+  });
+}
+
+/* -------------------------
+   INICIO
+------------------------- */
+document.addEventListener("DOMContentLoaded", async () => {
+  initMapa();
+  await cargarRegiones();
+  await cargarIndiceBuscador();
+  initBuscadorNacional();
+
+  regionSelect.addEventListener("change", async () => {
+    const code = regionSelect.value;
+    centrarEnRegion(code);
+    await cargarInstrumentos(code);
+  });
+
+  instrumentoSelect.addEventListener("change", async () => {
+    const selectedOption =
+      instrumentoSelect.options[instrumentoSelect.selectedIndex];
+
+    if (!selectedOption || !selectedOption.value) return;
+
+    let bbox = [];
+    try {
+      bbox = JSON.parse(selectedOption.dataset.bbox || "[]");
+    } catch (_) {
+      bbox = [];
+    }
+
+    const hizoFitBbox = fitBoundsDesdeBbox(bbox);
+    if (!hizoFitBbox) {
+      await zoomAlInstrumento(regionSelect.value, instrumentoSelect.value);
+    } else {
+      setMapMarkerAtCenter();
+    }
   });
 });
 
+/* -------------------------
+   HINT DESKTOP
+------------------------- */
 (function initMapHintAlways() {
   if (window.innerWidth < 768) return;
 
@@ -450,6 +733,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
 
+/* -------------------------
+   HINT MOBILE
+------------------------- */
 function initMobileMapHint() {
   const hint = document.getElementById("mobile-map-hint");
   if (!hint) return;
