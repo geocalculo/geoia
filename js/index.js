@@ -8,6 +8,61 @@ let marcadorPunto = null;
 let overviewMap = null;
 let overviewRect = null;
 
+window.dataLayer = window.dataLayer || [];
+
+// -------------------------
+// TRACKING
+// -------------------------
+function cleanTrackingValue(value) {
+  if (value === null || value === undefined) return undefined;
+  const text = String(value).trim();
+  return text ? text : undefined;
+}
+
+function getSelectedRegionData() {
+  const code = cleanTrackingValue(regionSelect?.value || "");
+  const reg = code ? obtenerRegionPorCodigo(code) : null;
+
+  return {
+    region_code: code,
+    region_name: cleanTrackingValue(reg?.nombre || "")
+  };
+}
+
+function getSelectedInstrumentData() {
+  const selectedOption =
+    instrumentoSelect && instrumentoSelect.selectedIndex >= 0
+      ? instrumentoSelect.options[instrumentoSelect.selectedIndex]
+      : null;
+
+  return {
+    instrumento_selected: cleanTrackingValue(selectedOption?.textContent || ""),
+    instrumento_file: cleanTrackingValue(instrumentoSelect?.value || "")
+  };
+}
+
+function trackGeoiptMapClick(payload = {}) {
+  window.dataLayer = window.dataLayer || [];
+
+  const eventPayload = {
+    event: "geoipt_click_mapa",
+    site: "geoipt",
+    page: "index",
+    trigger: "map_click",
+    ...getSelectedRegionData(),
+    ...getSelectedInstrumentData(),
+    ...payload
+  };
+
+  Object.keys(eventPayload).forEach((key) => {
+    if (eventPayload[key] === undefined) {
+      delete eventPayload[key];
+    }
+  });
+
+  window.dataLayer.push(eventPayload);
+}
+
 // -------------------------
 // Utilidad: leer lat/lon si vienen por URL
 // -------------------------
@@ -47,7 +102,7 @@ function initMapa() {
     zoom: 15,
     minZoom: 4,
     maxZoom: 19,
-    layers: [mapaCalle], // OSM simple por defecto
+    layers: [mapaCalle],
   });
 
   L.control
@@ -64,7 +119,6 @@ function initMapa() {
   // ============================
   // OVERVIEW MAP (miniatura país)
   // ============================
-  // Solo se crea si existe el contenedor en el HTML
   const overviewDiv = document.getElementById("overview-map");
   if (overviewDiv) {
     overviewMap = L.map("overview-map", {
@@ -81,14 +135,12 @@ function initMapa() {
       maxZoom: 18,
     }).addTo(overviewMap);
 
-    // BBOX aproximado de Chile continental
     const chileBounds = L.latLngBounds(
-      [-56.0, -76.0], // suroeste
-      [-17.0, -66.0]  // noreste
+      [-56.0, -76.0],
+      [-17.0, -66.0]
     );
     overviewMap.fitBounds(chileBounds);
 
-    // Rectángulo que refleja el BBOX del mapa principal
     overviewRect = L.rectangle(map.getBounds(), {
       color: "#ff2d2d",
       weight: 2,
@@ -96,7 +148,6 @@ function initMapa() {
       interactive: false,
     }).addTo(overviewMap);
 
-    // Cada vez que el mapa principal termina de moverse/zoomear, actualizamos
     map.on("moveend", () => {
       if (overviewRect) {
         overviewRect.setBounds(map.getBounds());
@@ -118,7 +169,7 @@ function initMapa() {
     }).addTo(map);
   }
 
-  // CLICK → motor BBOX (bbox_test.html) con lat, lon y BBOX (north,east,south,west)
+  // CLICK → motor BBOX (bbox_test.html) con lat, lon y BBOX
   map.on("click", (e) => {
     const lat = e.latlng.lat;
     const lon = e.latlng.lng;
@@ -154,7 +205,14 @@ function initMapa() {
     url.searchParams.set("lon", lon.toFixed(6));
     url.searchParams.set("bbox", bboxStr);
 
-    // IMPORTANTE: solo enviamos lat, lon, bbox (sin región)
+    // Tracking del inicio del funnel
+    trackGeoiptMapClick({
+      lat: Number(lat.toFixed(6)),
+      lon: Number(lon.toFixed(6)),
+      bbox: bboxStr
+    });
+
+    // IMPORTANTE: solo enviamos lat, lon, bbox
     window.open(url, "_blank");
   });
 
@@ -206,7 +264,7 @@ async function cargarRegiones() {
         regionSelect.appendChild(opt);
       });
 
-    let defaultCode = "03"; // Atacama como default
+    let defaultCode = "03";
     if (!regionesData.some((r) => r.codigo_ine === defaultCode)) {
       defaultCode = regionesData[0]?.codigo_ine;
     }
@@ -262,7 +320,7 @@ async function cargarInstrumentos(regionCode) {
     return;
   }
 
-  const carpetaRegion = reg.carpeta; // ej: "capas_05"
+  const carpetaRegion = reg.carpeta;
   const url = `capas/${carpetaRegion}/listado.json`;
   console.log("   Leyendo listado desde URL:", url);
 
@@ -361,11 +419,6 @@ async function zoomAlInstrumento(regionCode, archivo) {
 }
 
 // -------------------------
-// ✅ INTRO OVERLAY (3 láminas bloqueantes) BORRADO
-// -------------------------
-
-
-// -------------------------
 // INICIO
 // -------------------------
 document.addEventListener("DOMContentLoaded", () => {
@@ -383,18 +436,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
 (function initMapHintAlways() {
-  // Solo desktop
   if (window.innerWidth < 768) return;
 
   const hint = document.getElementById("map-hint");
   if (!hint) return;
 
-  // Mostrar siempre
   hint.classList.add("visible");
 
-  // Seguir el mouse
   document.addEventListener("mousemove", (e) => {
     hint.style.left = e.clientX + "px";
     hint.style.top = e.clientY + "px";
@@ -411,8 +460,8 @@ function initMobileMapHint() {
     return;
   }
 
-  const showDelay = 700;   // espera inicial
-  const visibleTime = 2800; // tiempo visible
+  const showDelay = 700;
+  const visibleTime = 2800;
 
   window.setTimeout(() => {
     hint.classList.add("is-visible");

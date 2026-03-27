@@ -1,29 +1,25 @@
 /************************************************************
- * GeoIPT - bbox_test.js  (Versión ajustada con polígonos AZULES)
+ * GeoIPT - bbox_test.js
  *
  * PASO 1: Regiones cuyo BBOX toca la pantalla
  * PASO 2: IPT cuyo BBOX toca la pantalla
  * PASO 3: IPT cuya GEOMETRÍA contiene el clic
- * PASO 4: Si hay IPT → habilitar botón y abrir info.html
+ * PASO 4: Si hay IPT → habilitar KML / metadata
  *         Si no hay  → mensaje + cerrar pestaña automáticamente
  *
- * Cambios:
- *  - Se elimina el rectángulo verde del BBOX
- *  - Se dibujan en AZUL los polígonos que contienen el punto
- *  - Se muestra metadata de TODOS los polígonos match
- *  - Desde el mapa se puede hacer clic para abrir NUEVO bbox_test en otra pestaña
- *  - Si no hay match, se cierra la pestaña tras NO_MATCH_DELAY_MS
+ * Tracking:
+ *  - geoipt_consulta_iniciada
+ *  - geoipt_resultado_ok
+ *  - geoipt_resultado_vacio
+ *  - download_kml
+ *  - click_minvu_expediente
  ************************************************************/
 
-// Tiempo de espera cuando NO hay match (en milisegundos)
-//  5000 = 5 segundos
-//  0    = cierre inmediato
-//  -1   = NO cerrar automáticamente
 const NO_MATCH_DELAY_MS = 0;
 
 /* ---------------------------------------------
    1) PARÁMETROS DE LA URL
----------------------------------------------*/
+--------------------------------------------- */
 const urlParams = new URLSearchParams(window.location.search);
 const lat = parseFloat(urlParams.get("lat"));
 const lon = parseFloat(urlParams.get("lon"));
@@ -32,14 +28,77 @@ const zoomParam = parseInt(urlParams.get("zoom"), 10);
 const zoom = Number.isFinite(zoomParam) ? zoomParam : 14;
 
 let btnKml = null;
+let matchLayer = null;
+let featuresSeleccionadas = [];
 
 window.dataLayer = window.dataLayer || [];
 
-function trackDownloadKml(source) {
-  window.dataLayer.push({
-    event: "download_kml",
-    source: source
+function cleanTrackingValue(value) {
+  if (typeof value !== "string") return "";
+  const v = value.trim();
+  return v && v !== "–" ? v : "";
+}
+
+function getTrackingMetadata() {
+  const reg = cleanTrackingValue(document.getElementById("md-reg")?.textContent || "");
+  const com = cleanTrackingValue(document.getElementById("md-com")?.textContent || "");
+  const capa = cleanTrackingValue(document.getElementById("md-capa")?.textContent || "");
+
+  const meta = {
+    site: "geoipt",
+    page: "bbox_test"
+  };
+
+  if (reg) meta.region = reg;
+  if (com) meta.comuna = com;
+  if (capa) meta.prc = capa;
+  if (!Number.isNaN(lat)) meta.lat = Number(lat.toFixed(6));
+  if (!Number.isNaN(lon)) meta.lon = Number(lon.toFixed(6));
+  if (bboxParam) meta.bbox = bboxParam;
+
+  return meta;
+}
+
+function pushDataLayer(eventName, extra = {}) {
+  window.dataLayer = window.dataLayer || [];
+
+  const payload = {
+    event: eventName,
+    ...getTrackingMetadata(),
+    ...extra
+  };
+
+  Object.keys(payload).forEach((key) => {
+    if (payload[key] === undefined || payload[key] === null || payload[key] === "") {
+      delete payload[key];
+    }
   });
+
+  window.dataLayer.push(payload);
+}
+
+function trackConsultaIniciada() {
+  pushDataLayer("geoipt_consulta_iniciada");
+}
+
+function trackResultadoOk(extra = {}) {
+  pushDataLayer("geoipt_resultado_ok", extra);
+}
+
+function trackResultadoVacio(reason) {
+  pushDataLayer("geoipt_resultado_vacio", {
+    reason: reason || "sin_resultados"
+  });
+}
+
+function trackDownloadKml(triggerType) {
+  pushDataLayer("download_kml", {
+    trigger: triggerType === "link" ? "link" : "button"
+  });
+}
+
+function trackMinvuExpediente() {
+  pushDataLayer("click_minvu_expediente");
 }
 
 function initKmlButton() {
@@ -56,7 +115,6 @@ function initKmlButton() {
   });
 }
 
-
 let bboxPantalla = null;
 if (bboxParam) {
   const s = bboxParam.split(",");
@@ -68,27 +126,11 @@ if (bboxParam) {
   ];
 }
 
-// Mostrar en texto
-if (!isNaN(lat) && !isNaN(lon)) {
-  const pTxt = document.getElementById("txt-punto");
-  if (pTxt) {
-    pTxt.textContent = `Lat: ${lat.toFixed(6)}, Lon: ${lon.toFixed(6)}`;
-  }
-}
-if (bboxPantalla) {
-  const bboxTxt = document.getElementById("txt-bbox");
-  if (bboxTxt) {
-    bboxTxt.textContent =
-      `${bboxPantalla[0].toFixed(6)}, ${bboxPantalla[1].toFixed(6)}, ` +
-      `${bboxPantalla[2].toFixed(6)}, ${bboxPantalla[3].toFixed(6)}`;
-  }
-}
-
 /* ---------------------------------------------
    2) MAPA LEAFLET
----------------------------------------------*/
+--------------------------------------------- */
 const map = L.map("map").setView(
-  (!isNaN(lat) && !isNaN(lon)) ? [lat, lon] : [-27, -70],
+  (!Number.isNaN(lat) && !Number.isNaN(lon)) ? [lat, lon] : [-27, -70],
   zoom
 );
 
@@ -96,13 +138,9 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19
 }).addTo(map);
 
-// ✅ Inicializa el botón KML (debe existir en el HTML)
 initKmlButton();
 
-
-
-// Punto del clic original: marcador con popup
-if (!isNaN(lat) && !isNaN(lon)) {
+if (!Number.isNaN(lat) && !Number.isNaN(lon)) {
   const marker = L.marker([lat, lon]).addTo(map);
 
   marker.bindPopup(
@@ -112,12 +150,6 @@ if (!isNaN(lat) && !isNaN(lon)) {
   ).openPopup();
 }
 
-
-
-
-/* 🔥 NUEVA LÓGICA:
-   Desde este mapa, cualquier clic abre OTRO bbox_test.html
-   en una pestaña nueva, usando el BBOX actual de la vista. */
 map.on("click", function (e) {
   const latClick = e.latlng.lat;
   const lonClick = e.latlng.lng;
@@ -130,31 +162,22 @@ map.on("click", function (e) {
 
   const bboxStr = `${N},${E},${S},${W}`;
 
-  // Construimos la URL del mismo bbox_test.html
   const baseUrl = `${window.location.origin}${window.location.pathname}`;
   const nuevaUrl =
     `${baseUrl}?lat=${latClick}&lon=${lonClick}` +
     `&zoom=${zoomClick}&bbox=${bboxStr}`;
 
-  // Abrir en nueva pestaña
   window.open(nuevaUrl, "_blank");
 });
 
-/* ***********************************************
-   ❌ NO DIBUJAMOS EL RECTÁNGULO VERDE DEL BBOX
-*********************************************** */
-// if (bboxPantalla) {
-//   L.rectangle(...).addTo(map);
-// }
-
 /* ---------------------------------------------
    UTILIDADES DE BBOX
----------------------------------------------*/
+--------------------------------------------- */
 function normalizarBBoxSWNE(b) {
   if (!b || b.length !== 2) return null;
-  const sw = b[0]; // [lat_s, lon_w]
-  const ne = b[1]; // [lat_n, lon_e]
-  return [ne[0], ne[1], sw[0], sw[1]]; // [N, E, S, W]
+  const sw = b[0];
+  const ne = b[1];
+  return [ne[0], ne[1], sw[0], sw[1]];
 }
 
 function intersectaBbox(a, b) {
@@ -166,12 +189,12 @@ function intersectaBbox(a, b) {
 
 /* ---------------------------------------------
    PASO 1: Regiones que intersectan el BBOX
----------------------------------------------*/
+--------------------------------------------- */
 async function obtenerRegionesIntersectadas() {
   const resp = await fetch("capas/regiones.json");
   const regiones = await resp.json();
 
-  return regiones.filter(reg => {
+  return regiones.filter((reg) => {
     const bboxReg = normalizarBBoxSWNE(reg.bbox);
     return intersectaBbox(bboxReg, bboxPantalla);
   });
@@ -179,7 +202,7 @@ async function obtenerRegionesIntersectadas() {
 
 /* ---------------------------------------------
    PASO 2: IPT cuyo BBOX intersecta el BBOX
----------------------------------------------*/
+--------------------------------------------- */
 async function obtenerIptEnPantalla(regiones) {
   const lista = [];
 
@@ -212,14 +235,7 @@ async function obtenerIptEnPantalla(regiones) {
 
 /* ---------------------------------------------
    PASO 3: IPT cuya GEOMETRÍA contiene el clic
----------------------------------------------*/
-
-// Capa global para los polígonos match AZULES
-let matchLayer = null;
-
-let featuresSeleccionadas = [];
-
-
+--------------------------------------------- */
 async function iptContienePunto(ipt, acumuladorFeatures) {
   const url = `capas/${ipt.carpeta}/${ipt.archivo}`;
 
@@ -233,19 +249,14 @@ async function iptContienePunto(ipt, acumuladorFeatures) {
     const txt = await resp.text();
     const dom = new DOMParser().parseFromString(txt, "text/xml");
     const gj = toGeoJSON.kml(dom);
-
     const pt = turf.point([lon, lat]);
 
     for (const f of gj.features) {
-      if (
-        !f.geometry ||
-        !["Polygon", "MultiPolygon"].includes(f.geometry.type)
-      ) {
+      if (!f.geometry || !["Polygon", "MultiPolygon"].includes(f.geometry.type)) {
         continue;
       }
 
       if (turf.booleanPointInPolygon(pt, f)) {
-        // Guardamos feature + metadata + archivo/carpeta
         acumuladorFeatures.push({
           feature: f,
           metadata: f.properties || {},
@@ -267,112 +278,99 @@ async function obtenerIptQueContienenElPunto(listaIpt) {
   const resultado = [];
   const featuresParaDibujar = [];
 
-for (let i = 0; i < listaIpt.length; i++) {
-  const ipt = listaIpt[i];
+  for (let i = 0; i < listaIpt.length; i++) {
+    const ipt = listaIpt[i];
+    const tramo = 72 + ((i + 1) / listaIpt.length) * 18;
+    setLoadingProgress(tramo, "Analizando geometría...");
 
-  const tramo = 72 + ((i + 1) / listaIpt.length) * 18;
-  setLoadingProgress(tramo, "Analizando geometría...");
-
-  if (await iptContienePunto(ipt, featuresParaDibujar)) {
-    resultado.push(ipt);
+    if (await iptContienePunto(ipt, featuresParaDibujar)) {
+      resultado.push(ipt);
+    }
   }
-}
 
   const metaBox = document.getElementById("txt-metadata-poligono");
   const linkKml = document.getElementById("link-kml");
 
-  // Si hay matches, dibujamos y mostramos metadata
   if (featuresParaDibujar.length > 0) {
-    // dibujar polígono(s) azul(es)
-  if (featuresParaDibujar.length > 0) {
-    dibujarPoligonosMatch(featuresParaDibujar.map(f => f.feature));
+    dibujarPoligonosMatch(featuresParaDibujar.map((f) => f.feature));
 
-  const metaBox = document.getElementById("txt-metadata-poligono");
-  let texto = "";
+    let texto = "";
+    featuresParaDibujar.forEach((item, idx) => {
+      const meta = item.metadata || {};
+      const archivo = item.archivo || "(desconocido)";
+      const carpeta = item.carpeta || "";
 
-  featuresParaDibujar.forEach((item, idx) => {
-    const meta = item.metadata || {};
-    const archivo = item.archivo || "(desconocido)";
-    const carpeta = item.carpeta || "";
+      texto += `#${idx + 1} ${carpeta}/${archivo}\n`;
+      texto += Object.entries(meta)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join("\n");
+      texto += "\n\n";
+    });
 
-    texto += `#${idx + 1} ${carpeta}/${archivo}\n`;
-    texto += Object.entries(meta)
-      .map(([k, v]) => `${k}: ${v}`)
-      .join("\n");
-    texto += "\n\n";
-  });
+    if (metaBox) {
+      metaBox.textContent = texto.trim() || "(sin metadata disponible)";
+    }
 
-  if (metaBox) {
-    metaBox.textContent = texto.trim() || "(sin metadata disponible)";
-  }
+    const primerItem = featuresParaDibujar[0];
+    actualizarTablaDesdeTexto(
+      Object.entries(primerItem.metadata || {})
+        .map(([k, v]) => `${k}: ${v}`)
+        .join("\n"),
+      primerItem.carpeta,
+      primerItem.archivo
+    );
 
-  // ✅ usar SOLO el primer polígono para rellenar la tabla
-  const primerItem = featuresParaDibujar[0];
-  actualizarTablaDesdeTexto(
-    Object.entries(primerItem.metadata || {})
-      .map(([k, v]) => `${k}: ${v}`)
-      .join("\n"),
-    primerItem.carpeta,
-    primerItem.archivo
-  );
-}
-
-
-    // 👉 Guardamos selección para exportar
     featuresSeleccionadas = featuresParaDibujar;
 
-    // ✅ Habilitar botón KML
     if (btnKml) {
       btnKml.disabled = false;
       btnKml.classList.add("is-ready");
     }
 
-
-
-    // 👉 Activar enlace de descarga KML
-
-    // 👉 Activar enlace de descarga KML (LIBRE)
     if (linkKml) {
-      linkKml.style.display = "inline";     // ✅ clave: sacar el display:none del HTML
+      linkKml.style.display = "inline";
       linkKml.style.opacity = "1";
       linkKml.style.pointerEvents = "auto";
-      linkKml.href = "#";                   // por si quedó algo anterior
+      linkKml.href = "#";
 
       linkKml.onclick = function (e) {
         e.preventDefault();
         trackDownloadKml("link");
-        descargarKmlZona();                 // esto dispara la descarga con Blob + click()
+        descargarKmlZona();
       };
     }
 
-
+    trackResultadoOk({
+      matches_count: featuresParaDibujar.length
+    });
   } else {
-    // Sin matches
     if (metaBox) {
       metaBox.textContent =
         "(ningún polígono contiene el punto clic en los IPT analizados)";
     }
 
-    // limpiar selección y desactivar botón
     featuresSeleccionadas = [];
 
-    // ❌ Bloquear botón KML
     if (btnKml) {
       btnKml.disabled = true;
       btnKml.classList.remove("is-ready");
     }
 
+    if (linkKml) {
+      linkKml.style.display = "none";
+      linkKml.style.pointerEvents = "none";
+      linkKml.href = "#";
+      linkKml.onclick = null;
+    }
   }
 
   return resultado;
 }
 
-
 /* ---------------------------------------------
    Dibujar polígonos match en AZUL
----------------------------------------------*/
+--------------------------------------------- */
 function dibujarPoligonosMatch(features) {
-  // Borrar resaltado anterior
   if (matchLayer) {
     map.removeLayer(matchLayer);
     matchLayer = null;
@@ -387,9 +385,9 @@ function dibujarPoligonosMatch(features) {
 
   matchLayer = L.geoJSON(fc, {
     style: {
-      color: "#2563eb",      // borde azul
+      color: "#2563eb",
       weight: 2,
-      fillColor: "#3b82f6",  // relleno azul
+      fillColor: "#3b82f6",
       fillOpacity: 0.35
     }
   }).addTo(map);
@@ -400,13 +398,13 @@ function dibujarPoligonosMatch(features) {
       map.fitBounds(bounds, { padding: [20, 20] });
     }
   } catch (e) {
-    // por si acaso
+    // fallback silencioso
   }
 }
 
 function polygonToKml(polyCoords) {
   const outer = polyCoords[0] || [];
-  const coordStr = outer.map(([lon, lat]) => `${lon},${lat},0`).join(" ");
+  const coordStr = outer.map(([lonCoord, latCoord]) => `${lonCoord},${latCoord},0`).join(" ");
   return `
     <Polygon>
       <outerBoundaryIs>
@@ -418,7 +416,7 @@ function polygonToKml(polyCoords) {
 }
 
 function multiPolygonToKml(multiCoords) {
-  return multiCoords.map(p => polygonToKml(p)).join("");
+  return multiCoords.map((p) => polygonToKml(p)).join("");
 }
 
 function escapeXml(str) {
@@ -429,7 +427,6 @@ function escapeXml(str) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 }
-
 
 function featureToKmlPlacemark(feature, props, nombreFallback) {
   const geom = feature.geometry;
@@ -457,9 +454,7 @@ function featureToKmlPlacemark(feature, props, nombreFallback) {
   if (entries.length) {
     extendedData = "<ExtendedData>";
     entries.forEach(([k, v]) => {
-      extendedData += `<Data name="${escapeXml(k)}"><value>${escapeXml(
-        v
-      )}</value></Data>`;
+      extendedData += `<Data name="${escapeXml(k)}"><value>${escapeXml(v)}</value></Data>`;
     });
     extendedData += "</ExtendedData>";
   }
@@ -474,8 +469,7 @@ function featureToKmlPlacemark(feature, props, nombreFallback) {
 }
 
 function actualizarTablaDesdeTexto(texto, carpeta, archivo) {
-  // Convierte líneas del tipo "REG: Atacama" en un diccionario { REG: "Atacama", ... }
-  const map = {};
+  const mapValores = {};
   const lineas = (texto || "").split(/\r?\n/);
 
   lineas.forEach((line) => {
@@ -483,7 +477,7 @@ function actualizarTablaDesdeTexto(texto, carpeta, archivo) {
     if (!m) return;
     const key = m[1].toUpperCase();
     const value = m[2].trim();
-    map[key] = value;
+    mapValores[key] = value;
   });
 
   const set = (id, val) => {
@@ -496,7 +490,6 @@ function actualizarTablaDesdeTexto(texto, carpeta, archivo) {
     if (el) el.innerHTML = html ?? "–";
   };
 
-  // Función local: desde IPT_03_PRC_Copiapo.kml -> PRC_copiapo
   const slugInstrumentoDesdeArchivo = (archivoKml) => {
     if (!archivoKml) return "";
     const sinExt = archivoKml.replace(/\.kml$/i, "");
@@ -508,25 +501,21 @@ function actualizarTablaDesdeTexto(texto, carpeta, archivo) {
     return resto ? `PRC_${resto}` : "";
   };
 
-  // Campos principales
-  set("md-reg", map.REG || "–");
-  set("md-com", map.COM || "–");
-  set("md-loc", map.LOCALIDAD || map.LOC || "–");
-  set("md-zona", map.ZONA || "–");
-  set("md-nombre", map.NOMBRE || map.NOM || "–");
-  set("md-uperm", map.UPERM || "–");
-  set("md-uproh", map.UPROH || "–");
-  set("md-cut", map.CUT || "–");
+  set("md-reg", mapValores.REG || "–");
+  set("md-com", mapValores.COM || "–");
+  set("md-loc", mapValores.LOCALIDAD || mapValores.LOC || "–");
+  set("md-zona", mapValores.ZONA || "–");
+  set("md-nombre", mapValores.NOMBRE || mapValores.NOM || "–");
+  set("md-uperm", mapValores.UPERM || "–");
+  set("md-uproh", mapValores.UPROH || "–");
+  set("md-cut", mapValores.CUT || "–");
 
-  // Campo CAPA -> mostrar link al HTML del PRC
   if (archivo && carpeta) {
     const slug = slugInstrumentoDesdeArchivo(archivo);
 
     if (slug) {
-      // carpeta = "capas_03" -> html_03
       const sufijo = carpeta.replace("capas_", "");
       const carpetaHtml = `html_${sufijo}`;
-
       const href = `capas/${carpeta}/${carpetaHtml}/${slug}.html`;
 
       setHtml(
@@ -541,10 +530,9 @@ function actualizarTablaDesdeTexto(texto, carpeta, archivo) {
   }
 }
 
-
 function timestampYYYYMMDDHHMM() {
   const d = new Date();
-  const pad = n => String(n).padStart(2, "0");
+  const pad = (n) => String(n).padStart(2, "0");
   return (
     d.getFullYear().toString() +
     pad(d.getMonth() + 1) +
@@ -554,7 +542,6 @@ function timestampYYYYMMDDHHMM() {
   );
 }
 
-// Extrae "PRC Antuco" desde "IPT_08_PRC_Antuco.kml", por ejemplo
 function obtenerNombrePRC(desdeArchivo) {
   if (!desdeArchivo) return "PRC";
   const sinExt = desdeArchivo.replace(/\.kml$/i, "");
@@ -567,29 +554,23 @@ function obtenerNombrePRC(desdeArchivo) {
   return sinExt;
 }
 
-
 function descargarKmlZona() {
   if (!featuresSeleccionadas || !featuresSeleccionadas.length) {
     alert("No hay polígonos seleccionados para exportar.");
     return;
   }
 
-  // Usamos el primer feature para armar el nombre
   const first = featuresSeleccionadas[0];
   const props = first.metadata || {};
   const zona = props.ZONA || props.zona || "ZONA";
-  const prcNombre = obtenerNombrePRC(first.archivo); // viene desde iptContienePunto
+  const prcNombre = obtenerNombrePRC(first.archivo);
   const stamp = timestampYYYYMMDDHHMM();
 
   const nombreKml = `${prcNombre} ${zona} ${stamp}`;
 
   const placemarks = featuresSeleccionadas
     .map((item, idx) =>
-      featureToKmlPlacemark(
-        item.feature,
-        item.metadata,
-        `Zona ${idx + 1}`
-      )
+      featureToKmlPlacemark(item.feature, item.metadata, `Zona ${idx + 1}`)
     )
     .join("\n");
 
@@ -599,12 +580,10 @@ function descargarKmlZona() {
       <name>${escapeXml(nombreKml)}</name>
       <Style id="geoipt_poly">
         <LineStyle>
-          <!-- ff0000ff = opaco, azul (ABGR) -->
           <color>ffeb6325</color>
           <width>2</width>
         </LineStyle>
         <PolyStyle>
-          <!-- 660000ff = azul semitransparente -->
           <color>66f6823b</color>
         </PolyStyle>
       </Style>
@@ -619,7 +598,6 @@ function descargarKmlZona() {
 
   const a = document.createElement("a");
   a.href = url;
-  // nombre de archivo: mismo nombre, espacios a "_"
   a.download = nombreKml.replace(/\s+/g, "_") + ".kml";
   document.body.appendChild(a);
   a.click();
@@ -627,20 +605,13 @@ function descargarKmlZona() {
   URL.revokeObjectURL(url);
 }
 
-
-
-
-
 /* ---------------------------------------------
-   PASO 4: Navegación (info.html / cierre pestaña)
----------------------------------------------*/
-
+   PASO 4: Navegación / cierre pestaña
+--------------------------------------------- */
 function cerrarPestana() {
-  // Si fue abierta por window.open, se cierra sin aviso
   if (window.opener && !window.opener.closed) {
     window.close();
   } else {
-    // Fallback por si el navegador bloquea window.close
     window.open(location.href, "_self");
     window.close();
   }
@@ -667,7 +638,7 @@ function prepararBotonReporte(iptsConPunto) {
   btn.style.cursor = "pointer";
 
   const rutas = iptsConPunto
-    .map(ipt => `capas/${ipt.carpeta}/${ipt.archivo}`)
+    .map((ipt) => `capas/${ipt.carpeta}/${ipt.archivo}`)
     .join("|");
 
   const bboxStr = bboxPantalla ? bboxPantalla.join(",") : "";
@@ -684,8 +655,17 @@ function prepararBotonReporte(iptsConPunto) {
 }
 
 /* ---------------------------------------------
+   TRACKING DE CLICK EN LINK PRC / MINVU
+--------------------------------------------- */
+document.addEventListener("click", function (event) {
+  const linkExpediente = event.target.closest("#md-capa a");
+  if (!linkExpediente) return;
+  trackMinvuExpediente();
+});
+
+/* ---------------------------------------------
    FLUJO PRINCIPAL
----------------------------------------------*/
+--------------------------------------------- */
 async function ejecutarFlujo() {
   const pre1 = document.getElementById("txt-instrumentos");
   const pre2 = document.getElementById("txt-instrumentos-punto");
@@ -693,6 +673,8 @@ async function ejecutarFlujo() {
   const btn = document.getElementById("btn-reporte");
 
   try {
+    trackConsultaIniciada();
+
     if (btn) {
       btn.disabled = true;
       btn.style.opacity = 0.5;
@@ -705,12 +687,10 @@ async function ejecutarFlujo() {
 
     setLoadingProgress(15, "Buscando regiones...");
 
-    // PASO 1
     const regiones = await obtenerRegionesIntersectadas();
 
     setLoadingProgress(38, "Cargando instrumentos...");
 
-    // PASO 2
     if (pre1) pre1.textContent = "(Cargando IPT de las regiones intersectadas...)";
     const iptEnPantalla = await obtenerIptEnPantalla(regiones);
 
@@ -724,12 +704,14 @@ async function ejecutarFlujo() {
           "⚠ No hay IPT cuyo BBOX intersecte la pantalla en este clic.\n" +
           "Sugerencia: regrese al mapa principal y haga clic sobre un área urbana.";
       }
+
       if (preMeta) {
         preMeta.textContent =
           "(no se encontraron IPT intersectando el BBOX para este clic)";
       }
 
       prepararBotonReporte([]);
+      trackResultadoVacio("sin_ipt_en_bbox");
 
       setTimeout(() => {
         hideLoadingOverlay();
@@ -743,7 +725,6 @@ async function ejecutarFlujo() {
 
     setLoadingProgress(72, "Analizando geometría...");
 
-    // PASO 3
     if (pre2) pre2.textContent = "(Analizando geometría de los IPT en pantalla...)";
     const iptConPunto = await obtenerIptQueContienenElPunto(iptEnPantalla);
 
@@ -755,12 +736,14 @@ async function ejecutarFlujo() {
           "⚠ Ningún IPT tiene polígonos que contengan exactamente el punto clic.\n" +
           "Sugerencia: regrese al mapa principal y haga clic sobre un área urbana.";
       }
+
       if (preMeta) {
         preMeta.textContent =
           "(ningún polígono de los IPT intersectados contiene el punto clic)";
       }
 
       prepararBotonReporte([]);
+      trackResultadoVacio("sin_poligono_contiene_punto");
 
       setTimeout(() => {
         hideLoadingOverlay();
@@ -778,7 +761,6 @@ async function ejecutarFlujo() {
 
     setLoadingProgress(92, "Generando reporte...");
 
-    // PASO 4
     prepararBotonReporte(iptConPunto);
 
     setLoadingProgress(100, "Listo");
@@ -789,10 +771,12 @@ async function ejecutarFlujo() {
 
   } catch (err) {
     console.error("Error en ejecutarFlujo():", err);
+    trackResultadoVacio("error_ejecucion");
     setLoadingProgress(100, "Error");
     setTimeout(() => {
       hideLoadingOverlay();
     }, 250);
   }
 }
+
 ejecutarFlujo();

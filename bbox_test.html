@@ -16,10 +16,6 @@
   <title>GeoIPT - BBOX Test</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-
-
-
-
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -72,7 +68,6 @@
       line-height: 1.4;
     }
 
-    /* Tabla de metadata */
     #tabla-metadata {
       width: 100%;
       border-collapse: collapse;
@@ -94,7 +89,6 @@
       border-bottom: 1px solid #1e293b;
     }
 
-    /* Enlace de descarga */
     #link-kml {
       color: #38bdf8;
       text-decoration: underline;
@@ -107,7 +101,6 @@
       color: #7dd3fc;
     }
 
-    /* Mensaje KML */
     #msg-kml {
       margin-top: 10px;
       padding: 8px 12px;
@@ -140,8 +133,11 @@
 
   <!-- Google Tag Manager (noscript) -->
   <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXSX7XCP"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NXSX7XCP"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe>
   </noscript>
   <!-- End Google Tag Manager (noscript) -->
 
@@ -151,18 +147,14 @@
     </header>
 
     <main>
-      <!-- Mapa -->
       <div id="map"></div>
 
-      <!-- Barra KML centrada (entre mapa y título) -->
       <div class="kml-bar">
         <button id="btn-kml" class="kml-btn" type="button" disabled>
           KML
         </button>
       </div>
 
-
-      <!-- Metadata de la Zona -->
       <h2>Metadata de la Zona</h2>
 
       <table id="tabla-metadata">
@@ -183,68 +175,57 @@
         </tbody>
       </table>
 
-      <!-- Descarga KML (LIBRE) -->
       <p style="margin-top:10px;">
         <a id="link-kml" href="#" style="display:none;">
           ⬇️ Descargar KML de la zona consultada
         </a>
       </p>
 
-      <!-- Mensaje informativo -->
       <p id="msg-kml">
         ✅ Descarga libre habilitada.
         <a href="index.html">Ir al mapa principal</a>
       </p>
     </main>
 
-    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <!-- Turf para punto-en-polígono -->
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
-
-    <!-- toGeoJSON para convertir KML -> GeoJSON -->
     <script src="https://unpkg.com/@tmcw/togeojson@4.5.0/dist/togeojson.umd.js"></script>
 
-  <script>
-  function setLoadingProgress(percent, text) {
-    const safePercent = Math.max(0, Math.min(100, Math.round(percent || 0)));
-    const percentEl = document.getElementById("loading-percent");
-    const textEl = document.getElementById("loading-text");
+    <script>
+      function setLoadingProgress(percent, text) {
+        const safePercent = Math.max(0, Math.min(100, Math.round(percent || 0)));
+        const percentEl = document.getElementById("loading-percent");
+        const textEl = document.getElementById("loading-text");
 
-    if (percentEl) percentEl.textContent = safePercent + "%";
-    if (textEl && text) textEl.textContent = text;
-  }
+        if (percentEl) percentEl.textContent = safePercent + "%";
+        if (textEl && text) textEl.textContent = text;
+      }
 
-  function hideLoadingOverlay() {
-    const overlay = document.getElementById("loading-overlay");
-    if (!overlay) return;
-    overlay.classList.add("is-hidden");
-  }
+      function hideLoadingOverlay() {
+        const overlay = document.getElementById("loading-overlay");
+        if (!overlay) return;
+        overlay.classList.add("is-hidden");
+      }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    setLoadingProgress(8, "Preparando consulta...");
-  });
-</script>
-    
-    
-    <!-- Lógica propia -->
+      document.addEventListener("DOMContentLoaded", function () {
+        setLoadingProgress(8, "Preparando consulta...");
+      });
+    </script>
+
     <script src="js/bbox_test.js"></script>
 
-    <!-- Forzar KML libre (sin auth) -->
     <script>
-      (function(){
+      (function () {
         const linkKml = document.getElementById("link-kml");
         const msg = document.getElementById("msg-kml");
 
-        // Nota:
-        // bbox_test.js es quien debería poner el href real cuando el KML esté listo.
-        // Aquí dejamos la UI preparada para modo libre.
         if (msg) msg.style.display = "block";
 
-        // Si bbox_test.js ya setea el href, nos aseguramos de mostrar el link.
-        // Si no lo setea, quedará oculto hasta que bbox_test.js lo configure.
-        if (linkKml && linkKml.getAttribute("href") && linkKml.getAttribute("href") !== "#") {
+        if (
+          linkKml &&
+          linkKml.getAttribute("href") &&
+          linkKml.getAttribute("href") !== "#"
+        ) {
           linkKml.style.display = "inline";
         }
       })();
