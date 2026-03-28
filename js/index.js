@@ -11,6 +11,12 @@ let indiceBuscador = [];
 let resultadosBusquedaActual = [];
 let searchActiveIndex = -1;
 
+// Carga por fases
+let uiDataLoaded = false;
+let uiDataPromise = null;
+let spatialDataLoaded = false;
+let spatialDataPromise = null;
+
 // Overview
 let overviewMap = null;
 let overviewRect = null;
@@ -107,9 +113,9 @@ function bboxEsValido(bbox) {
     Array.isArray(bbox[1]) &&
     bbox[0].length === 2 &&
     bbox[1].length === 2 &&
-    bbox.every(par =>
+    bbox.every((par) =>
       Array.isArray(par) &&
-      par.every(num => Number.isFinite(Number(num)))
+      par.every((num) => Number.isFinite(Number(num)))
     )
   );
 }
@@ -146,6 +152,88 @@ function setMapMarkerAtCenter() {
 
 function obtenerTextoRegionCorto(regionNombre) {
   return String(regionNombre || "").replace(/^Región( de)? /i, "").trim();
+}
+
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const existingScript = document.querySelector(`script[src="${src}"]`);
+
+    if (existingScript) {
+      if (existingScript.dataset.loaded === "true") {
+        resolve();
+        return;
+      }
+
+      existingScript.addEventListener("load", () => resolve(), { once: true });
+      existingScript.addEventListener(
+        "error",
+        () => reject(new Error(`No se pudo cargar el script: ${src}`)),
+        { once: true }
+      );
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = src;
+    script.async = true;
+    script.onload = () => {
+      script.dataset.loaded = "true";
+      resolve();
+    };
+    script.onerror = () =>
+      reject(new Error(`No se pudo cargar el script: ${src}`));
+
+    document.head.appendChild(script);
+  });
+}
+
+/* -------------------------
+   CARGA POR FASES
+------------------------- */
+async function loadUiData() {
+  if (uiDataLoaded) return;
+  if (uiDataPromise) return uiDataPromise;
+
+  uiDataPromise = (async () => {
+    // Capa liviana inicial:
+    // - regiones
+    // - instrumentos del panel superior
+    // - índice del buscador
+    await cargarRegiones();
+    await cargarIndiceBuscador();
+    uiDataLoaded = true;
+  })();
+
+  try {
+    await uiDataPromise;
+  } finally {
+    if (!uiDataLoaded) {
+      uiDataPromise = null;
+    }
+  }
+}
+
+async function loadSpatialData() {
+  if (spatialDataLoaded) return;
+  if (spatialDataPromise) return spatialDataPromise;
+
+  spatialDataPromise = (async () => {
+    // Capa pesada / futura lógica espacial.
+    // Se deja preparada solo bajo demanda.
+    if (!window.turf) {
+      await loadScript("https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js");
+    }
+
+    spatialDataLoaded = true;
+  })();
+
+  try {
+    await spatialDataPromise;
+  } finally {
+    if (!spatialDataLoaded) {
+      spatialDataPromise = null;
+    }
+  }
 }
 
 /* -------------------------
@@ -232,47 +320,15 @@ function initMapa() {
     }).addTo(map);
   }
 
-  map.on("click", (e) => {
-    const lat = e.latlng.lat;
-    const lon = e.latlng.lng;
-
-    if (marcadorPunto) {
-      marcadorPunto.setLatLng(e.latlng);
-    } else {
-      marcadorPunto = L.circleMarker(e.latlng, {
-        radius: 6,
-        color: "#f97316",
-        weight: 2,
-        fillColor: "#ffffff",
-        fillOpacity: 0.9
-      }).addTo(map);
+  map.on("click", async (e) => {
+    try {
+      await loadSpatialData();
+    } catch (err) {
+      console.error("No se pudo inicializar la capa espacial:", err);
+      return;
     }
 
-    const bounds = map.getBounds();
-    const north = bounds.getNorth();
-    const east = bounds.getEast();
-    const south = bounds.getSouth();
-    const west = bounds.getWest();
-
-    const bboxStr = [
-      north.toFixed(8),
-      east.toFixed(8),
-      south.toFixed(8),
-      west.toFixed(8)
-    ].join(",");
-
-    const url = new URL("bbox_test.html", window.location.href);
-    url.searchParams.set("lat", lat.toFixed(6));
-    url.searchParams.set("lon", lon.toFixed(6));
-    url.searchParams.set("bbox", bboxStr);
-
-    trackGeoiptMapClick({
-      lat: Number(lat.toFixed(6)),
-      lon: Number(lon.toFixed(6)),
-      bbox: bboxStr
-    });
-
-    window.open(url, "_blank");
+    handleMapClick(e);
   });
 
   const mira = document.getElementById("mira-rifle");
@@ -296,6 +352,49 @@ function initMapa() {
       );
     });
   }
+}
+
+function handleMapClick(e) {
+  const lat = e.latlng.lat;
+  const lon = e.latlng.lng;
+
+  if (marcadorPunto) {
+    marcadorPunto.setLatLng(e.latlng);
+  } else {
+    marcadorPunto = L.circleMarker(e.latlng, {
+      radius: 6,
+      color: "#f97316",
+      weight: 2,
+      fillColor: "#ffffff",
+      fillOpacity: 0.9
+    }).addTo(map);
+  }
+
+  const bounds = map.getBounds();
+  const north = bounds.getNorth();
+  const east = bounds.getEast();
+  const south = bounds.getSouth();
+  const west = bounds.getWest();
+
+  const bboxStr = [
+    north.toFixed(8),
+    east.toFixed(8),
+    south.toFixed(8),
+    west.toFixed(8)
+  ].join(",");
+
+  const url = new URL("bbox_test.html", window.location.href);
+  url.searchParams.set("lat", lat.toFixed(6));
+  url.searchParams.set("lon", lon.toFixed(6));
+  url.searchParams.set("bbox", bboxStr);
+
+  trackGeoiptMapClick({
+    lat: Number(lat.toFixed(6)),
+    lon: Number(lon.toFixed(6)),
+    bbox: bboxStr
+  });
+
+  window.open(url, "_blank");
 }
 
 /* -------------------------
@@ -487,11 +586,13 @@ async function cargarIndiceBuscador() {
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 
     const data = await resp.json();
-    if (!Array.isArray(data)) throw new Error("buscador_prc.json no es un array");
+    if (!Array.isArray(data)) {
+      throw new Error("buscador_prc.json no es un array");
+    }
 
     indiceBuscador = data
-      .filter(item => item && typeof item === "object")
-      .map(item => ({
+      .filter((item) => item && typeof item === "object")
+      .map((item) => ({
         region_nombre: item.region_nombre || "",
         region_codigo: item.region_codigo || "",
         carpeta: item.carpeta || "",
@@ -510,8 +611,7 @@ async function cargarIndiceBuscador() {
           ].join(" ")
         )
       }))
-      .filter(item => item.archivo && item.nombre);
-
+      .filter((item) => item.archivo && item.nombre);
   } catch (err) {
     console.error("No se pudo cargar el índice nacional del buscador:", err);
     indiceBuscador = [];
@@ -525,7 +625,7 @@ function buscarInstrumentos(query) {
   const tokens = q.split(/\s+/).filter(Boolean);
 
   const resultados = indiceBuscador
-    .filter(item => tokens.every(t => item.searchText.includes(t)))
+    .filter((item) => tokens.every((t) => item.searchText.includes(t)))
     .sort((a, b) => {
       const aStarts = normalizarTexto(a.nombre).startsWith(q) ? 1 : 0;
       const bStarts = normalizarTexto(b.nombre).startsWith(q) ? 1 : 0;
@@ -563,7 +663,9 @@ function renderResultadosBusqueda(resultados) {
   prcSearchResults.innerHTML = resultados
     .map((item, idx) => {
       const regionCorta = obtenerTextoRegionCorto(item.region_nombre);
-      const meta = [item.tipo, item.comuna, regionCorta].filter(Boolean).join(" · ");
+      const meta = [item.tipo, item.comuna, regionCorta]
+        .filter(Boolean)
+        .join(" · ");
 
       return `
         <button
@@ -663,7 +765,9 @@ function initBuscadorNacional() {
     } else if (e.key === "Enter") {
       if (searchActiveIndex >= 0 && resultadosBusquedaActual[searchActiveIndex]) {
         e.preventDefault();
-        await seleccionarResultadoBusqueda(resultadosBusquedaActual[searchActiveIndex]);
+        await seleccionarResultadoBusqueda(
+          resultadosBusquedaActual[searchActiveIndex]
+        );
       }
     } else if (e.key === "Escape") {
       ocultarResultadosBusqueda();
@@ -684,9 +788,8 @@ function initBuscadorNacional() {
 ------------------------- */
 document.addEventListener("DOMContentLoaded", async () => {
   initMapa();
-  await cargarRegiones();
-  await cargarIndiceBuscador();
   initBuscadorNacional();
+  await loadUiData();
 
   regionSelect.addEventListener("change", async () => {
     const code = regionSelect.value;
