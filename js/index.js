@@ -394,7 +394,7 @@ function handleMapClick(e) {
     bbox: bboxStr
   });
 
-  window.open(url, "_blank");
+  window.location.href = url.toString();
 }
 
 /* -------------------------
