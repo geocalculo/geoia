@@ -80,9 +80,7 @@ function pushDataLayer(eventName, extra = {}) {
   window.dataLayer.push(payload);
 }
 
-function trackConsultaIniciada() {
-  pushDataLayer("geoipt_consulta_iniciada");
-}
+
 
 function trackResultadoOk(extra = {}) {
   pushDataLayer("geoipt_resultado_ok", extra);
@@ -680,7 +678,7 @@ async function ejecutarFlujo() {
   const btn = document.getElementById("btn-reporte");
 
   try {
-    trackConsultaIniciada();
+  
     kmlDownloadTracked = false;
 
     if (btn) {
