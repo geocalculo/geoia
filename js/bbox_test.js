@@ -27,9 +27,12 @@ const bboxParam = urlParams.get("bbox");
 const zoomParam = parseInt(urlParams.get("zoom"), 10);
 const zoom = Number.isFinite(zoomParam) ? zoomParam : 14;
 
+
+
 let btnKml = null;
 let matchLayer = null;
 let featuresSeleccionadas = [];
+let kmlDownloadTracked = false;
 
 window.dataLayer = window.dataLayer || [];
 
@@ -92,9 +95,13 @@ function trackResultadoVacio(reason) {
 }
 
 function trackDownloadKml(triggerType) {
+  if (kmlDownloadTracked) return;
+
   pushDataLayer("download_kml", {
     trigger: triggerType === "link" ? "link" : "button"
   });
+
+  kmlDownloadTracked = true;
 }
 
 function trackMinvuExpediente() {
@@ -674,6 +681,7 @@ async function ejecutarFlujo() {
 
   try {
     trackConsultaIniciada();
+    kmlDownloadTracked = false;
 
     if (btn) {
       btn.disabled = true;

@@ -212,7 +212,29 @@
       });
     </script>
 
+    <script>
+      (function () {
+        window.dataLayer = window.dataLayer || [];
+
+        const params = new URLSearchParams(window.location.search);
+        const lat = params.get("lat");
+        const lon = params.get("lon");
+        const bbox = params.get("bbox");
+
+        if (lat && lon) {
+          dataLayer.push({
+            event: "geoipt_consulta",
+            lat: Number(lat),
+            lon: Number(lon),
+            bbox: bbox || ""
+          });
+        }
+      })();
+    </script>
+
     <script src="js/bbox_test.js"></script>
+
+    
 
     <script>
       (function () {
