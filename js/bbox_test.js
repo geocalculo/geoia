@@ -665,7 +665,18 @@ function prepararBotonReporte(iptsConPunto) {
 document.addEventListener("click", function (event) {
   const linkExpediente = event.target.closest("#md-capa a");
   if (!linkExpediente) return;
-  trackMinvuExpediente();
+
+  const href = linkExpediente.getAttribute("href") || "";
+  const expediente = (linkExpediente.textContent || "").trim();
+
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: "geoipt_open_expediente",
+    expediente_nombre: expediente,
+    expediente_url: href
+  });
+
+  console.log("Expediente histórico:", expediente);
 });
 
 /* ---------------------------------------------
