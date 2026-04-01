@@ -27,12 +27,9 @@ const bboxParam = urlParams.get("bbox");
 const zoomParam = parseInt(urlParams.get("zoom"), 10);
 const zoom = Number.isFinite(zoomParam) ? zoomParam : 14;
 
-
-
 let btnKml = null;
 let matchLayer = null;
 let featuresSeleccionadas = [];
-let kmlDownloadTracked = false;
 
 window.dataLayer = window.dataLayer || [];
 
@@ -80,8 +77,6 @@ function pushDataLayer(eventName, extra = {}) {
   window.dataLayer.push(payload);
 }
 
-
-
 function trackResultadoOk(extra = {}) {
   pushDataLayer("geoipt_resultado_ok", extra);
 }
@@ -92,18 +87,16 @@ function trackResultadoVacio(reason) {
   });
 }
 
-function trackDownloadKml(triggerType) {
-  if (kmlDownloadTracked) return;
-
+function trackDownloadKml(triggerType, extra = {}) {
   pushDataLayer("download_kml", {
-    trigger: triggerType === "link" ? "link" : "button"
+    trigger: triggerType === "link" ? "link" : "button",
+    download_method: "blob_anchor",
+    ...extra
   });
-
-  kmlDownloadTracked = true;
 }
 
-function trackMinvuExpediente() {
-  pushDataLayer("click_minvu_expediente");
+function trackMinvuExpediente(extra = {}) {
+  pushDataLayer("click_minvu_expediente", extra);
 }
 
 function initKmlButton() {
@@ -115,8 +108,7 @@ function initKmlButton() {
 
   btnKml.addEventListener("click", () => {
     if (!featuresSeleccionadas || !featuresSeleccionadas.length) return;
-    trackDownloadKml("button");
-    descargarKmlZona();
+    descargarKmlZona("button");
   });
 }
 
@@ -340,8 +332,7 @@ async function obtenerIptQueContienenElPunto(listaIpt) {
 
       linkKml.onclick = function (e) {
         e.preventDefault();
-        trackDownloadKml("link");
-        descargarKmlZona();
+        descargarKmlZona("link");
       };
     }
 
@@ -559,7 +550,7 @@ function obtenerNombrePRC(desdeArchivo) {
   return sinExt;
 }
 
-function descargarKmlZona() {
+function descargarKmlZona(triggerType = "button") {
   if (!featuresSeleccionadas || !featuresSeleccionadas.length) {
     alert("No hay polígonos seleccionados para exportar.");
     return;
@@ -572,6 +563,7 @@ function descargarKmlZona() {
   const stamp = timestampYYYYMMDDHHMM();
 
   const nombreKml = `${prcNombre} ${zona} ${stamp}`;
+  const fileName = nombreKml.replace(/\s+/g, "_") + ".kml";
 
   const placemarks = featuresSeleccionadas
     .map((item, idx) =>
@@ -603,7 +595,13 @@ function descargarKmlZona() {
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = nombreKml.replace(/\s+/g, "_") + ".kml";
+  a.download = fileName;
+
+  trackDownloadKml(triggerType, {
+    file_name: fileName,
+    matches_count: featuresSeleccionadas.length
+  });
+
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
@@ -669,9 +667,7 @@ document.addEventListener("click", function (event) {
   const href = linkExpediente.getAttribute("href") || "";
   const expediente = (linkExpediente.textContent || "").trim();
 
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-    event: "geoipt_open_expediente",
+  trackMinvuExpediente({
     expediente_nombre: expediente,
     expediente_url: href
   });
@@ -689,9 +685,6 @@ async function ejecutarFlujo() {
   const btn = document.getElementById("btn-reporte");
 
   try {
-  
-    kmlDownloadTracked = false;
-
     if (btn) {
       btn.disabled = true;
       btn.style.opacity = 0.5;
