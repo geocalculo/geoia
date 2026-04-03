@@ -58,13 +58,25 @@ header {
 }
 
 .brand-title {
+  margin: 0;
   font-size: 1.1rem;
   font-weight: 700;
+  line-height: 1.1;
 }
 
 .brand-subtitle {
-  font-size: 0.8rem;
-  color: #94a3b8;
+  margin: 4px 0 0 0;
+  font-size: 0.82rem;
+  color: #e2e8f0;
+  line-height: 1.2;
+  letter-spacing: 0.2px;
+}
+
+margin: 4px 0 0 0;
+  font-size: 0.82rem;
+  color: #cbd5e1; /* mucho más visible */
+  line-height: 1.2;
+  opacity: 1;
 }
 
 .controls {
