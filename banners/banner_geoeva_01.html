@@ -175,6 +175,22 @@ function rotar(){
 }
 rotar();
 setInterval(rotar, 6000);
+
+const bannerLink = document.getElementById("banner-link");
+if (bannerLink) {
+  bannerLink.addEventListener("click", (e) => {
+    if (window.parent === window) return;
+    e.preventDefault();
+    window.parent.postMessage(
+      {
+        type: "ecosystem:navigate",
+        href: bannerLink.href,
+        target: bannerLink.target || "_blank"
+      },
+      "*"
+    );
+  });
+}
 </script>
 </body>
 </html>

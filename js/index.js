@@ -79,14 +79,137 @@ function trackGeoiptMapClick(payload = {}) {
 /* -------------------------
    UTILIDADES
 ------------------------- */
-function getUrlParamsLatLon() {
-  const p = new URLSearchParams(window.location.search);
-  const lat = parseFloat(p.get("lat"));
-  const lon = parseFloat(p.get("lon"));
-  if (Number.isNaN(lat) || Number.isNaN(lon)) {
+function parseBboxFromQuery(value) {
+  if (!value) return null;
+  const parts = String(value)
+    .split(",")
+    .map((v) => Number(v.trim()));
+
+  if (parts.length !== 4 || parts.some((n) => !Number.isFinite(n))) {
     return null;
   }
-  return { lat, lon };
+
+  const [north, east, south, west] = parts;
+  return [
+    [south, west],
+    [north, east]
+  ];
+}
+
+function getIncomingViewportFromUrl() {
+  const p = new URLSearchParams(window.location.search);
+  const bbox = parseBboxFromQuery(p.get("bbox"));
+  const lat = Number(p.get("lat"));
+  const lon = Number(p.get("lon"));
+  const zoom = Number(p.get("zoom"));
+
+  return {
+    bbox,
+    lat: Number.isFinite(lat) ? lat : null,
+    lon: Number.isFinite(lon) ? lon : null,
+    zoom: Number.isFinite(zoom) ? zoom : null
+  };
+}
+
+function applyIncomingViewport() {
+  if (!map) return;
+
+  const incoming = getIncomingViewportFromUrl();
+  if (incoming.bbox && fitBoundsDesdeBbox(incoming.bbox)) {
+    setMapMarkerAtCenter();
+    return;
+  }
+
+  if (incoming.lat !== null && incoming.lon !== null) {
+    map.setView([incoming.lat, incoming.lon], incoming.zoom ?? 16);
+    marcadorPunto = L.circleMarker([incoming.lat, incoming.lon], {
+      radius: 6,
+      color: "#f97316",
+      weight: 2,
+      fillColor: "#ffffff",
+      fillOpacity: 0.9
+    }).addTo(map);
+  }
+}
+
+function getCurrentViewportParams() {
+  if (!map) return null;
+  const center = map.getCenter();
+  const bounds = map.getBounds();
+
+  return {
+    lat: center.lat.toFixed(6),
+    lon: center.lng.toFixed(6),
+    zoom: String(map.getZoom()),
+    bbox: [
+      bounds.getNorth().toFixed(8),
+      bounds.getEast().toFixed(8),
+      bounds.getSouth().toFixed(8),
+      bounds.getWest().toFixed(8)
+    ].join(",")
+  };
+}
+
+function isEcosystemHost(hostname) {
+  const host = String(hostname || "").toLowerCase();
+  return (
+    host === "geoeva.cl" ||
+    host === "www.geoeva.cl" ||
+    host === "geonemo.cl" ||
+    host === "www.geonemo.cl" ||
+    host === "geoipt.cl" ||
+    host === "www.geoipt.cl"
+  );
+}
+
+function buildCrossSiteUrl(rawHref) {
+  if (!rawHref) return null;
+  const url = new URL(rawHref, window.location.href);
+  if (!isEcosystemHost(url.hostname)) return null;
+
+  const viewport = getCurrentViewportParams();
+  if (!viewport) return url.toString();
+
+  url.searchParams.set("from", "geoipt");
+  url.searchParams.set("lat", viewport.lat);
+  url.searchParams.set("lon", viewport.lon);
+  url.searchParams.set("zoom", viewport.zoom);
+  url.searchParams.set("bbox", viewport.bbox);
+  return url.toString();
+}
+
+function openWithViewport(rawHref, target = "_self") {
+  const nextUrl = buildCrossSiteUrl(rawHref);
+  if (!nextUrl) return false;
+
+  if (target === "_blank") {
+    window.open(nextUrl, "_blank", "noopener");
+  } else {
+    window.location.href = nextUrl;
+  }
+  return true;
+}
+
+function initCrossSitePortal() {
+  document.addEventListener(
+    "click",
+    (e) => {
+      const anchor = e.target.closest?.("a[href]");
+      if (!anchor) return;
+
+      const handled = openWithViewport(anchor.href, anchor.target || "_self");
+      if (handled) {
+        e.preventDefault();
+      }
+    },
+    true
+  );
+
+  window.addEventListener("message", (event) => {
+    const data = event.data;
+    if (!data || data.type !== "ecosystem:navigate") return;
+    openWithViewport(data.href, data.target || "_blank");
+  });
 }
 
 function normalizarTexto(str) {
@@ -307,18 +430,7 @@ function initMapa() {
     });
   }
 
-  const p = getUrlParamsLatLon();
-  if (p) {
-    const { lat, lon } = p;
-    map.setView([lat, lon], 16);
-    marcadorPunto = L.circleMarker([lat, lon], {
-      radius: 6,
-      color: "#f97316",
-      weight: 2,
-      fillColor: "#ffffff",
-      fillOpacity: 0.9
-    }).addTo(map);
-  }
+  applyIncomingViewport();
 
   map.on("click", async (e) => {
     try {
@@ -788,6 +900,7 @@ function initBuscadorNacional() {
 ------------------------- */
 document.addEventListener("DOMContentLoaded", async () => {
   initMapa();
+  initCrossSitePortal();
   initBuscadorNacional();
   await loadUiData();
 
