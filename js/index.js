@@ -81,6 +81,7 @@ function trackGeoiptMapClick(payload = {}) {
 ------------------------- */
 function parseBboxFromQuery(value) {
   if (!value) return null;
+
   const parts = String(value)
     .split(",")
     .map((v) => Number(v.trim()));
@@ -90,6 +91,15 @@ function parseBboxFromQuery(value) {
   }
 
   const [north, east, south, west] = parts;
+
+  const latOk = Math.abs(north) <= 90 && Math.abs(south) <= 90;
+  const lonOk = Math.abs(east) <= 180 && Math.abs(west) <= 180;
+  const orderOk = north >= south && east >= west;
+
+  if (!latOk || !lonOk || !orderOk) {
+    return null;
+  }
+
   return [
     [south, west],
     [north, east]
@@ -97,11 +107,13 @@ function parseBboxFromQuery(value) {
 }
 
 function getIncomingViewportFromUrl() {
-  const p = new URLSearchParams(window.location.search);
-  const bbox = parseBboxFromQuery(p.get("bbox"));
-  const lat = Number(p.get("lat"));
-  const lon = Number(p.get("lon"));
-  const zoom = Number(p.get("zoom"));
+  // URLSearchParams permite leer "bbox" sin importar el orden de los parámetros
+  // (por ejemplo: ?utm_source=...&utm_medium=...&bbox=...)
+  const params = new URLSearchParams(window.location.search);
+  const bbox = parseBboxFromQuery(params.get("bbox"));
+  const lat = Number(params.get("lat"));
+  const lon = Number(params.get("lon"));
+  const zoom = Number(params.get("zoom"));
 
   return {
     bbox,
