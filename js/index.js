@@ -123,6 +123,26 @@ function getIncomingViewportFromUrl() {
   };
 }
 
+function hasValidLatLonZoomViewport(incoming) {
+  if (!incoming) return false;
+
+  const { lat, lon, zoom } = incoming;
+  if (lat === null || lon === null || zoom === null) return false;
+
+  return (
+    Math.abs(lat) <= 90 &&
+    Math.abs(lon) <= 180 &&
+    Number.isFinite(zoom) &&
+    zoom >= 0 &&
+    zoom <= 22
+  );
+}
+
+function hasValidIncomingViewport() {
+  const incoming = getIncomingViewportFromUrl();
+  return Boolean(incoming.bbox || hasValidLatLonZoomViewport(incoming));
+}
+
 function applyIncomingViewport() {
   if (!map) return;
 
@@ -132,7 +152,7 @@ function applyIncomingViewport() {
     return;
   }
 
-  if (incoming.lat !== null && incoming.lon !== null) {
+  if (hasValidLatLonZoomViewport(incoming)) {
     map.setView([incoming.lat, incoming.lon], incoming.zoom ?? 16);
     marcadorPunto = L.circleMarker([incoming.lat, incoming.lon], {
       radius: 6,
@@ -552,8 +572,11 @@ async function cargarRegiones() {
     }
 
     if (defaultCode) {
+      const shouldPreserveIncomingViewport = hasValidIncomingViewport();
       regionSelect.value = defaultCode;
-      centrarEnRegion(defaultCode);
+      if (!shouldPreserveIncomingViewport) {
+        centrarEnRegion(defaultCode);
+      }
       await cargarInstrumentos(defaultCode);
     }
   } catch (err) {
