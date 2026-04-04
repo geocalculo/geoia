@@ -117,29 +117,70 @@ main {
 }
 
 /* =========================
-   BANNERS
+   CARDS LATERALES
 ========================= */
 
-.geoipt-side-banner {
-  width: 260px;
-  min-width: 260px;
-  max-width: 260px;
-  flex: 0 0 260px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+.ecosystem-card {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3500;
+  width: 220px;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.92);
+  box-shadow: 0 12px 30px rgba(2, 6, 23, 0.28);
+  backdrop-filter: blur(6px);
 }
 
-.geoipt-side-banner iframe {
-  display: block;
-  width: 120px;
-  height: 600px;
-  min-height: 600px;
-  margin: 0 auto;
-  border: none;
-  border-radius: 12px;
-  overflow: hidden;
-  background: transparent;
+.ecosystem-card.left {
+  left: 16px;
+}
+
+.ecosystem-card.right {
+  right: 16px;
+}
+
+.ecosystem-card h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.ecosystem-card p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.ecosystem-card a {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #f8fafc;
+}
+
+.ecosystem-card.geoeva {
+  border-color: rgba(34, 197, 94, 0.42);
+}
+
+.ecosystem-card.geoeva h3,
+.ecosystem-card.geoeva a {
+  color: #22c55e;
+}
+
+.ecosystem-card.geonemo {
+  border-color: rgba(194, 151, 104, 0.5);
+}
+
+.ecosystem-card.geonemo h3,
+.ecosystem-card.geonemo a {
+  color: #d4a26d;
 }
 
 /* =========================
@@ -298,7 +339,7 @@ main {
     height: auto;
   }
 
-  .geoipt-side-banner {
+  .ecosystem-card {
     display: none;
   }
 
