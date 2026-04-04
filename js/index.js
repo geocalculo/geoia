@@ -10,6 +10,7 @@ let marcadorPunto = null;
 let indiceBuscador = [];
 let resultadosBusquedaActual = [];
 let searchActiveIndex = -1;
+let shouldPreserveIncomingViewport = false;
 
 // Carga por fases
 let uiDataLoaded = false;
@@ -111,15 +112,26 @@ function getIncomingViewportFromUrl() {
   // (por ejemplo: ?utm_source=...&utm_medium=...&bbox=...)
   const params = new URLSearchParams(window.location.search);
   const bbox = parseBboxFromQuery(params.get("bbox"));
-  const lat = Number(params.get("lat"));
-  const lon = Number(params.get("lon"));
-  const zoom = Number(params.get("zoom"));
+  const parseQueryNumber = (name) => {
+    const rawValue = params.get(name);
+    if (rawValue === null) return null;
+
+    const trimmedValue = String(rawValue).trim();
+    if (!trimmedValue) return null;
+
+    const parsedValue = Number(trimmedValue);
+    return Number.isFinite(parsedValue) ? parsedValue : null;
+  };
+
+  const lat = parseQueryNumber("lat");
+  const lon = parseQueryNumber("lon");
+  const zoom = parseQueryNumber("zoom");
 
   return {
     bbox,
-    lat: Number.isFinite(lat) ? lat : null,
-    lon: Number.isFinite(lon) ? lon : null,
-    zoom: Number.isFinite(zoom) ? zoom : null
+    lat,
+    lon,
+    zoom
   };
 }
 
@@ -138,18 +150,14 @@ function hasValidLatLonZoomViewport(incoming) {
   );
 }
 
-function hasValidIncomingViewport() {
-  const incoming = getIncomingViewportFromUrl();
-  return Boolean(incoming.bbox || hasValidLatLonZoomViewport(incoming));
-}
-
 function applyIncomingViewport() {
-  if (!map) return;
+  if (!map) return false;
 
   const incoming = getIncomingViewportFromUrl();
   if (incoming.bbox && fitBoundsDesdeBbox(incoming.bbox)) {
     setMapMarkerAtCenter();
-    return;
+    shouldPreserveIncomingViewport = true;
+    return true;
   }
 
   if (hasValidLatLonZoomViewport(incoming)) {
@@ -161,7 +169,12 @@ function applyIncomingViewport() {
       fillColor: "#ffffff",
       fillOpacity: 0.9
     }).addTo(map);
+    shouldPreserveIncomingViewport = true;
+    return true;
   }
+
+  shouldPreserveIncomingViewport = false;
+  return false;
 }
 
 function getCurrentViewportParams() {
@@ -572,7 +585,6 @@ async function cargarRegiones() {
     }
 
     if (defaultCode) {
-      const shouldPreserveIncomingViewport = hasValidIncomingViewport();
       regionSelect.value = defaultCode;
       if (!shouldPreserveIncomingViewport) {
         centrarEnRegion(defaultCode);
