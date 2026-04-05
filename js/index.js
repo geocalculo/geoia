@@ -982,17 +982,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 /* -------------------------
    HINT DESKTOP
 ------------------------- */
-(function initMapHintAlways() {
+(function initMapHintHover() {
   if (window.innerWidth < 768) return;
 
+  const mapEl = document.getElementById("map");
   const hint = document.getElementById("map-hint");
-  if (!hint) return;
+  if (!mapEl || !hint) return;
 
-  hint.classList.add("visible");
+  mapEl.addEventListener("mouseenter", () => {
+    hint.classList.add("is-visible");
+  });
 
-  document.addEventListener("mousemove", (e) => {
-    hint.style.left = e.clientX + "px";
-    hint.style.top = e.clientY + "px";
+  mapEl.addEventListener("mouseleave", () => {
+    hint.classList.remove("is-visible");
   });
 })();
 

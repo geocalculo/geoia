@@ -72,12 +72,7 @@ header {
   letter-spacing: 0.2px;
 }
 
-margin: 4px 0 0 0;
-  font-size: 0.82rem;
-  color: #cbd5e1; /* mucho más visible */
-  line-height: 1.2;
-  opacity: 1;
-}
+
 
 .controls {
   display: flex;
@@ -291,14 +286,29 @@ main {
 ========================= */
 
 .map-hint {
-  position: fixed;
-  top: 12px;
-  left: 12px;
-  background: rgba(2, 6, 23, 0.9);
-  padding: 6px 10px;
-  border-radius: 8px;
+  position: absolute;
+  top: auto;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1d4ed8;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 10px;
   font-size: 13px;
-  z-index: 9999;
+  z-index: 5200;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+  white-space: nowrap;
+}
+
+.map-hint.is-visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* =========================
@@ -318,15 +328,30 @@ main {
 
 #mira-rifle {
   position: absolute;
-  bottom: 24px;
-  right: 24px;
-  width: 46px;
-  height: 46px;
-  background: #fff;
-  border-radius: 50%;
+  top: 86px;       /* 👈 debajo del zoom */
+  left: 12px;
+
+  width: 34px;
+  height: 34px;
+
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   cursor: pointer;
   z-index: 4500;
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+#mira-rifle::before {
+  content: "📍";
+  font-size: 16px;
+  line-height: 1;
 }
 
 /* =========================
