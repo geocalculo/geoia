@@ -68,9 +68,12 @@
       <h2 class="brand-subtitle">
         Descubre el potencial normativo de cualquier ubicación en Chile
       </h2>
-            <h2 class="brand-subtitle">
+      <h2 class="brand-subtitle">
         👉 <strong>Haz clic en el mapa</strong> para consultar PRC, usos permitidos y restricciones
       </h2>
+      <div id="prc-summary" class="prc-summary" hidden>
+        📍 En esta vista hay <strong id="prc-count">0</strong> planos reguladores
+      </div>
     </div>
       <div class="controls">
         <div class="control-group">
@@ -148,6 +151,7 @@
 
   <!-- ================= JS ================= -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/ui/prcSummary.js"></script>
   <script src="js/index.js"></script>
 
   <!-- ================= MOBILE HINT ================= -->

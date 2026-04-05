@@ -951,6 +951,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   initBuscadorNacional();
   await loadUiData();
 
+   
+    const prcSummary = window.createPRCSummary({
+      map,
+      getItems: () => indiceBuscador
+    });
+    prcSummary.init();
+ 
+
   regionSelect.addEventListener("change", async () => {
     const code = regionSelect.value;
     centrarEnRegion(code);
