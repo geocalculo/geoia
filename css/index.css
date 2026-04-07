@@ -61,7 +61,7 @@ header {
   margin: 0;
   font-size: 1.1rem;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.02;
 }
 
 .brand-subtitle {
@@ -213,7 +213,7 @@ main {
 .map-search-input {
   width: 100%;
   min-height: 46px;
-  padding: 12px 16px;
+  padding: 8px 12px;
   border-radius: 999px;
   border: 1px solid rgba(148, 163, 184, 0.28);
   background: rgba(2, 6, 23, 0.92);
@@ -469,4 +469,255 @@ main {
 
 .leaflet-bottom {
   bottom: 60px !important;
+}
+
+/* =========================
+   MOBILE TUNING GEOIPT
+========================= */
+@media (max-width: 767px) {
+  header {
+    padding: 8px 10px 6px;
+  }
+
+  .header-inner {
+    gap: 0.55rem;
+    align-items: stretch;
+  }
+
+  .brand {
+    gap: 0.2rem;
+  }
+
+  .brand-title {
+    font-size: 0.98rem;
+    line-height: 1.08;
+    max-width: 100%;
+  }
+
+  .brand-subtitle {
+    display: none;
+  }
+
+  #prc-summary,
+  .prc-summary {
+    margin-top: 2px;
+    font-size: 0.82rem;
+    line-height: 1.2;
+  }
+
+  main {
+    padding: 8px 8px 72px;
+  }
+
+  .layout-home {
+    gap: 8px;
+  }
+
+  .controls {
+    gap: 0.45rem;
+  }
+
+  .control-group {
+    font-size: 0.76rem;
+  }
+
+  .control-group label {
+    margin-bottom: 4px;
+  }
+
+  select {
+    min-height: 38px;
+    padding: 6px 10px;
+    font-size: 0.92rem;
+  }
+
+  .map-container {
+    min-height: 0;
+  }
+
+  #map {
+    min-height: 420px;
+    height: calc(100vh - 200px);
+    border-radius: 10px;
+  }
+
+  .map-search-wrap {
+    top: 8px;
+    width: calc(100% - 16px);
+  }
+
+  .map-search-input {
+    min-height: 40px;
+    padding: 9px 14px;
+    font-size: 0.9rem;
+    border-radius: 16px;
+  }
+
+  .map-search-results {
+    margin-top: 6px;
+    border-radius: 12px;
+    max-height: 220px;
+  }
+
+  .hint {
+    display: none;
+  }
+
+  #visitor-counter {
+    display: none;
+  }
+
+  #mira-rifle {
+    top: 74px;
+    left: 10px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .map-hint {
+    bottom: 16px;
+    max-width: calc(100% - 24px);
+    white-space: normal;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.2;
+    padding: 7px 10px;
+  }
+
+  #ecosystem-bar {
+    height: 48px;
+  }
+
+  #ecosystem-bar a {
+    line-height: 48px;
+    font-size: 0.92rem;
+  }
+
+  .leaflet-bottom {
+    bottom: 52px !important;
+  }
+}
+
+/* =========================
+   MOBILE FINE TUNING GEOIPT
+========================= */
+@media (max-width: 767px) {
+  /* 1) H1 un poco más compacto */
+  .brand-title {
+    font-size: 0.95rem;
+    line-height: 1.05;
+    letter-spacing: -0.2px;
+  }
+
+  /* 2) Summary más limpio, con mejor jerarquía */
+  #prc-summary,
+  .prc-summary {
+    margin-top: 3px;
+    font-size: 0.8rem;
+    line-height: 1.15;
+    color: #cbd5e1;
+  }
+
+  #prc-summary strong,
+  .prc-summary strong {
+    color: #22c55e;
+    font-weight: 700;
+  }
+
+  /* 3) Labels más compactos */
+  .control-group {
+    gap: 2px;
+  }
+
+  .control-group label {
+    font-size: 0.72rem;
+    margin-bottom: 2px;
+    opacity: 0.82;
+  }
+
+  /* 4) Selects un poco más apretados */
+  select {
+    min-height: 37px;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+
+  /* 5) Más protagonismo al mapa */
+  #map {
+    min-height: 430px;
+    height: calc(100vh - 220px);
+  }
+
+  /* 6) Buscador más preciso visualmente */
+  .map-search-input {
+    min-height: 39px;
+    padding: 9px 13px;
+    font-size: 0.89rem;
+    border-radius: 14px;
+  }
+
+  .map-search-wrap {
+    top: 7px;
+  }
+
+  /* 7) Botón ubicación un poco mejor calzado */
+  #mira-rifle {
+    top: 72px;
+    left: 10px;
+  }
+
+  /* 8) Barra inferior más liviana */
+  #ecosystem-bar {
+    height: 46px;
+  }
+
+  #ecosystem-bar a {
+    line-height: 46px;
+    font-size: 0.88rem;
+  }
+
+  /* 9) Ajuste Leaflet respecto a la barra */
+  .leaflet-bottom {
+    bottom: 50px !important;
+  }
+}
+
+@media (max-width: 767px) {
+
+  /* Tipografía base más técnica */
+  body {
+    font-size: 14px;
+  }
+
+  /* H1 más profesional */
+  .brand-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  /* Labels tipo sistema */
+  .control-group label {
+    font-size: 0.68rem;
+    opacity: 0.75;
+  }
+
+  /* Selects más compactos */
+  select {
+    font-size: 0.88rem;
+  }
+
+  /* Summary más técnico */
+  .prc-summary {
+    font-size: 0.78rem;
+  }
+
+  /* Buscador más fino */
+  .map-search-input {
+    font-size: 0.85rem;
+  }
+
+  /* Barra inferior */
+  #ecosystem-bar a {
+    font-size: 0.82rem;
+  }
 }
