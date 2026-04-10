@@ -610,15 +610,6 @@ function initMapa() {
     }
   );
 
-  const mapaSatelite = L.tileLayer(
-    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    {
-      maxZoom: 19,
-      attribution:
-        "Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP"
-    }
-  );
-
   map = L.map("map", {
     center: [-27.5, -70.25],
     zoom: 15,
@@ -626,15 +617,6 @@ function initMapa() {
     maxZoom: 19,
     layers: [mapaCalle]
   });
-
-  L.control.layers(
-    {
-      "Mapa calle": mapaCalle,
-      "Satélite": mapaSatelite
-    },
-    {},
-    { position: "topright" }
-  ).addTo(map);
 
   const overviewDiv = document.getElementById("overview-map");
   if (overviewDiv) {
