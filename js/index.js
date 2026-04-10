@@ -273,6 +273,130 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
+function getFallbackParams() {
+  const params = new URLSearchParams(window.location.search);
+
+  const lat = Number(params.get("lat"));
+  const lon = Number(params.get("lon"));
+
+  return {
+    fallback: params.get("fallback") || "",
+    lat: Number.isFinite(lat) ? lat : null,
+    lon: Number.isFinite(lon) ? lon : null
+  };
+}
+
+function obtenerPrcCercanosDesdeSession() {
+  try {
+    const data = JSON.parse(
+      sessionStorage.getItem("geoipt_prc_cercanos") || "{}"
+    );
+    return Array.isArray(data.items) ? data.items : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function ocultarPanelPrcCercanos() {
+  const panel = document.getElementById("prc-nearby-panel");
+  if (!panel) return;
+  panel.innerHTML = "";
+  panel.hidden = true;
+}
+
+async function irAPrcSugerido(item) {
+  if (!item) return;
+
+  ocultarPanelPrcCercanos();
+
+  if (item.region_codigo) {
+    regionSelect.value = item.region_codigo;
+    centrarEnRegion(item.region_codigo);
+    await cargarInstrumentos(item.region_codigo);
+  }
+
+  const option = Array.from(instrumentoSelect.options).find(
+    (opt) => opt.value === item.archivo
+  );
+
+  if (option) {
+    instrumentoSelect.value = option.value;
+  }
+
+  const hizoFitBbox = fitBoundsDesdeBbox(item.bbox);
+
+  if (!hizoFitBbox) {
+    await zoomAlInstrumento(item.region_codigo, item.archivo);
+  } else {
+    setMapMarkerAtCenter();
+  }
+}
+
+function renderPanelPrcCercanos(items) {
+  const panel = document.getElementById("prc-nearby-panel");
+  if (!panel || !items.length) return;
+
+  panel.innerHTML = `
+    <div class="prc-nearby-card">
+      <div class="prc-nearby-title">No encontramos un PRC exacto en ese punto</div>
+      <div class="prc-nearby-subtitle">Estos son los 3 PRC más cercanos:</div>
+      <div class="prc-nearby-list">
+        ${items.map((item, idx) => `
+          <button type="button" class="prc-nearby-item" data-index="${idx}">
+            <span class="prc-nearby-name">${escapeHtml(item.nombre || "PRC sin nombre")}</span>
+            <span class="prc-nearby-distance">${Number(item.distancia_km).toFixed(1)} km</span>
+            <span class="prc-nearby-meta">${escapeHtml(
+              [item.comuna, item.region_nombre].filter(Boolean).join(" / ")
+            )}</span>
+          </button>
+        `).join("")}
+      </div>
+    </div>
+  `;
+
+  panel.hidden = false;
+
+  panel.querySelectorAll(".prc-nearby-item").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const idx = Number(btn.dataset.index);
+      const item = items[idx];
+      await irAPrcSugerido(item);
+    });
+  });
+}
+
+
+
+function aplicarFallbackNoMatchEnIndex() {
+  const params = getFallbackParams();
+  if (params.fallback !== "no_match") return;
+
+  const items = obtenerPrcCercanosDesdeSession();
+
+  if (Number.isFinite(params.lat) && Number.isFinite(params.lon)) {
+    if (marcadorPunto) {
+      marcadorPunto.setLatLng([params.lat, params.lon]);
+    } else {
+      marcadorPunto = L.circleMarker([params.lat, params.lon], {
+        radius: 6,
+        color: "#f97316",
+        weight: 2,
+        fillColor: "#ffffff",
+        fillOpacity: 0.9
+      }).addTo(map);
+    }
+  }
+
+  map.setView([params.lat, params.lon], 13);
+
+  if (prcSearchInput) {
+    prcSearchInput.value = "";
+    prcSearchInput.focus();
+  }
+
+  renderFallbackResultadosCercanos(items);
+}
+
 function bboxEsValido(bbox) {
   return (
     Array.isArray(bbox) &&
@@ -299,6 +423,76 @@ function fitBoundsDesdeBbox(bbox) {
 
   map.fitBounds(bounds, { padding: [30, 30] });
   return true;
+}
+
+function centroDesdeBboxBuscador(bbox) {
+  if (!bboxEsValido(bbox)) return null;
+
+  const south = Number(bbox[0][0]);
+  const west = Number(bbox[0][1]);
+  const north = Number(bbox[1][0]);
+  const east = Number(bbox[1][1]);
+
+  return {
+    lat: (south + north) / 2,
+    lon: (west + east) / 2
+  };
+}
+
+function distanciaAproximadaKm(a, b) {
+  if (!a || !b) return Infinity;
+
+  const dLat = a.lat - b.lat;
+  const dLon = a.lon - b.lon;
+
+  // aproximación suficiente para ranking
+  return Math.sqrt(dLat * dLat + dLon * dLon) * 111;
+}
+
+function obtenerPrcCercanosParaClick(lat, lon, limite = 3) {
+  const origen = { lat, lon };
+
+  if (!Array.isArray(indiceBuscador) || !indiceBuscador.length) return [];
+
+  return indiceBuscador
+    .map((item) => {
+      const centro = centroDesdeBboxBuscador(item.bbox);
+
+      return {
+        nombre: item.nombre || "",
+        comuna: item.comuna || "",
+        region_nombre: item.region_nombre || "",
+        region_codigo: item.region_codigo || "",
+        carpeta: item.carpeta || "",
+        archivo: item.archivo || "",
+        bbox: item.bbox || [],
+        distancia_km: centro ? distanciaAproximadaKm(origen, centro) : Infinity
+      };
+    })
+    .filter(
+      (item) =>
+        item.nombre &&
+        item.archivo &&
+        bboxEsValido(item.bbox) &&
+        Number.isFinite(item.distancia_km)
+    )
+    .sort((a, b) => a.distancia_km - b.distancia_km)
+    .slice(0, limite);
+}
+
+function guardarPrcCercanosEnSession(lat, lon) {
+  const items = obtenerPrcCercanosParaClick(lat, lon, 3);
+
+  sessionStorage.setItem(
+    "geoipt_prc_cercanos",
+    JSON.stringify({
+      origen: {
+        lat: Number(lat.toFixed(6)),
+        lon: Number(lon.toFixed(6))
+      },
+      items
+    })
+  );
 }
 
 function setMapMarkerAtCenter() {
@@ -512,6 +706,7 @@ function initMapa() {
 }
 
 function handleMapClick(e) {
+  ocultarResultadosBusqueda();
   const lat = e.latlng.lat;
   const lon = e.latlng.lng;
 
@@ -550,6 +745,8 @@ function handleMapClick(e) {
     lon: Number(lon.toFixed(6)),
     bbox: bboxStr
   });
+
+  guardarPrcCercanosEnSession(lat, lon);
 
   window.location.href = url.toString();
 }
@@ -852,6 +1049,64 @@ function renderResultadosBusqueda(resultados) {
   });
 }
 
+function renderFallbackResultadosCercanos(items) {
+  resultadosBusquedaActual = items;
+  searchActiveIndex = -1;
+
+  if (!prcSearchResults) return;
+
+  if (!items || !items.length) {
+    prcSearchResults.innerHTML = `
+      <div class="map-search-empty">
+        No encontramos un PRC exacto en ese punto, y no hay sugerencias disponibles.
+      </div>
+    `;
+    prcSearchResults.hidden = false;
+    return;
+  }
+
+  prcSearchResults.innerHTML = `
+    <div class="map-search-empty" style="padding-bottom: 8px;">
+      No encontramos un PRC exacto en ese punto.<br>
+      Estos son los 3 PRC más cercanos:
+    </div>
+    ${items
+      .map((item, idx) => {
+        const meta = [item.comuna, item.region_nombre]
+          .filter(Boolean)
+          .join(" · ");
+
+        return `
+          <button
+            type="button"
+            class="map-search-item"
+            data-index="${idx}"
+          >
+            <span class="map-search-title">
+              ${escapeHtml(item.nombre || "PRC sin nombre")}
+            </span>
+            <span class="map-search-meta">
+              ${escapeHtml(meta)} · ${Number(item.distancia_km).toFixed(1)} km
+            </span>
+          </button>
+        `;
+      })
+      .join("")}
+  `;
+
+  prcSearchResults.hidden = false;
+
+  prcSearchResults.querySelectorAll(".map-search-item").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const idx = Number(btn.dataset.index);
+      const item = resultadosBusquedaActual[idx];
+      if (item) {
+        await seleccionarResultadoBusqueda(item);
+      }
+    });
+  });
+}
+
 function actualizarItemActivoBusqueda() {
   const items = prcSearchResults.querySelectorAll(".map-search-item");
   items.forEach((el, idx) => {
@@ -951,6 +1206,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   initBuscadorNacional();
   await loadUiData();
 
+  aplicarFallbackNoMatchEnIndex();
+
    
     const prcSummary = window.createPRCSummary({
       map,
@@ -960,12 +1217,14 @@ document.addEventListener("DOMContentLoaded", async () => {
  
 
   regionSelect.addEventListener("change", async () => {
+    ocultarResultadosBusqueda();
     const code = regionSelect.value;
     centrarEnRegion(code);
     await cargarInstrumentos(code);
   });
 
   instrumentoSelect.addEventListener("change", async () => {
+    ocultarResultadosBusqueda();
     const selectedOption =
       instrumentoSelect.options[instrumentoSelect.selectedIndex];
 

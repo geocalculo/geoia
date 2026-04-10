@@ -620,6 +620,17 @@ function cerrarPestana() {
   }
 }
 
+function volverAIndexConFallback() {
+  const url = new URL("index.html", window.location.href);
+  url.searchParams.set("fallback", "no_match");
+  url.searchParams.set("lat", lat);
+  url.searchParams.set("lon", lon);
+  if (Number.isFinite(zoom)) {
+    url.searchParams.set("zoom", zoom);
+  }
+  window.location.href = url.toString();
+}
+
 function volverAIndex() {
   const url = `index.html?lat=${lat}&lon=${lon}&zoom=${zoom}`;
   window.location.href = url;
@@ -712,7 +723,7 @@ async function ejecutarFlujo() {
       if (pre2) {
         pre2.textContent =
           "⚠ No hay IPT cuyo BBOX intersecte la pantalla en este clic.\n" +
-          "Sugerencia: regrese al mapa principal y haga clic sobre un área urbana.";
+          "Volviendo al mapa principal con sugerencias cercanas...";
       }
 
       if (preMeta) {
@@ -725,13 +736,11 @@ async function ejecutarFlujo() {
 
       setTimeout(() => {
         hideLoadingOverlay();
+        volverAIndexConFallback();
       }, 250);
 
-      if (NO_MATCH_DELAY_MS >= 0) {
-        setTimeout(cerrarPestana, Math.max(NO_MATCH_DELAY_MS, 350));
-      }
       return;
-    }
+}
 
     setLoadingProgress(72, "Analizando geometría...");
 
@@ -744,7 +753,7 @@ async function ejecutarFlujo() {
       if (pre2) {
         pre2.textContent =
           "⚠ Ningún IPT tiene polígonos que contengan exactamente el punto clic.\n" +
-          "Sugerencia: regrese al mapa principal y haga clic sobre un área urbana.";
+          "Volviendo al mapa principal con sugerencias cercanas...";
       }
 
       if (preMeta) {
@@ -757,11 +766,9 @@ async function ejecutarFlujo() {
 
       setTimeout(() => {
         hideLoadingOverlay();
+        volverAIndexConFallback();
       }, 250);
 
-      if (NO_MATCH_DELAY_MS >= 0) {
-        setTimeout(cerrarPestana, Math.max(NO_MATCH_DELAY_MS, 350));
-      }
       return;
     }
 
