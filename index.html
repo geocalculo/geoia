@@ -127,6 +127,13 @@
 
         <div id="map"></div>
 
+        <a
+          id="home-floating-btn"
+          class="home-floating-btn"
+          href="https://geoipt.cl"
+          aria-label="Ir al inicio"
+        >⌂ Inicio</a>
+
         <div id="prc-nearby-panel" class="prc-nearby-panel" hidden></div>
 
         <p class="hint">
@@ -155,6 +162,24 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/ui/prcSummary.js?v=7c3694e"></script>
   <script src="js/index.js?v=7c3694e"></script>
+  <script>
+    (function () {
+      const homeBtn = document.getElementById("home-floating-btn");
+      if (!homeBtn) return;
+
+      const host = String(window.location.hostname || "").toLowerCase();
+      const homeByHost = {
+        "geoipt.cl": "https://geoipt.cl",
+        "www.geoipt.cl": "https://geoipt.cl",
+        "geoeva.cl": "https://geoeva.cl",
+        "www.geoeva.cl": "https://geoeva.cl",
+        "geonemo.cl": "https://geonemo.cl",
+        "www.geonemo.cl": "https://geonemo.cl"
+      };
+
+      homeBtn.href = homeByHost[host] || "https://geoipt.cl";
+    })();
+  </script>
 
   <!-- ================= MOBILE HINT ================= -->
   <div id="mobile-map-hint" aria-hidden="true">
