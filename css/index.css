@@ -197,6 +197,40 @@ main {
   min-height: 520px;
 }
 
+.home-floating-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(15, 23, 42, 0.2);
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.home-floating-btn:hover {
+  background: #f8fafc;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.22);
+  transform: translateY(-1px);
+}
+
+.home-floating-btn:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
 /* =========================
    BUSCADOR MAPA
 ========================= */
@@ -572,6 +606,14 @@ main {
     left: 10px;
     width: 32px;
     height: 32px;
+  }
+
+  .home-floating-btn {
+    top: 8px;
+    right: 8px;
+    min-height: 38px;
+    padding: 8px 12px;
+    font-size: 0.86rem;
   }
 
   .map-hint {
