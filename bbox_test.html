@@ -117,9 +117,37 @@
       text-decoration: underline;
     }
   </style>
+
+  <style>
+    .home-global-btn {
+      position: fixed;
+      top: env(safe-area-inset-top, 12px);
+      left: 12px;
+      z-index: 9999;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.95);
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      text-decoration: none;
+      font-size: 20px;
+      line-height: 1;
+      transition: transform 0.15s ease;
+    }
+
+    .home-global-btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
+
 </head>
 
 <body>
+
+  <a href="/" class="home-global-btn" title="Volver al inicio">🏠</a>
 
   <div id="loading-overlay" class="loading-overlay" aria-live="polite" aria-busy="true">
     <div class="loading-card">
