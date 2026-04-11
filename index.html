@@ -47,6 +47,25 @@
   </script>
 
   <style>
+    .home-floating-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 1000;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      text-decoration: none;
+      font-size: 14px;
+      color: #111;
+      transition: all 0.2s ease;
+    }
+
+    .home-floating-btn:hover {
+      transform: scale(1.05);
+    }
+
     .home-global-btn {
       position: fixed;
       top: env(safe-area-inset-top, 12px);
@@ -158,7 +177,7 @@
         <a
           id="home-floating-btn"
           class="home-floating-btn"
-          href="https://geoipt.cl"
+          href="/"
           aria-label="Ir al inicio"
         >⌂ Inicio</a>
 
