@@ -605,6 +605,27 @@ function descargarKmlZona(triggerType = "button") {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+
+  // 🔥 tracking invisible por URL
+setTimeout(() => {
+  const iframe = document.createElement("iframe");
+  iframe.style.display = "none";
+
+  const okUrl = new URL("ok-kml.html", window.location.href);
+  okUrl.searchParams.set("src", "geoipt");
+  okUrl.searchParams.set("file", fileName);
+
+  iframe.src = okUrl.toString();
+
+  document.body.appendChild(iframe);
+
+  // limpieza después de unos segundos
+  setTimeout(() => {
+    document.body.removeChild(iframe);
+  }, 3000);
+
+}, 300);
+
   URL.revokeObjectURL(url);
 }
 
