@@ -11,6 +11,16 @@ let indiceBuscador = [];
 let resultadosBusquedaActual = [];
 let searchActiveIndex = -1;
 let shouldPreserveIncomingViewport = false;
+let hasUserInteractedWithMap = false;
+let initialViewportResolutionPromise = null;
+
+const HOME_VIEW = {
+  center: [-27.5, -70.25],
+  zoom: 15
+};
+const VIEWPORT_STORAGE_KEY = "ms:lastViewport:geoipt";
+const VIEWPORT_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
+const VIEWPORT_SAVE_DEBOUNCE_MS = 500;
 
 // Carga por fases
 let uiDataLoaded = false;
@@ -175,6 +185,155 @@ function applyIncomingViewport() {
 
   shouldPreserveIncomingViewport = false;
   return false;
+}
+
+function saveViewportToLocalStorage() {
+  const viewport = getCurrentViewportParams();
+  if (!viewport) return;
+
+  const payload = {
+    lat: Number(viewport.lat),
+    lon: Number(viewport.lon),
+    zoom: Number(viewport.zoom),
+    bbox: viewport.bbox,
+    updatedAt: Date.now()
+  };
+
+  localStorage.setItem(VIEWPORT_STORAGE_KEY, JSON.stringify(payload));
+}
+
+function readViewportFromLocalStorage() {
+  try {
+    const raw = localStorage.getItem(VIEWPORT_STORAGE_KEY);
+    if (!raw) return null;
+
+    const parsed = JSON.parse(raw);
+    const updatedAt = Number(parsed?.updatedAt);
+    if (!Number.isFinite(updatedAt)) return null;
+    if (Date.now() - updatedAt > VIEWPORT_MAX_AGE_MS) return null;
+
+    const lat = Number(parsed?.lat);
+    const lon = Number(parsed?.lon);
+    const zoom = Number(parsed?.zoom);
+    const bbox = typeof parsed?.bbox === "string" ? parsed.bbox : "";
+
+    if (
+      !Number.isFinite(lat) ||
+      !Number.isFinite(lon) ||
+      !Number.isFinite(zoom) ||
+      Math.abs(lat) > 90 ||
+      Math.abs(lon) > 180 ||
+      zoom < 0 ||
+      zoom > 22
+    ) {
+      return null;
+    }
+
+    return { lat, lon, zoom, bbox };
+  } catch (_) {
+    return null;
+  }
+}
+
+function getCurrentPositionPromise(options) {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject, options);
+  });
+}
+
+async function tryResolveGpsWithoutPrompt() {
+  if (!navigator.geolocation || !navigator.permissions?.query) return null;
+
+  try {
+    const permission = await navigator.permissions.query({ name: "geolocation" });
+    if (permission.state !== "granted") return null;
+
+    const pos = await getCurrentPositionPromise({
+      enableHighAccuracy: true,
+      timeout: 10000
+    });
+
+    const lat = Number(pos?.coords?.latitude);
+    const lon = Number(pos?.coords?.longitude);
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+    if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
+    return { lat, lon, zoom: 16 };
+  } catch (_) {
+    return null;
+  }
+}
+
+async function tryResolveLocationFromIp() {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), 3000);
+
+  try {
+    const resp = await fetch("https://ipapi.co/json/", {
+      signal: controller.signal
+    });
+    if (!resp.ok) return null;
+
+    const data = await resp.json();
+    const lat = Number(data?.latitude);
+    const lon = Number(data?.longitude);
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+    if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return null;
+
+    return { lat, lon, zoom: 12 };
+  } catch (_) {
+    return null;
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+}
+
+function debounce(fn, delayMs) {
+  let timeoutId = null;
+  return (...args) => {
+    if (timeoutId) {
+      window.clearTimeout(timeoutId);
+    }
+    timeoutId = window.setTimeout(() => fn(...args), delayMs);
+  };
+}
+
+async function resolveInitialViewport() {
+  if (!map) return;
+
+  const appliedIncoming = applyIncomingViewport();
+  if (appliedIncoming) {
+    shouldPreserveIncomingViewport = true;
+    saveViewportToLocalStorage(); // excepción: viewport heredado por URL
+    return;
+  }
+
+  const lastViewport = readViewportFromLocalStorage();
+  if (lastViewport) {
+    const lastBbox = parseBboxFromQuery(lastViewport.bbox);
+    if (!lastBbox || !fitBoundsDesdeBbox(lastBbox)) {
+      map.setView([lastViewport.lat, lastViewport.lon], lastViewport.zoom);
+    }
+    shouldPreserveIncomingViewport = true;
+    return;
+  }
+
+  const gpsViewport = await tryResolveGpsWithoutPrompt();
+  if (gpsViewport) {
+    map.setView([gpsViewport.lat, gpsViewport.lon], gpsViewport.zoom);
+    shouldPreserveIncomingViewport = true;
+    return;
+  }
+
+  const ipViewport = await tryResolveLocationFromIp();
+  if (ipViewport) {
+    map.setView([ipViewport.lat, ipViewport.lon], ipViewport.zoom);
+    shouldPreserveIncomingViewport = true;
+    return;
+  }
+
+  map.setView(HOME_VIEW.center, HOME_VIEW.zoom);
+  shouldPreserveIncomingViewport = true;
 }
 
 function getCurrentViewportParams() {
@@ -611,8 +770,8 @@ function initMapa() {
   );
 
   map = L.map("map", {
-    center: [-27.5, -70.25],
-    zoom: 15,
+    center: HOME_VIEW.center,
+    zoom: HOME_VIEW.zoom,
     minZoom: 4,
     maxZoom: 19,
     layers: [mapaCalle]
@@ -651,7 +810,27 @@ function initMapa() {
     });
   }
 
-  applyIncomingViewport();
+  initialViewportResolutionPromise = resolveInitialViewport();
+
+  const markUserInteraction = () => {
+    hasUserInteractedWithMap = true;
+  };
+  map.getContainer().addEventListener("pointerdown", markUserInteraction, {
+    passive: true
+  });
+  map.getContainer().addEventListener("wheel", markUserInteraction, {
+    passive: true
+  });
+  map.getContainer().addEventListener("touchstart", markUserInteraction, {
+    passive: true
+  });
+
+  const saveViewportDebounced = debounce(() => {
+    if (!hasUserInteractedWithMap) return;
+    saveViewportToLocalStorage();
+  }, VIEWPORT_SAVE_DEBOUNCE_MS);
+
+  map.on("moveend zoomend", saveViewportDebounced);
 
   map.on("click", async (e) => {
     try {
@@ -676,6 +855,7 @@ function initMapa() {
         (pos) => {
           map.setView([pos.coords.latitude, pos.coords.longitude], 16);
           setMapMarkerAtCenter();
+          saveViewportToLocalStorage(); // excepción: geolocalización manual
         },
         (err) => {
           console.error(err);
@@ -738,6 +918,10 @@ function handleMapClick(e) {
 ------------------------- */
 async function cargarRegiones() {
   try {
+    if (initialViewportResolutionPromise) {
+      await initialViewportResolutionPromise;
+    }
+
     const resp = await fetch("capas/regiones.json");
     if (!resp.ok) throw new Error("No se pudo leer capas/regiones.json");
 
