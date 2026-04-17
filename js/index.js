@@ -879,7 +879,7 @@ function showMapHintFade() {
   hasShownMapHintFade = true;
 
   const showDelayMs = 2000;
-  const visibleTimeMs = 1000;
+  const visibleTimeMs = 2000;
 
   setTimeout(() => {
     hint.classList.add("is-visible");
