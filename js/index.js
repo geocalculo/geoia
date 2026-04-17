@@ -13,6 +13,7 @@ let searchActiveIndex = -1;
 let shouldPreserveIncomingViewport = false;
 let hasUserInteractedWithMap = false;
 let initialViewportResolutionPromise = null;
+let hasShownMapHintFade = false;
 
 const HOME_VIEW = {
   center: [-27.5, -70.25],
@@ -777,6 +778,8 @@ function initMapa() {
     layers: [mapaCalle]
   });
 
+  initMapHintFade();
+
   const overviewDiv = document.getElementById("overview-map");
   if (overviewDiv) {
     overviewMap = L.map("overview-map", {
@@ -865,6 +868,31 @@ function initMapa() {
       );
     });
   }
+}
+
+function showMapHintFade() {
+  if (hasShownMapHintFade) return;
+
+  const hint = document.getElementById("map-hint-fade");
+  if (!hint) return;
+
+  hasShownMapHintFade = true;
+
+  const showDelayMs = 2000;
+  const visibleTimeMs = 1000;
+
+  setTimeout(() => {
+    hint.classList.add("is-visible");
+
+    setTimeout(() => {
+      hint.classList.remove("is-visible");
+    }, visibleTimeMs);
+  }, showDelayMs);
+}
+
+function initMapHintFade() {
+  if (!map) return;
+  map.whenReady(showMapHintFade);
 }
 
 function handleMapClick(e) {
