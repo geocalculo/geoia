@@ -917,7 +917,7 @@ function hideMapHintFade() {
 function initMapHintFade(baseLayer) {
   if (!map) return;
 
-  const hideDelayAfterMapReadyMs = 2000;
+  const hideDelayAfterMapReadyMs = 4000;
   const mapReadyFallbackMs = 5000;
 
   map.whenReady(showMapHintFade);
