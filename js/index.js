@@ -14,6 +14,10 @@ let shouldPreserveIncomingViewport = false;
 let hasUserInteractedWithMap = false;
 let initialViewportResolutionPromise = null;
 let hasShownMapHintFade = false;
+let mapHintFadeIsHidden = false;
+let mapHintFadeShowTimeoutId = null;
+let mapHintFadeHideTimeoutId = null;
+let mapHintFadeReadyFallbackTimeoutId = null;
 
 const HOME_VIEW = {
   center: [-27.5, -70.25],
@@ -778,7 +782,7 @@ function initMapa() {
     layers: [mapaCalle]
   });
 
-  initMapHintFade();
+  initMapHintFade(mapaCalle);
 
   const overviewDiv = document.getElementById("overview-map");
   if (overviewDiv) {
@@ -877,22 +881,79 @@ function showMapHintFade() {
   if (!hint) return;
 
   hasShownMapHintFade = true;
+  mapHintFadeIsHidden = false;
 
-  const showDelayMs = 2000;
-  const visibleTimeMs = 2000;
+  const showDelayMs = 220;
 
-  setTimeout(() => {
+  mapHintFadeShowTimeoutId = setTimeout(() => {
     hint.classList.add("is-visible");
-
-    setTimeout(() => {
-      hint.classList.remove("is-visible");
-    }, visibleTimeMs);
   }, showDelayMs);
 }
 
-function initMapHintFade() {
+function hideMapHintFade() {
+  if (mapHintFadeIsHidden) return;
+
+  const hint = document.getElementById("map-hint-fade");
+  if (!hint) return;
+
+  if (mapHintFadeShowTimeoutId) {
+    clearTimeout(mapHintFadeShowTimeoutId);
+    mapHintFadeShowTimeoutId = null;
+  }
+  if (mapHintFadeReadyFallbackTimeoutId) {
+    clearTimeout(mapHintFadeReadyFallbackTimeoutId);
+    mapHintFadeReadyFallbackTimeoutId = null;
+  }
+  if (mapHintFadeHideTimeoutId) {
+    clearTimeout(mapHintFadeHideTimeoutId);
+    mapHintFadeHideTimeoutId = null;
+  }
+
+  mapHintFadeIsHidden = true;
+  hint.classList.remove("is-visible");
+  document.dispatchEvent(new CustomEvent("geoipt:map-hint-fade-hidden"));
+}
+
+function initMapHintFade(baseLayer) {
   if (!map) return;
+
+  const hideDelayAfterMapReadyMs = 2000;
+  const mapReadyFallbackMs = 5000;
+
   map.whenReady(showMapHintFade);
+
+  const scheduleHide = () => {
+    if (mapHintFadeReadyFallbackTimeoutId) {
+      clearTimeout(mapHintFadeReadyFallbackTimeoutId);
+      mapHintFadeReadyFallbackTimeoutId = null;
+    }
+    if (mapHintFadeHideTimeoutId) return;
+    mapHintFadeHideTimeoutId = setTimeout(hideMapHintFade, hideDelayAfterMapReadyMs);
+  };
+
+  if (baseLayer && typeof baseLayer.once === "function") {
+    baseLayer.once("load", scheduleHide);
+  }
+
+  mapHintFadeReadyFallbackTimeoutId = setTimeout(scheduleHide, mapReadyFallbackMs);
+
+  const dismissOnInteraction = () => {
+    if (mapHintFadeHideTimeoutId) {
+      clearTimeout(mapHintFadeHideTimeoutId);
+      mapHintFadeHideTimeoutId = null;
+    }
+    hideMapHintFade();
+  };
+
+  const mapContainer = map.getContainer();
+  if (mapContainer) {
+    ["pointerdown", "wheel", "touchstart"].forEach((eventName) => {
+      mapContainer.addEventListener(eventName, dismissOnInteraction, {
+        passive: true,
+        once: true
+      });
+    });
+  }
 }
 
 function handleMapClick(e) {
