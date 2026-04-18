@@ -346,29 +346,63 @@ main {
 }
 
 .map-hint-fade {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 5100;
-  padding: 12px 18px;
-  border-radius: 12px;
-  background: rgba(15, 23, 42, 0.75);
+  z-index: 6200;
+  width: min(92vw, 760px);
+  padding: 18px 22px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.82);
   color: #ffffff;
-  font-size: clamp(0.95rem, 2.8vw, 1.05rem);
-  font-weight: 600;
-  letter-spacing: 0.01em;
   text-align: center;
-  white-space: nowrap;
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
+  box-shadow: 0 20px 48px rgba(2, 6, 23, 0.42);
+  transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
 }
 
 .map-hint-fade.is-visible {
   opacity: 1;
   visibility: visible;
+  animation: mapHintFadePulse 2.4s ease-in-out;
+}
+
+.map-hint-fade__lead {
+  display: block;
+  font-size: clamp(1.4rem, 3.4vw, 2rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: 0.01em;
+}
+
+.map-hint-fade__sub {
+  display: block;
+  margin-top: 9px;
+  font-size: clamp(0.95rem, 2.2vw, 1.08rem);
+  font-weight: 500;
+  line-height: 1.35;
+  color: rgba(226, 232, 240, 0.98);
+}
+
+@keyframes mapHintFadePulse {
+  0% { transform: translate(-50%, -50%) scale(0.985); }
+  45% { transform: translate(-50%, -50%) scale(1); }
+  100% { transform: translate(-50%, -50%) scale(1.01); }
+}
+
+@media (max-width: 768px) {
+  .map-hint-fade {
+    top: 47%;
+    width: min(94vw, 620px);
+    padding: 16px 16px;
+  }
+
+  .map-hint-fade__sub {
+    margin-top: 8px;
+  }
 }
 
 /* =========================
