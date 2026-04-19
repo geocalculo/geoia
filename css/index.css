@@ -316,93 +316,72 @@ main {
 }
 
 /* =========================
-   HINT
+   WELCOME MODAL
 ========================= */
 
-.map-hint {
-  position: absolute;
-  top: auto;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #1d4ed8;
-  color: #ffffff;
-  font-weight: 600;
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-size: 13px;
-  z-index: 5200;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
-  white-space: nowrap;
-}
-
-.map-hint.is-visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-.map-hint-fade {
+.welcome-modal {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 6200;
-  width: min(92vw, 760px);
-  padding: 18px 22px;
-  border-radius: 16px;
-  background: rgba(15, 23, 42, 0.82);
-  color: #ffffff;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 12px;
+}
+
+.welcome-modal[hidden] {
+  display: none;
+}
+
+.welcome-modal__content {
+  background: #fff;
+  color: #111827;
+  padding: 24px;
+  border-radius: 14px;
+  max-width: 420px;
+  width: 90%;
   text-align: center;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  box-shadow: 0 20px 48px rgba(2, 6, 23, 0.42);
-  transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
 }
 
-.map-hint-fade.is-visible {
-  opacity: 1;
-  visibility: visible;
-  animation: mapHintFadePulse 2.4s ease-in-out;
+.welcome-modal__content h2 {
+  margin-bottom: 12px;
+  font-size: 20px;
+  line-height: 1.2;
 }
 
-.map-hint-fade__lead {
+.welcome-modal__content p {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.welcome-btn {
+  margin-top: 16px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.welcome-btn:hover {
+  opacity: 0.92;
+}
+
+.welcome-checkbox {
   display: block;
-  font-size: clamp(1.4rem, 3.4vw, 2rem);
-  font-weight: 700;
-  line-height: 1.18;
-  letter-spacing: 0.01em;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666;
 }
 
-.map-hint-fade__sub {
-  display: block;
-  margin-top: 9px;
-  font-size: clamp(0.95rem, 2.2vw, 1.08rem);
-  font-weight: 500;
-  line-height: 1.35;
-  color: rgba(226, 232, 240, 0.98);
-}
-
-@keyframes mapHintFadePulse {
-  0% { transform: translate(-50%, -50%) scale(0.985); }
-  45% { transform: translate(-50%, -50%) scale(1); }
-  100% { transform: translate(-50%, -50%) scale(1.01); }
-}
-
-@media (max-width: 768px) {
-  .map-hint-fade {
-    top: 47%;
-    width: min(94vw, 620px);
-    padding: 16px 16px;
-  }
-
-  .map-hint-fade__sub {
-    margin-top: 8px;
-  }
+body.modal-open {
+  overflow: hidden;
 }
 
 /* =========================
@@ -674,16 +653,6 @@ main {
     min-height: 38px;
     padding: 8px 12px;
     font-size: 0.86rem;
-  }
-
-  .map-hint {
-    bottom: 16px;
-    max-width: calc(100% - 24px);
-    white-space: normal;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.2;
-    padding: 7px 10px;
   }
 
   #ecosystem-bar {

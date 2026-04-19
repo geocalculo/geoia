@@ -13,11 +13,6 @@ let searchActiveIndex = -1;
 let shouldPreserveIncomingViewport = false;
 let hasUserInteractedWithMap = false;
 let initialViewportResolutionPromise = null;
-let hasShownMapHintFade = false;
-let mapHintFadeIsHidden = false;
-let mapHintFadeShowTimeoutId = null;
-let mapHintFadeHideTimeoutId = null;
-let mapHintFadeReadyFallbackTimeoutId = null;
 
 const HOME_VIEW = {
   center: [-27.5, -70.25],
@@ -782,8 +777,6 @@ function initMapa() {
     layers: [mapaCalle]
   });
 
-  initMapHintFade(mapaCalle);
-
   const overviewDiv = document.getElementById("overview-map");
   if (overviewDiv) {
     overviewMap = L.map("overview-map", {
@@ -870,88 +863,6 @@ function initMapa() {
         },
         { enableHighAccuracy: true, timeout: 10000 }
       );
-    });
-  }
-}
-
-function showMapHintFade() {
-  if (hasShownMapHintFade) return;
-
-  const hint = document.getElementById("map-hint-fade");
-  if (!hint) return;
-
-  hasShownMapHintFade = true;
-  mapHintFadeIsHidden = false;
-
-  const showDelayMs = 220;
-
-  mapHintFadeShowTimeoutId = setTimeout(() => {
-    hint.classList.add("is-visible");
-  }, showDelayMs);
-}
-
-function hideMapHintFade() {
-  if (mapHintFadeIsHidden) return;
-
-  const hint = document.getElementById("map-hint-fade");
-  if (!hint) return;
-
-  if (mapHintFadeShowTimeoutId) {
-    clearTimeout(mapHintFadeShowTimeoutId);
-    mapHintFadeShowTimeoutId = null;
-  }
-  if (mapHintFadeReadyFallbackTimeoutId) {
-    clearTimeout(mapHintFadeReadyFallbackTimeoutId);
-    mapHintFadeReadyFallbackTimeoutId = null;
-  }
-  if (mapHintFadeHideTimeoutId) {
-    clearTimeout(mapHintFadeHideTimeoutId);
-    mapHintFadeHideTimeoutId = null;
-  }
-
-  mapHintFadeIsHidden = true;
-  hint.classList.remove("is-visible");
-  document.dispatchEvent(new CustomEvent("geoipt:map-hint-fade-hidden"));
-}
-
-function initMapHintFade(baseLayer) {
-  if (!map) return;
-
-  const hideDelayAfterMapReadyMs = 4000;
-  const mapReadyFallbackMs = 5000;
-
-  map.whenReady(showMapHintFade);
-
-  const scheduleHide = () => {
-    if (mapHintFadeReadyFallbackTimeoutId) {
-      clearTimeout(mapHintFadeReadyFallbackTimeoutId);
-      mapHintFadeReadyFallbackTimeoutId = null;
-    }
-    if (mapHintFadeHideTimeoutId) return;
-    mapHintFadeHideTimeoutId = setTimeout(hideMapHintFade, hideDelayAfterMapReadyMs);
-  };
-
-  if (baseLayer && typeof baseLayer.once === "function") {
-    baseLayer.once("load", scheduleHide);
-  }
-
-  mapHintFadeReadyFallbackTimeoutId = setTimeout(scheduleHide, mapReadyFallbackMs);
-
-  const dismissOnInteraction = () => {
-    if (mapHintFadeHideTimeoutId) {
-      clearTimeout(mapHintFadeHideTimeoutId);
-      mapHintFadeHideTimeoutId = null;
-    }
-    hideMapHintFade();
-  };
-
-  const mapContainer = map.getContainer();
-  if (mapContainer) {
-    ["pointerdown", "wheel", "touchstart"].forEach((eventName) => {
-      mapContainer.addEventListener(eventName, dismissOnInteraction, {
-        passive: true,
-        once: true
-      });
     });
   }
 }
@@ -1455,7 +1366,49 @@ function initBuscadorNacional() {
 /* -------------------------
    INICIO
 ------------------------- */
+function initWelcomeModal() {
+  const modal = document.getElementById("welcomeModal");
+  const startBtn = document.getElementById("startBtn");
+  const checkbox = document.getElementById("dontShowAgain");
+  if (!modal || !startBtn || !checkbox) return;
+
+  const hideKey = "hideWelcomeGeoIPT";
+
+  const closeModal = () => {
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
+  };
+
+  if (localStorage.getItem(hideKey) === "true") {
+    closeModal();
+    return;
+  }
+
+  modal.hidden = false;
+  document.body.classList.add("modal-open");
+
+  startBtn.addEventListener("click", () => {
+    if (checkbox.checked) {
+      localStorage.setItem(hideKey, "true");
+    }
+    closeModal();
+  });
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hidden) {
+      closeModal();
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
+  initWelcomeModal();
   initMapa();
   initCrossSitePortal();
   initBuscadorNacional();
@@ -1500,53 +1453,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 });
-
-/* -------------------------
-   HINT DESKTOP
-------------------------- */
-(function initMapHintHover() {
-  if (window.innerWidth < 768) return;
-
-  const mapEl = document.getElementById("map");
-  const hint = document.getElementById("map-hint");
-  if (!mapEl || !hint) return;
-
-  mapEl.addEventListener("mouseenter", () => {
-    hint.classList.add("is-visible");
-  });
-
-  mapEl.addEventListener("mouseleave", () => {
-    hint.classList.remove("is-visible");
-  });
-})();
-
-/* -------------------------
-   HINT MOBILE
-------------------------- */
-function initMobileMapHint() {
-  const hint = document.getElementById("mobile-map-hint");
-  if (!hint) return;
-
-  const isMobile = window.matchMedia("(max-width: 767px)").matches;
-  if (!isMobile) {
-    hint.remove();
-    return;
-  }
-
-  const showDelay = 700;
-  const visibleTime = 2800;
-
-  window.setTimeout(() => {
-    hint.classList.add("is-visible");
-
-    window.setTimeout(() => {
-      hint.classList.remove("is-visible");
-
-      window.setTimeout(() => {
-        hint.remove();
-      }, 400);
-    }, visibleTime);
-  }, showDelay);
-}
-
-window.addEventListener("load", initMobileMapHint);
