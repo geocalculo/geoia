@@ -28,7 +28,6 @@
   />
 
   <link rel="stylesheet" href="css/index.css?v=7c3694e" />
-  <link rel="stylesheet" href="css/onboarding.css">
 
   <script type="text/javascript">
     (function () {
@@ -154,10 +153,6 @@
       <!-- ===== MAPA ===== -->
       <section class="map-container">
 
-        <div id="map-hint" class="map-hint">
-          Haz clic en zona urbana para ver detalles
-        </div>
-
         <!-- ===== Buscador nacional ===== -->
         <div class="map-search-wrap" id="map-search-wrap">
           <label for="prc-search" class="sr-only">Buscar PRC o comuna</label>
@@ -173,11 +168,6 @@
         </div>
 
         <div id="map"></div>
-        <div id="map-hint-fade" class="map-hint-fade" aria-hidden="true">
-          <span class="map-hint-fade__lead">Descubre qué uso de suelo tiene</span>
-          <span class="map-hint-fade__lead">una zona urbana.</span>
-          <span class="map-hint-fade__sub">Haz clic en el mapa para ver normativa</span>
-        </div>
 
         <a
           id="home-floating-btn"
@@ -233,9 +223,22 @@
     })();
   </script>
 
-  <!-- ================= MOBILE HINT ================= -->
-  <div id="mobile-map-hint" aria-hidden="true">
-    Toca el mapa en zona urbana para explorar
+  <div id="welcomeModal" class="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="welcomeModalTitle">
+    <div class="welcome-modal__content">
+      <h2 id="welcomeModalTitle">Normativa urbana y usos de suelo</h2>
+      <p>
+        Haz click en cualquier punto del mapa para consultar usos permitidos y restricciones del terreno.
+        <br><br>
+        Explora más de 250 Planes Reguladores y descarga archivos KML.
+      </p>
+
+      <button id="startBtn" class="welcome-btn" type="button">Comenzar</button>
+
+      <label class="welcome-checkbox">
+        <input type="checkbox" id="dontShowAgain">
+        No volver a mostrar
+      </label>
+    </div>
   </div>
 
   <!-- ================= CONTADOR ================= -->
