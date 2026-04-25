@@ -1387,27 +1387,56 @@ function initWelcomeModal() {
   const checkbox = document.getElementById("dontShowAgain");
   if (!modal || !startBtn || !checkbox) return;
 
-  const hideKey = "hideWelcomeGeoIPT";
+  const LOCAL_DISABLE_KEY = "geoipt_welcome_modal_disabled";
+  const SESSION_CLOSED_KEY = "geoipt_welcome_modal_closed_session";
+  const TERRITORIAL_QUERY_PARAMS = new Set([
+    "lat",
+    "lon",
+    "lng",
+    "bbox",
+    "north",
+    "east",
+    "south",
+    "west",
+    "fallback"
+  ]);
 
   const closeModal = () => {
+    if (checkbox.checked) {
+      localStorage.setItem(LOCAL_DISABLE_KEY, "1");
+      sessionStorage.removeItem(SESSION_CLOSED_KEY);
+    } else {
+      sessionStorage.setItem(SESSION_CLOSED_KEY, "1");
+    }
+
     modal.hidden = true;
     document.body.classList.remove("modal-open");
   };
 
-  if (localStorage.getItem(hideKey) === "true") {
-    closeModal();
+  const shouldShowModal = () => {
+    if (localStorage.getItem(LOCAL_DISABLE_KEY) === "1") return false;
+    if (sessionStorage.getItem(SESSION_CLOSED_KEY) === "1") return false;
+
+    const params = new URLSearchParams(window.location.search);
+    for (const key of params.keys()) {
+      if (TERRITORIAL_QUERY_PARAMS.has(String(key).toLowerCase())) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  if (!shouldShowModal()) {
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
     return;
   }
 
   modal.hidden = false;
   document.body.classList.add("modal-open");
 
-  startBtn.addEventListener("click", () => {
-    if (checkbox.checked) {
-      localStorage.setItem(hideKey, "true");
-    }
-    closeModal();
-  });
+  startBtn.addEventListener("click", closeModal);
 
   modal.addEventListener("click", (e) => {
     if (e.target === modal) {
