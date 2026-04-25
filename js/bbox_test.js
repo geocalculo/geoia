@@ -99,6 +99,30 @@ function trackMinvuExpediente(extra = {}) {
   pushDataLayer("click_minvu_expediente", extra);
 }
 
+function trackConsultaIniciada() {
+  pushDataLayer("geoipt_consulta_iniciada", {
+    zoom: Number.isFinite(zoom) ? zoom : undefined
+  });
+}
+
+function appendAttributionParams(targetUrl) {
+  const incoming = new URLSearchParams(window.location.search);
+  [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "utm_term",
+    "gclid",
+    "fbclid"
+  ].forEach((paramName) => {
+    const value = incoming.get(paramName);
+    if (value) {
+      targetUrl.searchParams.set(paramName, value);
+    }
+  });
+}
+
 function initKmlButton() {
   btnKml = document.getElementById("btn-kml");
   if (!btnKml) return;
@@ -649,12 +673,19 @@ function volverAIndexConFallback() {
   if (Number.isFinite(zoom)) {
     url.searchParams.set("zoom", zoom);
   }
+  appendAttributionParams(url);
   window.location.href = url.toString();
 }
 
 function volverAIndex() {
-  const url = `index.html?lat=${lat}&lon=${lon}&zoom=${zoom}`;
-  window.location.href = url;
+  const url = new URL("index.html", window.location.href);
+  url.searchParams.set("lat", lat);
+  url.searchParams.set("lon", lon);
+  if (Number.isFinite(zoom)) {
+    url.searchParams.set("zoom", zoom);
+  }
+  appendAttributionParams(url);
+  window.location.href = url.toString();
 }
 
 function prepararBotonReporte(iptsConPunto) {
@@ -717,6 +748,8 @@ async function ejecutarFlujo() {
   const btn = document.getElementById("btn-reporte");
 
   try {
+    trackConsultaIniciada();
+
     if (btn) {
       btn.disabled = true;
       btn.style.opacity = 0.5;

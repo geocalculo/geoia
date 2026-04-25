@@ -901,6 +901,21 @@ function handleMapClick(e) {
   url.searchParams.set("lat", lat.toFixed(6));
   url.searchParams.set("lon", lon.toFixed(6));
   url.searchParams.set("bbox", bboxStr);
+  const incomingParams = new URLSearchParams(window.location.search);
+  [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "utm_term",
+    "gclid",
+    "fbclid"
+  ].forEach((paramName) => {
+    const value = incomingParams.get(paramName);
+    if (value) {
+      url.searchParams.set(paramName, value);
+    }
+  });
 
   trackGeoiptMapClick({
     lat: Number(lat.toFixed(6)),
