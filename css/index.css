@@ -792,3 +792,17 @@ body.modal-open {
     font-size: 0.82rem;
   }
 }
+
+.modal-steps {
+  margin: 16px 0;
+  text-align: center;
+  overflow: hidden; /* 🔑 clave */
+}
+
+.modal-steps img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
