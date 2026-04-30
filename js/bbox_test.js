@@ -208,6 +208,117 @@ function intersectaBbox(a, b) {
   return !(S1 > N2 || N1 < S2 || W1 > E2 || E1 < W2);
 }
 
+function formatArea(m2) {
+  const value = Number(m2);
+  if (!Number.isFinite(value) || value < 0) return "–";
+  if (value >= 10000) {
+    return `${(value / 10000).toLocaleString("es-CL", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ha`;
+  }
+  return `${Math.round(value).toLocaleString("es-CL")} m²`;
+}
+
+function formatKm(km) {
+  const value = Number(km);
+  if (!Number.isFinite(value) || value < 0) return "–";
+  if (value >= 1) {
+    return `${value.toLocaleString("es-CL", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} km`;
+  }
+  return `${Math.round(value * 1000).toLocaleString("es-CL")} m`;
+}
+
+function formatPct(p) {
+  const value = Number(p);
+  if (!Number.isFinite(value) || value < 0) return "–";
+  return `${value.toLocaleString("es-CL", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}%`;
+}
+
+function diametroEquivalente(m2) {
+  const area = Number(m2);
+  if (!Number.isFinite(area) || area <= 0) return 0;
+  return 2 * Math.sqrt(area / Math.PI);
+}
+
+function calcularEstadigrafosGeoIPT(featureSeleccionada, geojsonCompleto, zonaSeleccionada) {
+  if (typeof turf === "undefined" || !turf) return null;
+  if (!featureSeleccionada || !featureSeleccionada.geometry) return null;
+  if (!geojsonCompleto || !Array.isArray(geojsonCompleto.features)) return null;
+  const normZona = (z) => String(z || "").trim().toUpperCase();
+  const zonaNorm = normZona(zonaSeleccionada || featureSeleccionada.properties?.ZONA);
+  const polygonFeatures = geojsonCompleto.features.filter((feature) =>
+    feature?.geometry && ["Polygon", "MultiPolygon"].includes(feature.geometry.type)
+  );
+  if (!polygonFeatures.length) return null;
+
+  const areaPoligono = turf.area(featureSeleccionada);
+  const areaTotalPRC = polygonFeatures.reduce((acc, feature) => acc + turf.area(feature), 0);
+  const perimetroPoligono = turf.length(turf.polygonToLine(featureSeleccionada), { units: "kilometers" });
+
+  let areaCategoria = 0;
+  let cantidadPoligonosCategoria = 0;
+  polygonFeatures.forEach((feature) => {
+    if (normZona(feature.properties?.ZONA) === zonaNorm) {
+      cantidadPoligonosCategoria += 1;
+      areaCategoria += turf.area(feature);
+    }
+  });
+
+  const porcentajeCategoriaPRC = areaTotalPRC > 0 ? (areaCategoria / areaTotalPRC) * 100 : 0;
+  const porcentajePoligonoPRC = areaTotalPRC > 0 ? (areaPoligono / areaTotalPRC) * 100 : 0;
+
+  return {
+    areaPoligono,
+    perimetroPoligono,
+    diametroEquivalentePoligono: diametroEquivalente(areaPoligono),
+    areaTotalPRC,
+    areaCategoria,
+    cantidadPoligonosCategoria,
+    diametroEquivalenteCategoria: diametroEquivalente(areaCategoria),
+    porcentajeCategoriaPRC,
+    porcentajePoligonoPRC
+  };
+}
+
+function actualizarEstadigrafosGeoIPT(stats, zona) {
+  const set = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+  const pie = document.getElementById("zone-pie");
+  const zonaTexto = String(zona || "–").trim() || "–";
+
+  if (!stats || !Number.isFinite(stats.areaTotalPRC) || stats.areaTotalPRC <= 0) {
+    if (pie) pie.style.setProperty("--p", 0);
+    set("zone-share-pct", "–");
+    set("zone-share-title", "Presencia en PRC");
+    set("zone-share-text", "Sin datos suficientes para calcular superficies.");
+    set("stat-poly-area", "–");
+    set("stat-poly-perimeter", "–");
+    set("stat-poly-diameter", "–");
+    set("stat-poly-pct", "–");
+    set("stat-cat-zone", zonaTexto);
+    set("stat-cat-area", "–");
+    set("stat-cat-count", "–");
+    set("stat-cat-diameter", "–");
+    set("stat-cat-pct", "–");
+    return;
+  }
+
+  const pctCategoria = Math.max(0, Math.min(100, stats.porcentajeCategoriaPRC));
+  if (pie) pie.style.setProperty("--p", pctCategoria.toFixed(1));
+  set("zone-share-pct", formatPct(pctCategoria));
+  set("zone-share-title", "Presencia en PRC");
+  set("zone-share-text", `La zona ${zonaTexto} representa el ${formatPct(stats.porcentajeCategoriaPRC)} de la superficie total del PRC.`);
+  set("stat-poly-area", formatArea(stats.areaPoligono));
+  set("stat-poly-perimeter", formatKm(stats.perimetroPoligono));
+  set("stat-poly-diameter", formatKm(stats.diametroEquivalentePoligono / 1000));
+  set("stat-poly-pct", formatPct(stats.porcentajePoligonoPRC));
+  set("stat-cat-zone", zonaTexto);
+  set("stat-cat-area", formatArea(stats.areaCategoria));
+  set("stat-cat-count", Number(stats.cantidadPoligonosCategoria || 0).toLocaleString("es-CL"));
+  set("stat-cat-diameter", formatKm(stats.diametroEquivalenteCategoria / 1000));
+  set("stat-cat-pct", formatPct(stats.porcentajeCategoriaPRC));
+}
+
 /* ---------------------------------------------
    PASO 1: Regiones que intersectan el BBOX
 --------------------------------------------- */
@@ -282,7 +393,8 @@ async function iptContienePunto(ipt, acumuladorFeatures) {
           feature: f,
           metadata: f.properties || {},
           archivo: ipt.archivo,
-          carpeta: ipt.carpeta
+          carpeta: ipt.carpeta,
+          geojson: gj
         });
 
         return true;
@@ -340,6 +452,9 @@ async function obtenerIptQueContienenElPunto(listaIpt) {
       primerItem.carpeta,
       primerItem.archivo
     );
+    const zonaSeleccionada = primerItem.metadata?.ZONA || primerItem.feature?.properties?.ZONA || "";
+    const statsGeo = calcularEstadigrafosGeoIPT(primerItem.feature, primerItem.geojson, zonaSeleccionada);
+    actualizarEstadigrafosGeoIPT(statsGeo, zonaSeleccionada);
 
     featuresSeleccionadas = featuresParaDibujar;
 
@@ -370,6 +485,7 @@ async function obtenerIptQueContienenElPunto(listaIpt) {
     }
 
     featuresSeleccionadas = [];
+    actualizarEstadigrafosGeoIPT(null, "");
 
     if (btnKml) {
       btnKml.disabled = true;

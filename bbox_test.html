@@ -166,6 +166,37 @@
     }
     .kpi-item strong { display: block; color: #f1f5f9; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
     .kpi-item span { color: #cbd5e1; font-size: 0.96rem; }
+    .geo-stats-section {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .geo-stats-head { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-bottom: 12px; }
+    .geo-stats-head h2 { margin: 0 0 4px; font-size: 1.05rem; color: #7dd3fc; }
+    .geo-stats-head p { margin: 0; color: #94a3b8; font-size: .9rem; }
+    .zone-share-card { display: flex; align-items: center; gap: 12px; min-width: 260px; background: #08111f; border: 1px solid #1e293b; border-radius: 14px; padding: 10px; }
+    .zone-pie {
+      --p: 0;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: conic-gradient(#38bdf8 calc(var(--p) * 1%), #1e293b 0);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: .92rem;
+      flex: 0 0 auto;
+    }
+    .geo-stats-grid { display: grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap: 12px; }
+    .geo-stat-card { background: #08111f; border: 1px solid #1e293b; border-radius: 12px; padding: 12px; }
+    .geo-stat-card h3 { margin: 0 0 10px; color: #e2e8f0; font-size: 1rem; }
+    .geo-stat-card dl { margin: 0; }
+    .geo-stat-card dl div { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #1e293b; padding: 7px 0; }
+    .geo-stat-card dt { color: #94a3b8; }
+    .geo-stat-card dd { margin: 0; color: #f8fafc; font-weight: 700; text-align: right; }
     .report-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
     .report-actions button, .report-actions a {
       border: 1px solid #334155;
@@ -229,9 +260,31 @@
     body.pdf-export-mode .metadata-section {
       display: none !important;
     }
+    body.pdf-export-mode .geo-stats-section,
+    body.pdf-export-mode .zone-share-card,
+    body.pdf-export-mode .geo-stat-card {
+      background: #ffffff !important;
+      color: #000000 !important;
+      border-color: #d1d5db !important;
+      box-shadow: none !important;
+    }
+    body.pdf-export-mode .geo-stats-head h2,
+    body.pdf-export-mode .geo-stat-card h3,
+    body.pdf-export-mode .geo-stat-card dd,
+    body.pdf-export-mode .zone-share-card strong { color: #000000 !important; }
+    body.pdf-export-mode .geo-stats-head p,
+    body.pdf-export-mode .geo-stat-card dt,
+    body.pdf-export-mode .zone-share-card p { color: #111827 !important; }
+    body.pdf-export-mode .zone-pie { color: #000000 !important; }
+    body.pdf-export-mode .geo-stats-section,
+    body.pdf-export-mode .geo-stat-card,
+    body.pdf-export-mode .zone-share-card { break-inside: avoid; }
 
     @media (max-width: 900px) {
       .report-body { grid-template-columns: 1fr; }
+      .geo-stats-head { flex-direction: column; align-items: stretch; }
+      .zone-share-card { min-width: 0; }
+      .geo-stats-grid { grid-template-columns: 1fr; }
     }
 
     @media print {
@@ -256,21 +309,35 @@
       .info-card,
       .kpi-item,
       .metadata-section { background: #fff !important; color: #000 !important; border-color: #d1d5db !important; }
+      .geo-stats-section,
+      .zone-share-card,
+      .geo-stat-card { background: #fff !important; color: #000 !important; border-color: #d1d5db !important; box-shadow: none !important; }
       .report-header h1,
       .info-card h3,
       .kpi-item strong,
       .status-ok,
       .report-header-grid strong,
-      .metadata-section summary { color: #000 !important; }
+      .metadata-section summary,
+      .geo-stats-head h2,
+      .geo-stat-card h3,
+      .geo-stat-card dd,
+      .zone-share-card strong { color: #000 !important; }
       .report-header-grid,
       .info-card p,
       .kpi-item span,
-      #tabla-metadata { color: #111827 !important; }
+      #tabla-metadata,
+      .geo-stats-head p,
+      .geo-stat-card dt,
+      .zone-share-card p { color: #111827 !important; }
+      .zone-pie { color: #000 !important; }
       #map { print-color-adjust: exact; -webkit-print-color-adjust: exact; border-color: #d1d5db; page-break-inside: avoid; }
       .report-card,
       .info-card,
       .kpi-item,
-      .metadata-section { break-inside: avoid; }
+      .metadata-section,
+      .geo-stats-section,
+      .geo-stat-card,
+      .zone-share-card { break-inside: avoid; }
       details { display: block; }
     }
   </style>
@@ -373,6 +440,44 @@
           <div class="kpi-item"><strong>Comuna</strong><span id="md-com">–</span></div>
           <div class="kpi-item"><strong>Localidad</strong><span id="md-loc">–</span></div>
           <div class="kpi-item"><strong>Tipo de zona</strong><span id="md-nombre">–</span></div>
+        </section>
+        <section class="geo-stats-section">
+          <div class="geo-stats-head">
+            <div>
+              <h2>Estadígrafos geométricos</h2>
+              <p>Relación entre el polígono consultado y la categoría normativa dentro del PRC.</p>
+            </div>
+            <div class="zone-share-card">
+              <div class="zone-pie" id="zone-pie" style="--p:0">
+                <span id="zone-share-pct">–</span>
+              </div>
+              <div>
+                <strong id="zone-share-title">Presencia en PRC</strong>
+                <p id="zone-share-text">–</p>
+              </div>
+            </div>
+          </div>
+          <div class="geo-stats-grid">
+            <article class="geo-stat-card">
+              <h3>Polígono consultado</h3>
+              <dl>
+                <div><dt>Área</dt><dd id="stat-poly-area">–</dd></div>
+                <div><dt>Perímetro</dt><dd id="stat-poly-perimeter">–</dd></div>
+                <div><dt>Diámetro equivalente</dt><dd id="stat-poly-diameter">–</dd></div>
+                <div><dt>% del PRC</dt><dd id="stat-poly-pct">–</dd></div>
+              </dl>
+            </article>
+            <article class="geo-stat-card">
+              <h3>Categoría normativa</h3>
+              <dl>
+                <div><dt>Zona</dt><dd id="stat-cat-zone">–</dd></div>
+                <div><dt>Área total</dt><dd id="stat-cat-area">–</dd></div>
+                <div><dt>Nº polígonos</dt><dd id="stat-cat-count">–</dd></div>
+                <div><dt>Diámetro equivalente</dt><dd id="stat-cat-diameter">–</dd></div>
+                <div><dt>% del PRC</dt><dd id="stat-cat-pct">–</dd></div>
+              </dl>
+            </article>
+          </div>
         </section>
         <section class="report-actions no-print">
           <button id="btn-kml" class="kml-btn" type="button" disabled>⬇️ Descargar KML</button>
