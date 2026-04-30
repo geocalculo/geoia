@@ -226,6 +226,10 @@
       color: #000000 !important;
     }
 
+    body.pdf-export-mode .metadata-section {
+      display: none !important;
+    }
+
     @media (max-width: 900px) {
       .report-body { grid-template-columns: 1fr; }
     }
@@ -246,6 +250,7 @@
       .print-header h2 { margin: 0; font-size: 20px; }
       .print-header p { margin: 2px 0; font-size: 13px; }
       .print-footer { border-top: 1px solid #d1d5db; margin-top: 12px; padding-top: 8px; font-size: 11px; text-align: center; opacity: 0.8; }
+      .metadata-section { display: none !important; }
       .report-card { box-shadow: none; border: 1px solid #ccc; background: #fff !important; color: #000 !important; }
       .report-header,
       .info-card,
