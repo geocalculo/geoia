@@ -523,11 +523,16 @@ function actualizarTablaDesdeTexto(texto, carpeta, archivo) {
 
   set("md-reg", mapValores.REG || "–");
   set("md-com", mapValores.COM || "–");
+  set("md-com-meta", mapValores.COM || "–");
   set("md-loc", mapValores.LOCALIDAD || mapValores.LOC || "–");
+  set("md-loc-meta", mapValores.LOCALIDAD || mapValores.LOC || "–");
   set("md-zona", mapValores.ZONA || "–");
   set("md-nombre", mapValores.NOMBRE || mapValores.NOM || "–");
+  set("md-nombre-meta", mapValores.NOMBRE || mapValores.NOM || "–");
   set("md-uperm", mapValores.UPERM || "–");
+  set("md-uperm-meta", mapValores.UPERM || "–");
   set("md-uproh", mapValores.UPROH || "–");
+  set("md-uproh-meta", mapValores.UPROH || "–");
   set("md-cut", mapValores.CUT || "–");
 
   if (archivo && carpeta) {
@@ -547,6 +552,34 @@ function actualizarTablaDesdeTexto(texto, carpeta, archivo) {
     }
   } else {
     set("md-capa", "–");
+  }
+
+  const zona = mapValores.ZONA || "–";
+  const nombre = mapValores.NOMBRE || mapValores.NOM || "–";
+  const uperm = mapValores.UPERM || "–";
+  const uroh = mapValores.UPROH || "–";
+  const comuna = mapValores.COM || "–";
+  const region = mapValores.REG || "–";
+
+  const zonaFull = `${zona} · ${nombre}`;
+  set("kpi-zona", zonaFull);
+  set("rp-zona", zonaFull);
+  set("rp-punto", `${comuna}, ${region}`);
+  set("rp-coords", `${Number(lat).toFixed(6)}, ${Number(lon).toFixed(6)}`);
+  const interpretacion = `El terreno se encuentra en una zona ${nombre.toLowerCase()},\nlo que permite: ${uperm.toLowerCase()}.\n\nNo está permitido: ${uroh.toLowerCase()}.`;
+  set("md-interpretacion", interpretacion);
+
+  const capaEl = document.getElementById("md-capa");
+  const fuenteEl = document.getElementById("rp-fuente");
+  const linkPrcEl = document.getElementById("link-prc");
+  if (capaEl && fuenteEl) {
+    fuenteEl.innerHTML = capaEl.innerHTML;
+  }
+  if (capaEl && linkPrcEl) {
+    const sourceLink = capaEl.querySelector("a");
+    if (sourceLink) {
+      linkPrcEl.href = sourceLink.href;
+    }
   }
 }
 
