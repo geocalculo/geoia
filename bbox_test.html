@@ -180,6 +180,52 @@
     .metadata-section summary { cursor: pointer; color: #bae6fd; font-weight: 600; }
     .print-only { display: none; }
 
+
+    body.pdf-export-mode .report-actions,
+    body.pdf-export-mode #msg-kml,
+    body.pdf-export-mode .home-global-btn,
+    body.pdf-export-mode footer,
+    body.pdf-export-mode #loading-overlay {
+      display: none !important;
+    }
+
+    body.pdf-export-mode .report-card,
+    body.pdf-export-mode .report-header,
+    body.pdf-export-mode .info-card,
+    body.pdf-export-mode .kpi-item,
+    body.pdf-export-mode .metadata-section {
+      background: #ffffff !important;
+      color: #000000 !important;
+      box-shadow: none !important;
+    }
+
+    body.pdf-export-mode .report-header h1,
+    body.pdf-export-mode .info-card h3,
+    body.pdf-export-mode .kpi-item strong,
+    body.pdf-export-mode .status-ok,
+    body.pdf-export-mode .report-header-grid strong,
+    body.pdf-export-mode .metadata-section summary {
+      color: #000000 !important;
+    }
+
+    body.pdf-export-mode .report-header-grid,
+    body.pdf-export-mode .info-card p,
+    body.pdf-export-mode .kpi-item span,
+    body.pdf-export-mode #tabla-metadata {
+      color: #111827 !important;
+    }
+
+    body.pdf-export-mode #map {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    body.pdf-export-mode .print-header,
+    body.pdf-export-mode .print-footer {
+      display: block !important;
+      color: #000000 !important;
+    }
+
     @media (max-width: 900px) {
       .report-body { grid-template-columns: 1fr; }
     }
@@ -325,7 +371,7 @@
         </section>
         <section class="report-actions no-print">
           <button id="btn-kml" class="kml-btn" type="button" disabled>⬇️ Descargar KML</button>
-          <button onclick="generarPDF()">📄 Generar PDF</button>
+          <button onclick="descargarPDFGeoIPT()">📄 Descargar PDF</button>
           <a id="link-prc" href="#" target="_blank" rel="noopener">📚 Ver PRC</a>
           <a id="link-kml" href="#" style="display:none;">Descargar KML</a>
         </section>
@@ -383,16 +429,79 @@
       });
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
     <script src="js/bbox_test.js?v=7c3694f"></script>
 
     
 
     <script>
-      function generarPDF() {
-        if (typeof map !== "undefined" && map) {
-          map.invalidateSize();
+      async function descargarPDFGeoIPT() {
+        const card = document.querySelector(".report-card");
+        if (!card) {
+          window.print();
+          return;
         }
-        window.print();
+
+        const printDate = document.getElementById("print-date");
+        if (printDate) printDate.textContent = new Date().toLocaleString("es-CL");
+
+        document.body.classList.add("pdf-export-mode");
+
+        try {
+          if (typeof map !== "undefined" && map) {
+            map.invalidateSize();
+          }
+
+          await new Promise((resolve) => setTimeout(resolve, 350));
+
+          const canvas = await html2canvas(card, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: "#ffffff"
+          });
+
+          const imgData = canvas.toDataURL("image/png");
+
+          const { jsPDF } = window.jspdf;
+          const pdf = new jsPDF("p", "mm", "a4");
+
+          const pageWidth = 210;
+          const pageHeight = 297;
+
+          const imgWidth = pageWidth;
+          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+          let heightLeft = imgHeight;
+          let position = 0;
+
+          pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+
+          while (heightLeft > 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+          }
+
+          const comuna = document.getElementById("md-com")?.textContent?.trim() || "consulta";
+          const zona = document.getElementById("md-zona")?.textContent?.trim() || "zona";
+          const safe = (txt) =>
+            String(txt)
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .replace(/[^a-zA-Z0-9_-]+/g, "_")
+              .replace(/^_+|_+$/g, "")
+              .toLowerCase();
+
+          pdf.save(`GeoIPT_${safe(comuna)}_${safe(zona)}.pdf`);
+        } catch (error) {
+          console.error("Error generando PDF directo:", error);
+          window.print();
+        } finally {
+          document.body.classList.remove("pdf-export-mode");
+        }
       }
 
       (function () {
