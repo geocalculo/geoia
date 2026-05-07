@@ -21,13 +21,8 @@
   <link rel="shortcut icon" href="./favicon.ico">
   <link rel="apple-touch-icon" href="./img/logo_GeoIPT.png">
 
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    crossorigin=""
-  />
-
-  <link rel="stylesheet" href="css/index.css?v=7c3694e" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="css/index.css?v=geocore-responsive-1" />
 
   <script type="text/javascript">
     (function () {
@@ -44,84 +39,30 @@
         s.parentNode.insertBefore(t, s);
     })();
   </script>
-
-  <style>
-    .home-floating-btn {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      z-index: 1000;
-      padding: 8px 12px;
-      background: rgba(255,255,255,0.95);
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      text-decoration: none;
-      font-size: 14px;
-      color: #111;
-      transition: all 0.2s ease;
-    }
-
-    .home-floating-btn:hover {
-      transform: scale(1.05);
-    }
-
-    .home-global-btn {
-      position: fixed;
-      top: env(safe-area-inset-top, 12px);
-      left: 12px;
-      z-index: 9999;
-      width: 42px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.95);
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-      text-decoration: none;
-      font-size: 20px;
-      line-height: 1;
-      transition: transform 0.15s ease;
-    }
-
-    .home-global-btn:hover {
-      transform: scale(1.05);
-    }
-  </style>
-
 </head>
 
 <body>
-
-  
-
   <!-- Google Tag Manager (noscript) -->
   <noscript>
-    <iframe
-      src="https://www.googletagmanager.com/ns.html?id=GTM-NXSX7XCP"
-      height="0"
-      width="0"
-      style="display:none;visibility:hidden">
-    </iframe>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXSX7XCP" height="0" width="0" style="display:none;visibility:hidden"></iframe>
   </noscript>
 
-  <!-- ================= HEADER ================= -->
-  <header>
+  <header class="geocore-header">
     <div class="header-inner">
-
-    <div class="brand">
-      <h1 class="brand-title">GeoIPT | Consulta instrumentos de planificación territorial en Chile</h1>
-      <h2 class="brand-subtitle">
-        Descubre el potencial normativo de cualquier ubicación en Chile
-      </h2>
-      <h2 class="brand-subtitle">
-        👉 <strong>Haz clic en el mapa</strong> para consultar PRC, usos permitidos y restricciones
-      </h2>
-      <div id="prc-summary" class="prc-summary" hidden>
-        📍 En esta vista hay <strong id="prc-count">0</strong> planos reguladores
+      <div class="header-col brand">
+        <h1 class="brand-title">GeoIPT</h1>
+        <p class="brand-subtitle">Planificación Territorial en Chile</p>
+        <p class="brand-caption">Normativa urbana, PRC y usos permitidos</p>
       </div>
-    </div>
-      <div class="controls">
+
+      <div class="header-col summary-col">
+        <div id="prc-summary" class="prc-summary" hidden>
+          <span class="summary-label">Planes reguladores visibles</span>
+          <strong id="prc-count">0</strong>
+        </div>
+      </div>
+
+      <div class="header-col controls">
         <div class="control-group">
           <label for="region-select">Región</label>
           <select id="region-select"></select>
@@ -134,73 +75,57 @@
           </select>
         </div>
       </div>
-
     </div>
   </header>
 
-  <!-- ================= MAIN ================= -->
   <main>
+    <section class="map-container">
+      <div class="map-search-wrap" id="map-search-wrap">
+        <label for="prc-search" class="sr-only">Buscar PRC o comuna</label>
+        <input type="text" id="prc-search" class="map-search-input" placeholder="Buscar PRC, SCC o comuna..." autocomplete="off" spellcheck="false" />
+        <div id="prc-search-results" class="map-search-results" hidden></div>
+      </div>
 
-    <div class="layout-home">
+      <div id="map"></div>
 
-      <!-- ===== Card lateral izquierda ===== -->
-      <aside class="ecosystem-card left geoeva" aria-label="Ir a GeoEVA">
-        <h3>GeoEVA</h3>
-        <p>Visualiza proyectos del SEA cercanos al área visible, su estado ambiental y contexto territorial.</p>
-        <a href="https://geoeva.cl/?utm_source=geoipt&utm_medium=card&utm_campaign=cruce_portales&utm_content=geoeva_lateral" target="_blank" rel="noopener noreferrer">Abrir GeoEVA</a>
-      </aside>
-
-      <!-- ===== MAPA ===== -->
-      <section class="map-container">
-
-        <!-- ===== Buscador nacional ===== -->
-        <div class="map-search-wrap" id="map-search-wrap">
-          <label for="prc-search" class="sr-only">Buscar PRC o comuna</label>
-          <input
-            type="text"
-            id="prc-search"
-            class="map-search-input"
-            placeholder="Buscar PRC, SCC o comuna..."
-            autocomplete="off"
-            spellcheck="false"
-          />
-          <div id="prc-search-results" class="map-search-results" hidden></div>
-        </div>
-
-        <div id="map"></div>
-
-        <a
-          id="home-floating-btn"
-          class="home-floating-btn"
-          href="/"
-          aria-label="Ir al inicio"
-        >⌂ Inicio</a>
-
-        <div id="prc-nearby-panel" class="prc-nearby-panel" hidden></div>
-
-        <p class="hint">
-          <strong>Instrucciones:</strong>
-          Puedes usar <strong>Región + Instrumento</strong> o buscar directamente
-          por <strong>PRC / SCC / comuna</strong>. Luego haz clic en el mapa para abrir el
-          <strong>motor BBOX</strong> (bbox_test.html).
-        </p>
-
+      <div class="map-overlay-controls map-overlay-controls--bottom">
+        <a id="home-floating-btn" class="home-floating-btn" href="/" aria-label="Ir al inicio">⌂ Inicio</a>
         <div id="mira-rifle" title="Ir a mi ubicación"></div>
+      </div>
 
-      </section>
-
-      <!-- ===== Card lateral derecha ===== -->
-      <aside class="ecosystem-card right geonemo" aria-label="Ir a GeoNEMO">
-        <h3>GeoNEMO</h3>
-        <p>Explora capas ambientales y áreas protegidas dentro del mismo entorno geográfico.</p>
-        <a href="https://geonemo.cl/?utm_source=geoipt&utm_medium=card&utm_campaign=cruce_portales&utm_content=geonemo_lateral" target="_blank" rel="noopener noreferrer">Abrir GeoNEMO</a>
-      </aside>
-
-    </div>
-
+      <p class="hint">Haz clic en el mapa para abrir el CARD PRO del punto consultado.</p>
+      <div id="prc-nearby-panel" class="prc-nearby-panel" hidden></div>
+    </section>
   </main>
 
-  <!-- ================= JS ================= -->
+  <div id="visitor-counter">
+    Visitas:
+    <img src="https://api.visitorbadge.io/api/visitors?path=geoipt.cl&countColor=%2322c55e" alt="contador visitas">
+  </div>
+
+  <nav id="ecosystem-bar" aria-label="Ecosistema GeoCálculo">
+    <a href="https://geoipt.cl" class="site-link is-active" aria-current="page">
+      <span class="site-icon">📐</span>
+      <span class="site-main">GeoIPT</span>
+      <span class="site-sub">Planificación urbana</span>
+    </a>
+    <a href="https://geoeva.cl?utm_source=geoipt&utm_medium=ribbon&utm_campaign=ecosistema" class="site-link">
+      <span class="site-icon">🌿</span>
+      <span class="site-main">GeoEVA</span>
+      <span class="site-sub">Evaluación ambiental</span>
+    </a>
+    <a href="https://geonemo.cl?utm_source=geoipt&utm_medium=ribbon&utm_campaign=ecosistema" class="site-link">
+      <span class="site-icon">🧭</span>
+      <span class="site-main">GeoNEMO</span>
+      <span class="site-sub">Sitios protegidos</span>
+    </a>
+    <a href="https://geonoxa.cl?utm_source=geoipt&utm_medium=ribbon&utm_campaign=ecosistema" class="site-link">
+      <span class="site-icon">⚠️</span>
+      <span class="site-main">GeoNOXA</span>
+      <span class="site-sub">Riesgo territorial</span>
+    </a>
+  </nav>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/ui/prcSummary.js?v=7c3694e"></script>
   <script src="js/index.js?v=7c36950"></script>
@@ -208,7 +133,6 @@
     (function () {
       const homeBtn = document.getElementById("home-floating-btn");
       if (!homeBtn) return;
-
       const host = String(window.location.hostname || "").toLowerCase();
       const homeByHost = {
         "geoipt.cl": "https://geoipt.cl",
@@ -218,7 +142,6 @@
         "geonemo.cl": "https://geonemo.cl",
         "www.geonemo.cl": "https://geonemo.cl"
       };
-
       homeBtn.href = homeByHost[host] || "https://geoipt.cl";
     })();
   </script>
@@ -233,37 +156,15 @@
         <br><br>
         Convierte cualquier ubicación en una decisión informada.
       </p>
-
-            <!-- Imagen 3 pasos -->
       <div class="modal-steps">
         <img src="assets/modal-3-pasos.png" alt="Mapa + clic + resultado + descarga" />
       </div>
-
       <button id="startBtn" class="welcome-btn" type="button">Analizar terreno ahora</button>
-
       <label class="welcome-checkbox">
         <input type="checkbox" id="dontShowAgain">
         No volver a mostrar
       </label>
     </div>
   </div>
-
-  <!-- ================= CONTADOR ================= -->
-  <div id="visitor-counter">
-    Visitas:
-    <img src="https://api.visitorbadge.io/api/visitors?path=geoipt.cl&countColor=%2322c55e"
-         alt="contador visitas">
-  </div>
-
-  <!-- ================= BARRA MOBILE ================= -->
-  <div id="ecosystem-bar">
-    <a href="https://geoeva.cl?utm_source=geoipt&utm_medium=mobile_bar&utm_campaign=ecosistema">
-      GeoEVA.cl
-    </a>
-    <a href="https://geonemo.cl?utm_source=geoipt&utm_medium=mobile_bar&utm_campaign=ecosistema">
-      GeoNEMO.cl
-    </a>
-  </div>
-
 </body>
 </html>
