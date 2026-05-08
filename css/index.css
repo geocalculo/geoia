@@ -111,6 +111,29 @@ main { flex: 1; padding: 10px 12px calc(var(--ribbon-h) + 18px); }
 .welcome-modal__content { background: #fff; color: #111827; padding: 24px; border-radius: 14px; max-width: 420px; width: 90%; text-align: center; }
 .modal-steps { margin: 16px 0; }
 .modal-steps img { width: 100%; border-radius: 10px; }
+.welcome-actions { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+.modal-start-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: linear-gradient(135deg,#0f172a,#111827);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.15;
+  cursor: pointer;
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+  box-shadow: 0 10px 22px rgba(15,23,42,.28);
+}
+.modal-start-btn:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg,#1e293b,#0f172a);
+  box-shadow: 0 14px 28px rgba(15,23,42,.38);
+}
+.welcome-checkbox { display: inline-flex; align-items: center; gap: 8px; font-size: .9rem; color: #334155; }
 
 /* Responsive */
 @media (max-width: 1180px) {
