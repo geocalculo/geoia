@@ -1,4 +1,5 @@
 (() => {
+  console.warn("[DEPRECATED PDF FLOW] report_html2pdf.js está en modo ensayo legacy hasta la consolidación PDF v2.");
   const urlParams = new URLSearchParams(window.location.search);
   const lat = parseFloat(urlParams.get("lat"));
   const lon = parseFloat(urlParams.get("lon"));
