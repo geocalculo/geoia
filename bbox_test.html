@@ -653,8 +653,15 @@
 
         const card = document.querySelector(".report-card");
         if (!card) {
-          window.print();
+          console.error("[GeoIPT PDF] No se encontró .report-card para exportar.");
           return;
+        }
+
+        const pdfBtn = document.getElementById("btn-pdf");
+        const originalBtnText = pdfBtn?.textContent || "📄 Descargar PDF";
+        if (pdfBtn) {
+          pdfBtn.disabled = true;
+          pdfBtn.textContent = "Generando PDF...";
         }
 
         const printDate = document.getElementById("print-date");
@@ -710,7 +717,7 @@
 
           const imgData = canvas.toDataURL("image/png");
           const { jsPDF } = window.jspdf;
-          const pdf = new jsPDF("p", "mm", "a4");
+          const doc = new jsPDF("p", "mm", "a4");
 
           const pageWidth = 210;
           const pageHeight = 297;
@@ -719,22 +726,27 @@
           let heightLeft = imgHeight;
           let position = 0;
 
-          pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+          doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
 
           while (heightLeft > 0) {
             position = heightLeft - imgHeight;
-            pdf.addPage();
-            pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+            doc.addPage();
+            doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
           }
 
-          pdf.save(buildPdfFileName());
+          const fileName = buildPdfFileName();
+          doc.save(fileName);
+          console.log("[GeoIPT PDF] Descarga directa ejecutada:", fileName);
         } catch (error) {
           console.error("Error generando PDF directo:", error);
-          window.print();
         } finally {
           document.body.classList.remove("pdf-export-mode");
+          if (pdfBtn) {
+            pdfBtn.disabled = false;
+            pdfBtn.textContent = originalBtnText;
+          }
         }
       }
 
