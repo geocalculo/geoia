@@ -207,7 +207,7 @@ if (!payload) {
   console.log('[GeoIPT PDF V2] reporte renderizado');
 }
 
-document.getElementById('btn-download').addEventListener('click', async () => {
+async function downloadPdf() {
   if (!payload) return;
   const comuna = sanitizeFileName(payload?.prc?.comuna || 'Comuna');
   const instrumento = sanitizeFileName(payload?.prc?.instrumento || 'Instrumento');
@@ -217,8 +217,22 @@ document.getElementById('btn-download').addEventListener('click', async () => {
   toolbar.style.display='none';
   try {
     await html2pdf().set({ margin:10, filename:fileName, image:{type:'jpeg',quality:0.98}, html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'}, jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}, pagebreak:{mode:['css','legacy']} }).from(document.getElementById('report')).save();
+    window.parent?.postMessage?.({ type: 'geoipt_pdf_download_complete' }, '*');
   } finally { toolbar.style.display='flex'; }
-});
+}
+
+document.getElementById('btn-download').addEventListener('click', downloadPdf);
+
+const autoDownload = new URLSearchParams(window.location.search).get('autodownload') === '1';
+if (autoDownload && payload) {
+  setTimeout(async () => {
+    await downloadPdf();
+    setTimeout(() => {
+      window.close?.();
+    }, 500);
+  }, 1000);
+}
+
 </script>
 </body>
 </html>

@@ -805,13 +805,13 @@
 
         if (pdfBtn) {
           pdfBtn.disabled = false;
-          pdfBtn.title = "Generar reporte PDF v2";
-          pdfBtn.innerHTML = "📄 Probar PDF v2";
+          pdfBtn.title = "Descargar reporte PDF";
+          pdfBtn.innerHTML = "📄 Descargar PDF";
 
           pdfBtn.onclick = async function () {
             console.log("[GeoIPT PDF V2][CLICK] generando payload con mapa");
 
-            const originalLabel = "📄 Probar PDF v2";
+            const originalLabel = "📄 Descargar PDF";
             pdfBtn.disabled = true;
             pdfBtn.innerHTML = "Preparando PDF...";
 
@@ -824,7 +824,32 @@
                 JSON.stringify(payload)
               );
 
-              window.open("report_html2pdf.html", "_blank");
+              const iframe = document.createElement("iframe");
+              iframe.style.position = "fixed";
+              iframe.style.right = "0";
+              iframe.style.bottom = "0";
+              iframe.style.width = "0";
+              iframe.style.height = "0";
+              iframe.style.border = "0";
+              iframe.setAttribute("aria-hidden", "true");
+              iframe.tabIndex = -1;
+              document.body.appendChild(iframe);
+
+              const cleanup = () => {
+                if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+                window.removeEventListener("message", onPdfMessage);
+              };
+
+              const onPdfMessage = (event) => {
+                if (event?.data?.type === "geoipt_pdf_download_complete") {
+                  cleanup();
+                }
+              };
+
+              window.addEventListener("message", onPdfMessage);
+              setTimeout(cleanup, 30000);
+
+              iframe.src = "report_html2pdf.html?autodownload=1";
             } finally {
               pdfBtn.disabled = false;
               pdfBtn.innerHTML = originalLabel;
