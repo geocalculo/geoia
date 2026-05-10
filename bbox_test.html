@@ -508,8 +508,7 @@
         </section>
         <section class="report-actions no-print">
           <button id="btn-kml" class="kml-btn" type="button" disabled>⬇️ Descargar KML</button>
-          <button id="btn-pdf" class="pdf-btn-disabled" type="button" disabled title="Estamos mejorando la exportación PDF" aria-label="PDF temporalmente deshabilitado">📄 Descargar PDF</button>
-          <span class="pdf-maintenance-note">PDF temporalmente deshabilitado</span>
+          <button id="btn-pdf" type="button" title="Descargar reporte en PDF" aria-label="Descargar PDF">📄 Descargar PDF</button>
           <a id="link-prc" href="#" target="_blank" rel="noopener">📚 Ver PRC</a>
           <a id="link-kml" href="#" style="display:none;">Descargar KML</a>
         </section>
@@ -569,14 +568,88 @@
 
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/leaflet-image@0.0.4/leaflet-image.js"></script>
     <script src="js/bbox_test.js?v=7c3694f"></script>
 
     
 
     <script>
+      function waitForTilesToLoad(layer) {
+        return new Promise((resolve) => {
+          if (!layer || typeof layer.isLoading !== "function" || !layer.isLoading()) {
+            resolve();
+            return;
+          }
+          layer.once("load", resolve);
+          setTimeout(resolve, 3000);
+        });
+      }
+
+      async function captureLeafletMapAsImage(mapInstance) {
+        if (!mapInstance || typeof mapInstance.invalidateSize !== "function") {
+          throw new Error("Instancia Leaflet inválida para GeoIPT PDF");
+        }
+
+        if (typeof window.leafletImage !== "function") {
+          throw new Error("leaflet-image no está disponible");
+        }
+
+        mapInstance.invalidateSize(true);
+
+        const activeBaseLayer = Object.values(mapInstance._layers || {}).find((layer) =>
+          layer instanceof L.TileLayer && mapInstance.hasLayer(layer)
+        );
+
+        await waitForTilesToLoad(activeBaseLayer);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        return new Promise((resolve, reject) => {
+          window.leafletImage(mapInstance, (err, canvas) => {
+            if (err || !canvas) {
+              reject(err || new Error("No se pudo capturar el mapa GeoIPT"));
+              return;
+            }
+            resolve(canvas);
+          });
+        });
+      }
+
+      function sanitizeFileName(text) {
+        return (text || "")
+          .normalize("NFD")
+          .replace(/[̀-ͯ]/g, "")
+          .replace(/\s+/g, "_")
+          .replace(/[^\w\-]/g, "")
+          .replace(/_+/g, "_")
+          .replace(/^_+|_+$/g, "");
+      }
+
+      function buildPdfFileName() {
+        const analysisData = window.analysisData || {};
+        const comuna =
+          analysisData.comuna ||
+          analysisData?.prc?.comuna ||
+          document.getElementById("md-com")?.textContent?.trim() ||
+          "GeoIPT";
+
+        const instrumento =
+          analysisData.instrumento ||
+          analysisData?.prc?.nombre ||
+          document.getElementById("md-zona")?.textContent?.trim() ||
+          "Consulta";
+
+        const now = new Date();
+        const yyyy = now.getFullYear();
+        const mm = String(now.getMonth() + 1).padStart(2, "0");
+        const dd = String(now.getDate()).padStart(2, "0");
+        const hh = String(now.getHours()).padStart(2, "0");
+        const mi = String(now.getMinutes()).padStart(2, "0");
+
+        return `GeoIPT_${sanitizeFileName(comuna)}_${sanitizeFileName(instrumento)}_${yyyy}-${mm}-${dd}_${hh}-${mi}.pdf`;
+      }
+
       async function descargarPDFGeoIPT() {
-        console.info("Exportación PDF en ajuste técnico.");
-        return;
+        console.log("[GeoIPT PDF][CLICK] click recibido");
 
         const card = document.querySelector(".report-card");
         if (!card) {
@@ -590,29 +663,59 @@
         document.body.classList.add("pdf-export-mode");
 
         try {
-          if (typeof map !== "undefined" && map) {
-            map.invalidateSize();
+          const mapInstance = window.geoIptMap;
+          const mapRect = mapInstance?.getContainer?.().getBoundingClientRect?.();
+          const mapCanvas = await captureLeafletMapAsImage(mapInstance);
+          const mapPng = mapCanvas.toDataURL("image/png");
+
+          const printClone = card.cloneNode(true);
+          printClone.style.width = `${Math.round(card.getBoundingClientRect().width)}px`;
+          printClone.style.margin = "0";
+          printClone.style.position = "fixed";
+          printClone.style.left = "-10000px";
+          printClone.style.top = "0";
+          printClone.style.zIndex = "-1";
+
+          const clonedMap = printClone.querySelector("#map");
+          if (clonedMap && mapRect) {
+            clonedMap.innerHTML = "";
+            clonedMap.removeAttribute("data-leaflet-id");
+            clonedMap.classList.remove("leaflet-container");
+            clonedMap.style.width = `${Math.round(mapRect.width)}px`;
+            clonedMap.style.height = `${Math.round(mapRect.height)}px`;
+            clonedMap.style.position = "relative";
+            clonedMap.style.overflow = "hidden";
+
+            const fixedMapImg = document.createElement("img");
+            fixedMapImg.src = mapPng;
+            fixedMapImg.alt = "Mapa GeoIPT";
+            fixedMapImg.style.width = "100%";
+            fixedMapImg.style.height = "100%";
+            fixedMapImg.style.objectFit = "contain";
+            fixedMapImg.style.display = "block";
+
+            clonedMap.appendChild(fixedMapImg);
           }
 
-          await new Promise((resolve) => setTimeout(resolve, 350));
+          document.body.appendChild(printClone);
 
-          const canvas = await html2canvas(card, {
+          const canvas = await html2canvas(printClone, {
             scale: 2,
             useCORS: true,
-            backgroundColor: "#ffffff"
+            backgroundColor: "#ffffff",
+            logging: false
           });
 
-          const imgData = canvas.toDataURL("image/png");
+          printClone.remove();
 
+          const imgData = canvas.toDataURL("image/png");
           const { jsPDF } = window.jspdf;
           const pdf = new jsPDF("p", "mm", "a4");
 
           const pageWidth = 210;
           const pageHeight = 297;
-
           const imgWidth = pageWidth;
           const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
           let heightLeft = imgHeight;
           let position = 0;
 
@@ -626,17 +729,7 @@
             heightLeft -= pageHeight;
           }
 
-          const comuna = document.getElementById("md-com")?.textContent?.trim() || "consulta";
-          const zona = document.getElementById("md-zona")?.textContent?.trim() || "zona";
-          const safe = (txt) =>
-            String(txt)
-              .normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "")
-              .replace(/[^a-zA-Z0-9_-]+/g, "_")
-              .replace(/^_+|_+$/g, "")
-              .toLowerCase();
-
-          pdf.save(`GeoIPT_${safe(comuna)}_${safe(zona)}.pdf`);
+          pdf.save(buildPdfFileName());
         } catch (error) {
           console.error("Error generando PDF directo:", error);
           window.print();
@@ -645,6 +738,21 @@
         }
       }
 
+      function setupPdfButtonActions() {
+        console.log("[GeoIPT PDF] setup ejecutado");
+        const pdfBtn = document.getElementById("btn-pdf");
+        console.log("[GeoIPT PDF] botón encontrado:", pdfBtn);
+        if (!pdfBtn) return;
+
+        pdfBtn.disabled = false;
+        pdfBtn.removeAttribute("aria-disabled");
+        pdfBtn.classList.remove("pdf-btn-disabled", "disabled");
+        pdfBtn.title = "Descargar reporte en PDF";
+        pdfBtn.textContent = "📄 Descargar PDF";
+        pdfBtn.onclick = descargarPDFGeoIPT;
+      }
+
+      document.addEventListener("DOMContentLoaded", setupPdfButtonActions);
       (function () {
         const linkKml = document.getElementById("btn-kml");
         const msg = document.getElementById("msg-kml");

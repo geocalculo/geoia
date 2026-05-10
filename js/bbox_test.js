@@ -150,13 +150,18 @@ if (bboxParam) {
 /* ---------------------------------------------
    2) MAPA LEAFLET
 --------------------------------------------- */
-const map = L.map("map").setView(
+const map = L.map("map", {
+  preferCanvas: true
+}).setView(
   (!Number.isNaN(lat) && !Number.isNaN(lon)) ? [lat, lon] : [-27, -70],
   zoom
 );
 
+window.geoIptMap = map;
+
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19
+  maxZoom: 19,
+  crossOrigin: true
 }).addTo(map);
 
 initKmlButton();
