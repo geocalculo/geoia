@@ -808,17 +808,27 @@
           pdfBtn.title = "Generar reporte PDF v2";
           pdfBtn.innerHTML = "📄 Probar PDF v2";
 
-          pdfBtn.onclick = function () {
-            console.log("[GeoIPT PDF V2][CLICK] generando payload");
+          pdfBtn.onclick = async function () {
+            console.log("[GeoIPT PDF V2][CLICK] generando payload con mapa");
 
-            const payload = buildGeoIptPdfPayload();
+            const originalLabel = "📄 Probar PDF v2";
+            pdfBtn.disabled = true;
+            pdfBtn.innerHTML = "Preparando PDF...";
 
-            sessionStorage.setItem(
-              "geoipt_pdf_payload",
-              JSON.stringify(payload)
-            );
+            try {
+              const payload = buildGeoIptPdfPayload();
+              payload.mapImage = await captureGeoIptMapPng();
 
-            window.open("report_html2pdf.html", "_blank");
+              sessionStorage.setItem(
+                "geoipt_pdf_payload",
+                JSON.stringify(payload)
+              );
+
+              window.open("report_html2pdf.html", "_blank");
+            } finally {
+              pdfBtn.disabled = false;
+              pdfBtn.innerHTML = originalLabel;
+            }
           };
         }
       }

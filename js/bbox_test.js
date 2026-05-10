@@ -871,6 +871,58 @@ function buildGeoIptPdfPayload() {
   return payload;
 }
 
+
+async function captureGeoIptMapPng() {
+  const mapElement = document.getElementById("map");
+
+  if (!mapElement || typeof html2canvas !== "function") {
+    console.warn("[GeoIPT PDF V2] No se pudo capturar mapa: html2canvas o #map no disponible");
+    return null;
+  }
+
+  const hidden = [];
+
+  try {
+    mapElement.querySelectorAll(
+      ".leaflet-control-container, .leaflet-control, .leaflet-popup, .legend-floating"
+    ).forEach((el) => {
+      hidden.push([el, el.style.display]);
+      el.style.display = "none";
+    });
+
+    if (window.geoIptMap && typeof window.geoIptMap.invalidateSize === "function") {
+      window.geoIptMap.invalidateSize(true);
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const canvas = await html2canvas(mapElement, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: "#ffffff",
+      logging: false,
+      ignoreElements: (element) => {
+        return (
+          element.classList?.contains("leaflet-control-container") ||
+          element.classList?.contains("leaflet-control") ||
+          element.classList?.contains("leaflet-popup") ||
+          element.classList?.contains("legend-floating")
+        );
+      }
+    });
+
+    return canvas.toDataURL("image/png");
+  } catch (error) {
+    console.warn("[GeoIPT PDF V2] Error capturando mapa estático", error);
+    return null;
+  } finally {
+    hidden.forEach(([el, display]) => {
+      el.style.display = display;
+    });
+  }
+}
+
 function openGeoIptPdfReportV2() {
   const payload = buildGeoIptPdfPayload();
   sessionStorage.setItem("geoipt_pdf_payload", JSON.stringify(payload));
@@ -879,6 +931,7 @@ function openGeoIptPdfReportV2() {
 
 window.buildGeoIptPdfPayload = buildGeoIptPdfPayload;
 window.openGeoIptPdfReportV2 = openGeoIptPdfReportV2;
+window.captureGeoIptMapPng = captureGeoIptMapPng;
 function prepararBotonReporte(iptsConPunto) {
   const btn = document.getElementById("btn-reporte");
   if (!btn) return;
