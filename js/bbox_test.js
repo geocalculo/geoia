@@ -846,6 +846,43 @@ function volverAIndex() {
 function buildGeoIptPdfPayload() {
   const first = (featuresSeleccionadas && featuresSeleccionadas[0]) || {};
   const props = first.metadata || {};
+  const zona = props.ZONA || "–";
+  const nombreNormativo = props.NOMBRE || props.NOM || "–";
+  const tipoZona = nombreNormativo;
+  const usosPermitidos = document.getElementById("md-uperm")?.textContent?.trim() || props.UPERM || "–";
+  const restricciones = document.getElementById("md-uproh")?.textContent?.trim() || props.UPROH || "–";
+  const interpretacion = document.getElementById("md-interpretacion")?.textContent?.trim() || "Sin resumen disponible.";
+  const stats = {
+    poligono: {
+      area: document.getElementById("stat-poly-area")?.textContent?.trim() || "–",
+      perimetro: document.getElementById("stat-poly-perimeter")?.textContent?.trim() || "–",
+      diametroEquivalente: document.getElementById("stat-poly-diameter")?.textContent?.trim() || "–",
+      porcentajePrc: document.getElementById("stat-poly-pct")?.textContent?.trim() || "–"
+    },
+    categoria: {
+      zona: document.getElementById("stat-cat-zone")?.textContent?.trim() || zona,
+      areaTotal: document.getElementById("stat-cat-area")?.textContent?.trim() || "–",
+      numeroPoligonos: document.getElementById("stat-cat-count")?.textContent?.trim() || "–",
+      diametroEquivalente: document.getElementById("stat-cat-diameter")?.textContent?.trim() || "–",
+      porcentajePrc: document.getElementById("stat-cat-pct")?.textContent?.trim() || "–"
+    },
+    presenciaEnPrcTexto: document.getElementById("zone-share-text")?.textContent?.trim() || `La zona ${zona} representa el – de la superficie total del PRC.`
+  };
+
+  const metadataTecnica = {
+    REG: props.REG || "–",
+    COM: props.COM || "–",
+    LOCALIDAD: props.LOCALIDAD || props.LOC || "–",
+    ZONA: zona,
+    NOMBRE: nombreNormativo,
+    UPERM: props.UPERM || "–",
+    UPROH: props.UPROH || "–",
+    Capa: document.getElementById("md-capa")?.textContent?.trim() || "–",
+    CUT: props.CUT || "–",
+    Shape_STAr_ha: Number.isFinite(Number(props.Shape_STAr)) ? `${(Number(props.Shape_STAr) / 10000).toLocaleString("es-CL", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ha` : "–",
+    Shape_STLe_km: Number.isFinite(Number(props.Shape_STLe)) ? `${(Number(props.Shape_STLe) / 1000).toLocaleString("es-CL", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} km` : "–"
+  };
+
   const payload = {
     site: "GeoIPT",
     generatedAt: new Date().toISOString(),
@@ -859,12 +896,17 @@ function buildGeoIptPdfPayload() {
       comuna: props.COM || "–",
       region: props.REG || "–",
       instrumento: obtenerNombrePRC(first.archivo),
-      zona: props.ZONA || "–",
+      zona,
       estado: props.ESTADO || "Vigente",
-      nombre: props.NOMBRE || props.NOM || "–"
+      nombre: nombreNormativo,
+      tipoZona,
+      fuente: document.getElementById("rp-fuente")?.textContent?.trim() || document.getElementById("md-capa")?.textContent?.trim() || "–"
     },
-    attributes: props,
-    summary: document.getElementById("md-interpretacion")?.textContent?.trim() || "Sin resumen disponible.",
+    summary: interpretacion,
+    usosPermitidos,
+    restricciones,
+    stats,
+    metadataTecnica,
     mapImage: null
   };
 

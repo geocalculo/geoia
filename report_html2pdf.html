@@ -50,48 +50,47 @@
 
   <main id="report" class="sheet" style="display:none;">
     <section class="page-section">
-      <h1>Reporte Territorial GeoIPT</h1>
+      <h1>GeoIPT | Reporte del punto consultado</h1>
       <p class="meta" id="generated-at"></p>
     </section>
 
     <section class="page-section">
-      <h2>1. Punto consultado</h2>
+      <h2>1. Encabezado</h2>
       <div class="grid">
         <div class="card"><strong>Lat/Lon</strong><p id="poi-latlon">–</p></div>
-        <div class="card"><strong>UTM</strong><p id="poi-utm">–</p></div>
-      </div>
-    </section>
-
-    <section class="page-section">
-      <h2>2. Contexto PRC</h2>
-      <div class="grid">
         <div class="card"><strong>Comuna</strong><p id="prc-comuna">–</p></div>
         <div class="card"><strong>Región</strong><p id="prc-region">–</p></div>
-        <div class="card"><strong>Instrumento</strong><p id="prc-instrumento">–</p></div>
-        <div class="card"><strong>Zona</strong><p id="prc-zona">–</p></div>
+        <div class="card"><strong>Fuente PRC</strong><p id="prc-fuente">–</p></div>
       </div>
     </section>
 
     <section class="page-section">
-      <h2>3. Resumen ejecutivo</h2>
+      <h2>2. Resumen ejecutivo</h2>
       <p id="summary">–</p>
     </section>
 
     <section class="page-section">
-      <h2>4. Atributos principales</h2>
-      <table><tbody id="attr-table"></tbody></table>
+      <h2>3. Resultado normativo</h2>
+      <table>
+        <tbody>
+          <tr><th>Zona</th><td id="prc-zona">–</td></tr>
+          <tr><th>Nombre normativo</th><td id="prc-nombre">–</td></tr>
+          <tr><th>Tipo de zona</th><td id="prc-tipo-zona">–</td></tr>
+          <tr><th>Estado</th><td id="prc-estado">–</td></tr>
+          <tr><th>Instrumento PRC</th><td id="prc-instrumento">–</td></tr>
+          <tr><th>Fuente PRC</th><td id="prc-fuente-2">–</td></tr>
+        </tbody>
+      </table>
     </section>
 
     <section class="page-section page-break">
-      <h2>5. Usos de suelo y normativa</h2>
-      <table>
-        <tbody>
-          <tr><th>Estado</th><td id="prc-estado">–</td></tr>
-          <tr><th>Nombre normativo</th><td id="prc-nombre">–</td></tr>
-          <tr><th>Usos permitidos</th><td id="attr-uperm">–</td></tr>
-          <tr><th>Usos prohibidos</th><td id="attr-uproh">–</td></tr>
-        </tbody>
-      </table>
+      <h2>4. Usos permitidos</h2>
+      <p id="attr-uperm">–</p>
+    </section>
+
+    <section class="page-section">
+      <h2>5. Restricciones</h2>
+      <p id="attr-uproh">–</p>
     </section>
 
     <section class="page-section">
@@ -100,7 +99,42 @@
     </section>
 
     <section class="page-section">
-      <h2>7. Observaciones</h2>
+      <h2>7. Estadígrafos geométricos</h2>
+      <table>
+        <tbody>
+          <tr><th>Área polígono consultado</th><td id="stat-poly-area">–</td></tr>
+          <tr><th>Perímetro</th><td id="stat-poly-perimeter">–</td></tr>
+          <tr><th>Diámetro equivalente</th><td id="stat-poly-diameter">–</td></tr>
+          <tr><th>% del PRC</th><td id="stat-poly-pct">–</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="page-section page-break">
+      <h2>8. Categoría normativa</h2>
+      <table>
+        <tbody>
+          <tr><th>Zona</th><td id="stat-cat-zone">–</td></tr>
+          <tr><th>Área total</th><td id="stat-cat-area">–</td></tr>
+          <tr><th>N° polígonos</th><td id="stat-cat-count">–</td></tr>
+          <tr><th>Diámetro equivalente</th><td id="stat-cat-diameter">–</td></tr>
+          <tr><th>% del PRC</th><td id="stat-cat-pct">–</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="page-section">
+      <h2>9. Presencia en PRC</h2>
+      <p id="zone-share-text">–</p>
+    </section>
+
+    <section class="page-section">
+      <h2>10. Metadata técnica</h2>
+      <table><tbody id="metadata-table"></tbody></table>
+    </section>
+
+    <section class="page-section">
+      <h2>11. Footer / disclaimer</h2>
       <p>Este informe es referencial y debe ser contrastado con las fuentes oficiales del instrumento territorial y sus modificaciones.</p>
     </section>
 
@@ -127,20 +161,34 @@ if (!payload) {
   document.getElementById('report').style.display='block';
   setText('generated-at', `Fecha de emisión: ${fmtDateLabel(payload.generatedAt)}`);
   setText('poi-latlon', `${payload?.poi?.lat ?? '–'}, ${payload?.poi?.lon ?? '–'}`);
-  setText('poi-utm', `Este: ${payload?.poi?.utmEste ?? '–'} · Norte: ${payload?.poi?.utmNorte ?? '–'}`);
   setText('prc-comuna', payload?.prc?.comuna);
   setText('prc-region', payload?.prc?.region);
+  setText('prc-fuente', payload?.prc?.fuente);
+  setText('prc-fuente-2', payload?.prc?.fuente);
   setText('prc-instrumento', payload?.prc?.instrumento);
   setText('prc-zona', payload?.prc?.zona);
   setText('prc-estado', payload?.prc?.estado);
   setText('prc-nombre', payload?.prc?.nombre);
+  setText('prc-tipo-zona', payload?.prc?.tipoZona);
   setText('summary', payload?.summary);
-  setText('attr-uperm', payload?.attributes?.UPERM || payload?.attributes?.uperm);
-  setText('attr-uproh', payload?.attributes?.UPROH || payload?.attributes?.uproh);
+  setText('attr-uperm', payload?.usosPermitidos);
+  setText('attr-uproh', payload?.restricciones);
+  setText('stat-poly-area', payload?.stats?.poligono?.area);
+  setText('stat-poly-perimeter', payload?.stats?.poligono?.perimetro);
+  setText('stat-poly-diameter', payload?.stats?.poligono?.diametroEquivalente);
+  setText('stat-poly-pct', payload?.stats?.poligono?.porcentajePrc);
+  setText('stat-cat-zone', payload?.stats?.categoria?.zona);
+  setText('stat-cat-area', payload?.stats?.categoria?.areaTotal);
+  setText('stat-cat-count', payload?.stats?.categoria?.numeroPoligonos);
+  setText('stat-cat-diameter', payload?.stats?.categoria?.diametroEquivalente);
+  setText('stat-cat-pct', payload?.stats?.categoria?.porcentajePrc);
+  setText('zone-share-text', payload?.stats?.presenciaEnPrcTexto);
 
-  const tbody = document.getElementById('attr-table');
-  const entries = Object.entries(payload.attributes || {});
-  tbody.innerHTML = entries.length ? entries.map(([k,v]) => `<tr><th>${k}</th><td>${v ?? '–'}</td></tr>`).join('') : '<tr><td colspan="2">Sin atributos</td></tr>';
+  const metadataTable = document.getElementById('metadata-table');
+  const metadataEntries = Object.entries(payload?.metadataTecnica || {});
+  metadataTable.innerHTML = metadataEntries.length
+    ? metadataEntries.map(([k,v]) => `<tr><th>${k}</th><td>${v ?? '–'}</td></tr>`).join('')
+    : '<tr><td colspan="2">Sin metadata técnica</td></tr>';
 
   const mapContainer = document.getElementById('map-slot');
   if (payload.mapImage) {
