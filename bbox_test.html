@@ -568,50 +568,73 @@
 
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-    <script src="https://unpkg.com/leaflet-image@0.0.4/leaflet-image.js"></script>
     <script src="js/bbox_test.js?v=7c3694f"></script>
 
     
 
     <script>
-      function waitForTilesToLoad(layer) {
+      function waitForTilesToLoadInClone(clonedMap, timeoutMs = 4000) {
         return new Promise((resolve) => {
-          if (!layer || typeof layer.isLoading !== "function" || !layer.isLoading()) {
+          const tileImages = Array.from(clonedMap.querySelectorAll("img.leaflet-tile"));
+          if (!tileImages.length) {
             resolve();
             return;
           }
-          layer.once("load", resolve);
-          setTimeout(resolve, 3000);
+
+          let remaining = tileImages.filter((img) => !(img.complete && img.naturalWidth > 0)).length;
+          if (!remaining) {
+            resolve();
+            return;
+          }
+
+          const done = () => {
+            remaining -= 1;
+            if (remaining <= 0) resolve();
+          };
+
+          tileImages.forEach((img) => {
+            if (img.complete && img.naturalWidth > 0) return;
+            img.addEventListener("load", done, { once: true });
+            img.addEventListener("error", done, { once: true });
+          });
+
+          setTimeout(resolve, timeoutMs);
         });
       }
 
-      async function captureLeafletMapAsImage(mapInstance) {
-        if (!mapInstance || typeof mapInstance.invalidateSize !== "function") {
-          throw new Error("Instancia Leaflet inválida para GeoIPT PDF");
+      async function captureMapAsFrozenImage(mapElement) {
+        if (!mapElement) {
+          throw new Error("Elemento de mapa inválido para GeoIPT PDF");
         }
 
-        if (typeof window.leafletImage !== "function") {
-          throw new Error("leaflet-image no está disponible");
-        }
+        const clonedMap = mapElement.cloneNode(true);
+        clonedMap.style.transform = "none";
+        clonedMap.querySelectorAll("*").forEach((el) => {
+          el.style.transform = "none";
+        });
 
-        mapInstance.invalidateSize(true);
+        const sourceRect = mapElement.getBoundingClientRect();
+        clonedMap.style.width = `${Math.round(sourceRect.width)}px`;
+        clonedMap.style.height = `${Math.round(sourceRect.height)}px`;
+        clonedMap.style.position = "fixed";
+        clonedMap.style.left = "-99999px";
+        clonedMap.style.top = "0";
 
-        const activeBaseLayer = Object.values(mapInstance._layers || {}).find((layer) =>
-          layer instanceof L.TileLayer && mapInstance.hasLayer(layer)
-        );
+        document.body.appendChild(clonedMap);
 
-        await waitForTilesToLoad(activeBaseLayer);
+        await waitForTilesToLoadInClone(clonedMap);
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        return new Promise((resolve, reject) => {
-          window.leafletImage(mapInstance, (err, canvas) => {
-            if (err || !canvas) {
-              reject(err || new Error("No se pudo capturar el mapa GeoIPT"));
-              return;
-            }
-            resolve(canvas);
+        try {
+          return await html2canvas(clonedMap, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: null,
+            logging: false
           });
-        });
+        } finally {
+          document.body.removeChild(clonedMap);
+        }
       }
 
       function sanitizeFileName(text) {
@@ -694,8 +717,9 @@
 
         try {
           const mapInstance = window.geoIptMap;
-          const mapRect = mapInstance?.getContainer?.().getBoundingClientRect?.();
-          const mapCanvas = await captureLeafletMapAsImage(mapInstance);
+          const mapElement = mapInstance?.getContainer?.();
+          const mapRect = mapElement?.getBoundingClientRect?.();
+          const mapCanvas = await captureMapAsFrozenImage(mapElement);
           const mapPng = mapCanvas.toDataURL("image/png");
           console.log("[GeoIPT PDF] mapa capturado");
 
