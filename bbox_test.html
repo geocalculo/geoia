@@ -508,7 +508,7 @@
         </section>
         <section class="report-actions no-print">
           <button id="btn-kml" class="kml-btn" type="button" disabled>⬇️ Descargar KML</button>
-          <button id="btn-pdf" type="button" title="Descargar reporte en PDF" aria-label="Descargar PDF">📄 Descargar PDF</button>
+          <button id="btn-export-pdf" type="button" title="Descargar reporte en PDF" aria-label="Descargar PDF">📄 Descargar PDF</button>
           <a id="link-prc" href="#" target="_blank" rel="noopener">📚 Ver PRC</a>
           <a id="link-kml" href="#" style="display:none;">Descargar KML</a>
         </section>
@@ -648,32 +648,56 @@
         return `GeoIPT_${sanitizeFileName(comuna)}_${sanitizeFileName(instrumento)}_${yyyy}-${mm}-${dd}_${hh}-${mi}.pdf`;
       }
 
-      async function descargarPDFGeoIPT() {
+      function setButtonLoading(buttonId, isLoading, loadingText = "Generando PDF...") {
+        const button = document.getElementById(buttonId);
+        if (!button) return;
+
+        if (!button.dataset.originalText) {
+          button.dataset.originalText = button.textContent || "📄 Descargar PDF";
+        }
+
+        button.disabled = Boolean(isLoading);
+        button.textContent = isLoading ? loadingText : (button.dataset.originalText || "📄 Descargar PDF");
+      }
+
+      async function handleExportPdf(event) {
+        event?.preventDefault();
+        event?.stopPropagation();
+
         console.log("[GeoIPT PDF][CLICK] click recibido");
+
+        try {
+          setButtonLoading("btn-export-pdf", true, "Generando PDF...");
+          await exportGeoIptPdfDirectDownload();
+        } catch (error) {
+          console.error("[GeoIPT PDF] Error exportando PDF", error);
+          alert("No se pudo generar el PDF. Revisa consola.");
+        } finally {
+          setButtonLoading("btn-export-pdf", false);
+        }
+      }
+
+      async function exportGeoIptPdfDirectDownload() {
+        console.log("[GeoIPT PDF] iniciando exportación directa");
+
+        if (!window.jspdf?.jsPDF) {
+          throw new Error("jsPDF no está disponible");
+        }
 
         const card = document.querySelector(".report-card");
         if (!card) {
-          console.error("[GeoIPT PDF] No se encontró .report-card para exportar.");
-          return;
-        }
-
-        const pdfBtn = document.getElementById("btn-pdf");
-        const originalBtnText = pdfBtn?.textContent || "📄 Descargar PDF";
-        if (pdfBtn) {
-          pdfBtn.disabled = true;
-          pdfBtn.textContent = "Generando PDF...";
+          throw new Error("[GeoIPT PDF] No se encontró .report-card para exportar.");
         }
 
         const printDate = document.getElementById("print-date");
         if (printDate) printDate.textContent = new Date().toLocaleString("es-CL");
-
-        document.body.classList.add("pdf-export-mode");
 
         try {
           const mapInstance = window.geoIptMap;
           const mapRect = mapInstance?.getContainer?.().getBoundingClientRect?.();
           const mapCanvas = await captureLeafletMapAsImage(mapInstance);
           const mapPng = mapCanvas.toDataURL("image/png");
+          console.log("[GeoIPT PDF] mapa capturado");
 
           const printClone = card.cloneNode(true);
           printClone.style.width = `${Math.round(card.getBoundingClientRect().width)}px`;
@@ -716,6 +740,7 @@
           printClone.remove();
 
           const imgData = canvas.toDataURL("image/png");
+          console.log("[GeoIPT PDF] card capturado");
           const { jsPDF } = window.jspdf;
           const doc = new jsPDF("p", "mm", "a4");
 
@@ -737,22 +762,18 @@
           }
 
           const fileName = buildPdfFileName();
+          console.log("[GeoIPT PDF] llamando doc.save:", fileName);
           doc.save(fileName);
           console.log("[GeoIPT PDF] Descarga directa ejecutada:", fileName);
         } catch (error) {
           console.error("Error generando PDF directo:", error);
-        } finally {
-          document.body.classList.remove("pdf-export-mode");
-          if (pdfBtn) {
-            pdfBtn.disabled = false;
-            pdfBtn.textContent = originalBtnText;
-          }
+          throw error;
         }
       }
 
       function setupPdfButtonActions() {
         console.log("[GeoIPT PDF] setup ejecutado");
-        const pdfBtn = document.getElementById("btn-pdf");
+        const pdfBtn = document.getElementById("btn-export-pdf");
         console.log("[GeoIPT PDF] botón encontrado:", pdfBtn);
         if (!pdfBtn) return;
 
@@ -761,7 +782,7 @@
         pdfBtn.classList.remove("pdf-btn-disabled", "disabled");
         pdfBtn.title = "Descargar reporte en PDF";
         pdfBtn.textContent = "📄 Descargar PDF";
-        pdfBtn.onclick = descargarPDFGeoIPT;
+        pdfBtn.onclick = handleExportPdf;
       }
 
       document.addEventListener("DOMContentLoaded", setupPdfButtonActions);
