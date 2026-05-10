@@ -842,6 +842,43 @@ function volverAIndex() {
   window.location.href = url.toString();
 }
 
+
+function buildGeoIptPdfPayload() {
+  const first = (featuresSeleccionadas && featuresSeleccionadas[0]) || {};
+  const props = first.metadata || {};
+  const payload = {
+    site: "GeoIPT",
+    generatedAt: new Date().toISOString(),
+    poi: {
+      lat: Number.isFinite(lat) ? Number(lat.toFixed(6)) : null,
+      lon: Number.isFinite(lon) ? Number(lon.toFixed(6)) : null,
+      utmEste: props.UTM_E || props.UTM_ESTE || null,
+      utmNorte: props.UTM_N || props.UTM_NORTE || null
+    },
+    prc: {
+      comuna: props.COM || "–",
+      region: props.REG || "–",
+      instrumento: obtenerNombrePRC(first.archivo),
+      zona: props.ZONA || "–",
+      estado: props.ESTADO || "Vigente",
+      nombre: props.NOMBRE || props.NOM || "–"
+    },
+    attributes: props,
+    summary: document.getElementById("md-interpretacion")?.textContent?.trim() || "Sin resumen disponible.",
+    mapImage: null
+  };
+
+  return payload;
+}
+
+function openGeoIptPdfReportV2() {
+  const payload = buildGeoIptPdfPayload();
+  sessionStorage.setItem("geoipt_pdf_payload", JSON.stringify(payload));
+  window.open("report_html2pdf.html", "_blank");
+}
+
+window.buildGeoIptPdfPayload = buildGeoIptPdfPayload;
+window.openGeoIptPdfReportV2 = openGeoIptPdfReportV2;
 function prepararBotonReporte(iptsConPunto) {
   const btn = document.getElementById("btn-reporte");
   if (!btn) return;
