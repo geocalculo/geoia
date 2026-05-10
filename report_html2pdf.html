@@ -2,442 +2,152 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>GeoIPT - Reporte PDF (html2pdf ensayo)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-  <!-- FIX 1: Fuente explícita en lugar de system-ui para evitar
-       métricas de texto inconsistentes en html2canvas -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
+  <title>GeoIPT · Reporte PDF v2</title>
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.3/dist/html2pdf.bundle.min.js"></script>
   <style>
-    :root{
-      --bg:#ffffff;
-      --panel:#f7f9fc;
-      --panel2:#eef3f8;
-      --text:#111111;
-      --muted:#5f6b7a;
-      --line:#d6dee8;
-      --accent:#0b63a3;
-      --accent2:#0b4f7c;
-      --ok:#17603a;
-      --ok-bg:#e7f6ec;
-      --ok-line:#b8e0c5;
-    }
-
+    :root { --text:#111827; --muted:#4b5563; --line:#d1d5db; --bg:#fff; --soft:#f9fafb; }
     *{ box-sizing:border-box; }
-
-    /* FIX 1: Inter en lugar de system-ui */
-    body{
-      margin:0;
-      font-family:'Inter', Arial, Helvetica, sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      -webkit-print-color-adjust:exact;
-      print-color-adjust:exact;
-    }
-
-    .toolbar{
-      display:flex;
-      gap:10px;
-      margin:0 auto 18px;
-      max-width:980px;
-      padding:18px 24px 0;
-    }
-
-    .btn{
-      appearance:none;
-      border:1px solid #c7d4e3;
-      background:#ffffff;
-      color:#16324a;
-      border-radius:999px;
-      padding:10px 16px;
-      font-weight:700;
-      cursor:pointer;
-    }
-
-    .btn[disabled]{
-      opacity:.55;
-      cursor:wait;
-    }
-
-    .muted{ color:var(--muted); }
-
-    .page{
-      max-width:980px;
-      margin:0 auto;
-      padding:24px;
-      background:#ffffff;
-    }
-
-    .report-shell{
-      background:#ffffff;
-      border:1px solid var(--line);
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:0 8px 24px rgba(0,0,0,.06);
-    }
-
-    .report-header{
-      padding:22px 28px 16px;
-      border-bottom:1px solid var(--line);
-      /* FIX 2: flexbox reemplazado por table-layout para alineación
-         consistente en html2canvas */
-      display:table;
-      width:100%;
-      background:#ffffff;
-    }
-
-    .report-header-left{
-      display:table-cell;
-      vertical-align:top;
-    }
-
-    .report-header-right{
-      display:table-cell;
-      vertical-align:top;
-      text-align:right;
-      white-space:nowrap;
-    }
-
-    .brand{
-      font-size:28px;
-      font-weight:700;
-      letter-spacing:.2px;
-      color:#16324a;
-    }
-
-    .brand small{
-      display:block;
-      font-size:13px;
-      color:var(--muted);
-      font-weight:500;
-      margin-top:4px;
-    }
-
-    .meta-top{
-      font-size:12px;
-      color:var(--muted);
-      line-height:1.55;
-    }
-
-    .report-body{
-      padding:24px 28px 28px;
-      background:#ffffff;
-    }
-
-    .section-title{
-      margin:0 0 12px;
-      color:var(--accent2);
-      font-size:20px;
-      font-weight:700;
-    }
-
-    .map-wrap{
-      background:#f7f9fc;
-      border:1px solid var(--line);
-      border-radius:14px;
-      overflow:hidden;
-      padding:12px;
-      margin-bottom:18px;
-      break-inside:avoid;
-      page-break-inside:avoid;
-    }
-
-    #map{
-      width:100%;
-      height:340px;
-      min-height:340px;
-      border-radius:10px;
-      overflow:hidden;
-      border:1px solid #cfd8e3;
-      background:#f3f4f6;
-    }
-
-    .caption{
-      margin-top:10px;
-      font-size:12px;
-      color:var(--muted);
-    }
-
-    /* FIX 3: summary-grid reemplazado con table-layout en vez de CSS Grid
-       para evitar que html2canvas colapse o desalinee las columnas fr */
-    .summary-grid{
-      display:table;
-      width:100%;
-      border-spacing:18px 0;
-      margin:18px -18px 20px;
-      table-layout:fixed;
-    }
-
-    .summary-grid .card{
-      display:table-cell;
-      vertical-align:top;
-    }
-
-    /* Ancho proporcional equivalente a 1.2fr / .8fr  */
-    .summary-grid .card:first-child{ width:60%; }
-    .summary-grid .card:last-child{  width:40%; }
-
-    .card{
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:16px 18px;
-      color:var(--text);
-      break-inside:avoid;
-      page-break-inside:avoid;
-    }
-
-    .card h3{
-      margin:0 0 10px;
-      color:var(--accent2);
-      font-size:14px;
-      text-transform:uppercase;
-      letter-spacing:.5px;
-    }
-
-    /* FIX 4: mini-list también reemplazado con table-layout */
-    .mini-list{
-      display:table;
-      width:100%;
-      border-spacing:0 8px;
-      font-size:14px;
-    }
-
-    .mini-list-row{
-      display:table-row;
-    }
-
-    .mini-list .k{
-      display:table-cell;
-      width:120px;
-      color:var(--muted);
-      font-weight:600;
-      vertical-align:top;
-      padding-right:10px;
-    }
-
-    .mini-list .v{
-      display:table-cell;
-      color:var(--text);
-      font-weight:600;
-      vertical-align:top;
-    }
-
-    /* FIX 5: tabla sin border-radius + overflow:hidden que confunde a
-       html2canvas. Se usa wrapper con border-radius y la tabla interna
-       queda cuadrada */
-    .table-wrap{
-      border:1px solid var(--line);
-      border-radius:14px;
-      overflow:hidden;
-      break-inside:avoid;
-      page-break-inside:avoid;
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      background:#ffffff;
-      font-size:14px;
-      color:var(--text);
-    }
-
-    th, td{
-      padding:11px 12px;
-      border-bottom:1px solid #e7edf4;
-      vertical-align:middle;
-    }
-
-    th{
-      text-align:left;
-      background:var(--panel2);
-      color:var(--accent2);
-      font-size:13px;
-      letter-spacing:.2px;
-    }
-
-    tr:last-child td{
-      border-bottom:0;
-    }
-
-    td:first-child{
-      width:150px;
-      color:var(--muted);
-      font-weight:600;
-    }
-
-    td:last-child{
-      color:var(--text);
-    }
-
-    .status{
-      display:inline-block;
-      padding:8px 12px;
-      background:var(--ok-bg);
-      border:1px solid var(--ok-line);
-      color:var(--ok);
-      border-radius:999px;
-      font-size:13px;
-      font-weight:600;
-      /* FIX 6: gap en inline-flex es problemático en html2canvas,
-         reemplazado con inline-block + padding */
-    }
-
-    .report-footer{
-      border-top:1px solid var(--line);
-      padding:16px 28px 20px;
-      color:var(--muted);
-      font-size:12px;
-      /* FIX 7: flex con gap reemplazado por table-layout en footer */
-      display:table;
-      width:100%;
-      background:#ffffff;
-    }
-
-    .report-footer-left{ display:table-cell; vertical-align:middle; }
-    .report-footer-right{ display:table-cell; vertical-align:middle; text-align:right; }
-
-    a,
-    a:visited{
-      color:#0b63a3;
-      text-decoration:underline;
-      font-weight:600;
-    }
-
-    @media print{
-      .toolbar{ display:none !important; }
-      body{ background:white; }
-      .page{ max-width:none; padding:0; }
-      .report-shell{
-        box-shadow:none;
-        border-radius:0;
-        border:none;
-      }
-      #map{
-        height:320px !important;
-        min-height:320px !important;
-      }
-    }
-
-    @media (max-width: 900px){
-      .summary-grid{
-        display:block;
-      }
-      .summary-grid .card{
-        display:block;
-        width:100% !important;
-        margin-bottom:18px;
-      }
-      .report-header{
-        display:block;
-      }
-      .report-header-right{
-        display:block;
-        text-align:left;
-        margin-top:10px;
-      }
-    }
+    body{ margin:0; font-family:Arial, Helvetica, sans-serif; background:#eef2f7; color:var(--text); }
+    .toolbar{ max-width:900px; margin:18px auto 0; padding:0 12px; display:flex; gap:8px; }
+    .btn{ border:1px solid #cbd5e1; background:#fff; border-radius:999px; padding:10px 16px; font-weight:700; cursor:pointer; }
+    .sheet{ width:210mm; min-height:297mm; margin:14px auto 30px; background:var(--bg); border:1px solid var(--line); padding:18mm 16mm; }
+    .page-section { break-inside: avoid; page-break-inside: avoid; margin-bottom:12mm; }
+    .page-break { break-before: page; page-break-before: always; }
+    h1{ margin:0; font-size:24px; }
+    h2{ margin:0 0 8px; font-size:16px; border-bottom:1px solid var(--line); padding-bottom:4px; }
+    p{ margin:0; line-height:1.5; }
+    .meta{ color:var(--muted); font-size:12px; margin-top:4px; }
+    .grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .card{ background:var(--soft); border:1px solid var(--line); border-radius:8px; padding:10px; }
+    table{ width:100%; border-collapse:collapse; font-size:13px; }
+    th,td{ border:1px solid var(--line); padding:7px; text-align:left; vertical-align:top; }
+    th{ background:#f3f4f6; }
+    .map-box{ border:1px dashed #9ca3af; min-height:220px; display:flex; align-items:center; justify-content:center; color:#6b7280; background:#f9fafb; }
+    .footer{ border-top:1px solid var(--line); padding-top:8px; color:var(--muted); font-size:12px; text-align:center; }
+    .empty{ max-width:900px; margin:24px auto; padding:16px; background:#fff; border:1px solid #fecaca; color:#991b1b; }
+    @media print { .toolbar{ display:none !important; } body{ background:#fff; } .sheet{ margin:0 auto; border:0; } }
   </style>
 </head>
 <body>
-  <div class="toolbar">
-    <button id="btn-generate" class="btn" disabled>Generando PDF...</button>
-    <button id="btn-download" class="btn" disabled>Descargar nuevamente</button>
-    <div id="status" class="muted" style="align-self:center;">Preparando reporte GeoIPT...</div>
+  <div class="toolbar no-pdf" id="toolbar">
+    <button class="btn" id="btn-download">Descargar PDF</button>
   </div>
 
-  <div class="page">
-    <div id="report-root" class="report-shell">
+  <div id="empty-state" class="empty" style="display:none;"></div>
 
-      <!-- FIX 2: header con table-cell en vez de flexbox -->
-      <div class="report-header">
-        <div class="report-header-left">
-          <div class="brand">GeoIPT<small>Reporte técnico del punto consultado</small></div>
-        </div>
-        <div class="report-header-right">
-          <div class="meta-top">
-            <div>Fecha: <span id="fecha-reporte">-</span></div>
-            <div>Punto: <span id="txt-punto">-</span></div>
-            <div>BBOX: <span id="txt-bbox">-</span></div>
-          </div>
-        </div>
+  <main id="report" class="sheet" style="display:none;">
+    <section class="page-section">
+      <h1>Reporte Territorial GeoIPT</h1>
+      <p class="meta" id="generated-at"></p>
+    </section>
+
+    <section class="page-section">
+      <h2>1. Punto consultado</h2>
+      <div class="grid">
+        <div class="card"><strong>Lat/Lon</strong><p id="poi-latlon">–</p></div>
+        <div class="card"><strong>UTM</strong><p id="poi-utm">–</p></div>
       </div>
+    </section>
 
-      <div class="report-body">
-        <h2 class="section-title">Mapa de ubicación y zona coincidente</h2>
-        <div class="map-wrap">
-          <div id="map"></div>
-          <div class="caption">Mapa base OpenStreetMap con resaltado de la zona IPT que contiene el punto consultado.</div>
-        </div>
-
-        <!-- FIX 3: summary-grid con table-cell -->
-        <div class="summary-grid">
-          <div class="card">
-            <h3>Resumen de consulta</h3>
-            <!-- FIX 4: mini-list con table-row / table-cell -->
-            <div class="mini-list">
-              <div class="mini-list-row"><div class="k">Región</div><div class="v" id="sum-reg">-</div></div>
-              <div class="mini-list-row"><div class="k">Comuna</div><div class="v" id="sum-com">-</div></div>
-              <div class="mini-list-row"><div class="k">Localidad</div><div class="v" id="sum-loc">-</div></div>
-              <div class="mini-list-row"><div class="k">Zona</div><div class="v" id="sum-zona">-</div></div>
-              <div class="mini-list-row"><div class="k">Nombre</div><div class="v" id="sum-nombre">-</div></div>
-              <div class="mini-list-row"><div class="k">CUT</div><div class="v" id="sum-cut">-</div></div>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3>Estado</h3>
-            <div class="status">Descarga libre habilitada</div>
-            <p class="muted" style="margin:12px 0 0; line-height:1.5;">
-              Este PDF resume la primera coincidencia válida encontrada para el punto consultado dentro del flujo GeoIPT.
-            </p>
-          </div>
-        </div>
-
-        <h2 class="section-title">Metadata de la zona</h2>
-        <!-- FIX 5: wrapper externo con border-radius, tabla interna sin él -->
-        <div class="table-wrap">
-          <table aria-label="Metadata de la zona">
-            <thead>
-              <tr><th>Campo</th><th>Valor</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>REG</td><td id="md-reg">-</td></tr>
-              <tr><td>COM</td><td id="md-com">-</td></tr>
-              <tr><td>LOCALIDAD</td><td id="md-loc">-</td></tr>
-              <tr><td>ZONA</td><td id="md-zona">-</td></tr>
-              <tr><td>NOMBRE</td><td id="md-nombre">-</td></tr>
-              <tr><td>UPERM</td><td id="md-uperm">-</td></tr>
-              <tr><td>UPROH</td><td id="md-uproh">-</td></tr>
-              <tr><td>Capa</td><td id="md-capa">-</td></tr>
-              <tr><td>CUT</td><td id="md-cut">-</td></tr>
-            </tbody>
-          </table>
-        </div>
+    <section class="page-section">
+      <h2>2. Contexto PRC</h2>
+      <div class="grid">
+        <div class="card"><strong>Comuna</strong><p id="prc-comuna">–</p></div>
+        <div class="card"><strong>Región</strong><p id="prc-region">–</p></div>
+        <div class="card"><strong>Instrumento</strong><p id="prc-instrumento">–</p></div>
+        <div class="card"><strong>Zona</strong><p id="prc-zona">–</p></div>
       </div>
+    </section>
 
-      <!-- FIX 7: footer con table-cell -->
-      <div class="report-footer">
-        <div class="report-footer-left">
-          <a href="https://geoipt.cl" target="_blank" rel="noopener">GeoIPT - geoipt.cl</a>
-        </div>
-        <div class="report-footer-right">
-          Documento generado automáticamente desde versión ensayo html2pdf.js
-        </div>
-      </div>
+    <section class="page-section">
+      <h2>3. Resumen ejecutivo</h2>
+      <p id="summary">–</p>
+    </section>
 
-    </div>
-  </div>
+    <section class="page-section">
+      <h2>4. Atributos principales</h2>
+      <table><tbody id="attr-table"></tbody></table>
+    </section>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
-  <script src="https://unpkg.com/@tmcw/togeojson@4.5.0/dist/togeojson.umd.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.3/dist/html2pdf.bundle.min.js"></script>
-  <script src="js/report_html2pdf.js"></script>
+    <section class="page-section page-break">
+      <h2>5. Usos de suelo y normativa</h2>
+      <table>
+        <tbody>
+          <tr><th>Estado</th><td id="prc-estado">–</td></tr>
+          <tr><th>Nombre normativo</th><td id="prc-nombre">–</td></tr>
+          <tr><th>Usos permitidos</th><td id="attr-uperm">–</td></tr>
+          <tr><th>Usos prohibidos</th><td id="attr-uproh">–</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="page-section">
+      <h2>6. Mapa de referencia</h2>
+      <div id="map-slot" class="map-box">Mapa estático pendiente de integración</div>
+    </section>
+
+    <section class="page-section">
+      <h2>7. Observaciones</h2>
+      <p>Este informe es referencial y debe ser contrastado con las fuentes oficiales del instrumento territorial y sus modificaciones.</p>
+    </section>
+
+    <footer class="footer page-section">Generado por Geocálculo · GeoIPT</footer>
+  </main>
+
+<script>
+const payloadRaw = sessionStorage.getItem('geoipt_pdf_payload');
+let payload = null;
+try { payload = payloadRaw ? JSON.parse(payloadRaw) : null; } catch { payload = null; }
+
+function sanitizeFileName(text) {
+  return (text || "").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g,"_").replace(/[^\w\-]/g,"").replace(/_+/g,"_").replace(/^_+|_+$/g,"");
+}
+function fmtDateLabel(d){ return new Date(d).toLocaleString('es-CL'); }
+function fmtStamp(d){ const x=new Date(d); const p=n=>String(n).padStart(2,'0'); return `${x.getFullYear()}-${p(x.getMonth()+1)}-${p(x.getDate())}_${p(x.getHours())}-${p(x.getMinutes())}`; }
+function setText(id,v){ const el=document.getElementById(id); if(el) el.textContent = v || '–'; }
+
+if (!payload) {
+  document.getElementById('empty-state').style.display='block';
+  document.getElementById('empty-state').textContent='No hay datos de consulta GeoIPT disponibles. Vuelve al visor y genera una consulta territorial.';
+} else {
+  console.log('[GeoIPT PDF V2] payload recibido', payload);
+  document.getElementById('report').style.display='block';
+  setText('generated-at', `Fecha de emisión: ${fmtDateLabel(payload.generatedAt)}`);
+  setText('poi-latlon', `${payload?.poi?.lat ?? '–'}, ${payload?.poi?.lon ?? '–'}`);
+  setText('poi-utm', `Este: ${payload?.poi?.utmEste ?? '–'} · Norte: ${payload?.poi?.utmNorte ?? '–'}`);
+  setText('prc-comuna', payload?.prc?.comuna);
+  setText('prc-region', payload?.prc?.region);
+  setText('prc-instrumento', payload?.prc?.instrumento);
+  setText('prc-zona', payload?.prc?.zona);
+  setText('prc-estado', payload?.prc?.estado);
+  setText('prc-nombre', payload?.prc?.nombre);
+  setText('summary', payload?.summary);
+  setText('attr-uperm', payload?.attributes?.UPERM || payload?.attributes?.uperm);
+  setText('attr-uproh', payload?.attributes?.UPROH || payload?.attributes?.uproh);
+
+  const tbody = document.getElementById('attr-table');
+  const entries = Object.entries(payload.attributes || {});
+  tbody.innerHTML = entries.length ? entries.map(([k,v]) => `<tr><th>${k}</th><td>${v ?? '–'}</td></tr>`).join('') : '<tr><td colspan="2">Sin atributos</td></tr>';
+
+  if (payload.mapImage) {
+    document.getElementById('map-slot').innerHTML = `<img alt="Mapa estático" src="${payload.mapImage}" style="max-width:100%;max-height:320px;display:block;">`;
+  }
+  console.log('[GeoIPT PDF V2] reporte renderizado');
+}
+
+document.getElementById('btn-download').addEventListener('click', async () => {
+  if (!payload) return;
+  const comuna = sanitizeFileName(payload?.prc?.comuna || 'Comuna');
+  const instrumento = sanitizeFileName(payload?.prc?.instrumento || 'Instrumento');
+  const fileName = `GeoIPT_${comuna}_${instrumento}_${fmtStamp(payload.generatedAt || Date.now())}.pdf`;
+  console.log('[GeoIPT PDF V2] descargando', fileName);
+  const toolbar = document.getElementById('toolbar');
+  toolbar.style.display='none';
+  try {
+    await html2pdf().set({ margin:10, filename:fileName, image:{type:'jpeg',quality:0.98}, html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'}, jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}, pagebreak:{mode:['css','legacy']} }).from(document.getElementById('report')).save();
+  } finally { toolbar.style.display='flex'; }
+});
+</script>
 </body>
 </html>
