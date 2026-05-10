@@ -23,8 +23,18 @@
     table{ width:100%; border-collapse:collapse; font-size:13px; }
     th,td{ border:1px solid var(--line); padding:7px; text-align:left; vertical-align:top; }
     th{ background:#f3f4f6; }
-    .map-box{ border:1px dashed #9ca3af; min-height:220px; display:flex; align-items:center; justify-content:center; color:#6b7280; background:#f9fafb; }
-    .map-static-img{ width:100%; height:auto; max-height:95mm; object-fit:contain; border:1px solid #d1d5db; border-radius:6px; display:block; }
+    .map-wrapper{ width:100%; padding:0; margin:0; }
+    .map-static-img {
+  width: 100%;
+  height: auto;
+
+  display: block;
+
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+
+  object-fit: contain;
+}
     .map-placeholder{ height:70mm; border:1px dashed #9ca3af; display:flex; align-items:center; justify-content:center; color:#6b7280; background:#f9fafb; }
     .footer{ border-top:1px solid var(--line); padding-top:8px; color:var(--muted); font-size:12px; text-align:center; }
     .empty{ max-width:900px; margin:24px auto; padding:16px; background:#fff; border:1px solid #fecaca; color:#991b1b; }
@@ -86,7 +96,7 @@
 
     <section class="page-section">
       <h2>6. Mapa de referencia</h2>
-      <div id="map-slot" class="map-box">Mapa estático pendiente de integración</div>
+      <div id="map-slot" class="map-wrapper">Mapa estático pendiente de integración</div>
     </section>
 
     <section class="page-section">
