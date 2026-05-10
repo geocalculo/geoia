@@ -24,6 +24,8 @@
     th,td{ border:1px solid var(--line); padding:7px; text-align:left; vertical-align:top; }
     th{ background:#f3f4f6; }
     .map-box{ border:1px dashed #9ca3af; min-height:220px; display:flex; align-items:center; justify-content:center; color:#6b7280; background:#f9fafb; }
+    .map-static-img{ width:100%; height:auto; max-height:95mm; object-fit:contain; border:1px solid #d1d5db; border-radius:6px; display:block; }
+    .map-placeholder{ height:70mm; border:1px dashed #9ca3af; display:flex; align-items:center; justify-content:center; color:#6b7280; background:#f9fafb; }
     .footer{ border-top:1px solid var(--line); padding-top:8px; color:var(--muted); font-size:12px; text-align:center; }
     .empty{ max-width:900px; margin:24px auto; padding:16px; background:#fff; border:1px solid #fecaca; color:#991b1b; }
     @media print { .toolbar{ display:none !important; } body{ background:#fff; } .sheet{ margin:0 auto; border:0; } }
@@ -130,8 +132,19 @@ if (!payload) {
   const entries = Object.entries(payload.attributes || {});
   tbody.innerHTML = entries.length ? entries.map(([k,v]) => `<tr><th>${k}</th><td>${v ?? '–'}</td></tr>`).join('') : '<tr><td colspan="2">Sin atributos</td></tr>';
 
+  const mapContainer = document.getElementById('map-slot');
   if (payload.mapImage) {
-    document.getElementById('map-slot').innerHTML = `<img alt="Mapa estático" src="${payload.mapImage}" style="max-width:100%;max-height:320px;display:block;">`;
+    mapContainer.innerHTML = `
+      <img src="${payload.mapImage}"
+           alt="Mapa de referencia GeoIPT"
+           class="map-static-img">
+    `;
+  } else {
+    mapContainer.innerHTML = `
+      <div class="map-placeholder">
+        Mapa estático pendiente de integración
+      </div>
+    `;
   }
   console.log('[GeoIPT PDF V2] reporte renderizado');
 }
