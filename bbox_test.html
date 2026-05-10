@@ -801,16 +801,26 @@
       }
 
       function setupPdfButtonActions() {
-        console.log("[GeoIPT PDF] setup ejecutado");
         const pdfBtn = document.getElementById("btn-export-pdf");
-        console.log("[GeoIPT PDF] botón encontrado:", pdfBtn);
-        if (!pdfBtn) return;
 
-        pdfBtn.disabled = true;
-        pdfBtn.title = "PDF temporalmente deshabilitado";
-        pdfBtn.innerHTML = "📄 PDF próximamente";
-        pdfBtn.onclick = null;
-        console.log("[GeoIPT PDF] botón PDF deshabilitado temporalmente");
+        if (pdfBtn) {
+          pdfBtn.disabled = false;
+          pdfBtn.title = "Generar reporte PDF v2";
+          pdfBtn.innerHTML = "📄 Probar PDF v2";
+
+          pdfBtn.onclick = function () {
+            console.log("[GeoIPT PDF V2][CLICK] generando payload");
+
+            const payload = buildGeoIptPdfPayload();
+
+            sessionStorage.setItem(
+              "geoipt_pdf_payload",
+              JSON.stringify(payload)
+            );
+
+            window.open("report_html2pdf.html", "_blank");
+          };
+        }
       }
 
       document.addEventListener("DOMContentLoaded", setupPdfButtonActions);
