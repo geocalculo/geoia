@@ -207,6 +207,33 @@
       text-decoration: none;
       cursor: pointer;
     }
+    .pdf-btn-disabled {
+      background: #1f2937 !important;
+      border-color: #374151 !important;
+      color: #9ca3af !important;
+      opacity: .58;
+      cursor: not-allowed !important;
+      box-shadow: none !important;
+      transform: none !important;
+      animation: none !important;
+      pointer-events: none;
+    }
+    .pdf-btn-disabled:hover,
+    .pdf-btn-disabled:focus,
+    .pdf-btn-disabled:active {
+      background: #1f2937 !important;
+      border-color: #374151 !important;
+      color: #9ca3af !important;
+      box-shadow: none !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    .pdf-maintenance-note {
+      align-self: center;
+      color: #9ca3af;
+      font-size: .82rem;
+      margin-left: -2px;
+    }
     .metadata-section { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 8px 12px; }
     .metadata-section summary { cursor: pointer; color: #bae6fd; font-weight: 600; }
     .print-only { display: none; }
@@ -481,7 +508,8 @@
         </section>
         <section class="report-actions no-print">
           <button id="btn-kml" class="kml-btn" type="button" disabled>⬇️ Descargar KML</button>
-          <button onclick="descargarPDFGeoIPT()">📄 Descargar PDF</button>
+          <button id="btn-pdf" class="pdf-btn-disabled" type="button" disabled title="Estamos mejorando la exportación PDF" aria-label="PDF temporalmente deshabilitado">📄 Descargar PDF</button>
+          <span class="pdf-maintenance-note">PDF temporalmente deshabilitado</span>
           <a id="link-prc" href="#" target="_blank" rel="noopener">📚 Ver PRC</a>
           <a id="link-kml" href="#" style="display:none;">Descargar KML</a>
         </section>
@@ -547,6 +575,9 @@
 
     <script>
       async function descargarPDFGeoIPT() {
+        console.info("Exportación PDF en ajuste técnico.");
+        return;
+
         const card = document.querySelector(".report-card");
         if (!card) {
           window.print();
