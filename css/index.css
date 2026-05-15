@@ -35,13 +35,51 @@ body {
 /* Summary */
 .summary-col { display: flex; justify-content: center; }
 .prc-summary {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 9px 14px; border-radius: 999px;
-  border: 1px solid rgba(214,162,74,.35); background: rgba(8,15,29,.9);
-  box-shadow: var(--shadow);
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: clamp(140px, 18vw, 196px);
+  padding: 14px 18px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(214, 162, 74, .42);
+  background: linear-gradient(145deg, rgba(13, 24, 44, .82), rgba(8, 15, 30, .9));
+  backdrop-filter: blur(7px);
+  box-shadow: 0 12px 26px rgba(2, 6, 23, .42), inset 0 0 0 1px rgba(255, 255, 255, .02);
+  transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease;
 }
-.summary-label { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .35px; }
-#prc-count { color: var(--primary); font-size: 1.2rem; line-height: 1; }
+.prc-summary::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 120%, rgba(214, 162, 74, .16), transparent 66%);
+}
+.prc-summary:hover {
+  transform: translateY(-1px);
+  border-color: rgba(235, 176, 80, .62);
+  box-shadow: 0 16px 30px rgba(2, 6, 23, .5), 0 0 20px rgba(214, 162, 74, .22), inset 0 0 0 1px rgba(255, 255, 255, .03);
+}
+.summary-label {
+  color: rgba(200, 213, 231, .84);
+  font-size: .66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  line-height: 1;
+}
+#prc-count {
+  color: #f4b55a;
+  font-size: clamp(1.85rem, 3.9vw, 2.5rem);
+  font-weight: 800;
+  line-height: .95;
+  letter-spacing: .04em;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 10px rgba(214, 162, 74, .45), 0 0 20px rgba(214, 162, 74, .2);
+}
 
 /* Region */
 /* Instrument */
@@ -210,3 +248,21 @@ main { flex: 1; padding: 10px 12px calc(var(--ribbon-h) + 18px); }
 
 .leaflet-container { background: #0f172a; }
 .leaflet-bottom { bottom: calc(var(--ribbon-h) + 4px) !important; }
+
+
+@media (max-width: 640px) {
+  .prc-summary {
+    min-width: 126px;
+    padding: 12px 14px 11px;
+    border-radius: 14px;
+  }
+
+  .summary-label {
+    font-size: .62rem;
+    letter-spacing: .19em;
+  }
+
+  #prc-count {
+    font-size: clamp(1.55rem, 8.2vw, 2.05rem);
+  }
+}
