@@ -31,6 +31,9 @@ let spatialDataPromise = null;
 // Overview
 let overviewMap = null;
 let overviewRect = null;
+let baseLayerOSM = null;
+let baseLayerSAT = null;
+let currentBaseLayer = "osm";
 
 window.dataLayer = window.dataLayer || [];
 
@@ -761,11 +764,19 @@ async function loadSpatialData() {
    MAPA BASE
 ------------------------- */
 function initMapa() {
-  const mapaCalle = L.tileLayer(
+  baseLayerOSM = L.tileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     {
       maxZoom: 19,
       attribution: "&copy; OpenStreetMap contributors"
+    }
+  );
+
+  baseLayerSAT = L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    {
+      maxZoom: 19,
+      attribution: "Tiles &copy; Esri"
     }
   );
 
@@ -774,7 +785,7 @@ function initMapa() {
     zoom: HOME_VIEW.zoom,
     minZoom: 4,
     maxZoom: 19,
-    layers: [mapaCalle]
+    layers: [baseLayerOSM]
   });
 
   const overviewDiv = document.getElementById("overview-map");
@@ -810,6 +821,7 @@ function initMapa() {
     });
   }
 
+  initBasemapToggle();
   initialViewportResolutionPromise = resolveInitialViewport();
 
   const markUserInteraction = () => {
@@ -865,6 +877,45 @@ function initMapa() {
       );
     });
   }
+}
+
+function initBasemapToggle() {
+  const toggle = document.getElementById("basemap-toggle");
+  if (!toggle || !map || !baseLayerOSM || !baseLayerSAT) return;
+
+  const buttons = Array.from(toggle.querySelectorAll(".basemap-btn"));
+
+  const setActiveButton = (layerName) => {
+    buttons.forEach((btn) => {
+      const isActive = btn.dataset.basemap === layerName;
+      btn.classList.toggle("is-active", isActive);
+      btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+  };
+
+  const switchBasemap = (layerName) => {
+    if (layerName === currentBaseLayer) return;
+
+    if (layerName === "sat") {
+      if (map.hasLayer(baseLayerOSM)) map.removeLayer(baseLayerOSM);
+      if (!map.hasLayer(baseLayerSAT)) map.addLayer(baseLayerSAT);
+      currentBaseLayer = "sat";
+    } else {
+      if (map.hasLayer(baseLayerSAT)) map.removeLayer(baseLayerSAT);
+      if (!map.hasLayer(baseLayerOSM)) map.addLayer(baseLayerOSM);
+      currentBaseLayer = "osm";
+    }
+
+    setActiveButton(currentBaseLayer);
+  };
+
+  toggle.addEventListener("click", (event) => {
+    const btn = event.target.closest(".basemap-btn");
+    if (!btn) return;
+    switchBasemap(btn.dataset.basemap === "sat" ? "sat" : "osm");
+  });
+
+  setActiveButton(currentBaseLayer);
 }
 
 function handleMapClick(e) {
