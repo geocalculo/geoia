@@ -64,12 +64,20 @@ body {
   box-shadow: 0 16px 30px rgba(2, 6, 23, .5), 0 0 20px rgba(214, 162, 74, .22), inset 0 0 0 1px rgba(255, 255, 255, .03);
 }
 .summary-label {
-  color: rgba(200, 213, 231, .84);
-  font-size: .66rem;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 1.8px;
   text-transform: uppercase;
-  letter-spacing: .22em;
-  line-height: 1;
+
+  color: rgba(255, 220, 140, 0.92);
+
+  text-shadow:
+    0 0 8px rgba(255, 190, 80, 0.18);
+
+  opacity: 1;
+
+  line-height: 1.1;
 }
 #prc-count {
   color: #f4b55a;
