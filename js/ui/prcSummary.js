@@ -96,6 +96,10 @@
       return document.querySelector(config.countSelector);
     }
 
+    function getComunasCountEl() {
+      return document.querySelector("#comunas-count");
+    }
+
     function getItems() {
       const items = config.getItems();
       return Array.isArray(items) ? items : [];
@@ -141,9 +145,27 @@
       return Array.from(byKey.values());
     }
 
-    function render(total) {
+    function getUniqueVisibleComunas(visibles) {
+      const comunas = new Set();
+
+      visibles.forEach((item) => {
+        if (!item || typeof item !== "object") return;
+        const rawComuna = item.comuna;
+        if (rawComuna === null || rawComuna === undefined) return;
+
+        const comuna = String(rawComuna).trim();
+        if (!comuna) return;
+
+        comunas.add(comuna.toLowerCase());
+      });
+
+      return comunas.size;
+    }
+
+    function render(total, totalComunas) {
       const summaryEl = getSummaryEl();
       const countEl = getCountEl();
+      const comunasCountEl = getComunasCountEl();
 
       if (!summaryEl) {
         log("No se encontró el elemento del card", config.summarySelector);
@@ -154,11 +176,13 @@
         summaryEl.hidden = true;
         summaryEl.style.display = "none";
         if (countEl) countEl.textContent = "0";
+        if (comunasCountEl) comunasCountEl.textContent = "0";
         return;
       }
 
       if (countEl) {
         countEl.textContent = String(total);
+        if (comunasCountEl) comunasCountEl.textContent = String(totalComunas);
       } else {
         summaryEl.textContent = config.formatter(total);
       }
@@ -172,12 +196,14 @@
 
       const visibles = getUniqueVisibleItems();
       const total = visibles.length;
+      const totalComunas = getUniqueVisibleComunas(visibles);
 
-      log("Visibles:", total, visibles);
-      render(total);
+      log("Visibles:", total, visibles, "Comunas:", totalComunas);
+      render(total, totalComunas);
 
       return {
         total,
+        comunas: totalComunas,
         items: visibles
       };
     }

@@ -37,12 +37,12 @@ body {
 .prc-summary {
   position: relative;
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  min-width: clamp(140px, 18vw, 196px);
-  padding: 14px 18px 12px;
+  gap: 12px;
+  min-width: clamp(220px, 28vw, 320px);
+  padding: 10px 16px;
   border-radius: 16px;
   border: 1px solid rgba(214, 162, 74, .42);
   background: linear-gradient(145deg, rgba(13, 24, 44, .82), rgba(8, 15, 30, .9));
@@ -64,10 +64,9 @@ body {
   box-shadow: 0 16px 30px rgba(2, 6, 23, .5), 0 0 20px rgba(214, 162, 74, .22), inset 0 0 0 1px rgba(255, 255, 255, .03);
 }
 .summary-label {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-
-  letter-spacing: 1.8px;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
 
   color: rgba(255, 220, 140, 0.92);
@@ -77,16 +76,36 @@ body {
 
   opacity: 1;
 
-  line-height: 1.1;
+  line-height: 1;
 }
 #prc-count {
   color: #f4b55a;
-  font-size: clamp(1.85rem, 3.9vw, 2.5rem);
+  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
   font-weight: 800;
-  line-height: .95;
-  letter-spacing: .04em;
+  line-height: 1;
+  letter-spacing: .02em;
   font-variant-numeric: tabular-nums;
   text-shadow: 0 0 10px rgba(214, 162, 74, .45), 0 0 20px rgba(214, 162, 74, .2);
+}
+.summary-metric {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+#comunas-count {
+  color: #f4b55a;
+  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .02em;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 10px rgba(214, 162, 74, .45), 0 0 20px rgba(214, 162, 74, .2);
+}
+.summary-separator {
+  color: rgba(255, 220, 140, 0.5);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
 }
 
 /* Region */
@@ -250,8 +269,8 @@ main { flex: 1; padding: 10px 12px calc(var(--ribbon-h) + 18px); }
   .brand-title { font-size: 1.12rem; }
   .brand-subtitle { font-size: .82rem; }
   .brand-caption { font-size: .74rem; }
-  .summary-label { font-size: .68rem; }
-  #prc-count { font-size: 1rem; }
+  .summary-label { font-size: .62rem; }
+  #prc-count, #comunas-count { font-size: .92rem; }
 }
 
 .leaflet-container { background: #0f172a; }
@@ -260,17 +279,19 @@ main { flex: 1; padding: 10px 12px calc(var(--ribbon-h) + 18px); }
 
 @media (max-width: 640px) {
   .prc-summary {
-    min-width: 126px;
-    padding: 12px 14px 11px;
+    min-width: 100%;
+    max-width: 320px;
+    padding: 10px 12px;
     border-radius: 14px;
+    gap: 10px;
   }
 
   .summary-label {
-    font-size: .62rem;
-    letter-spacing: .19em;
+    font-size: .58rem;
+    letter-spacing: .14em;
   }
 
-  #prc-count {
-    font-size: clamp(1.55rem, 8.2vw, 2.05rem);
+  #prc-count, #comunas-count {
+    font-size: clamp(1.02rem, 4.8vw, 1.25rem);
   }
 }
