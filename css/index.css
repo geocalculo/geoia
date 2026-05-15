@@ -67,9 +67,45 @@ main { flex: 1; padding: 10px 12px calc(var(--ribbon-h) + 18px); }
 .map-search-title { font-weight: 700; font-size: .92rem; display: block; }
 .map-search-meta, .map-search-empty { color: var(--muted); font-size: .8rem; display: block; padding: 8px 12px; }
 
-/* Leaflet toggle */
-.leaflet-control-layers { font-size: .82rem; border-color: var(--border) !important; box-shadow: 0 6px 20px rgba(0,0,0,.25) !important; }
-.leaflet-top.leaflet-right { margin-top: 54px; }
+/* Basemap toggle */
+.map-basemap-toggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 4800;
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(7,14,27,.72);
+  backdrop-filter: blur(7px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.32);
+}
+.basemap-btn {
+  min-width: 56px;
+  height: 34px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  padding: 0 12px;
+  background: rgba(148,163,184,.12);
+  color: #dbe7fa;
+  font-weight: 700;
+  font-size: .76rem;
+  letter-spacing: .4px;
+  cursor: pointer;
+  transition: all .22s ease;
+}
+.basemap-btn:hover {
+  background: rgba(148,163,184,.24);
+  transform: translateY(-1px);
+}
+.basemap-btn.is-active {
+  background: rgba(214,162,74,.18);
+  border-color: rgba(214,162,74,.55);
+  color: #ffe7b5;
+  box-shadow: 0 0 0 1px rgba(214,162,74,.32), 0 0 18px rgba(214,162,74,.34);
+}
 
 /* Controls */
 .map-overlay-controls--bottom { position: absolute; right: 12px; bottom: 62px; z-index: 4500; display: flex; flex-direction: column; gap: 8px; }
@@ -78,7 +114,17 @@ main { flex: 1; padding: 10px 12px calc(var(--ribbon-h) + 18px); }
   border-radius: 8px; text-decoration: none; border: 1px solid rgba(255,255,255,.25);
   background: rgba(6,11,22,.9); color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.25);
 }
-.home-floating-btn { font-size: .95rem; }
+.home-floating-btn {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.home-floating-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(214,162,74,.6);
+  box-shadow: 0 0 0 1px rgba(214,162,74,.26), 0 8px 18px rgba(0,0,0,.32), 0 0 16px rgba(214,162,74,.25);
+}
 #mira-rifle { cursor: pointer; }
 #mira-rifle::before { content: "📍"; }
 
@@ -146,6 +192,8 @@ main { flex: 1; padding: 10px 12px calc(var(--ribbon-h) + 18px); }
   .controls { grid-template-columns: 1fr; }
   .map-container { height: calc(100vh - var(--header-h) - var(--ribbon-h) - 14px); min-height: 430px; }
   .map-search-wrap { width: calc(100vw - 24px); top: 10px; }
+  .map-basemap-toggle { top: 12px; right: 12px; padding: 5px; gap: 4px; }
+  .basemap-btn { min-width: 50px; height: 31px; padding: 0 10px; font-size: .72rem; }
   .hint { font-size: .72rem; max-width: calc(100vw - 24px); white-space: normal; text-align: center; }
   #visitor-counter { display: none; }
   .site-main { font-size: .78rem; }
