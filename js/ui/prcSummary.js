@@ -1,16 +1,3 @@
-// js/prcSummary.js
-// Card resumen de PRC visibles en la vista actual del mapa.
-// Requiere:
-// - Leaflet cargado globalmente (window.L)
-// - Un elemento #prc-summary con un hijo #prc-count en el HTML
-//
-// Uso desde index.js:
-//   const prcSummary = window.createPRCSummary({
-//     map,
-//     getItems: () => indiceBuscador
-//   });
-//   prcSummary.init();
-
 (function () {
   "use strict";
 
@@ -55,54 +42,58 @@
     );
   }
 
-  function defaultCardText(total) {
-    return total === 1
-      ? "En esta vista hay 1 plano regulador"
-      : `En esta vista hay ${total} planos reguladores`;
+  function asNumber(value) {
+    const n = Number(value);
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  function formatMiles(value) {
+    return Math.round(value).toLocaleString("es-CL");
   }
 
   function createPRCSummary(options) {
     const config = {
       map: options?.map || null,
-      getItems:
-        typeof options?.getItems === "function"
-          ? options.getItems
-          : () => [],
+      getItems: typeof options?.getItems === "function" ? options.getItems : () => [],
+      catalogUrl: options?.catalogUrl || "/capas/catalogo_prc.json",
       summarySelector: options?.summarySelector || "#prc-summary",
-      countSelector: options?.countSelector || "#prc-count",
-      emptyBehavior: options?.emptyBehavior || "hide", // "hide" | "show-zero"
-      debug: Boolean(options?.debug),
-      formatter:
-        typeof options?.formatter === "function"
-          ? options.formatter
-          : defaultCardText
+      emptyBehavior: options?.emptyBehavior || "hide",
+      debug: Boolean(options?.debug)
     };
 
     let map = config.map;
     let rafId = null;
     let isInitialized = false;
+    let itemsCache = [];
+    let hasLoadedCatalog = false;
 
     function log(...args) {
-      if (config.debug) {
-        console.log("[prcSummary]", ...args);
+      if (config.debug) console.log("[prcSummary]", ...args);
+    }
+
+    function getSummaryEl() { return document.querySelector(config.summarySelector); }
+    function getPRCCountEl() { return document.querySelector("#prc-count"); }
+    function getHectareasEl() { return document.querySelector("#hectareas-count"); }
+    function getZonasEl() { return document.querySelector("#zonas-count"); }
+
+    async function loadCatalog() {
+      if (hasLoadedCatalog) return;
+      hasLoadedCatalog = true;
+
+      try {
+        const response = await fetch(config.catalogUrl, { cache: "force-cache" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        const list = Array.isArray(data) ? data : Array.isArray(data?.items) ? data.items : [];
+        itemsCache = list.filter((item) => item && typeof item === "object" && isValidBBox(item.bbox));
+        log("Catálogo cargado:", itemsCache.length, "desde", config.catalogUrl);
+      } catch (error) {
+        const fallback = config.getItems();
+        itemsCache = Array.isArray(fallback)
+          ? fallback.filter((item) => item && typeof item === "object" && isValidBBox(item.bbox))
+          : [];
+        log("No se pudo cargar catálogo, usando fallback getItems():", error);
       }
-    }
-
-    function getSummaryEl() {
-      return document.querySelector(config.summarySelector);
-    }
-
-    function getCountEl() {
-      return document.querySelector(config.countSelector);
-    }
-
-    function getComunasCountEl() {
-      return document.querySelector("#comunas-count");
-    }
-
-    function getItems() {
-      const items = config.getItems();
-      return Array.isArray(items) ? items : [];
     }
 
     function intersectsCurrentView(itemBBox) {
@@ -110,109 +101,71 @@
       const viewBounds = map.getBounds();
       const itemBounds = buildLeafletBounds(itemBBox);
 
-      if (!viewBounds || !itemBounds || !viewBounds.isValid() || !itemBounds.isValid()) {
-        return false;
-      }
-
+      if (!viewBounds || !itemBounds || !viewBounds.isValid() || !itemBounds.isValid()) return false;
       return viewBounds.intersects(itemBounds);
     }
 
     function getVisibleItems() {
-      const items = getItems();
-
-      return items.filter((item) => {
-        if (!item || typeof item !== "object") return false;
-        if (!item.bbox) return false;
-        return intersectsCurrentView(item.bbox);
-      });
-    }
-
-    function getUniqueVisibleItems() {
-      const visibles = getVisibleItems();
       const byKey = new Map();
-
-      visibles.forEach((item) => {
-        // Preferimos archivo como clave única; si no existe, usamos nombre+bbox
-        const key =
-          item.archivo ||
-          `${item.nombre || ""}__${JSON.stringify(item.bbox || [])}`;
-
-        if (!byKey.has(key)) {
-          byKey.set(key, item);
-        }
-      });
-
+      for (const item of itemsCache) {
+        if (!intersectsCurrentView(item.bbox)) continue;
+        const key = item.archivo || item.id || `${item.nombre || ""}__${JSON.stringify(item.bbox)}`;
+        if (!byKey.has(key)) byKey.set(key, item);
+      }
       return Array.from(byKey.values());
     }
 
-    function getUniqueVisibleComunas(visibles) {
-      const comunas = new Set();
+    function buildMetrics(visibles) {
+      let totalHas = 0;
+      let totalZonas = 0;
 
-      visibles.forEach((item) => {
-        if (!item || typeof item !== "object") return;
-        const rawComuna = item.comuna;
-        if (rawComuna === null || rawComuna === undefined) return;
+      for (const item of visibles) {
+        totalHas += asNumber(item.superficie_ha);
+        totalZonas += asNumber(item.zonas_unicas);
+      }
 
-        const comuna = String(rawComuna).trim();
-        if (!comuna) return;
-
-        comunas.add(comuna.toLowerCase());
-      });
-
-      return comunas.size;
+      return {
+        totalPRC: visibles.length,
+        totalHas,
+        totalZonas: Math.round(totalZonas)
+      };
     }
 
-    function render(total, totalComunas) {
+    function render(metrics) {
       const summaryEl = getSummaryEl();
-      const countEl = getCountEl();
-      const comunasCountEl = getComunasCountEl();
+      const prcEl = getPRCCountEl();
+      const hasEl = getHectareasEl();
+      const zonasEl = getZonasEl();
 
-      if (!summaryEl) {
-        log("No se encontró el elemento del card", config.summarySelector);
-        return;
-      }
+      if (!summaryEl) return;
 
-      if (total <= 0 && config.emptyBehavior === "hide") {
+      if (metrics.totalPRC <= 0 && config.emptyBehavior === "hide") {
         summaryEl.hidden = true;
         summaryEl.style.display = "none";
-        if (countEl) countEl.textContent = "0";
-        if (comunasCountEl) comunasCountEl.textContent = "0";
+        if (prcEl) prcEl.textContent = "0";
+        if (hasEl) hasEl.textContent = "0";
+        if (zonasEl) zonasEl.textContent = "0";
         return;
       }
 
-      if (countEl) {
-        countEl.textContent = String(total);
-        if (comunasCountEl) comunasCountEl.textContent = String(totalComunas);
-      } else {
-        summaryEl.textContent = config.formatter(total);
-      }
+      if (prcEl) prcEl.textContent = formatMiles(metrics.totalPRC);
+      if (hasEl) hasEl.textContent = formatMiles(metrics.totalHas);
+      if (zonasEl) zonasEl.textContent = formatMiles(metrics.totalZonas);
 
       summaryEl.hidden = false;
       summaryEl.style.display = "";
     }
 
     function update() {
-      if (!map) return;
-
-      const visibles = getUniqueVisibleItems();
-      const total = visibles.length;
-      const totalComunas = getUniqueVisibleComunas(visibles);
-
-      log("Visibles:", total, visibles, "Comunas:", totalComunas);
-      render(total, totalComunas);
-
-      return {
-        total,
-        comunas: totalComunas,
-        items: visibles
-      };
+      if (!map) return null;
+      const visibles = getVisibleItems();
+      const metrics = buildMetrics(visibles);
+      render(metrics);
+      return { ...metrics, items: visibles };
     }
 
     function scheduleUpdate() {
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
-
+      if (rafId) cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         rafId = null;
         update();
@@ -221,7 +174,6 @@
 
     function bindMapEvents() {
       if (!map) return;
-
       map.on("moveend", scheduleUpdate);
       map.on("zoomend", scheduleUpdate);
       map.on("resize", scheduleUpdate);
@@ -229,7 +181,6 @@
 
     function unbindMapEvents() {
       if (!map) return;
-
       map.off("moveend", scheduleUpdate);
       map.off("zoomend", scheduleUpdate);
       map.off("resize", scheduleUpdate);
@@ -240,34 +191,26 @@
         scheduleUpdate();
         return;
       }
+      if (!map) throw new Error("PRCSummary: falta map en la configuración.");
+      if (!window.L) throw new Error("PRCSummary: Leaflet no está disponible en window.L.");
 
-      if (!map) {
-        throw new Error("PRCSummary: falta map en la configuración.");
-      }
-
-      if (!window.L) {
-        throw new Error("PRCSummary: Leaflet no está disponible en window.L.");
-      }
-
-      bindMapEvents();
-      isInitialized = true;
-      scheduleUpdate();
+      loadCatalog()
+        .finally(() => {
+          bindMapEvents();
+          isInitialized = true;
+          scheduleUpdate();
+        });
     }
 
     function destroy() {
       unbindMapEvents();
-
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
-      }
-
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
       isInitialized = false;
     }
 
     function setMap(nextMap) {
       if (map === nextMap) return;
-
       unbindMapEvents();
       map = nextMap;
       if (isInitialized) {
@@ -276,13 +219,7 @@
       }
     }
 
-    return {
-      init,
-      update,
-      destroy,
-      setMap,
-      getVisibleItems: getUniqueVisibleItems
-    };
+    return { init, update, destroy, setMap, getVisibleItems };
   }
 
   window.createPRCSummary = createPRCSummary;

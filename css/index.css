@@ -41,7 +41,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  min-width: clamp(220px, 28vw, 320px);
+  min-width: clamp(260px, 38vw, 520px);
   padding: 10px 16px;
   border-radius: 16px;
   border: 1px solid rgba(214, 162, 74, .42);
@@ -64,7 +64,7 @@ body {
   box-shadow: 0 16px 30px rgba(2, 6, 23, .5), 0 0 20px rgba(214, 162, 74, .22), inset 0 0 0 1px rgba(255, 255, 255, .03);
 }
 .summary-label {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 1.4px;
   text-transform: uppercase;
@@ -78,9 +78,11 @@ body {
 
   line-height: 1;
 }
-#prc-count {
+#prc-count,
+#hectareas-count,
+#zonas-count {
   color: #f4b55a;
-  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: .02em;
@@ -91,15 +93,6 @@ body {
   display: inline-flex;
   align-items: baseline;
   gap: 8px;
-}
-#comunas-count {
-  color: #f4b55a;
-  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: .02em;
-  font-variant-numeric: tabular-nums;
-  text-shadow: 0 0 10px rgba(214, 162, 74, .45), 0 0 20px rgba(214, 162, 74, .2);
 }
 .summary-separator {
   color: rgba(255, 220, 140, 0.5);
