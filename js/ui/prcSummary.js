@@ -6,8 +6,9 @@
   }
 
   function isValidBBox(bbox) {
-    return (
-      Array.isArray(bbox) &&
+    if (!Array.isArray(bbox)) return false;
+
+    const isLeafletNested =
       bbox.length === 2 &&
       Array.isArray(bbox[0]) &&
       Array.isArray(bbox[1]) &&
@@ -16,17 +17,37 @@
       isFiniteNumber(bbox[0][0]) &&
       isFiniteNumber(bbox[0][1]) &&
       isFiniteNumber(bbox[1][0]) &&
-      isFiniteNumber(bbox[1][1])
-    );
+      isFiniteNumber(bbox[1][1]);
+
+    const isFlatLonLat =
+      bbox.length === 4 &&
+      isFiniteNumber(bbox[0]) &&
+      isFiniteNumber(bbox[1]) &&
+      isFiniteNumber(bbox[2]) &&
+      isFiniteNumber(bbox[3]);
+
+    return isLeafletNested || isFlatLonLat;
   }
 
   function normalizeBBox(bbox) {
     if (!isValidBBox(bbox)) return null;
 
-    const south = Number(bbox[0][0]);
-    const west = Number(bbox[0][1]);
-    const north = Number(bbox[1][0]);
-    const east = Number(bbox[1][1]);
+    let south;
+    let west;
+    let north;
+    let east;
+
+    if (bbox.length === 4) {
+      west = Number(bbox[0]);
+      south = Number(bbox[1]);
+      east = Number(bbox[2]);
+      north = Number(bbox[3]);
+    } else {
+      south = Number(bbox[0][0]);
+      west = Number(bbox[0][1]);
+      north = Number(bbox[1][0]);
+      east = Number(bbox[1][1]);
+    }
 
     if (south > north || west > east) return null;
     return { south, west, north, east };
@@ -121,7 +142,7 @@
 
       for (const item of visibles) {
         totalHas += asNumber(item.superficie_ha);
-        totalZonas += asNumber(item.zonas_unicas);
+        totalZonas += asNumber(item.zonas_unicas || item.total_zonas_unicas);
       }
 
       return {
