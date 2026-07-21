@@ -1,0 +1,227 @@
+{
+  "region": "Región de Antofagasta",
+  "codigo_region": "02",
+  "carpeta": "capas_02",
+  "instrumentos": [
+    {
+      "archivo": "PRC_02_Antofagasta.kml",
+      "nombre": "PRC Antofagasta",
+      "tipo": "PRC",
+      "comuna": "Antofagasta",
+      "bbox": [
+        [-23.844938890225638, -70.63254459793495],
+        [-23.294359235402805, -70.23959100734548]
+      ]
+    },
+    {
+      "archivo": "PRC_02_Calama.kml",
+      "nombre": "PRC Calama",
+      "tipo": "PRC",
+      "comuna": "Calama",
+      "bbox": [
+        [-22.514965315266977, -68.95201789026173],
+        [-22.430063612669617, -68.88594979078141]
+      ]
+    },
+    {
+      "archivo": "PRC_02_Mejillones.kml",
+      "nombre": "PRC Mejillones",
+      "tipo": "PRC",
+      "comuna": "Mejillones",
+      "bbox": [
+        [-23.122736460776146, -70.58250916565979],
+        [-22.89135289374183, -70.27826455945488]
+      ]
+    },
+    {
+      "archivo": "PRC_02_Mejillones_Meseta.kml",
+      "nombre": "PRC Mejillones Meseta",
+      "tipo": "PRC",
+      "comuna": "Mejillones",
+      "bbox": [
+        [-23.120638615766214, -70.44079608423765],
+        [-23.078788421130227, -70.36915700777682]
+      ]
+    },
+    {
+      "archivo": "PRC_02_Mejillones_Portuaria.kml",
+      "nombre": "PRC Mejillones Portuaria",
+      "tipo": "PRC",
+      "comuna": "Mejillones",
+      "bbox": [
+        [-23.122736460776146, -70.58250916565979],
+        [-22.89135289374183, -70.27826455945488]
+      ]
+    },
+    {
+      "archivo": "PRC_02_Ollague.kml",
+      "nombre": "PRC Ollagüe",
+      "tipo": "PRC",
+      "comuna": "Ollagüe",
+      "bbox": [
+        [-21.229567273748178, -68.30049585395412],
+        [-21.02010766103596, -68.19799036575275]
+      ]
+    },
+    {
+      "archivo": "PRC_02_SanPedroAtacama.kml",
+      "nombre": "PRC San Pedro de Atacama",
+      "tipo": "PRC",
+      "comuna": "San Pedro de Atacama",
+      "bbox": [
+        [-23.017730438358347, -68.27915919754834],
+        [-22.777061289197497, -67.9691919057454]
+      ]
+    },
+    {
+      "archivo": "PRC_02_SanPedroAtacama_Peine.kml",
+      "nombre": "PRC Peine",
+      "tipo": "PRC",
+      "comuna": "Peine (San Pedro de Atacama)",
+      "bbox": [
+        [-23.69897635328953, -68.10035598522269],
+        [-23.53193814120273, -67.98470967960394]
+      ]
+    },
+    {
+      "archivo": "PRC_02_SanPedroAtacama_Toconao.kml",
+      "nombre": "PRC Toconao",
+      "tipo": "PRC",
+      "comuna": "Toconao (San Pedro de Atacama)",
+      "bbox": [
+        [-23.238153853921636, -68.08988981583796],
+        [-23.10918793992017, -68.01346648112721]
+      ]
+    },
+    {
+      "archivo": "PRC_02_Taltal.kml",
+      "nombre": "PRC Taltal",
+      "tipo": "PRC",
+      "comuna": "Taltal",
+      "bbox": [
+        [-25.478559863171935, -70.60841322690248],
+        [-24.93364056746467, -69.57644052186494]
+      ]
+    },
+    {
+      "archivo": "PRC_02_Tocopilla.kml",
+      "nombre": "PRC Tocopilla",
+      "tipo": "PRC",
+      "comuna": "Tocopilla",
+      "bbox": [
+        [-22.1647354956917, -70.2459087371817],
+        [-22.03087587925426, -70.17609958598864]
+      ]
+    },
+    {
+      "archivo": "PRC_Sierra_Gorda.kml",
+      "nombre": "PRC Sierra Gorda",
+      "tipo": "PRC",
+      "comuna": "Sierra Gorda",
+      "bbox": [
+        [-23.763294632840223, -69.38124067749189],
+        [-22.94900741125403, -68.69208587961998]
+      ]
+    },
+    {
+      "archivo": "SECC_02_Antofagasta_LaChimba.kml",
+      "nombre": "SCC La Chimba",
+      "tipo": "SCC",
+      "comuna": "Antofagasta",
+      "bbox": [
+        [-23.570609118621125, -70.40967215056465],
+        [-23.532665162480157, -70.38864461370152]
+      ]
+    },
+    {
+      "archivo": "SECC_02_Antofagasta_LaNegra.kml",
+      "nombre": "SCC La Negra",
+      "tipo": "SCC",
+      "comuna": "Antofagasta",
+      "bbox": [
+        [-23.84397215812336, -70.34030392222029],
+        [-23.72263698040026, -70.27634009147204]
+      ]
+    },
+    {
+      "archivo": "SECC_02_Calama_SanJuan.kml",
+      "nombre": "SCC San Juan",
+      "tipo": "SCC",
+      "comuna": "Calama",
+      "bbox": [
+        [-22.40295342146663, -68.92140627047683],
+        [-22.345568765457952, -68.86780100863255]
+      ]
+    },
+    {
+      "archivo": "SECC_02_Calama_Topater.kml",
+      "nombre": "SCC Topater",
+      "tipo": "SCC",
+      "comuna": "Calama",
+      "bbox": [
+        [-22.452005076100632, -68.95398915304849],
+        [-22.40286217284219, -68.92782466013737]
+      ]
+    },
+    {
+      "archivo": "SECC_02_Mejillones_CostaneraSur.kml",
+      "nombre": "SCC Costanera Sur",
+      "tipo": "SCC",
+      "comuna": "Mejillones",
+      "bbox": [
+        [-23.119533889026172, -70.50628993227092],
+        [-23.03932097043315, -70.43550333780321]
+      ]
+    },
+    {
+      "archivo": "SECC_02_Mejillones_IndPequena.kml",
+      "nombre": "SCC Industrial Pequeña",
+      "tipo": "SCC",
+      "comuna": "Mejillones",
+      "bbox": [
+        [-23.1141240269307, -70.44177135544399],
+        [-23.09646905065648, -70.42752774181479]
+      ]
+    },
+    {
+      "archivo": "SECC_02_Mejillones_ItataHornitos.kml",
+      "nombre": "SCC Itata Hornitos",
+      "tipo": "SCC",
+      "comuna": "Mejillones",
+      "bbox": [
+        [-22.98904090269121, -70.32784785932395],
+        [-22.856874218270015, -70.27153275772378]
+      ]
+    },
+    {
+      "archivo": "SECC_02_SanPedroAtacama_Pozo.kml",
+      "nombre": "SCC Pozo",
+      "tipo": "SCC",
+      "comuna": "San Pedro de Atacama",
+      "bbox": [
+        [-22.91704650894574, -68.24072331621002],
+        [-22.89184326965713, -68.20964603869084]
+      ]
+    },
+    {
+      "archivo": "SECC_02_SanPedroAtacama_Quitar.kml",
+      "nombre": "SCC Quitor",
+      "tipo": "SCC",
+      "comuna": "San Pedro de Atacama",
+      "bbox": [
+        [-22.925487306266186, -68.22013809438038],
+        [-22.905405066968067, -68.18366619263076]
+      ]
+    },
+    {
+      "archivo": "SECC_02_Taltal_Cifuncho.kml",
+      "nombre": "SCC Cifuncho",
+      "tipo": "SCC",
+      "comuna": "Taltal",
+      "bbox": [
+        [-25.067565671953013, -70.7258340635146],
+        [-25.015594480942246, -70.69068249897424]
+      ]
+    }
+  ]
+}

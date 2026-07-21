@@ -1,0 +1,231 @@
+{
+  "region": "Región de Coquimbo",
+  "codigo_region": "04",
+  "carpeta": "capas_04",
+  "instrumentos": [
+    {
+      "archivo": "IPT_04_PRC_Andacollo.kml",
+      "nombre": "PRC Andacollo",
+      "tipo": "PRC",
+      "comuna": "Andacollo",
+      "bbox": [
+        [
+          -30.2622764546059,
+          -71.0974812470956
+        ],
+        [
+          -30.2237881452138,
+          -71.0750875349344
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_Combarbala.kml",
+      "nombre": "PRC Combarbala",
+      "tipo": "PRC",
+      "comuna": "Combarbala",
+      "bbox": [
+        [
+          -31.1899059228663,
+          -71.016300039066
+        ],
+        [
+          -31.1665417000754,
+          -70.9926818573777
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_Coquimbo.kml",
+      "nombre": "PRC Coquimbo",
+      "tipo": "PRC",
+      "comuna": "Coquimbo",
+      "bbox": [
+        [
+          -30.3076321263573,
+          -71.5752467661592
+        ],
+        [
+          -29.9326561892904,
+          -71.2349671621652
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_Illapel.kml",
+      "nombre": "PRC Illapel",
+      "tipo": "PRC",
+      "comuna": "Illapel",
+      "bbox": [
+        [
+          -31.6567769394122,
+          -71.2071745213039
+        ],
+        [
+          -31.6147897691808,
+          -71.1403308532121
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_La_Higuera.kml",
+      "nombre": "PRC La Higuera",
+      "tipo": "PRC",
+      "comuna": "La Higuera",
+      "bbox": [
+        [
+          -29.630574941059,
+          -71.469444747319
+        ],
+        [
+          -29.2362649380017,
+          -71.00862572453
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_La_Serena.kml",
+      "nombre": "PRC La Serena",
+      "tipo": "PRC",
+      "comuna": "La Serena",
+      "bbox": [
+        [
+          -29.9737938903426,
+          -71.3019723136044
+        ],
+        [
+          -29.7611960001941,
+          -71.1911443880359
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_Los_Vilos.kml",
+      "nombre": "PRC Los Vilos",
+      "tipo": "PRC",
+      "comuna": "Los Vilos",
+      "bbox": [
+        [
+          -32.1556750479848,
+          -71.5382012547443
+        ],
+        [
+          -31.8885953902133,
+          -71.4902763641755
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_Monte_Patria.kml",
+      "nombre": "PRC Monte Patria",
+      "tipo": "PRC",
+      "comuna": "Monte Patria",
+      "bbox": [
+        [
+          -30.974871551949,
+          -71.0240057963353
+        ],
+        [
+          -30.6778957454276,
+          -70.6537283154516
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_Ovalle.kml",
+      "nombre": "PRC Ovalle",
+      "tipo": "PRC",
+      "comuna": "Ovalle",
+      "bbox": [
+        [
+          -30.6532188737813,
+          -71.2521021132886
+        ],
+        [
+          -30.534145799006,
+          -71.1548008047852
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_Paiguano.kml",
+      "nombre": "PRC Paiguano",
+      "tipo": "PRC",
+      "comuna": "Paiguano",
+      "bbox": [
+        [
+          -30.1378155924586,
+          -70.5289417159002
+        ],
+        [
+          -30.0130356034591,
+          -70.4878897131508
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_Punitaqui.kml",
+      "nombre": "PRC Punitaqui",
+      "tipo": "PRC",
+      "comuna": "Punitaqui",
+      "bbox": [
+        [
+          -30.8494565378584,
+          -71.2733070189831
+        ],
+        [
+          -30.7890331348724,
+          -71.2424583359302
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_Rio_Hurtado.kml",
+      "nombre": "PRC Rio Hurtado",
+      "tipo": "PRC",
+      "comuna": "Rio Hurtado",
+      "bbox": [
+        [
+          -30.4131909238773,
+          -70.9555445131494
+        ],
+        [
+          -30.2735310985754,
+          -70.6646572012605
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_Salamanca.kml",
+      "nombre": "PRC Salamanca",
+      "tipo": "PRC",
+      "comuna": "Salamanca",
+      "bbox": [
+        [
+          -31.7892179624078,
+          -70.9851948084174
+        ],
+        [
+          -31.766813546433,
+          -70.9533260232541
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_04_PRC_Vicuna.kml",
+      "nombre": "PRC Vicuna",
+      "tipo": "PRC",
+      "comuna": "Vicuna",
+      "bbox": [
+        [
+          -30.046450740465,
+          -70.9782503140919
+        ],
+        [
+          -29.9484339816155,
+          -70.5531464837572
+        ]
+      ]
+    }
+  ]
+}

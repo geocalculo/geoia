@@ -1,0 +1,44 @@
+{
+  "site": {
+    "id": "geox",
+    "name": "GeoX",
+    "title": "GeoX | Plataforma Territorial Genérica",
+    "subtitle": "Análisis territorial basado en POI",
+    "color": "#22c55e"
+  },
+  "index": {
+    "summary": {
+      "kpi_1_label": "Objetos visibles",
+      "kpi_2_label": "Áreas visibles"
+    },
+    "searchPlaceholder": "Buscar objeto territorial, área o lugar...",
+    "panelTerritorial": true
+  },
+  "card": {
+    "title": "GeoX | CARD PRO",
+    "subtitle": "Análisis territorial del POI",
+    "scale": "1:10.000",
+    "kpis": [
+      "KPI_1",
+      "KPI_2",
+      "KPI_3",
+      "KPI_4"
+    ],
+    "panels": [
+      "Resumen Ejecutivo",
+      "KPI",
+      "Análisis",
+      "Mapa de Análisis",
+      "Tabla de Datos",
+      "Gráficos"
+    ]
+  },
+  "layers": {
+    "catalog": "capas/catalogo.geojson",
+    "data": "capas/data.geojson"
+  },
+  "exports": {
+    "kml": true,
+    "pdf": true
+  }
+}

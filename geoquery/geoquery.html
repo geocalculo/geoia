@@ -1,0 +1,2517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoQuery | GeoIPT</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root {
+      --header-bg: #102a43;
+      --header-border: #38bdf8;
+      --page-bg: #f4f6f8;
+      --text: #1f2933;
+      --muted: #64748b;
+      --panel: #ffffff;
+      --panel-soft: #f8fafc;
+      --border: #d9e2ec;
+      --accent: #0ea5e9;
+      --accent-dark: #0369a1;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --shadow: 0 20px 45px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--page-bg);
+      color: var(--text);
+    }
+
+    body {
+      line-height: 1.5;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main-header {
+      background: var(--header-bg);
+      color: #ffffff;
+      display: grid;
+      grid-template-columns: minmax(260px, 420px) 1fr;
+      align-items: center;
+      gap: 16px;
+      min-height: 86px;
+      padding: 12px 18px;
+      border-bottom: 3px solid var(--header-border);
+    }
+
+    .brand-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .site-title {
+      margin: 0;
+      color: #ffffff;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .site-subtitle {
+      margin: 0;
+      color: #cbd5e1;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .site-description {
+      margin: 0;
+      color: #dbeafe;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .header-note {
+      justify-self: end;
+      max-width: 420px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #e0f2fe;
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .content {
+      width: min(1120px, calc(100% - 32px));
+      margin: 18px auto 32px;
+      flex: 1;
+    }
+
+    .top-actions {
+      width: min(1120px, calc(100% - 32px));
+      margin: 18px auto 0;
+      display: flex;
+      justify-content: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .card,
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .card {
+      padding: 16px;
+      min-height: 104px;
+    }
+
+    .card-label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card-value {
+      display: block;
+      margin-top: 8px;
+      color: #102a43;
+      font-size: clamp(18px, 2.4vw, 24px);
+      font-weight: 800;
+      word-break: break-word;
+    }
+
+    .card-value.status-ok {
+      color: var(--success);
+    }
+
+    .card-value.status-error {
+      color: var(--warning);
+    }
+
+    .geoquery-section {
+      scroll-margin-top: 18px;
+    }
+
+    .geoquery-primary-grid,
+    .geoquery-secondary-grid {
+      display: grid;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .geoquery-primary-grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      margin-bottom: 18px;
+    }
+
+    .geoquery-secondary-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .panel {
+      padding: clamp(18px, 3vw, 28px);
+    }
+
+    .panel h2,
+    .panel h3 {
+      margin: 0 0 16px;
+      color: #102a43;
+      line-height: 1.2;
+    }
+
+    .panel h2 {
+      font-size: 24px;
+    }
+
+    .panel h3 {
+      font-size: 20px;
+    }
+
+    .section-title {
+      margin: 0 0 14px;
+      color: #102a43;
+      font-size: 20px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .placeholder-text {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .message {
+      padding: 16px;
+      border-radius: 14px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      font-weight: 700;
+    }
+
+    .details {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: minmax(150px, 220px) 1fr;
+      gap: 14px;
+      padding: 13px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      background: var(--panel-soft);
+    }
+
+    .detail-row dt {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .detail-row dd {
+      margin: 0;
+      color: #0f172a;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .visual-panel {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    #geoquery-map {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      margin-top: 14px;
+      border: 1px solid #bfdbfe;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: #e2e8f0;
+    }
+
+    .map-toggle {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 1005;
+      display: flex;
+      gap: 6px;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(20, 20, 20, 0.72);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    .map-toggle-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+      color: #ffffff;
+      background: transparent;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    }
+
+    .map-toggle-btn:hover {
+      background: transparent;
+      transform: translateY(-1px);
+    }
+
+    .map-toggle-btn.active {
+      color: #111111;
+      background: #ffffff;
+    }
+
+    .visual-caption {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .geoipt-distance-label {
+      border: 0;
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(15, 23, 42, 0.88);
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.24);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.15;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .geoipt-distance-label::before {
+      display: none;
+    }
+
+    .panel-header p {
+      margin: 0 0 16px;
+      color: var(--muted);
+    }
+
+    .panel-body {
+      margin-top: 16px;
+    }
+
+    .related-feature-grid,
+    .geometry-descriptor-grid,
+    .metadata-compact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .metadata-section {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .metadata-section:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .metadata-section h4 {
+      margin: 0 0 12px;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .metadata-compact-item,
+    .metadata-long-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px;
+      min-width: 0;
+    }
+
+    .metadata-compact-item span,
+    .metadata-long-item span {
+      display: block;
+      margin-bottom: 5px;
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .metadata-compact-item strong,
+    .metadata-long-item div {
+      display: block;
+      color: #0f172a;
+      font-size: 15px;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+    }
+
+    .metadata-long-stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .geometry-descriptor-grid {
+      margin-top: 16px;
+    }
+
+    .related-feature-item,
+    .geometry-descriptor-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .related-feature-item span,
+    .geometry-descriptor-item span {
+      display: block;
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    .related-feature-item strong,
+    .geometry-descriptor-item strong {
+      display: block;
+      font-size: 16px;
+      color: #0f172a;
+      overflow-wrap: anywhere;
+    }
+
+    .actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .back-button,
+    .download-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .back-button {
+      background: #ffffff;
+      color: #1f2a35;
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    .back-button:hover,
+    .back-button:focus {
+      background: #eef3f8;
+      color: #102a43;
+      transform: translateY(-1px);
+    }
+
+    .download-button {
+      background: #e2e8f0;
+      color: #64748b;
+    }
+
+    .download-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    /* Piloto visual GeoQuery: densidad informativa tipo feed profesional, limitada al cuerpo analítico. */
+    .geoquery-analysis {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.35;
+    }
+
+    .geoquery-analysis.content {
+      margin-top: 14px;
+      margin-bottom: 24px;
+    }
+
+    .geoquery-analysis .cards {
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .geoquery-analysis .card,
+    .geoquery-analysis .panel {
+      border-color: #dfe6ee;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.07);
+    }
+
+    .geoquery-analysis .card {
+      min-height: 76px;
+      padding: 10px 12px;
+    }
+
+    .geoquery-analysis .card-label {
+      font-size: 11px;
+      letter-spacing: 0.055em;
+      line-height: 1.2;
+    }
+
+    .geoquery-analysis .card-value {
+      margin-top: 4px;
+      font-size: clamp(16px, 1.8vw, 20px);
+      line-height: 1.22;
+      font-weight: 750;
+    }
+
+    .geoquery-analysis .geoquery-primary-grid,
+    .geoquery-analysis .geoquery-secondary-grid {
+      gap: 12px;
+    }
+
+    .geoquery-analysis .geoquery-primary-grid {
+      margin-bottom: 12px;
+    }
+
+    .geoquery-analysis .panel {
+      padding: clamp(12px, 2vw, 18px);
+    }
+
+    .geoquery-analysis .panel h2,
+    .geoquery-analysis .panel h3,
+    .geoquery-analysis .section-title {
+      margin-bottom: 10px;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+    }
+
+    .geoquery-analysis .panel h2 {
+      font-size: 20px;
+    }
+
+    .geoquery-analysis .panel h3,
+    .geoquery-analysis .section-title {
+      font-size: 17px;
+    }
+
+    .geoquery-analysis .placeholder-text,
+    .geoquery-analysis .panel-header p,
+    .geoquery-analysis .visual-caption {
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .geoquery-analysis .panel-header p {
+      margin-bottom: 10px;
+    }
+
+    .geoquery-analysis .panel-body {
+      margin-top: 10px;
+    }
+
+    .geoquery-analysis .details {
+      gap: 7px;
+    }
+
+    .geoquery-analysis .detail-row {
+      grid-template-columns: minmax(132px, 190px) 1fr;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 9px;
+    }
+
+    .geoquery-analysis .detail-row dt,
+    .geoquery-analysis .detail-row dd {
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .geoquery-analysis #geoquery-map {
+      height: 360px;
+      margin-top: 10px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+    }
+
+    .geoquery-analysis .visual-caption {
+      margin-top: 8px;
+    }
+
+    .geoquery-analysis .related-feature-grid,
+    .geoquery-analysis .geometry-descriptor-grid,
+    .geoquery-analysis .metadata-compact-grid {
+      gap: 8px;
+    }
+
+    .geoquery-analysis .metadata-section {
+      margin-top: 12px;
+      padding-top: 12px;
+    }
+
+    .geoquery-analysis .metadata-section h4 {
+      margin-bottom: 8px;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+    }
+
+    .geoquery-analysis .metadata-compact-item,
+    .geoquery-analysis .metadata-long-item,
+    .geoquery-analysis .related-feature-item,
+    .geoquery-analysis .geometry-descriptor-item {
+      border-radius: 9px;
+      padding: 9px 10px;
+    }
+
+    .geoquery-analysis .metadata-compact-item span,
+    .geoquery-analysis .metadata-long-item span,
+    .geoquery-analysis .related-feature-item span,
+    .geoquery-analysis .geometry-descriptor-item span {
+      margin-bottom: 3px;
+      font-size: 11px;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+
+    .geoquery-analysis .metadata-compact-item strong,
+    .geoquery-analysis .metadata-long-item div,
+    .geoquery-analysis .related-feature-item strong,
+    .geoquery-analysis .geometry-descriptor-item strong {
+      font-size: 13px;
+      line-height: 1.32;
+      font-weight: 700;
+    }
+
+    .geoquery-analysis .metadata-long-stack {
+      gap: 8px;
+    }
+
+    .geoquery-analysis .actions {
+      margin-top: 12px;
+      gap: 8px;
+    }
+
+    @media (max-width: 800px) {
+      .related-feature-grid,
+      .geometry-descriptor-grid,
+      .metadata-compact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .main-header,
+      .geoquery-primary-grid,
+      .geoquery-secondary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-note {
+        justify-self: stretch;
+        text-align: left;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .related-feature-grid,
+      .geometry-descriptor-grid,
+      .metadata-compact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .content,
+      .top-actions {
+        width: min(100% - 20px, 1120px);
+        margin-top: 16px;
+      }
+
+      #geoquery-map,
+      .geoquery-analysis #geoquery-map {
+        height: 320px;
+      }
+
+      .cards,
+      .detail-row,
+      .geoquery-analysis .detail-row {
+        grid-template-columns: 1fr;
+      }
+
+      .card,
+      .geoquery-analysis .card {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- =====================================================
+         01. HEADER GEOQUERY
+    ===================================================== -->
+    <header id="geoquery-header" class="main-header geoquery-section">
+      <h2 class="sr-only">Header GeoQuery</h2>
+      <div class="brand-block">
+        <h1 class="site-title">GeoQuery | GeoIPT</h1>
+        <p class="site-subtitle">Consulta territorial del punto seleccionado</p>
+        <p class="site-description">Primera prueba de GeoQuery</p>
+      </div>
+      <div class="header-note" aria-label="Estado de versión">
+        Punto, coordenadas y estado básico para preparar el análisis territorial.
+      </div>
+    </header>
+
+    <nav class="top-actions" aria-label="Acciones de GeoQuery">
+      <a class="back-button" id="back-link" href="../index.html">Volver a GeoIPT</a>
+      <button class="download-button" type="button" disabled title="Disponible cuando exista análisis territorial.">Descargar PDF</button>
+      <button class="download-button" type="button" disabled title="Disponible cuando exista análisis territorial.">Descargar KML</button>
+    </nav>
+
+    <main class="content geoquery-analysis">
+      <!-- =====================================================
+           02. CARDS RESUMEN DE GEOQUERY
+      ===================================================== -->
+      <section id="geoquery-summary-cards" class="geoquery-section" aria-label="Resumen de consulta">
+        <h2 class="section-title">Resumen de consulta</h2>
+        <div class="cards">
+        <article class="card">
+          <span class="card-label">Latitud</span>
+          <span class="card-value" id="card-lat">—</span>
+        </article>
+        <article class="card">
+          <span class="card-label">Longitud</span>
+          <span class="card-value" id="card-lon">—</span>
+        </article>
+        <article class="card">
+          <span class="card-label">Relación</span>
+          <span class="card-value" id="card-site">—</span>
+        </article>
+        <article class="card">
+          <span class="card-label">Estado</span>
+          <span class="card-value" id="card-status">—</span>
+        </article>
+        </div>
+      </section>
+
+      <div class="geoquery-primary-grid" aria-label="Paneles principales de GeoQuery">
+        <!-- =====================================================
+             03. DATOS DEL PUNTO CONSULTADO
+        ===================================================== -->
+        <section id="geoquery-point-panel" class="panel geoquery-section">
+          <h2>Punto consultado</h2>
+          <div id="invalid-message" class="message" hidden>No se recibió una coordenada válida.</div>
+          <dl class="details" id="details-panel">
+            <div class="detail-row">
+              <dt>Latitud decimal</dt>
+              <dd id="lat-decimal">—</dd>
+            </div>
+            <div class="detail-row">
+              <dt>Longitud decimal</dt>
+              <dd id="lon-decimal">—</dd>
+            </div>
+            <div class="detail-row">
+              <dt>Latitud GMS</dt>
+              <dd id="lat-dms">—</dd>
+            </div>
+            <div class="detail-row">
+              <dt>Longitud GMS</dt>
+              <dd id="lon-dms">—</dd>
+            </div>
+            <div class="detail-row">
+              <dt>CRS</dt>
+              <dd>WGS84 / EPSG:4326</dd>
+            </div>
+            <div class="detail-row">
+              <dt>Región</dt>
+              <dd id="detail-region">—</dd>
+            </div>
+            <div class="detail-row">
+              <dt>Comuna</dt>
+              <dd id="detail-commune">—</dd>
+            </div>
+            <div class="detail-row">
+              <dt>Fuente</dt>
+              <dd>parámetro URL</dd>
+            </div>
+            <div class="detail-row">
+              <dt>Estado</dt>
+              <dd id="detail-status">preparado para análisis territorial</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- =====================================================
+             04. MAPA DE UBICACIÓN CON FEATURES RELACIONADAS
+        ===================================================== -->
+        <section id="geoquery-map-panel" class="panel visual-panel geoquery-section" aria-label="Mapa de ubicación del punto consultado">
+          <h2>Mapa de ubicación</h2>
+          <p class="placeholder-text">Mapa centrado en el punto consultado. Escala de referencia 1:20.000.</p>
+          <div id="geoquery-map" data-reference-scale="1:20000"></div>
+          <p class="visual-caption" id="visual-caption">Marcador del punto consultado.</p>
+        </section>
+      </div>
+
+      <div class="geoquery-secondary-grid" aria-label="Paneles futuros de GeoQuery">
+        <!-- =====================================================
+             05. FEATURES RELACIONADAS
+        ===================================================== -->
+        <section id="geoquery-related-features-panel" class="panel geoquery-section">
+          <div class="panel-header">
+            <h3>Feature relacionada</h3>
+            <p>No se encontró feature relacionada para el punto consultado.</p>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             06. DESCRIPTORES GEOMÉTRICOS DE FEATURES RELACIONADAS
+        ===================================================== -->
+        <section id="geoquery-geometry-panel" class="panel geoquery-section">
+          <h3>Descriptores geométricos</h3>
+          <p class="placeholder-text">Estado: fuente actual capas_geoquery/capas_XX/listado.json y GeoJSON regionales.</p>
+        </section>
+
+        <!-- =====================================================
+             07. METADATA DE FEATURES RELACIONADAS
+        ===================================================== -->
+        <section id="geoquery-metadata-panel" class="panel geoquery-section">
+          <h3>Metadata de feature</h3>
+          <p class="placeholder-text">Estado: fuente actual capas_geoquery/capas_XX/listado.json y GeoJSON regionales.</p>
+        </section>
+
+        <!-- =====================================================
+             08. INDICADORES DE RELACIÓN ENTRE PUNTO Y FEATURES
+        ===================================================== -->
+        <section id="geoquery-relation-indicators-panel" class="panel geoquery-section">
+          <h3>Indicadores de relación espacial</h3>
+          <p class="placeholder-text">Estado: fuente actual capas_geoquery/capas_XX/listado.json y GeoJSON regionales.</p>
+        </section>
+
+        <!-- =====================================================
+             09. PANEL DE GRÁFICOS
+        ===================================================== -->
+        <section id="geoquery-charts-panel" class="panel geoquery-section">
+          <h3>Gráficos</h3>
+          <p class="placeholder-text">Estado: fuente actual capas_geoquery/capas_XX/listado.json y GeoJSON regionales.</p>
+        </section>
+
+        <!-- =====================================================
+             10. DESCARGAS PDF Y KML
+        ===================================================== -->
+        <section id="geoquery-downloads-panel" class="panel geoquery-section">
+          <h3>Descargas PDF y KML</h3>
+          <p class="placeholder-text">Disponible cuando exista análisis territorial.</p>
+          <div class="actions">
+            <button class="download-button" type="button" disabled title="Disponible cuando exista análisis territorial.">Descargar PDF</button>
+            <button class="download-button" type="button" disabled title="Disponible cuando exista análisis territorial.">Descargar KML</button>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="../../shared/geoquery-kml-exporter.js"></script>
+  <script src="pdf/geoIptPdfConfig.js"></script>
+  <script src="pdf/geoIptPdfExport.js"></script>
+  <script>
+    function decimalToDMS(value, type) {
+      const absolute = Math.abs(value);
+      let degrees = Math.floor(absolute);
+      const minutesFloat = (absolute - degrees) * 60;
+      let minutes = Math.floor(minutesFloat);
+      let seconds = Number(((minutesFloat - minutes) * 60).toFixed(2));
+
+      if (seconds >= 60) {
+        seconds = 0;
+        minutes += 1;
+      }
+
+      if (minutes >= 60) {
+        minutes = 0;
+        degrees += 1;
+      }
+
+      const direction = type === "lat"
+        ? (value >= 0 ? "N" : "S")
+        : (value >= 0 ? "E" : "W");
+
+      return `${degrees}° ${minutes}' ${seconds.toFixed(2)}" ${direction}`;
+    }
+
+    function isValidCoordinate(lat, lon) {
+      return Number.isFinite(lat) && Number.isFinite(lon) && lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180;
+    }
+
+    function getZoomForApproxScale(lat, scaleDenominator = 20000) {
+      const dpi = 96;
+      const metersPerPixelTarget = scaleDenominator * 0.0254 / dpi;
+      const earthCircumference = 156543.03392;
+      const latRad = lat * Math.PI / 180;
+      const zoom = Math.log2((earthCircumference * Math.cos(latRad)) / metersPerPixelTarget);
+      return Math.max(0, Math.min(20, zoom));
+    }
+
+    function getParam(params, key, fallback) {
+      return params.get(key) || fallback;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function escapeXml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
+    }
+
+    function safeCdata(value) {
+      return String(value ?? "")
+        .replace(/]]>/g, "]]]]><![CDATA[>");
+    }
+
+    const GEOIPT_FIELD_ALIASES = {
+      region: ["REG", "REGION"],
+      commune: ["COM", "COMUNA"],
+      locality: ["LOC", "LOCALIDAD", "SECTOR"],
+      zoneCode: ["ZONA", "Zona"],
+      zoneName: ["NOM", "NOMBRE"],
+      permittedUses: ["UPERM", "UPE"],
+      prohibitedUses: ["UPROH", "UPO"],
+      documentDate: ["P_DO", "DO"],
+      documentNumber: ["N_DOC", "N_DO"],
+      documentType: ["T_DO"],
+      observations: ["OBS"]
+    };
+
+    function cleanText(value) {
+      if (value === null || value === undefined) return "";
+      return String(value)
+        .replace(/\r\n/g, "\n")
+        .replace(/[ \t]+/g, " ")
+        .trim();
+    }
+
+    function cleanLongText(value) {
+      return cleanText(value).replace(/\n{3,}/g, "\n\n");
+    }
+
+    function getAliasedProperty(properties, aliases) {
+      for (const alias of aliases) {
+        if (Object.prototype.hasOwnProperty.call(properties, alias)) {
+          const value = cleanText(properties[alias]);
+          if (value) return properties[alias];
+        }
+      }
+      return "";
+    }
+
+    function normalizeGeoIptFeatureMetadata(feature) {
+      const properties = feature?.properties || {};
+      return {
+        region: cleanText(getAliasedProperty(properties, GEOIPT_FIELD_ALIASES.region)),
+        commune: cleanText(getAliasedProperty(properties, GEOIPT_FIELD_ALIASES.commune)),
+        locality: cleanText(getAliasedProperty(properties, GEOIPT_FIELD_ALIASES.locality)),
+        zoneCode: cleanText(getAliasedProperty(properties, GEOIPT_FIELD_ALIASES.zoneCode)),
+        zoneName: cleanText(getAliasedProperty(properties, GEOIPT_FIELD_ALIASES.zoneName)),
+        prcName: cleanText(properties.prcName || properties.nombre_prc || properties.Capa || properties.capa || ""),
+        permittedUses: cleanLongText(getAliasedProperty(properties, GEOIPT_FIELD_ALIASES.permittedUses)),
+        prohibitedUses: cleanLongText(getAliasedProperty(properties, GEOIPT_FIELD_ALIASES.prohibitedUses)),
+        documentDate: cleanText(getAliasedProperty(properties, GEOIPT_FIELD_ALIASES.documentDate)),
+        documentNumber: cleanText(getAliasedProperty(properties, GEOIPT_FIELD_ALIASES.documentNumber)),
+        documentType: cleanText(getAliasedProperty(properties, GEOIPT_FIELD_ALIASES.documentType)),
+        observations: cleanLongText(getAliasedProperty(properties, GEOIPT_FIELD_ALIASES.observations)),
+        sourceFile: cleanText(properties.sourceFile || properties.archivo || ""),
+        originalProperties: properties
+      };
+    }
+
+    function metadataCompactItem(label, value) {
+      if (!cleanText(value)) return "";
+      return `<div class="metadata-compact-item"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`;
+    }
+
+    function metadataLongItem(label, value) {
+      if (!cleanLongText(value)) return "";
+      return `<div class="metadata-long-item"><span>${escapeHtml(label)}</span><div>${escapeHtml(value)}</div></div>`;
+    }
+
+    function renderMetadataPanel(geoIptResult) {
+      const panel = document.getElementById("geoquery-metadata-panel");
+      if (!panel) return;
+
+      if (!geoIptResult || !geoIptResult.relatedFeature || !geoIptResult.metadata) {
+        console.warn("[GeoQuery GeoIPT] Metadata no renderizada: no existe relatedFeature seleccionada.");
+        panel.innerHTML = "";
+        panel.hidden = true;
+        return;
+      }
+
+      const metadata = geoIptResult.metadata;
+      const territorialRows = [
+        metadataCompactItem("Región", metadata.region),
+        metadataCompactItem("Comuna", metadata.commune),
+        metadataCompactItem("Localidad", metadata.locality),
+        metadataCompactItem("PRC", metadata.prcName),
+        metadataCompactItem("Código de zona", metadata.zoneCode),
+        metadataCompactItem("Nombre de zona", metadata.zoneName)
+      ].join("");
+      const normativeRows = [
+        metadataLongItem("Usos permitidos", metadata.permittedUses),
+        metadataLongItem("Usos prohibidos", metadata.prohibitedUses),
+        metadataLongItem("Observaciones", metadata.observations)
+      ].join("");
+      const documentRows = [
+        metadataCompactItem("Tipo de documento", metadata.documentType),
+        metadataCompactItem("Número de documento", metadata.documentNumber),
+        metadataCompactItem("Fecha", metadata.documentDate)
+      ].join("");
+
+      const sections = [
+        territorialRows ? `<section class="metadata-section"><h4>Identificación territorial</h4><div class="metadata-compact-grid">${territorialRows}</div></section>` : "",
+        normativeRows ? `<section class="metadata-section"><h4>Normativa de la zona</h4><div class="metadata-long-stack">${normativeRows}</div></section>` : "",
+        documentRows ? `<section class="metadata-section"><h4>Documento normativo</h4><div class="metadata-compact-grid">${documentRows}</div></section>` : ""
+      ].join("");
+
+      if (!sections) {
+        panel.hidden = true;
+        panel.innerHTML = "";
+        return;
+      }
+
+      panel.hidden = false;
+      panel.innerHTML = `<h3>Metadata de feature</h3>${sections}`;
+    }
+
+    window.normalizeGeoIptFeatureMetadata = normalizeGeoIptFeatureMetadata;
+    window.renderMetadataPanel = renderMetadataPanel;
+
+
+    function createGeoQueryDebugState() {
+      return {
+        data_base: null,
+        listados_intentados: [],
+        listados_cargados: 0,
+        prc_indexados: 0,
+        candidatos_bbox_punto: 0,
+        candidatos_cercania_bbox: 0,
+        geojson_intentados: [],
+        geojson_cargados: 0,
+        features_pertenencia_evaluadas: 0,
+        features_cercania_evaluadas: 0,
+        resultado_final: null,
+        errores: []
+      };
+    }
+
+    window.geoQueryDebug = window.geoQueryDebug || createGeoQueryDebugState();
+
+    function getGeoQueryDebug() {
+      window.geoQueryDebug = window.geoQueryDebug || createGeoQueryDebugState();
+      return window.geoQueryDebug;
+    }
+
+    function pushGeoQueryDebugError(errorInfo) {
+      getGeoQueryDebug().errores.push(errorInfo);
+    }
+
+    function buildRelatedFeatureDiagnosticsHtml(message) {
+      const debug = getGeoQueryDebug();
+      return `
+        <div class="panel-header">
+          <h3>Feature relacionada</h3>
+          <p>${escapeHtml(message)}</p>
+        </div>
+        <div class="panel-body">
+          <p><strong>Diagnóstico:</strong></p>
+          <ul class="placeholder-text">
+            <li>PRC indexados: ${escapeHtml(debug.prc_indexados)}</li>
+            <li>Candidatos bbox punto: ${escapeHtml(debug.candidatos_bbox_punto)}</li>
+            <li>Candidatos cercanía: ${escapeHtml(debug.candidatos_cercania_bbox)}</li>
+            <li>GeoJSON cargados: ${escapeHtml(debug.geojson_cargados)}</li>
+            <li>Features evaluadas pertenencia: ${escapeHtml(debug.features_pertenencia_evaluadas)}</li>
+            <li>Features evaluadas cercanía: ${escapeHtml(debug.features_cercania_evaluadas)}</li>
+          </ul>
+        </div>
+      `;
+    }
+
+    function renderRelatedFeaturePanel(selectedFeatureResult) {
+      const panel = document.getElementById("geoquery-related-features-panel");
+      if (!panel) return;
+
+      if (!selectedFeatureResult || !selectedFeatureResult.feature) {
+        panel.innerHTML = buildRelatedFeatureDiagnosticsHtml("No se encontró feature relacionada.");
+        return;
+      }
+
+      const selectedFeature = selectedFeatureResult.relatedFeature || selectedFeatureResult.feature;
+      const props = selectedFeature.properties || {};
+      const source = selectedFeatureResult.source || {};
+      const relationType = selectedFeatureResult.relationLabel
+        || selectedFeatureResult.selectedRelation
+        || selectedFeatureResult.relation_type
+        || "Sin información";
+      const comuna = props.COM || source.comuna || "Sin información";
+      const prc = props.Capa || source.nombre || source.archivo_geojson || "Sin información";
+      const zona = props.ZONA || "Sin información";
+      const distanceKm = selectedFeatureResult.minimumDistanceKm
+        ?? (selectedFeatureResult.spatialRelation && selectedFeatureResult.spatialRelation.minimumDistanceKm);
+      const distanceItem = selectedFeatureResult.relation_type === "nearest" && Number.isFinite(distanceKm)
+        ? `
+            <div class="related-feature-item">
+              <span>Distancia mínima a la zona</span>
+              <strong>${escapeHtml(formatMinimumDistanceValue(distanceKm))}</strong>
+            </div>`
+        : "";
+
+      panel.innerHTML = `
+        <div class="panel-header">
+          <h3>Feature relacionada</h3>
+          <p>Objeto territorial seleccionado para el análisis del punto.</p>
+        </div>
+
+        <div class="panel-body">
+          <div class="related-feature-grid">
+            <div class="related-feature-item">
+              <span>Tipo de relación</span>
+              <strong>${escapeHtml(relationType)}</strong>
+            </div>
+
+            <div class="related-feature-item">
+              <span>Comuna</span>
+              <strong>${escapeHtml(comuna)}</strong>
+            </div>
+
+            <div class="related-feature-item">
+              <span>PRC</span>
+              <strong>${escapeHtml(prc)}</strong>
+            </div>
+
+            <div class="related-feature-item">
+              <span>Zona</span>
+              <strong>${escapeHtml(zona)}</strong>
+            </div>${distanceItem}
+          </div>
+        </div>
+      `;
+    }
+
+    window.renderRelatedFeaturePanel = renderRelatedFeaturePanel;
+
+    const GEOQUERY_DATA_BASE = "../capas_geoquery";
+    const GEOQUERY_REGIONS_URL = `${GEOQUERY_DATA_BASE}/regiones.json`;
+    const QUERY_FOLDERS = [
+      "capas_01",
+      "capas_02",
+      "capas_03",
+      "capas_04",
+      "capas_05",
+      "capas_06",
+      "capas_07",
+      "capas_08",
+      "capas_09",
+      "capas_10",
+      "capas_11",
+      "capas_12",
+      "capas_13",
+      "capas_14",
+      "capas_15",
+      "capas_16"
+    ];
+
+    console.log("[GeoQuery GeoIPT] base de datos GeoQuery:", GEOQUERY_DATA_BASE);
+    getGeoQueryDebug().data_base = GEOQUERY_DATA_BASE;
+
+    function normalizeListadoStyleBbox(bbox) {
+      if (!Array.isArray(bbox) || bbox.length !== 2) return null;
+      const lat1 = Number(bbox[0] && bbox[0][0]);
+      const lon1 = Number(bbox[0] && bbox[0][1]);
+      const lat2 = Number(bbox[1] && bbox[1][0]);
+      const lon2 = Number(bbox[1] && bbox[1][1]);
+      if (![lat1, lon1, lat2, lon2].every(Number.isFinite)) return null;
+      return {
+        minLat: Math.min(lat1, lat2),
+        maxLat: Math.max(lat1, lat2),
+        minLon: Math.min(lon1, lon2),
+        maxLon: Math.max(lon1, lon2)
+      };
+    }
+
+    function bboxIntersects(a, b) {
+      if (!a || !b) return false;
+      return !(a.maxLon < b.minLon || a.minLon > b.maxLon || a.maxLat < b.minLat || a.minLat > b.maxLat);
+    }
+
+    function pointInNormalizedBbox(lat, lon, bbox) {
+      return !!bbox && lat >= bbox.minLat && lat <= bbox.maxLat && lon >= bbox.minLon && lon <= bbox.maxLon;
+    }
+
+    async function fetchJsonFirst(urls, warnPrefix = "") {
+      for (const url of urls) {
+        try {
+          const res = await fetch(url);
+          if (!res.ok) continue;
+          return { data: await res.json(), url };
+        } catch (error) {
+          if (warnPrefix) console.warn(warnPrefix, url, error);
+        }
+      }
+      return { data: null, url: null };
+    }
+
+    async function loadGeoQueryRegions() {
+      const { data, url } = await fetchJsonFirst([GEOQUERY_REGIONS_URL], "[GeoQuery GeoIPT] error leyendo regiones");
+      const regiones = Array.isArray(data)
+        ? data
+        : QUERY_FOLDERS.map(folder => ({ carpeta: folder, activo: true }));
+      return { regiones, regionesUrl: url || GEOQUERY_REGIONS_URL };
+    }
+
+    function getViewportBbox(geoQueryMap) {
+      const bounds = geoQueryMap.getBounds();
+      const viewportBbox = {
+        minLat: bounds.getSouth(),
+        maxLat: bounds.getNorth(),
+        minLon: bounds.getWest(),
+        maxLon: bounds.getEast()
+      };
+      console.log("[GeoQuery GeoIPT] viewport actual:", viewportBbox);
+      return viewportBbox;
+    }
+
+    function getVisibleRegions(regiones, viewportBbox) {
+      const visibleRegions = regiones.filter(region => {
+        if (region.activo === false) return false;
+        const regionBbox = normalizeListadoStyleBbox(region.bbox);
+        if (!regionBbox) return false;
+        return bboxIntersects(viewportBbox, regionBbox);
+      });
+      console.log("[GeoQuery GeoIPT] regiones visibles:", visibleRegions);
+      return visibleRegions;
+    }
+
+    async function loadRegionalListado(region) {
+      const folder = region.carpeta || `capas_${region.codigo_ine || ""}`;
+      if (!QUERY_FOLDERS.includes(folder)) {
+        console.warn("[GeoQuery GeoIPT] carpeta regional fuera de QUERY_FOLDERS:", folder);
+        return [];
+      }
+      const listadoUrl = `${GEOQUERY_DATA_BASE}/${folder}/listado.json`;
+      console.log("[GeoQuery GeoIPT] cargando listado:", listadoUrl);
+      const { data, url } = await fetchJsonFirst([listadoUrl], "[GeoQuery GeoIPT] error leyendo listado");
+      if (!data) {
+        console.warn("[GeoQuery GeoIPT] listado no encontrado:", folder);
+        return [];
+      }
+      const instrumentos = Array.isArray(data.instrumentos) ? data.instrumentos : [];
+      const instrumentosPrc = instrumentos.filter(isValidGeoQueryPrcInstrument);
+      console.log("[GeoQuery GeoIPT] instrumentos PRC leídos:", folder, instrumentosPrc.length);
+      return instrumentosPrc.map(inst => buildPrcIndexItem(inst, folder, data, region, url)).filter(Boolean);
+    }
+
+    function isValidGeoQueryPrcInstrument(inst) {
+      const tipo = String(inst && inst.tipo || "").toUpperCase().trim();
+      const archivo = String(inst && inst.archivo || "").trim();
+      const archivoUpper = archivo.toUpperCase();
+
+      if (tipo !== "PRC") return false;
+      if (!archivoUpper.endsWith(".KML")) return false;
+      if (!archivoUpper.includes("_PRC_")) return false;
+
+      return true;
+    }
+
+    function buildPrcIndexItem(inst, folder, data = {}, region = {}, listadoUrl = null) {
+      const archivoKml = String(inst.archivo || "").trim();
+      const archivoGeojson = archivoKml.replace(/\.kml$/i, ".geojson");
+      const bboxNormalized = normalizeListadoStyleBbox(inst.bbox);
+
+      if (!bboxNormalized) return null;
+
+      return {
+        carpeta: folder,
+        region: data.region || region.nombre || "",
+        codigo_region: data.codigo_region || region.codigo_ine || "",
+        archivo_kml: archivoKml,
+        archivo_geojson: archivoGeojson,
+        nombre: inst.nombre || "",
+        tipo: inst.tipo || "",
+        comuna: inst.comuna || "",
+        bbox: inst.bbox || null,
+        bbox_normalized: bboxNormalized,
+        listado_url: listadoUrl
+      };
+    }
+
+    async function loadAllPrcIndex() {
+      const items = [];
+      const debug = getGeoQueryDebug();
+
+      for (const folder of QUERY_FOLDERS) {
+        const listadoUrl = `${GEOQUERY_DATA_BASE}/${folder}/listado.json`;
+        debug.listados_intentados.push(listadoUrl);
+        console.log("[GeoQuery GeoIPT] cargando listado:", listadoUrl);
+
+        try {
+          const res = await fetch(listadoUrl);
+
+          if (!res.ok) {
+            console.warn("[GeoQuery GeoIPT] listado no encontrado:", listadoUrl, res.status);
+            pushGeoQueryDebugError({
+              etapa: "listado",
+              url: listadoUrl,
+              status: res.status,
+              mensaje: "No cargó listado.json"
+            });
+            continue;
+          }
+
+          const data = await res.json();
+          debug.listados_cargados += 1;
+          const instrumentos = Array.isArray(data.instrumentos) ? data.instrumentos : [];
+
+          for (const inst of instrumentos) {
+            if (!isValidGeoQueryPrcInstrument(inst)) continue;
+
+            const item = buildPrcIndexItem(inst, folder, data, {}, listadoUrl);
+            if (item) items.push(item);
+          }
+        } catch (error) {
+          console.warn("[GeoQuery GeoIPT] error leyendo listado:", listadoUrl, error);
+          pushGeoQueryDebugError({
+            etapa: "listado",
+            url: listadoUrl,
+            mensaje: "No cargó listado.json"
+          });
+        }
+      }
+
+      debug.prc_indexados = items.length;
+      console.log("[GeoQuery GeoIPT] PRC indexados:", items.length);
+      return items;
+    }
+
+    async function loadViewportCandidates(viewportBbox) {
+      const { regiones, regionesUrl } = await loadGeoQueryRegions();
+      const visibleRegions = getVisibleRegions(regiones, viewportBbox);
+      const regionUniverse = visibleRegions.length ? visibleRegions : regiones.filter(region => region.activo !== false);
+      const allVisibleRegionItems = [];
+
+      for (const region of regionUniverse) {
+        allVisibleRegionItems.push(...await loadRegionalListado(region));
+      }
+
+      const prcVisible = allVisibleRegionItems.filter(item => item.bbox_normalized && bboxIntersects(viewportBbox, item.bbox_normalized));
+      console.log("[GeoQuery GeoIPT] PRC visibles en viewport:", prcVisible.length, prcVisible);
+
+      let candidates = prcVisible;
+      if (!candidates.length) {
+        candidates = allVisibleRegionItems
+          .map(item => ({ ...item, distance_bbox_m: distanceToListadoBboxMetersFromNormalized(viewportBbox, item.bbox_normalized) }))
+          .sort((a, b) => a.distance_bbox_m - b.distance_bbox_m)
+          .slice(0, 5);
+      }
+
+      return { regionesUrl, visibleRegions, prcVisible, candidates };
+    }
+
+    function distanceToListadoBboxMetersFromNormalized(viewportBbox, bbox) {
+      if (!bbox || !window.turf) return Infinity;
+      const lat = (viewportBbox.minLat + viewportBbox.maxLat) / 2;
+      const lon = (viewportBbox.minLon + viewportBbox.maxLon) / 2;
+      return distanceToNormalizedBboxMeters(lat, lon, bbox);
+    }
+
+    function distanceToNormalizedBboxMeters(lat, lon, bbox) {
+      if (!bbox || !window.turf) return Infinity;
+      const clampedLat = Math.max(bbox.minLat, Math.min(lat, bbox.maxLat));
+      const clampedLon = Math.max(bbox.minLon, Math.min(lon, bbox.maxLon));
+      return turf.distance(turf.point([lon, lat]), turf.point([clampedLon, clampedLat]), { units: "kilometers" }) * 1000;
+    }
+
+    function getGeojsonFeatures(geojson) {
+      if (!geojson) return [];
+      if (geojson.type === "FeatureCollection" && Array.isArray(geojson.features)) return geojson.features;
+      if (geojson.type === "Feature") return [geojson];
+      return [];
+    }
+
+    async function loadCandidateGeojson(item) {
+      if (!item || !item.archivo_geojson) return [];
+
+      const geojsonUrl = `${GEOQUERY_DATA_BASE}/${item.carpeta}/${item.archivo_geojson}`;
+
+      getGeoQueryDebug().geojson_intentados.push(geojsonUrl);
+      console.log("[GeoQuery GeoIPT] cargando GeoJSON PRC:", geojsonUrl);
+
+      try {
+        const res = await fetch(geojsonUrl);
+
+        if (!res.ok) {
+          console.warn("[GeoQuery GeoIPT] GeoJSON no disponible, se omite:", geojsonUrl, res.status);
+
+          pushGeoQueryDebugError({
+            etapa: "geojson",
+            url: geojsonUrl,
+            status: res.status,
+            mensaje: "GeoJSON no disponible"
+          });
+
+          return [];
+        }
+
+        const data = await res.json();
+        const features = getGeojsonFeatures(data);
+
+        getGeoQueryDebug().geojson_cargados += 1;
+
+        console.log("[GeoQuery GeoIPT] GeoJSON cargado:", {
+          url: geojsonUrl,
+          type: data.type,
+          features: features.length
+        });
+
+        return features.map(feature => ({
+          feature,
+          source: { ...item, geojson_url: geojsonUrl }
+        }));
+      } catch (error) {
+        console.warn("[GeoQuery GeoIPT] error cargando GeoJSON:", geojsonUrl, error);
+
+        pushGeoQueryDebugError({
+          etapa: "geojson",
+          url: geojsonUrl,
+          mensaje: String(error)
+        });
+
+        return [];
+      }
+    }
+
+    const GEOQUERY_MAX_INTERSECT_ZOOM = 17;
+    const GEOQUERY_MAX_NEAREST_ZOOM = 15;
+
+    function isValidLngLatPair(coordinates) {
+      return Array.isArray(coordinates)
+        && coordinates.length >= 2
+        && Number.isFinite(Number(coordinates[0]))
+        && Number.isFinite(Number(coordinates[1]));
+    }
+
+    function distancePointToFeatureCentroidMeters(point, feature) {
+      try {
+        const centroid = turf.centroid(feature);
+        return turf.distance(point, centroid, { units: "kilometers" }) * 1000;
+      } catch (error) {
+        console.warn("[GeoQuery GeoIPT] error distancia centroide", error);
+        return Infinity;
+      }
+    }
+
+    function getBoundaryLineFeatures(feature) {
+      try {
+        const boundary = turf.polygonToLine(feature);
+
+        if (!boundary) return [];
+
+        const boundaryFeatures = boundary.type === "FeatureCollection"
+          ? (boundary.features || [])
+          : boundary.type === "Feature"
+            ? [boundary]
+            : [];
+
+        return boundaryFeatures.flatMap((lineFeature) => {
+          const geometry = lineFeature && lineFeature.geometry;
+          if (!geometry) return [];
+
+          if (geometry.type === "LineString") return [lineFeature];
+
+          if (geometry.type === "MultiLineString") {
+            return (geometry.coordinates || [])
+              .filter((coordinates) => Array.isArray(coordinates) && coordinates.length >= 2)
+              .map((coordinates) => turf.lineString(coordinates, lineFeature.properties || {}));
+          }
+
+          return [];
+        });
+      } catch (error) {
+        console.warn("[GeoQuery GeoIPT] error generando borde", error);
+        return [];
+      }
+    }
+
+    function calculateMinimumBoundaryDistance(point, feature) {
+      const emptyResult = { nearestBoundaryPoint: null, minimumDistanceKm: null, distanceMeters: Infinity };
+
+      try {
+        if (!point || !feature || !feature.geometry || !window.turf) return emptyResult;
+
+        const geomType = feature.geometry.type;
+        if (geomType !== "Polygon" && geomType !== "MultiPolygon") return emptyResult;
+
+        const lineFeatures = getBoundaryLineFeatures(feature);
+        let best = null;
+
+        for (const lineFeature of lineFeatures) {
+          try {
+            if (!lineFeature || !lineFeature.geometry) continue;
+            const nearest = turf.nearestPointOnLine(lineFeature, point, { units: "kilometers" });
+            const nearestCoords = nearest && nearest.geometry && nearest.geometry.coordinates;
+            if (!isValidLngLatPair(nearestCoords)) continue;
+
+            const distanceKm = turf.distance(point, nearest, { units: "kilometers" });
+            if (!Number.isFinite(distanceKm)) continue;
+
+            if (!best || distanceKm < best.minimumDistanceKm) {
+              best = {
+                nearestBoundaryPoint: { lat: Number(nearestCoords[1]), lon: Number(nearestCoords[0]) },
+                minimumDistanceKm: distanceKm,
+                distanceMeters: distanceKm * 1000
+              };
+            }
+          } catch (error) {
+            console.warn("[GeoQuery GeoIPT] error evaluando línea", error);
+          }
+        }
+
+        return best || emptyResult;
+      } catch (error) {
+        console.warn("[GeoQuery GeoIPT] error distancia borde feature", error);
+        return emptyResult;
+      }
+    }
+
+    function distancePointToFeatureMeters(point, feature) {
+      const boundaryDistance = calculateMinimumBoundaryDistance(point, feature);
+      return Number.isFinite(boundaryDistance.distanceMeters)
+        ? boundaryDistance.distanceMeters
+        : Infinity;
+    }
+
+    function logSelectedFeature(selectedFeatureResult) {
+      if (!selectedFeatureResult) return;
+      const props = selectedFeatureResult.feature.properties || {};
+      const source = selectedFeatureResult.source || {};
+      const relationType = selectedFeatureResult.relation_type || "Sin información";
+      const comuna = props.COM || source.comuna || "Sin información";
+      const prc = props.Capa || source.nombre || source.archivo_geojson || "Sin información";
+      const zona = props.ZONA || "Sin información";
+      console.log("[GeoQuery GeoIPT] feature seleccionada:", relationType, "/", comuna, "/", prc, "/", zona);
+      console.log("[GeoQuery GeoIPT] tipo relación:", relationType);
+    }
+
+    function formatArea(areaM2) {
+      if (!Number.isFinite(areaM2)) return "Sin información";
+
+      if (areaM2 < 10000) {
+        return `${areaM2.toLocaleString("es-CL", { maximumFractionDigits: 0 })} m²`;
+      }
+
+      const ha = areaM2 / 10000;
+      if (ha < 1000) {
+        return `${ha.toLocaleString("es-CL", { maximumFractionDigits: 2 })} ha`;
+      }
+
+      const km2 = areaM2 / 1000000;
+      return `${km2.toLocaleString("es-CL", { maximumFractionDigits: 2 })} km²`;
+    }
+
+    function formatLength(meters) {
+      if (!Number.isFinite(meters)) return "Sin información";
+
+      if (meters < 1000) {
+        return `${meters.toLocaleString("es-CL", { maximumFractionDigits: 0 })} m`;
+      }
+
+      return `${(meters / 1000).toLocaleString("es-CL", { maximumFractionDigits: 2 })} km`;
+    }
+
+    function calculateGeometryDescriptors(feature) {
+      if (!feature || !feature.geometry || !window.turf) {
+        return null;
+      }
+
+      try {
+        const areaM2 = turf.area(feature);
+        const boundary = turf.polygonToLine(feature);
+        const perimeterKm = turf.length(boundary, { units: "kilometers" });
+        const perimeterM = perimeterKm * 1000;
+        const equivalentDiameterM = 2 * Math.sqrt(areaM2 / Math.PI);
+        const equivalentPerimeterM = Math.PI * equivalentDiameterM;
+
+        return {
+          area_m2: areaM2,
+          area_ha: areaM2 / 10000,
+          area_km2: areaM2 / 1000000,
+          perimeter_m: perimeterM,
+          equivalent_diameter_m: equivalentDiameterM,
+          equivalent_perimeter_m: equivalentPerimeterM
+        };
+      } catch (error) {
+        console.warn("[GeoQuery GeoIPT] Error calculando descriptores geométricos", error);
+        return null;
+      }
+    }
+
+    function renderGeometryPanel(selectedFeatureResult) {
+      const panel = document.getElementById("geoquery-geometry-panel");
+      if (!panel) return;
+
+      if (!selectedFeatureResult || !selectedFeatureResult.feature || !selectedFeatureResult.feature.geometry) {
+        panel.innerHTML = `
+          <h3>Descriptores geométricos</h3>
+          <p class="placeholder-text">No hay geometría seleccionada para calcular descriptores.</p>
+        `;
+        return;
+      }
+
+      const descriptors = calculateGeometryDescriptors(selectedFeatureResult.feature);
+
+      if (!descriptors) {
+        panel.innerHTML = `
+          <h3>Descriptores geométricos</h3>
+          <p class="placeholder-text">No fue posible calcular los descriptores geométricos de la zona PRC relacionada.</p>
+        `;
+        return;
+      }
+
+      panel.innerHTML = `
+        <h3>Descriptores geométricos</h3>
+        <p class="placeholder-text">Geometría de la zona PRC relacionada.</p>
+
+        <div class="geometry-descriptor-grid">
+          <div class="geometry-descriptor-item">
+            <span>Superficie</span>
+            <strong>${formatArea(descriptors.area_m2)}</strong>
+          </div>
+
+          <div class="geometry-descriptor-item">
+            <span>Perímetro</span>
+            <strong>${formatLength(descriptors.perimeter_m)}</strong>
+          </div>
+
+          <div class="geometry-descriptor-item">
+            <span>Diámetro equivalente</span>
+            <strong>${formatLength(descriptors.equivalent_diameter_m)}</strong>
+          </div>
+
+          <div class="geometry-descriptor-item">
+            <span>Perímetro equivalente</span>
+            <strong>${formatLength(descriptors.equivalent_perimeter_m)}</strong>
+          </div>
+        </div>
+      `;
+    }
+
+    function getPointBboxCandidates(prcIndex, lat, lon) {
+      return prcIndex.filter(item => pointInNormalizedBbox(lat, lon, item.bbox_normalized));
+    }
+
+    function getNearestPrcCandidates(prcIndex, lat, lon, limit = 10) {
+      return prcIndex
+        .map(item => ({
+          ...item,
+          distance_bbox_m: distanceToNormalizedBboxMeters(lat, lon, item.bbox_normalized)
+        }))
+        .filter(item => Number.isFinite(item.distance_bbox_m))
+        .sort((a, b) => a.distance_bbox_m - b.distance_bbox_m)
+        .slice(0, limit);
+    }
+
+    function updateResultDebug(selectedFeatureResult) {
+      if (!selectedFeatureResult || !selectedFeatureResult.feature) return;
+      const props = selectedFeatureResult.feature.properties || {};
+      const source = selectedFeatureResult.source || {};
+      const relationType = selectedFeatureResult.relation_type || "Sin información";
+      getGeoQueryDebug().resultado_final = {
+        relation_type: relationType,
+        comuna: props.COM || source.comuna || "Sin información",
+        prc: props.Capa || source.nombre || source.archivo_geojson || "Sin información",
+        zona: props.ZONA || "Sin información"
+      };
+    }
+
+    async function debugCheckCopiapoGeojson() {
+      const testUrl = `${GEOQUERY_DATA_BASE}/capas_03/IPT_03_PRC_Copiapo.geojson`;
+
+      try {
+        const res = await fetch(testUrl);
+        console.log("[GeoQuery GeoIPT] test Copiapó GeoJSON:", testUrl, res.status);
+
+        if (!res.ok) {
+          pushGeoQueryDebugError({
+            etapa: "debug-copiapo",
+            url: testUrl,
+            status: res.status,
+            mensaje: "No se encontró IPT_03_PRC_Copiapo.geojson"
+          });
+          return false;
+        }
+
+        return true;
+      } catch (error) {
+        console.warn("[GeoQuery GeoIPT] error test Copiapó GeoJSON:", error);
+        pushGeoQueryDebugError({
+          etapa: "debug-copiapo",
+          url: testUrl,
+          mensaje: String(error)
+        });
+        return false;
+      }
+    }
+
+    async function findPertenencia(lat, lon, prcIndex) {
+      const pointCandidates = getPointBboxCandidates(prcIndex, lat, lon);
+      getGeoQueryDebug().candidatos_bbox_punto = pointCandidates.length;
+      console.log("[GeoQuery GeoIPT] candidatos por bbox del punto:", pointCandidates.length, pointCandidates);
+
+      if (!pointCandidates.length) {
+        console.log("[GeoQuery GeoIPT] sin candidatos bbox del punto para evaluar pertenencia.");
+      }
+
+      const clickedPoint = turf.point([lon, lat]);
+      let featuresEvaluated = 0;
+      let membershipCount = 0;
+
+      for (const item of pointCandidates) {
+        const candidateFeatures = await loadCandidateGeojson(item);
+
+        for (const { feature, source } of candidateFeatures) {
+          featuresEvaluated += 1;
+          getGeoQueryDebug().features_pertenencia_evaluadas += 1;
+          try {
+            const inside = turf.booleanPointInPolygon(clickedPoint, feature, { ignoreBoundary: false });
+            if (inside) {
+              membershipCount += 1;
+              const selectedFeatureResult = {
+                relation_type: "intersects",
+                relationLabel: "Dentro de la zona relacionada",
+                relation_method: "point-in-polygon",
+                distance_meters: 0,
+                spatialRelation: {
+                  relationType: "intersects",
+                  queryPoint: { lat, lon },
+                  relatedFeature: feature,
+                  nearestBoundaryPoint: null,
+                  minimumDistanceKm: null
+                },
+                feature,
+                source
+              };
+              updateResultDebug(selectedFeatureResult);
+              console.log("[GeoQuery GeoIPT] features evaluadas pertenencia:", featuresEvaluated);
+              console.log("[GeoQuery GeoIPT] pertenencias encontradas:", membershipCount);
+              logSelectedFeature(selectedFeatureResult);
+              return selectedFeatureResult;
+            }
+          } catch (error) {
+            console.warn("[GeoQuery GeoIPT] error evaluando pertenencia", error);
+            pushGeoQueryDebugError({
+              etapa: "pertenencia",
+              url: source && source.geojson_url,
+              mensaje: String(error)
+            });
+          }
+        }
+      }
+
+      console.log("[GeoQuery GeoIPT] features evaluadas pertenencia:", featuresEvaluated);
+      console.log("[GeoQuery GeoIPT] pertenencias encontradas:", membershipCount);
+      return null;
+    }
+
+    async function findCercania(lat, lon, prcIndex) {
+      let nearestCandidates = getNearestPrcCandidates(prcIndex, lat, lon, 10);
+      getGeoQueryDebug().candidatos_cercania_bbox = nearestCandidates.length;
+      console.log("[GeoQuery GeoIPT] candidatos por cercanía bbox:", nearestCandidates.length, nearestCandidates);
+
+      if (!nearestCandidates.length && prcIndex.length > 0) {
+        nearestCandidates = prcIndex.slice(0, 10);
+        getGeoQueryDebug().candidatos_cercania_bbox = nearestCandidates.length;
+        console.warn("[GeoQuery GeoIPT] fallback cercanía: usando primeros PRC indexados por error/distancia bbox.", nearestCandidates);
+      }
+
+      const clickedPoint = turf.point([lon, lat]);
+      let featuresEvaluated = 0;
+      let bestFeature = null;
+      let bestSource = null;
+      let bestDistance = Infinity;
+      let bestBoundaryDistance = null;
+
+      for (const item of nearestCandidates) {
+        const candidateFeatures = await loadCandidateGeojson(item);
+
+        for (const { feature, source } of candidateFeatures) {
+          featuresEvaluated += 1;
+          getGeoQueryDebug().features_cercania_evaluadas += 1;
+          const boundaryDistance = calculateMinimumBoundaryDistance(clickedPoint, feature);
+          const distanceMeters = boundaryDistance.distanceMeters;
+
+          if (Number.isFinite(distanceMeters) && distanceMeters < bestDistance) {
+            bestDistance = distanceMeters;
+            bestFeature = feature;
+            bestSource = source;
+            bestBoundaryDistance = boundaryDistance;
+          }
+        }
+      }
+
+      console.log("[GeoQuery GeoIPT] features evaluadas cercanía:", featuresEvaluated);
+
+      if (!bestFeature) return null;
+
+      const selectedFeatureResult = {
+        relation_type: "nearest",
+        relationLabel: "Zona regulada más cercana",
+        relation_method: "nearest-boundary",
+        distance_meters: bestDistance,
+        nearestBoundaryPoint: bestBoundaryDistance && bestBoundaryDistance.nearestBoundaryPoint,
+        minimumDistanceKm: bestBoundaryDistance && bestBoundaryDistance.minimumDistanceKm,
+        spatialRelation: {
+          relationType: "nearest",
+          queryPoint: { lat, lon },
+          relatedFeature: bestFeature,
+          nearestBoundaryPoint: bestBoundaryDistance && bestBoundaryDistance.nearestBoundaryPoint,
+          minimumDistanceKm: bestBoundaryDistance && bestBoundaryDistance.minimumDistanceKm
+        },
+        feature: bestFeature,
+        source: bestSource
+      };
+      updateResultDebug(selectedFeatureResult);
+      logSelectedFeature(selectedFeatureResult);
+      return selectedFeatureResult;
+    }
+
+    async function runGeoIptQueryAnalysis(lat, lon, geoQueryMap) {
+      window.geoQueryDebug = createGeoQueryDebugState();
+      const debug = getGeoQueryDebug();
+      debug.data_base = GEOQUERY_DATA_BASE;
+      console.log("[GeoQuery GeoIPT] iniciando análisis real:", { lat, lon });
+      console.log("[GeoQuery GeoIPT] base de datos GeoQuery:", GEOQUERY_DATA_BASE);
+      await debugCheckCopiapoGeojson();
+
+      if (!window.turf) {
+        console.warn("[GeoQuery GeoIPT] Turf no disponible para análisis espacial.");
+        pushGeoQueryDebugError({
+          etapa: "turf",
+          mensaje: "Turf no disponible para análisis espacial"
+        });
+        renderRelatedFeaturePanel(null);
+        renderGeometryPanel(null);
+        console.table(window.geoQueryDebug);
+        console.log("[GeoQuery GeoIPT] DEBUG COMPLETO:", window.geoQueryDebug);
+        return null;
+      }
+
+      const viewportBbox = getViewportBbox(geoQueryMap);
+      loadViewportCandidates(viewportBbox)
+        .then(viewportCandidates => {
+          console.log("[GeoQuery GeoIPT] resumen contexto viewport:", {
+            regiones_visibles_viewport: viewportCandidates.visibleRegions.length,
+            prc_visibles_viewport: viewportCandidates.prcVisible.length,
+            prc_candidatos_viewport: viewportCandidates.candidates.length,
+            fuente: ["regiones.json", "listado.json regional"]
+          });
+        })
+        .catch(error => console.warn("[GeoQuery GeoIPT] error calculando contexto viewport", error));
+
+      const prcIndex = await loadAllPrcIndex();
+      let selectedFeatureResult = null;
+
+      if (!prcIndex.length) {
+        renderRelatedFeaturePanel({ noIndex: true });
+        const panel = document.getElementById("geoquery-related-features-panel");
+        if (panel) {
+          panel.innerHTML = buildRelatedFeatureDiagnosticsHtml("No se indexaron PRC desde capas_geoquery. Revisar rutas y listado.json.");
+        }
+        renderGeometryPanel(null);
+        renderMetadataPanel(null);
+        console.log("[GeoQuery GeoIPT] resultado final:", selectedFeatureResult);
+        console.table(window.geoQueryDebug);
+        console.log("[GeoQuery GeoIPT] DEBUG COMPLETO:", window.geoQueryDebug);
+        return null;
+      }
+
+      const selectedByPertenencia = await findPertenencia(lat, lon, prcIndex);
+      selectedFeatureResult = selectedByPertenencia;
+
+      if (!selectedFeatureResult && prcIndex.length > 0) {
+        console.log("[GeoQuery GeoIPT] sin pertenencia, buscando cercanía");
+        selectedFeatureResult = await findCercania(lat, lon, prcIndex);
+      }
+
+      if (selectedFeatureResult) updateResultDebug(selectedFeatureResult);
+      renderRelatedFeaturePanel(selectedFeatureResult);
+      renderGeometryPanel(selectedFeatureResult);
+      const selectedFeature = selectedFeatureResult?.spatialRelation?.relatedFeature || selectedFeatureResult?.relatedFeature || selectedFeatureResult?.feature || null;
+      if (selectedFeatureResult && selectedFeature) {
+        selectedFeatureResult.relatedFeature = selectedFeature;
+        selectedFeatureResult.metadata = {
+          ...normalizeGeoIptFeatureMetadata(selectedFeature),
+          prcName: cleanText(selectedFeatureResult.prcName || selectedFeatureResult.prc_name || selectedFeatureResult.source?.nombre || selectedFeature?.properties?.Capa || selectedFeature?.properties?.nombre_prc || ""),
+          sourceFile: cleanText(selectedFeatureResult.sourceFile || selectedFeatureResult.source?.archivo_geojson || selectedFeatureResult.source?.geojson_url || selectedFeature?.properties?.sourceFile || "")
+        };
+      }
+      const geoIptResult = selectedFeatureResult ? {
+        ...selectedFeatureResult,
+        relatedFeature: selectedFeature,
+        metadata: selectedFeatureResult.metadata || normalizeGeoIptFeatureMetadata(selectedFeature)
+      } : null;
+      renderMetadataPanel(geoIptResult);
+      drawSelectedFeatureOnMap(geoQueryMap, selectedFeatureResult);
+
+      console.log("[GeoQuery GeoIPT] resultado final:", selectedFeatureResult);
+      console.table(window.geoQueryDebug);
+      console.log("[GeoQuery GeoIPT] DEBUG COMPLETO:", window.geoQueryDebug);
+      return selectedFeatureResult;
+    }
+
+    function getGeoQueryFitPadding() {
+      const isMobile = window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+      return isMobile ? [26, 34] : [44, 44];
+    }
+
+    function formatMinimumDistanceValue(distanceKm) {
+      if (!Number.isFinite(distanceKm)) return "Sin información";
+      const meters = distanceKm * 1000;
+      if (meters < 1000) {
+        return `${Math.max(1, Math.round(meters)).toLocaleString("es-CL", { maximumFractionDigits: 0 })} m`;
+      }
+      return `${distanceKm.toLocaleString("es-CL", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} km`;
+    }
+
+    function formatMinimumDistanceLabel(distanceKm) {
+      return `Distancia mínima: ${formatMinimumDistanceValue(distanceKm)}`;
+    }
+
+    function extendBoundsIfValid(bounds, latLng) {
+      if (latLng && Number.isFinite(latLng.lat) && Number.isFinite(latLng.lng)) bounds.extend(latLng);
+    }
+
+    function drawSelectedFeatureOnMap(geoQueryMap, selectedFeatureResult) {
+      if (!selectedFeatureResult || !selectedFeatureResult.feature) return;
+      if (geoQueryMap.geoIptRelationLayer) geoQueryMap.removeLayer(geoQueryMap.geoIptRelationLayer);
+      geoQueryMap.geoIptRelationLayer = L.layerGroup().addTo(geoQueryMap);
+
+      if (!geoQueryMap.getPane("geoipt-zone-pane")) geoQueryMap.createPane("geoipt-zone-pane");
+      if (!geoQueryMap.getPane("geoipt-relation-pane")) geoQueryMap.createPane("geoipt-relation-pane");
+      if (!geoQueryMap.getPane("geoipt-point-pane")) geoQueryMap.createPane("geoipt-point-pane");
+      if (!geoQueryMap.getPane("geoipt-distance-label-pane")) geoQueryMap.createPane("geoipt-distance-label-pane");
+      geoQueryMap.getPane("geoipt-zone-pane").style.zIndex = 410;
+      geoQueryMap.getPane("geoipt-relation-pane").style.zIndex = 430;
+      geoQueryMap.getPane("geoipt-point-pane").style.zIndex = 450;
+      geoQueryMap.getPane("geoipt-distance-label-pane").style.zIndex = 470;
+
+      const isIntersects = selectedFeatureResult.relation_type === "intersects";
+      const relatedZoneLayer = L.geoJSON(selectedFeatureResult.feature, {
+        pane: "geoipt-zone-pane",
+        style: {
+          color: isIntersects ? "#1d4ed8" : "#dc2626",
+          weight: 3,
+          opacity: 0.95,
+          fillOpacity: isIntersects ? 0.18 : 0.04,
+          dashArray: isIntersects ? null : "6 6"
+        },
+        interactive: false
+      }).addTo(geoQueryMap.geoIptRelationLayer);
+
+      const queryPoint = selectedFeatureResult.spatialRelation && selectedFeatureResult.spatialRelation.queryPoint;
+      const queryPointLatLng = queryPoint ? L.latLng(queryPoint.lat, queryPoint.lon) : null;
+      const fitPadding = getGeoQueryFitPadding();
+
+      if (isIntersects) {
+        const zoneBounds = relatedZoneLayer.getBounds();
+        if (zoneBounds && zoneBounds.isValid()) {
+          geoQueryMap.fitBounds(zoneBounds, { padding: fitPadding, maxZoom: GEOQUERY_MAX_INTERSECT_ZOOM, animate: false });
+        }
+        return;
+      }
+
+      const nearestPoint = selectedFeatureResult.nearestBoundaryPoint || (selectedFeatureResult.spatialRelation && selectedFeatureResult.spatialRelation.nearestBoundaryPoint);
+      const minimumDistanceKm = selectedFeatureResult.minimumDistanceKm ?? (selectedFeatureResult.spatialRelation && selectedFeatureResult.spatialRelation.minimumDistanceKm);
+      if (queryPointLatLng && nearestPoint && Number.isFinite(nearestPoint.lat) && Number.isFinite(nearestPoint.lon)) {
+        const boundaryLatLng = L.latLng(nearestPoint.lat, nearestPoint.lon);
+        const boundaryPoint = turf.point([nearestPoint.lon, nearestPoint.lat]);
+        const midpoint = turf.midpoint(turf.point([queryPoint.lon, queryPoint.lat]), boundaryPoint);
+        const midpointCoordinates = midpoint && midpoint.geometry && midpoint.geometry.coordinates;
+        const midpointLatLng = isValidLngLatPair(midpointCoordinates)
+          ? L.latLng(Number(midpointCoordinates[1]), Number(midpointCoordinates[0]))
+          : L.latLng((queryPointLatLng.lat + boundaryLatLng.lat) / 2, (queryPointLatLng.lng + boundaryLatLng.lng) / 2);
+        const distanceLineLayer = L.polyline([queryPointLatLng, boundaryLatLng], {
+          pane: "geoipt-relation-pane",
+          color: "#f97316",
+          weight: 3,
+          opacity: 0.9,
+          dashArray: "8 6",
+          lineCap: "round",
+          lineJoin: "round",
+          fill: false,
+          interactive: false
+        }).addTo(geoQueryMap.geoIptRelationLayer);
+        L.circleMarker(boundaryLatLng, {
+          pane: "geoipt-relation-pane",
+          radius: 4,
+          color: "#7c2d12",
+          weight: 2,
+          fillColor: "#fed7aa",
+          fillOpacity: 0.95,
+          interactive: false
+        }).addTo(geoQueryMap.geoIptRelationLayer);
+        L.tooltip({
+          permanent: true,
+          direction: "center",
+          interactive: false,
+          className: "geoipt-distance-label geoipt-minimum-distance-label",
+          pane: "geoipt-distance-label-pane",
+          opacity: 1
+        })
+          .setLatLng(midpointLatLng)
+          .setContent(formatMinimumDistanceLabel(minimumDistanceKm))
+          .addTo(geoQueryMap.geoIptRelationLayer);
+
+        const combinedBounds = L.latLngBounds([]);
+        const zoneBounds = relatedZoneLayer.getBounds();
+        if (zoneBounds && zoneBounds.isValid()) combinedBounds.extend(zoneBounds);
+        extendBoundsIfValid(combinedBounds, queryPointLatLng);
+        extendBoundsIfValid(combinedBounds, boundaryLatLng);
+        if (distanceLineLayer && distanceLineLayer.getBounds) combinedBounds.extend(distanceLineLayer.getBounds());
+        if (combinedBounds.isValid()) {
+          geoQueryMap.fitBounds(combinedBounds, { padding: fitPadding, maxZoom: GEOQUERY_MAX_NEAREST_ZOOM, animate: false });
+        }
+      }
+    }
+
+    function buildReturnUrl(lat, lon, zoom, basemap, viewLat = null, viewLon = null) {
+      if (lat === null || lon === null) {
+        return "../index.html";
+      }
+
+      const sourceParams = new URLSearchParams(window.location.search);
+      const centerLat = sourceParams.get("mapCenterLat") || viewLat;
+      const centerLon = sourceParams.get("mapCenterLon") || viewLon;
+      const returnZoom = sourceParams.get("mapZoom") || zoom || "14";
+      const backParams = new URLSearchParams({
+        from: sourceParams.get("from") === "crossaccess" ? "crossaccess" : "geoquery",
+        lat: String(lat),
+        lon: String(lon),
+        queryLat: sourceParams.get("queryLat") || String(lat),
+        queryLon: sourceParams.get("queryLon") || String(lon),
+        zoom: String(returnZoom),
+        mapZoom: String(returnZoom),
+        basemap: basemap || "osm"
+      });
+      if (Number.isFinite(Number(centerLat)) && Number.isFinite(Number(centerLon))) {
+        backParams.set("viewLat", String(centerLat));
+        backParams.set("viewLon", String(centerLon));
+        backParams.set("mapCenterLat", String(centerLat));
+        backParams.set("mapCenterLon", String(centerLon));
+      }
+      ["viewWest", "viewSouth", "viewEast", "viewNorth", "restoreViewport"].forEach((key) => {
+        const value = sourceParams.get(key);
+        if (value !== null) backParams.set(key, value);
+      });
+
+      return `../index.html?${backParams.toString()}`;
+    }
+
+    function setGeoQueryKmlExport(mapExport) {
+      window.geoQueryState.mapExport = mapExport;
+      window.geoQueryKmlRefresh?.();
+    }
+    function appendHtmlRow(rows, label, value) {
+      if (!cleanText(value)) return;
+      rows.push(`<tr><th>${escapeHtml(label)}</th><td>${escapeHtml(value)}</td></tr>`);
+    }
+
+    function geoIptPlacemarkName(metadata) {
+      return metadata.zoneCode && metadata.zoneName
+        ? `${metadata.zoneCode} · ${metadata.zoneName}`
+        : metadata.zoneCode
+          ? `Zona PRC ${metadata.zoneCode}`
+          : metadata.zoneName
+            ? metadata.zoneName
+            : "Zona PRC relacionada";
+    }
+
+    function buildGeoIptZoneKmlDescription(metadata, spatialResult) {
+      const sections = [];
+      sections.push(`<h2>${escapeHtml(geoIptPlacemarkName(metadata))}</h2>`);
+      const territorialRows = [];
+      appendHtmlRow(territorialRows, "Región", metadata.region);
+      appendHtmlRow(territorialRows, "Comuna", metadata.commune);
+      appendHtmlRow(territorialRows, "Localidad", metadata.locality);
+      appendHtmlRow(territorialRows, "PRC", metadata.prcName);
+      appendHtmlRow(territorialRows, "Código de zona", metadata.zoneCode);
+      appendHtmlRow(territorialRows, "Nombre de zona", metadata.zoneName);
+      if (territorialRows.length) sections.push(`<h3>Identificación territorial</h3><table>${territorialRows.join("")}</table>`);
+      if (metadata.permittedUses) sections.push(`<h3>Usos permitidos</h3><p>${escapeHtml(metadata.permittedUses).replace(/\n/g, "<br>")}</p>`);
+      if (metadata.prohibitedUses) sections.push(`<h3>Usos prohibidos</h3><p>${escapeHtml(metadata.prohibitedUses).replace(/\n/g, "<br>")}</p>`);
+      const documentParts = [metadata.documentType, metadata.documentNumber ? `N.º ${metadata.documentNumber}` : "", metadata.documentDate ? `de fecha ${metadata.documentDate}` : ""].filter(Boolean);
+      if (documentParts.length) sections.push(`<h3>Documento normativo</h3><p>${escapeHtml(documentParts.join(" "))}</p>`);
+      if (metadata.observations) sections.push(`<h3>Observaciones</h3><p>${escapeHtml(metadata.observations).replace(/\n/g, "<br>")}</p>`);
+      const spatialRows = [];
+      appendHtmlRow(spatialRows, "Tipo de relación", spatialResult.relation_type === "intersects" || spatialResult.relationType === "intersects" ? "Punto dentro de la zona relacionada" : "Zona PRC más cercana");
+      if (Number.isFinite(spatialResult.minimumDistanceKm) && spatialResult.relation_type !== "intersects") appendHtmlRow(spatialRows, "Distancia mínima", formatMinimumDistanceValue(spatialResult.minimumDistanceKm));
+      if (spatialRows.length) sections.push(`<h3>Relación espacial</h3><table>${spatialRows.join("")}</table>`);
+      return safeCdata(sections.join(""));
+    }
+
+    function buildGeoIptExtendedData(metadata, spatialResult) {
+      const data = {
+        "Región": metadata.region,
+        "Comuna": metadata.commune,
+        "Localidad": metadata.locality,
+        "PRC": metadata.prcName,
+        "Código de zona": metadata.zoneCode,
+        "Nombre de zona": metadata.zoneName,
+        "Usos permitidos": metadata.permittedUses,
+        "Usos prohibidos": metadata.prohibitedUses,
+        "Tipo de documento": metadata.documentType,
+        "Número de documento": metadata.documentNumber,
+        "Fecha del documento": metadata.documentDate,
+        "Observaciones": metadata.observations,
+        "Archivo de origen": metadata.sourceFile,
+        "Tipo de relación": spatialResult.relation_type === "intersects" || spatialResult.relationType === "intersects" ? "Punto dentro de la zona relacionada" : "Zona PRC más cercana",
+        "Distancia mínima": spatialResult.relation_type !== "intersects" && Number.isFinite(spatialResult.minimumDistanceKm) ? formatMinimumDistanceValue(spatialResult.minimumDistanceKm) : ""
+      };
+      Object.keys(data).forEach((key) => { if (!cleanText(data[key])) delete data[key]; });
+      return data;
+    }
+
+    function buildGeoIptMapExport(result) {
+      const state = window.geoQueryState || {};
+      const folders = [{ id: "query", name: "Punto consultado" }, { id: "zone", name: "Zona PRC relacionada" }, { id: "relation", name: "Relación espacial" }];
+      const registry = GeoQueryKmlExporter.createKmlExportRegistry();
+      GeoQueryKmlExporter.addUniqueKmlItem(registry, { id: "geoipt-query-point", site: "geoipt", groupId: "general", role: "query-point", folderId: "query", type: "point", name: "Punto consultado", geometry: { type: "Point", coordinates: [state.lon, state.lat] }, style: { color: "#111827", fillColor: "#facc15", fillOpacity: .95, weight: 3, labelScale: 1 }, extendedData: { Latitud: state.lat_decimal, Longitud: state.lon_decimal, CRS: "WGS84 / EPSG:4326" }, visible: true });
+      const relatedFeature = result?.relatedFeature || result?.spatialRelation?.relatedFeature || result?.feature;
+      if (relatedFeature?.geometry) {
+        const isIntersects = result.relation_type === "intersects";
+        const metadata = result.metadata || normalizeGeoIptFeatureMetadata(relatedFeature);
+        const placemarkName = geoIptPlacemarkName(metadata);
+        const exportFeature = { type: "Feature", geometry: structuredClone(relatedFeature.geometry), properties: structuredClone(relatedFeature.properties || {}) };
+        GeoQueryKmlExporter.addUniqueKmlItem(registry, { id: "geoipt-related-zone", site: "geoipt", groupId: "zone", role: "related-feature", folderId: "zone", type: exportFeature.geometry?.type?.toLowerCase(), name: placemarkName, description: buildGeoIptZoneKmlDescription(metadata, result), geometry: exportFeature.geometry, style: { color: isIntersects ? "#1d4ed8" : "#dc2626", weight: 3, opacity: .95, fillColor: isIntersects ? "#1d4ed8" : "#dc2626", fillOpacity: isIntersects ? .18 : .04, labelScale: 0 }, extendedData: buildGeoIptExtendedData(metadata, result), properties: { ...exportFeature.properties }, visible: true });
+        const labelPoint = turf.pointOnFeature(exportFeature)?.geometry?.coordinates;
+        if (labelPoint) GeoQueryKmlExporter.addUniqueKmlItem(registry, { id: "geoipt-related-zone-label", site: "geoipt", groupId: "zone", role: "feature-label", folderId: "zone", type: "label", name: placemarkName, geometry: { type: "Point", coordinates: labelPoint }, style: { color: "#1d4ed8", labelColor: "#1d4ed8", labelScale: 1.05, iconScale: 0 }, extendedData: { Etiqueta: placemarkName }, visible: true });
+        const near = result.nearestBoundaryPoint || result.spatialRelation?.nearestBoundaryPoint;
+        const qp = result.spatialRelation?.queryPoint;
+        if (!isIntersects && near && qp) {
+          const line = [[qp.lon, qp.lat], [near.lon, near.lat]];
+          const mid = turf.midpoint(turf.point(line[0]), turf.point(line[1])).geometry.coordinates;
+          GeoQueryKmlExporter.addUniqueKmlItem(registry, { id: "geoipt-nearest-line", site: "geoipt", groupId: "zone", role: "nearest-line", folderId: "relation", type: "line", name: "Relación espacial", geometry: { type: "LineString", coordinates: line }, style: { color: "#f97316", opacity: .9, weight: 3, dashArray: "4 6", labelScale: 0 }, extendedData: { Distancia: formatMinimumDistanceValue(result.minimumDistanceKm) }, visible: true });
+          GeoQueryKmlExporter.addUniqueKmlItem(registry, { id: "geoipt-contact-point", site: "geoipt", groupId: "zone", role: "contact-point", folderId: "relation", type: "point", name: "Punto de contacto con perímetro", geometry: { type: "Point", coordinates: [near.lon, near.lat] }, style: { color: "#7c2d12", fillColor: "#fed7aa", fillOpacity: .95, weight: 2, iconType: "contact" }, visible: true });
+          GeoQueryKmlExporter.addUniqueKmlItem(registry, { id: "geoipt-distance-label", site: "geoipt", groupId: "zone", role: "distance-label", folderId: "relation", type: "label", name: formatMinimumDistanceLabel(result.minimumDistanceKm), geometry: { type: "Point", coordinates: mid }, style: { labelColor: "#7c2d12", labelScale: .9, iconScale: 0 }, visible: true });
+        }
+      }
+      const features = Array.from(registry.values());
+      GeoQueryKmlExporter.validateKmlExportItems(features);
+      return { site: "GeoIPT", documentName: "GeoQuery | GeoIPT", documentDescription: state.executiveSummary, queryPoint: { lat: state.lat, lon: state.lon }, folders, features, debugTheme: false };
+    }
+
+    window.geoQueryKmlRefresh = GeoQueryKmlExporter.installGeoQueryKmlButton(() => window.geoQueryState.mapExport);
+
+
+    function splitGeoIptTextList(value) {
+      const text = cleanLongText(value);
+      if (!text) return [];
+      return text.split(/\n|;|•|\u2022/g).map(cleanText).filter(Boolean);
+    }
+
+    function geoIptRelationLabel(type) {
+      return type === "intersects" ? "Intersección con zona normativa" : type === "nearest" ? "Cercanía a zona normativa" : cleanText(type) || "No informada";
+    }
+
+    function geoIptStatusLabel(status) {
+      return status === "resolved" ? "Resuelto" : status === "loading" ? "Analizando" : status === "empty" ? "Sin resultados" : status === "error" ? "Error de análisis" : cleanText(status) || "No informado";
+    }
+
+    function geoIptFeatureGeometryType(feature) {
+      return cleanText(feature?.geometry?.type);
+    }
+
+    function countGeoIptGeometryParts(feature) {
+      const geom = feature?.geometry;
+      if (!geom) return null;
+      if (geom.type === "MultiPolygon" || geom.type === "MultiLineString") return Array.isArray(geom.coordinates) ? geom.coordinates.length : null;
+      if (geom.type === "Polygon" || geom.type === "LineString" || geom.type === "Point") return 1;
+      return null;
+    }
+
+    function metadataRowsFromProperties(properties) {
+      const blocked = new Set(["geometry", "coordinates"]);
+      return Object.entries(properties || {})
+        .filter(([key, value]) => !blocked.has(String(key).toLowerCase()) && cleanText(value) && String(value).length < 1200)
+        .map(([key, value]) => ({ label: key, value: cleanLongText(value) }));
+    }
+
+    function buildGeoIptReportModelFromResolvedState() {
+      const state = window.geoQueryState || {};
+      const result = state.geoIptResult || window.geoQuerySelectedFeatureResult || state.groupResults?.[0] || null;
+      const feature = result?.relatedFeature || result?.spatialRelation?.relatedFeature || result?.feature || null;
+      const metadata = result?.metadata || (feature ? normalizeGeoIptFeatureMetadata(feature) : {});
+      const descriptors = feature ? calculateGeometryDescriptors(feature) : null;
+      const relationType = result?.relation_type || result?.spatialRelation?.relationType || "";
+      const distanceMeters = Number.isFinite(result?.distance_meters) ? result.distance_meters : (Number.isFinite(result?.minimumDistanceKm) ? result.minimumDistanceKm * 1000 : null);
+      const distanceFormatted = relationType === "intersects" ? "0 m" : (Number.isFinite(distanceMeters) ? formatLength(distanceMeters) : "No informada");
+      const permittedUses = splitGeoIptTextList(metadata.permittedUses);
+      const prohibitedUses = splitGeoIptTextList(metadata.prohibitedUses);
+      const observations = splitGeoIptTextList(metadata.observations);
+      const prcName = cleanText(metadata.prcName || result?.source?.nombre || feature?.properties?.Capa || result?.source?.archivo_geojson);
+      const zoneName = cleanText(metadata.zoneName || metadata.zoneCode || feature?.properties?.ZONA);
+      const normativeRows = [
+        ["Usos permitidos", metadata.permittedUses],
+        ["Usos prohibidos", metadata.prohibitedUses],
+        ["Observaciones", metadata.observations],
+        ["Tipo de documento", metadata.documentType],
+        ["Número de documento", metadata.documentNumber],
+        ["Fecha", metadata.documentDate]
+      ].filter(row => cleanText(row[1]));
+      const executiveParts = [];
+      if (relationType === "intersects") executiveParts.push(`El punto consultado se encuentra dentro del PRC ${prcName || "relacionado"}${metadata.commune ? `, comuna de ${metadata.commune}` : ""}${zoneName ? `, y se relaciona directamente con la zona normativa ${zoneName}` : ""}. La relación espacial corresponde a intersección.`);
+      else if (relationType === "nearest") executiveParts.push(`El punto consultado no intersecta una zona PRC. La zona urbana regulada más cercana corresponde a ${zoneName || "la zona relacionada"}${prcName ? `, perteneciente al PRC ${prcName}` : ""}, ubicada a ${distanceFormatted} del punto consultado.`);
+      else executiveParts.push(state.executiveSummary || "No se identificó información territorial resuelta.");
+      if (metadata.permittedUses) executiveParts.push(`Uso principal informado: ${permittedUses[0] || metadata.permittedUses}.`);
+      if (metadata.prohibitedUses || metadata.observations) executiveParts.push(`Restricción u observación relevante: ${(prohibitedUses[0] || observations[0] || metadata.prohibitedUses || metadata.observations)}.`);
+      return {
+        identity: { site: "GeoIPT", title: "Reporte del punto consultado", generatedAt: state.timestamp || new Date().toISOString(), version: "GeoIPT PDF 1.1" },
+        query: { lat: state.lat, lon: state.lon, latDms: state.lat_dms, lonDms: state.lon_dms, crs: state.crs, source: state.source, originSite: state.site, state: state.status, basemap: state.basemap, region: metadata.region || "No informada", commune: metadata.commune || "No informada" },
+        relation: { type: relationType, label: geoIptRelationLabel(relationType), distanceMeters, distanceFormatted, featureType: geoIptFeatureGeometryType(feature), featureName: zoneName },
+        prc: { found: Boolean(prcName), name: prcName, locality: metadata.locality, commune: metadata.commune, region: metadata.region, sourceFile: metadata.sourceFile || result?.source?.archivo_geojson, sourceName: result?.source?.listado_url || "listado.json", properties: result?.source || {} },
+        normativeZone: { found: Boolean(zoneName || feature), name: zoneName, code: metadata.zoneCode, category: metadata.zoneCode, description: metadata.zoneName, properties: feature?.properties || {} },
+        executiveSummary: executiveParts.filter(cleanText).join(" "),
+        normativeResult: { status: metadata.permittedUses || metadata.prohibitedUses || metadata.observations ? "Información normativa estructurada encontrada" : "No se encontró información normativa estructurada para esta zona.", summary: metadata.permittedUses || metadata.prohibitedUses || metadata.observations || "No se encontró información normativa estructurada para esta zona.", permittedUses, restrictedUses: [], prohibitedUses, restrictions: prohibitedUses, observations },
+        geometryDescriptors: { areaM2: descriptors?.area_m2 ?? null, areaHa: descriptors?.area_ha ?? null, perimeterM: descriptors?.perimeter_m ?? null, distanceToPointM: distanceMeters, relationType: geoIptRelationLabel(relationType), otherMetrics: [{ label: "Diámetro equivalente", value: descriptors ? formatLength(descriptors.equivalent_diameter_m) : "" }, { label: "Perímetro equivalente", value: descriptors ? formatLength(descriptors.equivalent_perimeter_m) : "" }, { label: "Tipo de geometría", value: geoIptFeatureGeometryType(feature) }, { label: "Número de partes", value: countGeoIptGeometryParts(feature) }] },
+        spatialIndicators: { relationLabel: geoIptRelationLabel(relationType), pointInside: relationType === "intersects", minimumDistance: distanceFormatted, nearestFeature: zoneName, additionalIndicators: [{ label: "PRC relacionado", value: prcName }, { label: "Método espacial", value: result?.relation_method }] },
+        featureMetadata: metadataRowsFromProperties(feature?.properties),
+        normativeTable: { columns: ["Campo", "Valor"], rows: normativeRows },
+        technicalMetadata: [],
+        sources: [result?.source?.listado_url, metadata.sourceFile || result?.source?.archivo_geojson, result?.source?.geojson_url, GEOQUERY_REGIONS_URL].filter(cleanText),
+        disclaimer: "Reporte documental generado automáticamente desde GeoQuery. La información mantiene el carácter referencial del visor y debe contrastarse con las fuentes oficiales correspondientes.",
+        sections: []
+      };
+    }
+
+    window.buildGeoIptReportModelFromResolvedState = buildGeoIptReportModelFromResolvedState;
+
+    (async function initGeoQuery() {
+      const params = new URLSearchParams(window.location.search);
+      const lat = Number.parseFloat(params.get("lat"));
+      const lon = Number.parseFloat(params.get("lon"));
+      const site = getParam(params, "site", "geoipt");
+      const basemapParam = (getParam(params, "basemap", "osm") || "osm").toLowerCase();
+      let currentBasemap = basemapParam === "sat" ? "sat" : "osm";
+      const zoomFromIndex = getParam(params, "zoom", getParam(params, "mapZoom", "14"));
+      const viewLat = getParam(params, "viewLat", getParam(params, "mapCenterLat", null));
+      const viewLon = getParam(params, "viewLon", getParam(params, "mapCenterLon", null));
+      const from = getParam(params, "from", null);
+      const valid = isValidCoordinate(lat, lon);
+
+      renderRelatedFeaturePanel(window.geoQuerySelectedFeatureResult || null);
+
+      const elements = {
+        cardLat: document.getElementById("card-lat"),
+        cardLon: document.getElementById("card-lon"),
+        cardSite: document.getElementById("card-site"),
+        cardStatus: document.getElementById("card-status"),
+        latDecimal: document.getElementById("lat-decimal"),
+        lonDecimal: document.getElementById("lon-decimal"),
+        latDms: document.getElementById("lat-dms"),
+        lonDms: document.getElementById("lon-dms"),
+        detailStatus: document.getElementById("detail-status"),
+        invalidMessage: document.getElementById("invalid-message"),
+        detailsPanel: document.getElementById("details-panel"),
+        backLink: document.getElementById("back-link"),
+        visualCaption: document.getElementById("visual-caption"),
+        detailRegion: document.getElementById("detail-region"),
+        detailCommune: document.getElementById("detail-commune")
+      };
+
+      elements.cardSite.textContent = "Pendiente";
+
+      if (!valid) {
+        window.geoQueryState = {
+          site,
+          queryContext: { site, queryPoint: null, originalViewport: { centerLat: Number(viewLat), centerLon: Number(viewLon), zoom: Number(zoomFromIndex), basemap: currentBasemap }, from },
+          status: "error",
+          executiveSummary: "Coordenada inválida.",
+          groupResults: [],
+          mapState: { basemap: currentBasemap },
+          exportState: { pdfEnabled: false, kmlEnabled: false },
+          lat: null,
+          lon: null,
+          lat_decimal: null,
+          lon_decimal: null,
+          lat_dms: null,
+          lon_dms: null,
+          crs: "WGS84 / EPSG:4326",
+          source: "url_params",
+          basemap: currentBasemap,
+          zoom_from_index: getParam(params, "zoom", null),
+          map_reference_scale: "1:20.000",
+          map_reference_zoom: null,
+          timestamp: new Date().toISOString()
+        };
+
+        elements.cardStatus.textContent = "Sin coordenada";
+        elements.cardStatus.classList.add("status-error");
+        elements.invalidMessage.hidden = false;
+        elements.detailsPanel.hidden = true;
+        elements.backLink.href = "../index.html";
+        elements.visualCaption.textContent = "No se recibió una coordenada válida.";
+        return;
+      }
+
+      const latDecimal = lat.toFixed(6);
+      const lonDecimal = lon.toFixed(6);
+      const latDms = decimalToDMS(lat, "lat");
+      const lonDms = decimalToDMS(lon, "lon");
+      const targetZoom = getZoomForApproxScale(lat, 20000);
+
+      window.geoQueryState = {
+        site,
+        queryContext: { site, queryPoint: { lat, lon }, originalViewport: { centerLat: Number(viewLat), centerLon: Number(viewLon), zoom: Number(zoomFromIndex), basemap: currentBasemap }, from },
+        status: "loading",
+        executiveSummary: "",
+        groupResults: [],
+        mapState: { basemap: currentBasemap, referenceScale: "1:20.000", referenceZoom: targetZoom },
+        exportState: { pdfEnabled: false, kmlEnabled: false },
+        lat,
+        lon,
+        lat_decimal: latDecimal,
+        lon_decimal: lonDecimal,
+        lat_dms: latDms,
+        lon_dms: lonDms,
+        crs: "WGS84 / EPSG:4326",
+        source: "url_params",
+        basemap: currentBasemap,
+        zoom_from_index: getParam(params, "zoom", null),
+        map_reference_scale: "1:20.000",
+        map_reference_zoom: targetZoom,
+        timestamp: new Date().toISOString()
+      };
+
+      elements.cardLat.textContent = latDecimal;
+      elements.cardLon.textContent = lonDecimal;
+      elements.cardStatus.textContent = "Analizando";
+      elements.cardStatus.classList.add("status-ok");
+      elements.latDecimal.textContent = latDecimal;
+      elements.lonDecimal.textContent = lonDecimal;
+      elements.latDms.textContent = latDms;
+      elements.lonDms.textContent = lonDms;
+      elements.detailStatus.textContent = "preparado para análisis territorial";
+      elements.visualCaption.textContent = `Punto consultado: ${latDecimal}, ${lonDecimal}`;
+
+      // Regla futura GeoQuery:
+      // En la versión analítica completa, el zoom y la posición del mapa
+      // dependerán del punto consultado y de la feature relacionada encontrada.
+      // Por ahora se usa una escala de referencia 1:20.000 centrada en el punto.
+      const geoQueryMap = L.map("geoquery-map", {
+        zoomControl: true,
+        zoomSnap: 0.25,
+        zoomDelta: 0.25
+      });
+      window.geoQueryLeafletMap = geoQueryMap;
+
+      const osmLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 20,
+        attribution: "&copy; OpenStreetMap"
+      });
+
+      const satLayer = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+        maxZoom: 20,
+        attribution: "Tiles &copy; Esri"
+      });
+
+      const toggle = L.DomUtil.create("div", "map-toggle");
+      toggle.innerHTML = `
+        <button id="geoquery-osm-btn" class="map-toggle-btn" type="button" data-map="osm">OSM</button>
+        <button id="geoquery-sat-btn" class="map-toggle-btn" type="button" data-map="sat">SAT</button>
+      `;
+      document.getElementById("geoquery-map").appendChild(toggle);
+      L.DomEvent.disableClickPropagation(toggle);
+      L.DomEvent.disableScrollPropagation(toggle);
+
+      const osmButton = toggle.querySelector('[data-map="osm"]');
+      const satButton = toggle.querySelector('[data-map="sat"]');
+
+      function updateReturnLink() {
+        elements.backLink.href = buildReturnUrl(lat, lon, zoomFromIndex || "14", currentBasemap, viewLat, viewLon);
+      }
+
+      elements.backLink?.addEventListener("click", (event) => {
+        if (history.length > 1) {
+          event.preventDefault();
+          history.back();
+        }
+      });
+
+      function setBasemapButtonActive(type) {
+        const osmBtn = document.getElementById("geoquery-osm-btn");
+        const satBtn = document.getElementById("geoquery-sat-btn");
+
+        if (!osmBtn || !satBtn) return;
+
+        osmBtn.classList.toggle("active", type === "osm");
+        satBtn.classList.toggle("active", type === "sat");
+      }
+
+      function setBasemap(type) {
+        if (type === currentBasemap && (geoQueryMap.hasLayer(osmLayer) || geoQueryMap.hasLayer(satLayer))) {
+          setBasemapButtonActive(currentBasemap);
+          return;
+        }
+
+        if (geoQueryMap.hasLayer(osmLayer)) geoQueryMap.removeLayer(osmLayer);
+        if (geoQueryMap.hasLayer(satLayer)) geoQueryMap.removeLayer(satLayer);
+
+        if (type === "sat") {
+          satLayer.addTo(geoQueryMap);
+          currentBasemap = "sat";
+        } else {
+          osmLayer.addTo(geoQueryMap);
+          currentBasemap = "osm";
+        }
+
+        setBasemapButtonActive(currentBasemap);
+        window.geoQueryState.basemap = currentBasemap;
+        window.geoQueryState.mapState.basemap = currentBasemap;
+        window.geoQueryState.queryContext.originalViewport.basemap = currentBasemap;
+        updateReturnLink();
+      }
+
+      osmButton.addEventListener("click", () => setBasemap("osm"));
+      satButton.addEventListener("click", () => setBasemap("sat"));
+
+      setBasemap(currentBasemap);
+      geoQueryMap.setView([lat, lon], targetZoom, { animate: false });
+
+      if (!geoQueryMap.getPane("geoipt-point-pane")) geoQueryMap.createPane("geoipt-point-pane");
+      geoQueryMap.getPane("geoipt-point-pane").style.zIndex = 450;
+      geoQueryMap.geoIptQueryPointLayer = L.circleMarker([lat, lon], {
+        pane: "geoipt-point-pane",
+        radius: 7,
+        weight: 3,
+        fillOpacity: 0.9
+      }).addTo(geoQueryMap);
+
+      runGeoIptQueryAnalysis(lat, lon, geoQueryMap)
+        .then(selectedFeatureResult => {
+          window.geoQuerySelectedFeatureResult = selectedFeatureResult;
+          window.geoQueryState.geoIptResult = selectedFeatureResult || null;
+          window.geoQueryState.metadata = selectedFeatureResult?.metadata || null;
+          window.geoQueryState.groupResults = [selectedFeatureResult].filter(Boolean);
+          window.geoQueryState.status = selectedFeatureResult ? "resolved" : "empty";
+          window.geoQueryState.executiveSummary = selectedFeatureResult ? "Análisis territorial PRC resuelto." : "No se identificó una zona PRC relacionada para la coordenada consultada.";
+          window.__geoiptReportModel = buildGeoIptReportModelFromResolvedState();
+          window.geoQueryState.executiveSummary = window.__geoiptReportModel?.executiveSummary || window.geoQueryState.executiveSummary;
+          elements.cardSite.textContent = window.__geoiptReportModel?.relation?.label || "No informada";
+          elements.detailRegion.textContent = window.__geoiptReportModel?.query?.region || "No informada";
+          elements.detailCommune.textContent = window.__geoiptReportModel?.query?.commune || "No informada";
+          elements.detailStatus.textContent = geoIptStatusLabel(window.geoQueryState.status);
+          window.geoQueryState.exportState = { pdfEnabled: Boolean(selectedFeatureResult), kmlEnabled: Boolean(selectedFeatureResult) };
+          setGeoQueryKmlExport(buildGeoIptMapExport(selectedFeatureResult));
+          elements.cardStatus.textContent = selectedFeatureResult ? "Resuelto" : "Sin resultados";
+        })
+        .catch(error => {
+          console.warn("[GeoQuery GeoIPT] error buscando feature relacionada", error);
+          renderRelatedFeaturePanel(null);
+          renderGeometryPanel(null);
+          renderMetadataPanel(null);
+          window.geoQueryState.status = "error";
+          window.geoQueryState.executiveSummary = "No fue posible resolver el análisis territorial PRC.";
+          elements.cardStatus.textContent = "Error de análisis";
+          elements.cardStatus.classList.remove("status-ok");
+          elements.cardStatus.classList.add("status-error");
+        });
+
+      L.control.scale({
+        position: "bottomleft",
+        metric: true,
+        imperial: false,
+        maxWidth: 120
+      }).addTo(geoQueryMap);
+
+      updateReturnLink();
+      setTimeout(() => {
+        geoQueryMap.invalidateSize();
+      }, 150);
+    })();
+  </script>
+</body>
+</html>

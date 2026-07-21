@@ -1,0 +1,711 @@
+{
+  "region": "Región de Valparaíso",
+  "codigo_region": "05",
+  "carpeta": "capas_05",
+  "instrumentos": [
+    {
+      "archivo": "IPT_05_PRC_Algarrobo.kml",
+      "nombre": "PRC Algarrobo",
+      "tipo": "PRC",
+      "comuna": "Algarrobo",
+      "bbox": [
+        [
+          -33.38543395544475,
+          -71.69886949331136
+        ],
+        [
+          -33.30570953771451,
+          -71.6350905659787
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Cabildo.kml",
+      "nombre": "PRC Cabildo",
+      "tipo": "PRC",
+      "comuna": "Cabildo",
+      "bbox": [
+        [
+          -32.445245342662815,
+          -71.10215132999575
+        ],
+        [
+          -32.38795267829913,
+          -71.04986356954223
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Calera.kml",
+      "nombre": "PRC Calera",
+      "tipo": "PRC",
+      "comuna": "Calera",
+      "bbox": [
+        [
+          -32.802797436633305,
+          -71.22713933913647
+        ],
+        [
+          -32.763346259603715,
+          -71.17029819475847
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Calle_Larga.kml",
+      "nombre": "PRC Calle Larga",
+      "tipo": "PRC",
+      "comuna": "Calle Larga",
+      "bbox": [
+        [
+          -32.902568962205535,
+          -70.6575866089759
+        ],
+        [
+          -32.84060294909677,
+          -70.57878660049747
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Cartagena.kml",
+      "nombre": "PRC Cartagena",
+      "tipo": "PRC",
+      "comuna": "Cartagena",
+      "bbox": [
+        [
+          -33.561302091180245,
+          -71.62725615414234
+        ],
+        [
+          -33.516999840721176,
+          -71.5827794124185
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Casablanca.kml",
+      "nombre": "PRC Casablanca",
+      "tipo": "PRC",
+      "comuna": "Casablanca",
+      "bbox": [
+        [
+          -33.46570924411112,
+          -71.71590527045707
+        ],
+        [
+          -33.18228358201231,
+          -71.2933482424407
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Catemu.kml",
+      "nombre": "PRC Catemu",
+      "tipo": "PRC",
+      "comuna": "Catemu",
+      "bbox": [
+        [
+          -32.78251633863443,
+          -70.97246161723992
+        ],
+        [
+          -32.77097724421737,
+          -70.95674562672795
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Concon.kml",
+      "nombre": "PRC Concón",
+      "tipo": "PRC",
+      "comuna": "Concón",
+      "bbox": [
+        [
+          -32.96183364376456,
+          -71.55535443167625
+        ],
+        [
+          -32.916543745914154,
+          -71.43302997621187
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_El_Quisco.kml",
+      "nombre": "PRC El Quisco",
+      "tipo": "PRC",
+      "comuna": "El Quisco",
+      "bbox": [
+        [
+          -33.446092132236075,
+          -71.70996249187256
+        ],
+        [
+          -33.37183374726685,
+          -71.65476528735594
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_El_Tabo.kml",
+      "nombre": "PRC El Tabo",
+      "tipo": "PRC",
+      "comuna": "El Tabo",
+      "bbox": [
+        [
+          -33.52102599397243,
+          -71.68288674039215
+        ],
+        [
+          -33.439009702112,
+          -71.59508288138602
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Hijuelas.kml",
+      "nombre": "PRC Hijuelas",
+      "tipo": "PRC",
+      "comuna": "Hijuelas",
+      "bbox": [
+        [
+          -32.843012831278315,
+          -71.17413058864973
+        ],
+        [
+          -32.78586720912257,
+          -71.10184355002326
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Isla_de_Pascua.kml",
+      "nombre": "PRC Isla de Pascua",
+      "tipo": "PRC",
+      "comuna": "Isla de Pascua",
+      "bbox": [
+        [
+          -27.171470940736477,
+          -109.44675231009428
+        ],
+        [
+          -27.13592474956658,
+          -109.41073596032274
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Juan_Fernandez.kml",
+      "nombre": "PRC Juan Fernández",
+      "tipo": "PRC",
+      "comuna": "Juan Fernández",
+      "bbox": [
+        [
+          -33.69323813422097,
+          -78.94925829088203
+        ],
+        [
+          -33.620336749243826,
+          -78.81024720045545
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_La_Ligua.kml",
+      "nombre": "PRC La Ligua",
+      "tipo": "PRC",
+      "comuna": "La Ligua",
+      "bbox": [
+        [
+          -32.45956580203753,
+          -71.24708113012645
+        ],
+        [
+          -32.44413905637678,
+          -71.22116189229648
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Limache.kml",
+      "nombre": "PRC Limache",
+      "tipo": "PRC",
+      "comuna": "Limache",
+      "bbox": [
+        [
+          -33.027365176387235,
+          -71.28916313081622
+        ],
+        [
+          -32.97421067437767,
+          -71.244537859266
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Llayllay.kml",
+      "nombre": "PRC Llayllay",
+      "tipo": "PRC",
+      "comuna": "Llayllay",
+      "bbox": [
+        [
+          -32.851563423854806,
+          -70.98424865213211
+        ],
+        [
+          -32.82943960062633,
+          -70.93045029433803
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Los_Andes.kml",
+      "nombre": "PRC Los Andes",
+      "tipo": "PRC",
+      "comuna": "Los Andes",
+      "bbox": [
+        [
+          -32.85945188762009,
+          -70.63367942943744
+        ],
+        [
+          -32.80464558197834,
+          -70.53035656204797
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Nogales.kml",
+      "nombre": "PRC Nogales",
+      "tipo": "PRC",
+      "comuna": "Nogales",
+      "bbox": [
+        [
+          -32.74883139722133,
+          -71.22666113829543
+        ],
+        [
+          -32.68029340670643,
+          -71.1955238364058
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Olmue.kml",
+      "nombre": "PRC Olmué",
+      "tipo": "PRC",
+      "comuna": "Olmué",
+      "bbox": [
+        [
+          -33.00867559872863,
+          -71.22141204268245
+        ],
+        [
+          -32.98099295626545,
+          -71.13612503002942
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Panquehue.kml",
+      "nombre": "PRC Panquehue",
+      "tipo": "PRC",
+      "comuna": "Panquehue",
+      "bbox": [
+        [
+          -32.786509795238366,
+          -70.8570175520241
+        ],
+        [
+          -32.76490226598669,
+          -70.82672637817596
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Papudo.kml",
+      "nombre": "PRC Papudo",
+      "tipo": "PRC",
+      "comuna": "Papudo",
+      "bbox": [
+        [
+          -32.527163968025434,
+          -71.46368179808422
+        ],
+        [
+          -32.42596144559092,
+          -71.30403196255924
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Puchuncavi.kml",
+      "nombre": "PRC Puchuncaví",
+      "tipo": "PRC",
+      "comuna": "Puchuncaví",
+      "bbox": [
+        [
+          -32.75187975310542,
+          -71.51060377314771
+        ],
+        [
+          -32.62495351898017,
+          -71.40015069394369
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Putaendo.kml",
+      "nombre": "PRC Putaendo",
+      "tipo": "PRC",
+      "comuna": "Putaendo",
+      "bbox": [
+        [
+          -32.635003852700954,
+          -70.72256405234896
+        ],
+        [
+          -32.61889820521954,
+          -70.71129194330975
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Quillota.kml",
+      "nombre": "PRC Quillota",
+      "tipo": "PRC",
+      "comuna": "Quillota",
+      "bbox": [
+        [
+          -32.904425058737665,
+          -71.27376539474064
+        ],
+        [
+          -32.8542486058544,
+          -71.22585012197793
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Quilpue.kml",
+      "nombre": "PRC Quilpué",
+      "tipo": "PRC",
+      "comuna": "Quilpué",
+      "bbox": [
+        [
+          -33.09079102667314,
+          -71.49023632950968
+        ],
+        [
+          -32.99981948479363,
+          -71.38913876364664
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Quintero.kml",
+      "nombre": "PRC Quintero",
+      "tipo": "PRC",
+      "comuna": "Quintero",
+      "bbox": [
+        [
+          -32.80356879723038,
+          -71.54631299530594
+        ],
+        [
+          -32.76470643035966,
+          -71.4924509772984
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Rinconada.kml",
+      "nombre": "PRC Rinconada",
+      "tipo": "PRC",
+      "comuna": "Rinconada",
+      "bbox": [
+        [
+          -32.878183259072884,
+          -70.71115916134634
+        ],
+        [
+          -32.82787723502534,
+          -70.66054409789773
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Santa_Maria.kml",
+      "nombre": "PRC Santa María",
+      "tipo": "PRC",
+      "comuna": "Santa María",
+      "bbox": [
+        [
+          -32.757049715012634,
+          -70.66444170911844
+        ],
+        [
+          -32.73891389456546,
+          -70.64685840641427
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Santo_Domingo.kml",
+      "nombre": "PRC Santo Domingo",
+      "tipo": "PRC",
+      "comuna": "Santo Domingo",
+      "bbox": [
+        [
+          -33.67086503974013,
+          -71.64108957894513
+        ],
+        [
+          -33.621200832612125,
+          -71.58413656120786
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_San_Antonio.kml",
+      "nombre": "PRC San Antonio",
+      "tipo": "PRC",
+      "comuna": "San Antonio",
+      "bbox": [
+        [
+          -33.73757248109798,
+          -71.63893860619648
+        ],
+        [
+          -33.55130397816211,
+          -71.41486161597619
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_San_Esteban.kml",
+      "nombre": "PRC San Esteban",
+      "tipo": "PRC",
+      "comuna": "San Esteban",
+      "bbox": [
+        [
+          -32.82720644711325,
+          -70.60734010395139
+        ],
+        [
+          -32.78776617974075,
+          -70.54494659599456
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_San_Felipe.kml",
+      "nombre": "PRC San Felipe",
+      "tipo": "PRC",
+      "comuna": "San Felipe",
+      "bbox": [
+        [
+          -32.79284302221656,
+          -70.75571367618045
+        ],
+        [
+          -32.7312273408937,
+          -70.6738438136392
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_SCC_El_Tabo.kml",
+      "nombre": "SCC El Tabo",
+      "tipo": "SCC",
+      "comuna": "El Tabo",
+      "bbox": [
+        [
+          -33.50088605508145,
+          -71.6239762433713
+        ],
+        [
+          -33.49246044653932,
+          -71.61738646182654
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Valparaiso.kml",
+      "nombre": "PRC Valparaíso",
+      "tipo": "PRC",
+      "comuna": "Valparaíso",
+      "bbox": [
+        [
+          -33.08172538466996,
+          -71.66283009488885
+        ],
+        [
+          -33.01744856972758,
+          -71.5559037983007
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Villa_Alemana.kml",
+      "nombre": "PRC Villa Alemana",
+      "tipo": "PRC",
+      "comuna": "Villa Alemana",
+      "bbox": [
+        [
+          -33.082951474932514,
+          -71.40098054967113
+        ],
+        [
+          -33.02059060719642,
+          -71.29749238437421
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Vina_del_Mar.kml",
+      "nombre": "PRC Viña del Mar",
+      "tipo": "PRC",
+      "comuna": "Viña del Mar",
+      "bbox": [
+        [
+          -33.101762700393664,
+          -71.58921126263354
+        ],
+        [
+          -32.944652725988426,
+          -71.4723866906602
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_PRC_Zapallar.kml",
+      "nombre": "PRC Zapallar",
+      "tipo": "PRC",
+      "comuna": "Zapallar",
+      "bbox": [
+        [
+          -32.63345357231772,
+          -71.47963696185751
+        ],
+        [
+          -32.49756320392512,
+          -71.39286127193783
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Avenida_Marina.kml",
+      "nombre": "SCC Avenida Marina (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar",
+      "bbox": [
+        [
+          -33.023908200883376,
+          -71.55958593530492
+        ],
+        [
+          -33.02190006836613,
+          -71.55173792835299
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Cerro_Castillo.kml",
+      "nombre": "SCC Cerro Castillo (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar",
+      "bbox": [
+        [
+          -33.02461361790239,
+          -71.56787213975038
+        ],
+        [
+          -33.0193839243254,
+          -71.56085345431495
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Coraceros.kml",
+      "nombre": "SCC Coraceros (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar",
+      "bbox": [
+        [
+          -33.00819179490701,
+          -71.5505838062875
+        ],
+        [
+          -33.00506805593966,
+          -71.54628710067232
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Jardin_del_Mar.kml",
+      "nombre": "SCC Jardín del Mar (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar",
+      "bbox": [
+        [
+          -32.98487219642203,
+          -71.54603805086082
+        ],
+        [
+          -32.97201445500705,
+          -71.52751884767139
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Parroquia_Renaca.kml",
+      "nombre": "SCC Parroquia Reñaca (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar",
+      "bbox": [
+        [
+          -32.97447274003066,
+          -71.54482156399727
+        ],
+        [
+          -32.973787111048324,
+          -71.54420535424278
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Universidad.kml",
+      "nombre": "SCC Universidad (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar",
+      "bbox": [
+        [
+          -33.07677917565806,
+          -71.55340565199829
+        ],
+        [
+          -33.069706636599996,
+          -71.54362996629825
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_05_SCC_VdelMar_Vistas_Agua_Santa.kml",
+      "nombre": "SCC Vistas Agua Santa (Viña del Mar)",
+      "tipo": "SCC",
+      "comuna": "Viña del Mar",
+      "bbox": [
+        [
+          -33.04893606967748,
+          -71.57641048357732
+        ],
+        [
+          -33.033141964824395,
+          -71.56427465810556
+        ]
+      ]
+    }
+  ]
+}

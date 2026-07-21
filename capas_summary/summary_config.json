@@ -1,0 +1,36 @@
+{
+  "activo": true,
+  "capas": [
+    {
+      "id": "prc_summary",
+      "nombre": "Instrumentos territoriales",
+      "archivo": "capas_summary/prc_summary.geojson",
+      "tipo": "point"
+    }
+  ],
+  "indicadores": [
+    {
+      "id": "ipt_visibles",
+      "label": "IPT visibles",
+      "operacion": "count",
+      "capas": ["prc_summary"]
+    },
+    {
+      "id": "zonas_unicas",
+      "label": "Zonas únicas",
+      "operacion": "sum",
+      "campo": "Total_Zonas_Unicas",
+      "capas": ["prc_summary"],
+      "decimales": 0
+    },
+    {
+      "id": "superficie_total",
+      "label": "Superficie",
+      "operacion": "sum",
+      "campo": "Superficie_Total_ha",
+      "capas": ["prc_summary"],
+      "sufijo": "ha",
+      "decimales": 0
+    }
+  ]
+}

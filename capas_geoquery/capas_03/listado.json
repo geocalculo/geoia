@@ -1,0 +1,117 @@
+{
+  "region": "Región de Atacama",
+  "codigo_region": "03",
+  "carpeta": "capas_03",
+  "instrumentos": [
+    {
+      "archivo": "IPT_03_PRC_Caldera.kml",
+      "nombre": "PRC Caldera",
+      "tipo": "PRC",
+      "comuna": "Caldera",
+      "bbox": [
+        [-27.092123604222685, -70.84895501943134],
+        [-27.012694779548388, -70.78388951849044]
+      ]
+    },
+    {
+      "archivo": "IPT_03_PRC_Chanaral.kml",
+      "nombre": "PRC Chañaral",
+      "tipo": "PRC",
+      "comuna": "Chañaral",
+      "bbox": [
+        [-26.352977810685884, -70.65566458060063],
+        [-26.265127557572445, -70.60227631074059]
+      ]
+    },
+    {
+      "archivo": "IPT_03_PRC_Copiapo.kml",
+      "nombre": "PRC Copiapó",
+      "tipo": "PRC",
+      "comuna": "Copiapó",
+      "bbox": [
+        [-27.457050532403717, -70.40824008731933],
+        [-27.183408468908294, -70.17430258296088]
+      ]
+    },
+    {
+      "archivo": "IPT_03_PRC_Diego_de_Almagro.kml",
+      "nombre": "PRC Diego de Almagro",
+      "tipo": "PRC",
+      "comuna": "Diego de Almagro",
+      "bbox": [
+        [-26.42554447447335, -70.12561748569892],
+        [-26.32525874093175, -70.02382097136101]
+      ]
+    },
+    {
+      "archivo": "IPT_03_PRC_Freirina.kml",
+      "nombre": "PRC Freirina",
+      "tipo": "PRC",
+      "comuna": "Freirina",
+      "bbox": [
+        [-29.0984788430478, -71.19419563463588],
+        [-28.500157373040198, -70.60680737786835]
+      ]
+    },
+    {
+      "archivo": "IPT_03_PRC_Huasco.kml",
+      "nombre": "PRC Huasco",
+      "tipo": "PRC",
+      "comuna": "Huasco",
+      "bbox": [
+        [-28.477786052357267, -71.27200452214941],
+        [-28.483098909349927, -71.21985141274659]
+      ]
+    },
+    {
+      "archivo": "IPT_03_PRC_Vallenar.kml",
+      "nombre": "PRC Vallenar",
+      "tipo": "PRC",
+      "comuna": "Vallenar",
+      "bbox": [
+        [-28.61441458682938, -70.80402456099167],
+        [-28.51777987277551, -70.72894920989765]
+      ]
+    },
+    {
+      "archivo": "IPT_03_SCC_ElSalado.kml",
+      "nombre": "SCC El Salado",
+      "tipo": "SCC",
+      "comuna": "Diego de Almagro",
+      "bbox": [
+        [-26.250465966873763, -70.62152625923941],
+        [-26.22370864802642, -70.60261601920757]
+      ]
+    },
+    {
+      "archivo": "IPT_03_SCC_Flamenco.kml",
+      "nombre": "SCC Flamenco",
+      "tipo": "SCC",
+      "comuna": "Chañaral",
+      "bbox": [
+        [-26.74515530956439, -70.79436549025794],
+        [-26.724430373187605, -70.76292476310809]
+      ]
+    },
+    {
+      "archivo": "IPT_03_SCC_Portofino.kml",
+      "nombre": "SCC Portofino",
+      "tipo": "SCC",
+      "comuna": "Chañaral",
+      "bbox": [
+        [-26.639857739879288, -70.7630810030214],
+        [-26.5877490106929, -70.74071437573348]
+      ]
+    },
+    {
+      "archivo": "PRICOST_Atacama.kml",
+      "nombre": "PRI Costero Atacama",
+      "tipo": "PRI",
+      "comuna": "Región de Atacama",
+      "bbox": [
+        [-29.53500000199994, -71.59191000099997],
+        [-25.28583968499992, -68.26308429999995]
+      ]
+    }
+  ]
+}

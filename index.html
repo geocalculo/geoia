@@ -2,187 +2,185 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-
-  <!-- Google Tag Manager -->
-  <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-NXSX7XCP');
-  </script>
-  <!-- End Google Tag Manager -->
-
-  <title>GeoIPT | Consulta instrumentos de planificación territorial en Chile</title>
-  <meta name="description" content="Consulta rápida de instrumentos de planificación territorial en Chile. Explora PRC, SCC y normativa urbana directamente sobre el mapa.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" href="./favicon.ico" sizes="any">
-  <link rel="shortcut icon" href="./favicon.ico">
-  <link rel="apple-touch-icon" href="./img/logo_GeoIPT.png">
+  <title>GeoX - GeoFactory</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-  <link rel="stylesheet" href="css/index.css?v=geocore-responsive-1" />
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
 
-  <script type="text/javascript">
-    (function () {
-        window.usermaven = window.usermaven || (function () { (window.usermavenQ = window.usermavenQ || []).push(arguments); })
-        var t = document.createElement('script'),
-            s = document.getElementsByTagName('script')[0];
-        t.defer = true;
-        t.id = 'um-tracker';
-        t.setAttribute('data-tracking-host', "https://events.usermaven.com")
-        t.setAttribute('data-key', 'UMxz3Pr4p2');
-        t.setAttribute('data-autocapture', 'true');
-        t.setAttribute('data-form-tracking', 'all');
-        t.src = 'https://t.usermaven.com/lib.js';
-        s.parentNode.insertBefore(t, s);
-    })();
-  </script>
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="../shared/geox-label-controls.css" />
 </head>
 
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXSX7XCP" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
+  <div id="app">
 
-  <header class="geocore-header">
-    <div class="header-inner">
-      <div class="header-col brand">
-        <h1 class="brand-title">GeoIPT</h1>
-        <p class="brand-subtitle">Planificación Territorial en Chile</p>
-        <p class="brand-caption">Normativa urbana, PRC y usos permitidos</p>
+    <!-- HEADER -->
+    <header id="main-header">
+      <div class="brand-block">
+        <div id="site-title">GeoIPT</div>
+        <div id="site-subtitle">Normativa urbana y usos de suelo</div>
+        <p id="site-description">Consulta Planes Reguladores Comunales, zonas urbanas y normativa aplicable desde un punto del mapa.</p>
       </div>
 
-      <div class="header-col summary-col">
-        <div id="prc-summary" class="prc-summary" hidden>
-          <div class="summary-metric">
-            <strong id="prc-count">0</strong>
-            <span class="summary-label">PRC</span>
-          </div>
-          <span class="summary-separator" aria-hidden="true">·</span>
-          <div class="summary-metric">
-            <strong id="hectareas-count">0</strong>
-            <span class="summary-label">ha</span>
-          </div>
-          <span class="summary-separator" aria-hidden="true">·</span>
-          <div class="summary-metric">
-            <strong id="zonas-count">0</strong>
-            <span class="summary-label">zonas urbanas</span>
-          </div>
+      <div id="summary-bar">
+        <div class="summary-item">
+          <span class="summary-value">0</span>
+          <span class="summary-label">Objetos visibles</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-value">0</span>
+          <span class="summary-label">Capas activas</span>
+        </div>
+        <div class="summary-item">
+          <span class="summary-value">GeoX</span>
+          <span class="summary-label">Modo</span>
         </div>
       </div>
 
-      <div class="header-col controls">
-        <div class="control-group">
-          <label for="region-select">Región</label>
-          <select id="region-select"></select>
-        </div>
+    </header>
 
-        <div class="control-group">
-          <label for="instrumento-select">Instrumento (zoom óptico)</label>
-          <select id="instrumento-select" disabled>
-            <option value="">Selecciona un instrumento para hacer zoom</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </header>
+    <!-- BARRA SUPERIOR DE CONTROL -->
+    <section id="control-bar">
+      <select id="country-selector">
+        <option value="CL">Chile</option>
+      </select>
 
-  <main>
-    <section class="map-container">
-      <div class="map-search-wrap" id="map-search-wrap">
-        <label for="prc-search" class="sr-only">Buscar PRC o comuna</label>
-        <input type="text" id="prc-search" class="map-search-input" placeholder="Buscar PRC, SCC o comuna..." autocomplete="off" spellcheck="false" />
-        <div id="prc-search-results" class="map-search-results" hidden></div>
-      </div>
+      <select id="region-selector">
+        <option value="03">Región de Atacama</option>
+      </select>
 
-      <div id="map"></div>
-      <div class="map-basemap-toggle" id="basemap-toggle" role="group" aria-label="Selector de mapa base">
-        <button type="button" class="basemap-btn is-active" data-basemap="osm" aria-pressed="true">OSM</button>
-        <button type="button" class="basemap-btn" data-basemap="sat" aria-pressed="false">SAT</button>
-      </div>
-
-      <div class="map-overlay-controls map-overlay-controls--bottom">
-        <a id="home-floating-btn" class="home-floating-btn" href="/" aria-label="Ir al inicio" title="Inicio">⌂</a>
-        <div id="mira-rifle" title="Ir a mi ubicación"></div>
-      </div>
-
-      <p class="hint">Haz clic en el mapa para abrir el CARD PRO del punto consultado.</p>
-      <div id="prc-nearby-panel" class="prc-nearby-panel" hidden></div>
+      <button id="btn-search">Buscar</button>
+      <button id="btn-clear">Limpiar</button>
     </section>
-  </main>
 
-  <div id="visitor-counter">
-    Visitas:
-    <img src="https://api.visitorbadge.io/api/visitors?path=geoipt.cl&countColor=%2322c55e" alt="contador visitas">
+    <!-- CUERPO PRINCIPAL -->
+    <main id="main-layout">
+
+      <!-- CONTROL DE ETIQUETAS -->
+      <aside id="territorial-panel">
+        <h3 id="panel-title">Etiquetas</h3>
+
+        <!-- GEOFACTORY PANEL TERRITORIAL -->
+        <div class="panel-section panel-territorial-control">
+          <label class="toggle-row" for="toggle-perimetros-ipt">
+            <input id="toggle-perimetros-ipt" type="checkbox" />
+            <span>Mostrar etiquetas IPT</span>
+          </label>
+        </div>
+      </aside>
+
+      <!-- MAPA -->
+      <section id="map-container">
+        <!-- GEOFACTORY SEARCH SOBRE MAPA -->
+        <div id="search-box-wrapper">
+          <input
+            id="search-box"
+            type="text"
+            placeholder="Buscar territorio, objeto o capa..."
+            autocomplete="off"
+          />
+          <div id="search-results" role="listbox" aria-label="Resultados de búsqueda"></div>
+        </div>
+
+        <div id="map"></div>
+
+        <div id="mobile-map-controls">
+          <div id="map-toggle" class="map-toggle">
+            <button id="btn-osm" class="map-toggle-btn active" data-map="osm">OSM</button>
+            <button id="btn-sat" class="map-toggle-btn" data-map="sat">SAT</button>
+          </div>
+          <button id="btn-my-location" title="Centrar en mi ubicación" aria-label="Centrar en mi ubicación">
+            📍
+          </button>
+          <button
+            id="mobile-layer-toggle"
+            type="button"
+            class="mobile-layer-toggle is-inactive"
+            aria-pressed="false"
+            aria-label="Mostrar etiquetas IPT"
+            title="Mostrar etiquetas IPT"
+          >
+            <span class="mobile-layer-toggle-icon" aria-hidden="true"><svg class="mobile-layer-toggle-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3l18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M2.5 12s3.5-6 9.5-6c2.1 0 3.9.72 5.36 1.7M21.5 12s-3.5 6-9.5 6c-2.1 0-3.9-.72-5.36-1.7" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.8 9.8A3 3 0 0 1 14.2 14.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+            <span class="mobile-layer-toggle-text">IPT</span>
+          </button>
+        </div>
+
+        <div id="geoquery-toast" role="status" aria-live="polite"></div>
+
+        <div id="mobile-summary-drawer">
+          <button id="mobile-summary-toggle" type="button" aria-expanded="false">
+            Summary ▼
+          </button>
+          <div id="mobile-summary-content" aria-live="polite"></div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="main-footer">
+      <a href="../geoipt/index.html" data-geox-target="../geoipt/index.html">GeoIPT</a>
+      <span>·</span>
+      <a href="../geoeva/index.html" data-geox-target="../geoeva/index.html">GeoEVA</a>
+      <span>·</span>
+      <a href="../geonemo/index.html" data-geox-target="../geonemo/index.html">GeoNEMO</a>
+      <span>·</span>
+      <a href="../geonoxa/index.html" data-geox-target="../geonoxa/index.html">GeoNOXA</a>
+    </footer>
+
   </div>
 
-  <nav id="ecosystem-bar" aria-label="Ecosistema GeoCálculo">
-    <a href="https://geoipt.cl" class="site-link is-active" aria-current="page">
-      <span class="site-icon">📐</span>
-      <span class="site-main">GeoIPT</span>
-      <span class="site-sub">Planificación urbana</span>
-    </a>
-    <a href="https://geoeva.cl?utm_source=geoipt&utm_medium=ribbon&utm_campaign=ecosistema" class="site-link">
-      <span class="site-icon">🌿</span>
-      <span class="site-main">GeoEVA</span>
-      <span class="site-sub">Evaluación ambiental</span>
-    </a>
-    <a href="https://geonemo.cl?utm_source=geoipt&utm_medium=ribbon&utm_campaign=ecosistema" class="site-link">
-      <span class="site-icon">🧭</span>
-      <span class="site-main">GeoNEMO</span>
-      <span class="site-sub">Sitios protegidos</span>
-    </a>
-    <a href="https://geonoxa.cl?utm_source=geoipt&utm_medium=ribbon&utm_campaign=ecosistema" class="site-link">
-      <span class="site-icon">⚠️</span>
-      <span class="site-main">GeoNOXA</span>
-      <span class="site-sub">Riesgo territorial</span>
-    </a>
-  </nav>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="js/ui/prcSummary.js?v=7c3694e"></script>
-  <script src="js/index.js?v=7c36950"></script>
-  <script>
-    (function () {
-      const homeBtn = document.getElementById("home-floating-btn");
-      if (!homeBtn) return;
-      const host = String(window.location.hostname || "").toLowerCase();
-      const homeByHost = {
-        "geoipt.cl": "https://geoipt.cl",
-        "www.geoipt.cl": "https://geoipt.cl",
-        "geoeva.cl": "https://geoeva.cl",
-        "www.geoeva.cl": "https://geoeva.cl",
-        "geonemo.cl": "https://geonemo.cl",
-        "www.geonemo.cl": "https://geonemo.cl"
-      };
-      homeBtn.href = homeByHost[host] || "https://geoipt.cl";
-    })();
-  </script>
+  <div id="geoipt-intro-overlay" class="geoipt-intro-overlay">
+    <div class="geoipt-intro-modal" role="dialog" aria-modal="true" aria-labelledby="geoiptIntroTitle">
+      <h2 id="geoiptIntroTitle">Normativa urbana y usos de suelo</h2>
 
-  <div id="welcomeModal" class="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="welcomeModalTitle" hidden>
-    <div class="welcome-modal__content">
-      <h2 id="welcomeModalTitle">Normativa urbana y usos de suelo</h2>
       <p>
-        Haz clic en cualquier punto del mapa y descubre al instante la normativa urbana aplicable, usos permitidos y restricciones reales.
-        <br><br>
+        Haz clic en cualquier punto del mapa y descubre al instante la normativa urbana aplicable,
+        usos permitidos y restricciones reales.
+      </p>
+
+      <p>
         Accede a más de 250 Planes Reguladores, explora su alcance y descarga los archivos oficiales en KML.
-        <br><br>
+      </p>
+
+      <p>
         Convierte cualquier ubicación en una decisión informada.
       </p>
-      <div class="modal-steps">
-        <img src="assets/modal-3-pasos.png" alt="Mapa + clic + resultado + descarga" />
-      </div>
-      <div class="welcome-actions">
-        <button id="startBtn" class="welcome-btn modal-start-btn" type="button">Analizar terreno ahora</button>
-        <label class="welcome-checkbox">
-          <input type="checkbox" id="dontShowAgain">
+
+      <img
+        src="./assets/geoipt-intro-flow.svg"
+        alt="Flujo de uso de GeoIPT"
+        class="geoipt-intro-image"
+      />
+
+      <div class="geoipt-intro-actions">
+        <button id="geoiptIntroStartBtn" class="geoipt-intro-button" type="button">
+          Analizar terreno ahora
+        </button>
+
+        <label class="geoipt-intro-check">
+          <input type="checkbox" id="geoiptIntroDontShow" />
           No volver a mostrar
         </label>
       </div>
     </div>
   </div>
+
+  <!-- Leaflet -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+  </script>
+
+  <!-- JS propio -->
+  <script src="../shared/geox-label-grid.js"></script>
+  <script src="../shared/geox-viewport-resolver.js"></script>
+  <script src="./js/index.js"></script>
 </body>
 </html>

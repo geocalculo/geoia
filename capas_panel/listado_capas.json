@@ -1,0 +1,418 @@
+[
+  {
+    "id": "perimetros_ipt_01",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_01.geojson",
+    "region": "01",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -70.21779038325883,
+      -20.812705388356314,
+      -69.31112828559506,
+      -19.587548019362377
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_02",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_02.geojson",
+    "region": "02",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -70.62848643495916,
+      -25.52527974258386,
+      -67.99186505100525,
+      -21.22123313509622
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_03",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_03.geojson",
+    "region": "03",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -71.27458941648776,
+      -28.59313038651861,
+      -70.01464387291202,
+      -26.329468792522064
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_04",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_04.geojson",
+    "region": "04",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -71.57524615311416,
+      -32.15567253863512,
+      -70.48789081703988,
+      -29.236267493076905
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_05",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_05.geojson",
+    "region": "05",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -109.45099458617698,
+      -33.737438257752075,
+      -70.53092495279039,
+      -27.135850729050624
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_06",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_06.geojson",
+    "region": "06",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -72.04957168042337,
+      -34.77247375339191,
+      -70.63719901566843,
+      -33.90357740020474
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_07",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_07.geojson",
+    "region": "07",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -72.64768174986318,
+      -36.29598447756802,
+      -70.80259642945073,
+      -34.79063278384406
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_08",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_08.geojson",
+    "region": "08",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -73.66925758007186,
+      -38.35110296499118,
+      -71.63129426586653,
+      -36.352736496994694
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_09",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_09.geojson",
+    "region": "09",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -73.40614604620463,
+      -39.4988586525471,
+      -71.34820019690407,
+      -37.66668257421544
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_10",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_10.geojson",
+    "region": "10",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -73.83853120844158,
+      -43.623164059465054,
+      -71.78973199277921,
+      -40.400147586250185
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_11",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_11.geojson",
+    "region": "11",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -72.82812381873104,
+      -45.609614148625504,
+      -71.84479507959354,
+      -43.96679245460415
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_12",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_12.geojson",
+    "region": "12",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -72.51586259814468,
+      -54.93986665140862,
+      -67.59031122833969,
+      -51.715679017456004
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_13",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_13.geojson",
+    "region": "13",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -71.24618615184866,
+      -33.903451905390064,
+      -70.24568257690508,
+      -33.00453512174373
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_14",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_14.geojson",
+    "region": "14",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -73.44852056686659,
+      -40.35104555381885,
+      -72.31114097306548,
+      -39.4447303011412
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_15",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_15.geojson",
+    "region": "15",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -70.33503873737372,
+      -18.547113074772817,
+      -69.55569255021659,
+      -18.194350061767153
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  },
+  {
+    "id": "perimetros_ipt_16",
+    "nombre": "Perímetros IPT",
+    "archivo": "capas_panel/perimetros_capas_16.geojson",
+    "region": "16",
+    "grupo": "Perímetros IPT",
+    "tipo": "geojson",
+    "visible_inicial": false,
+    "bbox": [
+      -72.88595495590268,
+      -37.12953334713412,
+      -71.37129605195747,
+      -36.00438582760166
+    ],
+    "style": {
+      "color": "#f97316",
+      "weight": 2,
+      "opacity": 0.9,
+      "fillColor": "#fb923c",
+      "fillOpacity": 0.12
+    },
+    "popup": {
+      "titulo": "nombre_busq",
+      "subtitulo": "capa_kml"
+    }
+  }
+]

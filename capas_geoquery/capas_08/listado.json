@@ -1,0 +1,509 @@
+{
+  "region": "Región del Biobío",
+  "codigo_region": "08",
+  "carpeta": "capas_08",
+  "instrumentos": [
+    {
+      "archivo": "IPT_08_PNSECC_Concepcion_RiberaNorte.kml",
+      "nombre": "PNSECC Concepción Ribera Norte",
+      "tipo": "PNSECC",
+      "comuna": "Concepción",
+      "bbox": [
+        [
+          -36.83860603670516,
+          -73.07512351957358
+        ],
+        [
+          -36.81808322197088,
+          -73.05431388434504
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PNSECC_Lago_Lanalhue.kml",
+      "nombre": "PNSECC Lago Lanalhue",
+      "tipo": "PNSECC",
+      "comuna": "Contulmo"
+    },
+    {
+      "archivo": "IPT_08_PRC_Alto_Biobio.kml",
+      "nombre": "PRC Alto Biobío",
+      "tipo": "PRC",
+      "comuna": "Alto Biobío",
+      "bbox": [
+        [
+          -37.889193540417786,
+          -71.64941575635103
+        ],
+        [
+          -37.870298116014744,
+          -71.63087860189277
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Antuco.kml",
+      "nombre": "PRC Antuco",
+      "tipo": "PRC",
+      "comuna": "Antuco",
+      "bbox": [
+        [
+          -37.334495970056366,
+          -71.68561189788015
+        ],
+        [
+          -37.323617678090194,
+          -71.66288578586584
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Arauco.kml",
+      "nombre": "PRC Arauco",
+      "tipo": "PRC",
+      "comuna": "Arauco",
+      "bbox": [
+        [
+          -37.26575680793698,
+          -73.35364962386465
+        ],
+        [
+          -37.17080658183931,
+          -73.17990235132275
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Cabrero.kml",
+      "nombre": "PRC Cabrero",
+      "tipo": "PRC",
+      "comuna": "Cabrero",
+      "bbox": [
+        [
+          -37.230727639355486,
+          -72.45877558711769
+        ],
+        [
+          -37.01591846685795,
+          -72.30849724913543
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Canete.kml",
+      "nombre": "PRC Cañete",
+      "tipo": "PRC",
+      "comuna": "Cañete",
+      "bbox": [
+        [
+          -37.94079448176309,
+          -73.42253677703714
+        ],
+        [
+          -37.7593768245584,
+          -73.24833537694273
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Chiguayante.kml",
+      "nombre": "PRC Chiguayante",
+      "tipo": "PRC",
+      "comuna": "Chiguayante",
+      "bbox": [
+        [
+          -36.96754054729448,
+          -73.06679199441147
+        ],
+        [
+          -36.853871424061836,
+          -72.99573005506849
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Concepcion.kml",
+      "nombre": "PRC Concepción",
+      "tipo": "PRC",
+      "comuna": "Concepción",
+      "bbox": [
+        [
+          -36.8607721546608,
+          -73.09324431081964
+        ],
+        [
+          -36.77189346590361,
+          -72.94717458365893
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Contulmo.kml",
+      "nombre": "PRC Contulmo",
+      "tipo": "PRC",
+      "comuna": "Contulmo",
+      "bbox": [
+        [
+          -38.035018419096644,
+          -73.26535418965953
+        ],
+        [
+          -37.96188288405654,
+          -73.19775309982091
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Coronel.kml",
+      "nombre": "PRC Coronel",
+      "tipo": "PRC",
+      "comuna": "Coronel",
+      "bbox": [
+        [
+          -37.08002298573553,
+          -73.54474664954087
+        ],
+        [
+          -36.89044930005017,
+          -72.95223249908223
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Curanilahue.kml",
+      "nombre": "PRC Curanilahue",
+      "tipo": "PRC",
+      "comuna": "Curanilahue",
+      "bbox": [
+        [
+          -37.49326603329552,
+          -73.36789993367184
+        ],
+        [
+          -37.4442237191941,
+          -73.31935321159979
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Florida.kml",
+      "nombre": "PRC Florida",
+      "tipo": "PRC",
+      "comuna": "Florida",
+      "bbox": [
+        [
+          -36.90757038835721,
+          -72.81266954391394
+        ],
+        [
+          -36.803406148494645,
+          -72.64580087059231
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Hualpen.kml",
+      "nombre": "PRC Hualpén",
+      "tipo": "PRC",
+      "comuna": "Hualpén",
+      "bbox": [
+        [
+          -36.823618860375845,
+          -73.22073404592808
+        ],
+        [
+          -36.74546816448024,
+          -73.06406605103068
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Hualqui.kml",
+      "nombre": "PRC Hualqui",
+      "tipo": "PRC",
+      "comuna": "Hualqui",
+      "bbox": [
+        [
+          -37.17087849564874,
+          -72.98201514186269
+        ],
+        [
+          -36.946815324056146,
+          -72.88365346593032
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Laja.kml",
+      "nombre": "PRC Laja",
+      "tipo": "PRC",
+      "comuna": "Laja",
+      "bbox": [
+        [
+          -37.30626465210592,
+          -72.72488820945965
+        ],
+        [
+          -37.22985391229248,
+          -72.53926465895329
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Lebu.kml",
+      "nombre": "PRC Lebu",
+      "tipo": "PRC",
+      "comuna": "Lebu",
+      "bbox": [
+        [
+          -37.67372735029213,
+          -73.67284315102701
+        ],
+        [
+          -37.57018942372908,
+          -73.52161758443211
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Los_Alamos.kml",
+      "nombre": "PRC Los Álamos",
+      "tipo": "PRC",
+      "comuna": "Los Álamos",
+      "bbox": [
+        [
+          -37.68257533361927,
+          -73.47997902319183
+        ],
+        [
+          -37.5941832103264,
+          -73.37517011227243
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Los_Angeles.kml",
+      "nombre": "PRC Los Ángeles",
+      "tipo": "PRC",
+      "comuna": "Los Ángeles",
+      "bbox": [
+        [
+          -37.60665026911294,
+          -72.63604178309468
+        ],
+        [
+          -37.2021638316909,
+          -72.1240162170802
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Lota.kml",
+      "nombre": "PRC Lota",
+      "tipo": "PRC",
+      "comuna": "Lota",
+      "bbox": [
+        [
+          -37.12139962133679,
+          -73.17634964509332
+        ],
+        [
+          -37.06570774591199,
+          -73.13231569825857
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Mulchen.kml",
+      "nombre": "PRC Mulchén",
+      "tipo": "PRC",
+      "comuna": "Mulchén",
+      "bbox": [
+        [
+          -37.73654040903136,
+          -72.26598335963361
+        ],
+        [
+          -37.69736200231199,
+          -72.22440270214665
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Nacimiento.kml",
+      "nombre": "PRC Nacimiento",
+      "tipo": "PRC",
+      "comuna": "Nacimiento",
+      "bbox": [
+        [
+          -37.52596829855295,
+          -72.70248415892769
+        ],
+        [
+          -37.47715701428729,
+          -72.6277792536003
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Negrete.kml",
+      "nombre": "PRC Negrete",
+      "tipo": "PRC",
+      "comuna": "Negrete",
+      "bbox": [
+        [
+          -37.592168198732516,
+          -72.58347556879097
+        ],
+        [
+          -37.57492798115105,
+          -72.51845799258395
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Penco.kml",
+      "nombre": "PRC Penco",
+      "tipo": "PRC",
+      "comuna": "Penco",
+      "bbox": [
+        [
+          -36.788908165004166,
+          -73.04871648776064
+        ],
+        [
+          -36.68826488062841,
+          -72.95823682320821
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Santa_Barbara.kml",
+      "nombre": "PRC Santa Bárbara",
+      "tipo": "PRC",
+      "comuna": "Santa Bárbara",
+      "bbox": [
+        [
+          -37.67523204193847,
+          -72.04096123086498
+        ],
+        [
+          -37.657519230229525,
+          -71.99883057855594
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Santa_Juana.kml",
+      "nombre": "PRC Santa Juana",
+      "tipo": "PRC",
+      "comuna": "Santa Juana",
+      "bbox": [
+        [
+          -37.192271288129625,
+          -72.98386247187436
+        ],
+        [
+          -37.144597196690995,
+          -72.92075835128524
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_San_Carlos.kml",
+      "nombre": "PRC San Carlos",
+      "tipo": "PRC",
+      "comuna": "San Carlos",
+      "bbox": [
+        [
+          -36.55652526586138,
+          -72.09164648266375
+        ],
+        [
+          -36.34894354327777,
+          -71.71113720840883
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_San_Pedro_de_la_Paz.kml",
+      "nombre": "PRC San Pedro de la Paz",
+      "tipo": "PRC",
+      "comuna": "San Pedro de la Paz",
+      "bbox": [
+        [
+          -36.926668149,
+          -73.16398208423432
+        ],
+        [
+          -36.82117770913276,
+          -73.05048687393592
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Talcahuano.kml",
+      "nombre": "PRC Talcahuano",
+      "tipo": "PRC",
+      "comuna": "Talcahuano",
+      "bbox": [
+        [
+          -36.79591392611703,
+          -73.16679469532292
+        ],
+        [
+          -36.61781089821517,
+          -73.04994361290632
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Tirua.kml",
+      "nombre": "PRC Tirúa",
+      "tipo": "PRC",
+      "comuna": "Tirúa",
+      "bbox": [
+        [
+          -38.351651558393876,
+          -73.50375474594064
+        ],
+        [
+          -38.23452906758057,
+          -73.46998253648236
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Tome.kml",
+      "nombre": "PRC Tomé",
+      "tipo": "PRC",
+      "comuna": "Tomé",
+      "bbox": [
+        [
+          -36.70668286708949,
+          -73.00831541421049
+        ],
+        [
+          -36.51748677001637,
+          -72.77254816746998
+        ]
+      ]
+    },
+    {
+      "archivo": "IPT_08_PRC_Yumbel.kml",
+      "nombre": "PRC Yumbel",
+      "tipo": "PRC",
+      "comuna": "Yumbel",
+      "bbox": [
+        [
+          -37.218747836994716,
+          -72.64009621304966
+        ],
+        [
+          -36.98323950805734,
+          -72.41807035896512
+        ]
+      ]
+    }
+  ]
+}

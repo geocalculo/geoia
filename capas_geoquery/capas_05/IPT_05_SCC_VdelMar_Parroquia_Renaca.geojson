@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "IPT_05_SCC_VdelMar_Parroquia_Renaca",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "id": "monoparte.1", "Name": null, "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null, "REG": "Valparaíso", "COM": "Viña del Mar", "LOC": "Parroquia de Reñaca", "ZONA": "ECC", "NOM": "Zona ECC Parroquia de Reñaca", "UPERM": "Equipamiento nivel vecional de Culto", "UPROH": "Todo otro uso no indicado previamente.", "P_DO": "13/12/2002", "N_DOC": "10949", "T_DO": "Decreto", "OBS": null }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -71.544623300262103, -32.9744519188799 ], [ -71.544661055583006, -32.974463843824303 ], [ -71.544700858156006, -32.974318638773397 ], [ -71.544806437306605, -32.973933477480401 ], [ -71.544677013565703, -32.973855686724903 ], [ -71.544590977530405, -32.973798741674003 ], [ -71.544582989749699, -32.973791581108102 ], [ -71.544353121566701, -32.974130599010003 ], [ -71.544353090786203, -32.974130644721299 ], [ -71.5443503464233, -32.974134691486697 ], [ -71.544220428392606, -32.9743246694714 ], [ -71.544623300262103, -32.9744519188799 ] ] ] } }
+]
+}

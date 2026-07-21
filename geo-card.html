@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NXSX7XCP');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <title>GeoCard IPT | Consulta del punto</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="css/geo-card.css?v=20260624" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #020617;
+      color: #e5e7eb;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    header {
+      background: #020617;
+      border-bottom: 1px solid #111827;
+      padding: 10px 16px;
+    }
+
+    header h1 {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    #map {
+      height: 420px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #1f2937;
+      background: #0b1220;
+    }
+
+    h2 {
+      margin-top: 24px;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+      color: #38bdf8;
+    }
+
+    p {
+      margin: 4px 0;
+      line-height: 1.4;
+    }
+
+    #tabla-metadata {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: #0f172a;
+      color: #e5e7eb;
+      font-size: 0.9rem;
+    }
+
+    #tabla-metadata th {
+      text-align: left;
+      padding: 6px;
+      border-bottom: 1px solid #1e293b;
+      font-weight: 600;
+    }
+
+    #tabla-metadata td {
+      padding: 6px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    #link-kml {
+      color: #38bdf8;
+      text-decoration: underline;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    #link-kml:hover {
+      color: #7dd3fc;
+    }
+
+    #msg-kml {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: #0b1220;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      display: none;
+    }
+
+    #msg-kml a {
+      color: #60a5fa;
+      text-decoration: underline;
+    }
+
+
+    .geo-card-status {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      background: #0f172a;
+      color: #cbd5e1;
+      font-size: 0.9rem;
+    }
+
+    .report-card {
+      background: linear-gradient(180deg, #0b1220 0%, #08101e 100%);
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.45);
+    }
+
+    .report-header { margin-bottom: 14px; }
+    .report-header h1 { margin: 0 0 8px; font-size: 1.3rem; color: #e2e8f0; }
+    .report-header-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+      font-size: 0.93rem;
+      color: #cbd5e1;
+    }
+    .report-header-grid strong { color: #f8fafc; }
+    .status-ok { color: #22c55e; font-weight: 700; }
+    .status-warn { color: #facc15; font-weight: 700; }
+    .status-error { color: #f87171; font-weight: 700; }
+    .report-body {
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) minmax(360px, 1.25fr);
+      gap: 16px;
+      align-items: start;
+      margin: 10px 0 14px;
+    }
+    .info-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .info-card h3 { margin: 0 0 6px; color: #7dd3fc; }
+    #md-interpretacion { white-space: pre-line; }
+    .report-kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .kpi-item {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .kpi-item strong { display: block; color: #f1f5f9; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
+    .kpi-item span { color: #cbd5e1; font-size: 0.96rem; }
+    .geo-stats-section {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .geo-stats-head { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-bottom: 12px; }
+    .geo-stats-head h2 { margin: 0 0 4px; font-size: 1.05rem; color: #7dd3fc; }
+    .geo-stats-head p { margin: 0; color: #94a3b8; font-size: .9rem; }
+    .zone-share-card { display: flex; align-items: center; gap: 12px; min-width: 260px; background: #08111f; border: 1px solid #1e293b; border-radius: 14px; padding: 10px; }
+    .zone-pie {
+      --p: 0;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: conic-gradient(#38bdf8 calc(var(--p) * 1%), #1e293b 0);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: .92rem;
+      flex: 0 0 auto;
+    }
+    .geo-stats-grid { display: grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap: 12px; }
+    .geo-stat-card { background: #08111f; border: 1px solid #1e293b; border-radius: 12px; padding: 12px; }
+    .geo-stat-card h3 { margin: 0 0 10px; color: #e2e8f0; font-size: 1rem; }
+    .geo-stat-card dl { margin: 0; }
+    .geo-stat-card dl div { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #1e293b; padding: 7px 0; }
+    .geo-stat-card dt { color: #94a3b8; }
+    .geo-stat-card dd { margin: 0; color: #f8fafc; font-weight: 700; text-align: right; }
+    .report-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+    .report-actions button, .report-actions a {
+      border: 1px solid #334155;
+      background: #0b1220;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 8px 12px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .pdf-btn-disabled {
+      background: #1f2937 !important;
+      border-color: #374151 !important;
+      color: #9ca3af !important;
+      opacity: .58;
+      cursor: not-allowed !important;
+      box-shadow: none !important;
+      transform: none !important;
+      animation: none !important;
+      pointer-events: none;
+    }
+    .pdf-btn-disabled:hover,
+    .pdf-btn-disabled:focus,
+    .pdf-btn-disabled:active {
+      background: #1f2937 !important;
+      border-color: #374151 !important;
+      color: #9ca3af !important;
+      box-shadow: none !important;
+      transform: none !important;
+      animation: none !important;
+    }
+    .pdf-maintenance-note {
+      align-self: center;
+      color: #9ca3af;
+      font-size: .82rem;
+      margin-left: -2px;
+    }
+    .metadata-section { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 8px 12px; }
+    .metadata-section summary { cursor: pointer; color: #bae6fd; font-weight: 600; }
+    .print-only { display: none; }
+
+
+    body.pdf-export-mode .report-actions,
+    body.pdf-export-mode #msg-kml,
+    body.pdf-export-mode footer,
+    body.pdf-export-mode #loading-overlay {
+      display: none !important;
+    }
+
+    body.pdf-export-mode .report-card,
+    body.pdf-export-mode .report-header,
+    body.pdf-export-mode .info-card,
+    body.pdf-export-mode .kpi-item,
+    body.pdf-export-mode .metadata-section {
+      background: #ffffff !important;
+      color: #000000 !important;
+      box-shadow: none !important;
+    }
+
+    body.pdf-export-mode .report-header h1,
+    body.pdf-export-mode .info-card h3,
+    body.pdf-export-mode .kpi-item strong,
+    body.pdf-export-mode .status-ok,
+    body.pdf-export-mode .status-warn,
+    body.pdf-export-mode .status-error,
+    body.pdf-export-mode .report-header-grid strong,
+    body.pdf-export-mode .metadata-section summary {
+      color: #000000 !important;
+    }
+
+    body.pdf-export-mode .report-header-grid,
+    body.pdf-export-mode .info-card p,
+    body.pdf-export-mode .kpi-item span,
+    body.pdf-export-mode #tabla-metadata {
+      color: #111827 !important;
+    }
+
+    body.pdf-export-mode #map {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    body.pdf-export-mode .print-header,
+    body.pdf-export-mode .print-footer {
+      display: block !important;
+      color: #000000 !important;
+    }
+
+    body.pdf-export-mode .metadata-section {
+      display: none !important;
+    }
+    body.pdf-export-mode .geo-stats-section,
+    body.pdf-export-mode .zone-share-card,
+    body.pdf-export-mode .geo-stat-card {
+      background: #ffffff !important;
+      color: #000000 !important;
+      border-color: #d1d5db !important;
+      box-shadow: none !important;
+    }
+    body.pdf-export-mode .geo-stats-head h2,
+    body.pdf-export-mode .geo-stat-card h3,
+    body.pdf-export-mode .geo-stat-card dd,
+    body.pdf-export-mode .zone-share-card strong { color: #000000 !important; }
+    body.pdf-export-mode .geo-stats-head p,
+    body.pdf-export-mode .geo-stat-card dt,
+    body.pdf-export-mode .zone-share-card p { color: #111827 !important; }
+    body.pdf-export-mode .zone-pie { color: #000000 !important; }
+    body.pdf-export-mode .geo-stats-section,
+    body.pdf-export-mode .geo-stat-card,
+    body.pdf-export-mode .zone-share-card { break-inside: avoid; }
+
+
+    .geoquery-controls,
+    .match-section {
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.72);
+    }
+
+    .geoquery-controls label {
+      display: block;
+      margin-bottom: 8px;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    .geoquery-control-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .geoquery-control-row input[type=range] {
+      min-width: 220px;
+      flex: 1;
+    }
+
+    .geoquery-control-row button,
+    .btn-ficha {
+      border: 0;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: #2563eb;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .match-table-wrap { overflow-x: auto; }
+    #tabla-match { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+    #tabla-match th, #tabla-match td { border-bottom: 1px solid rgba(148, 163, 184, 0.25); padding: 8px; text-align: left; vertical-align: top; }
+    #tabla-match th { color: #93c5fd; }
+
+    @media (max-width: 900px) {
+      .report-body { grid-template-columns: 1fr; }
+      .geo-stats-head { flex-direction: column; align-items: stretch; }
+      .zone-share-card { min-width: 0; }
+      .geo-stats-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: #fff !important; color: #000 !important; }
+      .report-actions,
+      .report-actions a,
+      .no-print,
+      button,
+      nav,
+      #loading-overlay,
+      footer { display: none !important; }
+      .print-header,
+      .print-footer { display: block; color: #000; }
+      .print-header { padding-bottom: 14px; border-bottom: 1px solid #d1d5db; margin-bottom: 12px; }
+      .print-header h2 { margin: 0; font-size: 20px; }
+      .print-header p { margin: 2px 0; font-size: 13px; }
+      .print-footer { border-top: 1px solid #d1d5db; margin-top: 12px; padding-top: 8px; font-size: 11px; text-align: center; opacity: 0.8; }
+      .metadata-section { display: none !important; }
+      .report-card { box-shadow: none; border: 1px solid #ccc; background: #fff !important; color: #000 !important; }
+      .report-header,
+      .info-card,
+      .kpi-item,
+      .metadata-section { background: #fff !important; color: #000 !important; border-color: #d1d5db !important; }
+      .geo-stats-section,
+      .zone-share-card,
+      .geo-stat-card { background: #fff !important; color: #000 !important; border-color: #d1d5db !important; box-shadow: none !important; }
+      .report-header h1,
+      .info-card h3,
+      .kpi-item strong,
+      .status-ok,
+      .status-warn,
+      .status-error,
+      .report-header-grid strong,
+      .metadata-section summary,
+      .geo-stats-head h2,
+      .geo-stat-card h3,
+      .geo-stat-card dd,
+      .zone-share-card strong { color: #000 !important; }
+      .report-header-grid,
+      .info-card p,
+      .kpi-item span,
+      #tabla-metadata,
+      .geo-stats-head p,
+      .geo-stat-card dt,
+      .zone-share-card p { color: #111827 !important; }
+      .zone-pie { color: #000 !important; }
+      #map { print-color-adjust: exact; -webkit-print-color-adjust: exact; border-color: #d1d5db; page-break-inside: avoid; }
+      .report-card,
+      .info-card,
+      .kpi-item,
+      .metadata-section,
+      .geo-stats-section,
+      .geo-stat-card,
+      .zone-share-card { break-inside: avoid; }
+      details { display: block; }
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+  <div id="loading-overlay" class="loading-overlay" aria-live="polite" aria-busy="true">
+    <div class="loading-card">
+      <div class="loading-ring-wrap">
+        <div class="loading-ring"></div>
+        <div id="loading-percent" class="loading-percent">0%</div>
+      </div>
+      <div id="loading-text" class="loading-text">Analizando zona...</div>
+    </div>
+  </div>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-NXSX7XCP"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="container">
+    <header>
+      <h1>GeoCard IPT | Consulta del punto</h1>
+    </header>
+
+    <main>
+      <div class="print-header print-only">
+        <h2>GeoCard IPT</h2>
+        <p>Normativa urbana instantánea</p>
+        <p><strong>Reporte del punto consultado</strong></p>
+        <p>Fecha: <span id="print-date"></span></p>
+        <p>Sistema: GeoCard IPT v1.0</p>
+      </div>
+
+      <div class="report-card">
+        <section class="report-header">
+          <h1>Reporte del punto consultado</h1>
+          <div class="report-header-grid">
+            <p><strong>Punto consultado:</strong> <span id="rp-punto">–</span></p>
+            <p><strong>Lat / Lon:</strong> <span id="rp-coords">–</span></p>
+            <p><strong>Zona normativa:</strong> <span id="rp-zona">–</span></p>
+            <p><strong>Estado:</strong> <span id="rp-estado" class="status-ok">–</span></p>
+            <p><strong>Fuente PRC:</strong> <span id="rp-fuente">–</span></p>
+          </div>
+        </section>
+        <div id="geo-card-status" class="geo-card-status" style="display:none;"></div>
+        <section class="report-body">
+          <div>
+            <article class="info-card">
+              <h3>Usos permitidos</h3>
+              <p id="md-uperm">–</p>
+            </article>
+            <article class="info-card">
+              <h3>Restricciones</h3>
+              <p id="md-uproh">–</p>
+            </article>
+            <article class="info-card">
+              <h3>Interpretación dinámica</h3>
+              <p id="md-interpretacion">–</p>
+            </article>
+          </div>
+          <div><div id="map"></div></div>
+        </section>
+        <section class="report-kpis">
+          <div class="kpi-item"><strong>Zona</strong><span id="kpi-zona">–</span></div>
+          <div class="kpi-item"><strong>Comuna</strong><span id="md-com">–</span></div>
+          <div class="kpi-item"><strong>Localidad</strong><span id="md-loc">–</span></div>
+          <div class="kpi-item"><strong>Tipo de zona</strong><span id="md-nombre">–</span></div>
+        </section>
+        <section class="geo-stats-section">
+          <div class="geo-stats-head">
+            <div>
+              <h2>Estadígrafos geométricos</h2>
+              <p>Relación entre el polígono consultado y la categoría normativa dentro del PRC.</p>
+            </div>
+            <div class="zone-share-card">
+              <div class="zone-pie" id="zone-pie" style="--p:0">
+                <span id="zone-share-pct">–</span>
+              </div>
+              <div>
+                <strong id="zone-share-title">Presencia en PRC</strong>
+                <p id="zone-share-text">–</p>
+              </div>
+            </div>
+          </div>
+          <div class="geo-stats-grid">
+            <article class="geo-stat-card">
+              <h3>Polígono consultado</h3>
+              <dl>
+                <div><dt>Área</dt><dd id="stat-poly-area">–</dd></div>
+                <div><dt>Perímetro</dt><dd id="stat-poly-perimeter">–</dd></div>
+                <div><dt>Diámetro equivalente</dt><dd id="stat-poly-diameter">–</dd></div>
+                <div><dt>% del PRC</dt><dd id="stat-poly-pct">–</dd></div>
+              </dl>
+            </article>
+            <article class="geo-stat-card">
+              <h3>Categoría normativa</h3>
+              <dl>
+                <div><dt>Zona</dt><dd id="stat-cat-zone">–</dd></div>
+                <div><dt>Área total</dt><dd id="stat-cat-area">–</dd></div>
+                <div><dt>Nº polígonos</dt><dd id="stat-cat-count">–</dd></div>
+                <div><dt>Diámetro equivalente</dt><dd id="stat-cat-diameter">–</dd></div>
+                <div><dt>% del PRC</dt><dd id="stat-cat-pct">–</dd></div>
+              </dl>
+            </article>
+          </div>
+        </section>
+
+        <section class="geoquery-controls no-print" aria-label="Parámetros de análisis GeoQuery">
+          <label for="geoquery-radius">Radio de búsqueda / tolerancia espacial: <span id="geoquery-radius-value">1000 m</span></label>
+          <div class="geoquery-control-row">
+            <input id="geoquery-radius" type="range" min="100" max="10000" step="100" value="1000" />
+            <button id="btn-actualizar-consulta" type="button">Actualizar consulta</button>
+          </div>
+        </section>
+        <section class="match-section">
+          <h2>Tabla Match</h2>
+          <p>Evidencia técnica de objetos relacionados con el POI consultado.</p>
+          <div class="match-table-wrap">
+            <table id="tabla-match">
+              <thead>
+                <tr>
+                  <th>Nombre</th><th>Tipo</th><th>Categoría</th><th>Región</th><th>Comuna</th><th>Distancia</th><th>Superficie</th><th>Estado</th><th>Titular</th><th>Recurso</th><th>Normativa</th><th>URL</th><th>Ficha</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-match-body"><tr><td colspan="13">Sin resultados aún.</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="report-actions no-print">
+          <button id="btn-kml" class="kml-btn" type="button" disabled>⬇️ Descargar KML</button>
+          <button id="btn-export-pdf"
+                  type="button"
+                  class="btn-secondary"
+                  title="Descargar reporte PDF">📄 Descargar PDF</button>
+          <a id="link-prc" href="#" target="_blank" rel="noopener">📚 Ver PRC</a>
+          <a id="link-kml" href="#" style="display:none;">Descargar KML</a>
+        </section>
+        <section class="metadata-section">
+          <details>
+            <summary>Metadata de la Zona</summary>
+            <table id="tabla-metadata">
+              <tbody>
+                <tr><th>Campo</th><th>Valor</th></tr>
+                <tr><td>REG</td><td id="md-reg">–</td></tr>
+                <tr><td>COM</td><td id="md-com-meta">–</td></tr>
+                <tr><td>LOCALIDAD</td><td id="md-loc-meta">–</td></tr>
+                <tr><td>ZONA</td><td id="md-zona">–</td></tr>
+                <tr><td>NOMBRE</td><td id="md-nombre-meta">–</td></tr>
+                <tr><td>UPERM</td><td id="md-uperm-meta">–</td></tr>
+                <tr><td>UPROH</td><td id="md-uproh-meta">–</td></tr>
+                <tr><td>Capa</td><td id="md-capa">–</td></tr>
+                <tr><td>CUT</td><td id="md-cut">–</td></tr>
+              </tbody>
+            </table>
+          </details>
+        </section>
+      </div>
+
+      <p id="msg-kml" aria-live="polite"></p>
+      <pre id="txt-metadata-poligono" style="display:none;"></pre>
+      <div class="print-footer print-only">
+        Generado con GeoCard IPT · Normativa urbana instantánea<br>
+        www.geocalculo.cl
+      </div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+    <script src="https://unpkg.com/@tmcw/togeojson@4.5.0/dist/togeojson.umd.js"></script>
+
+    <script>
+      function setLoadingProgress(percent, text) {
+        const safePercent = Math.max(0, Math.min(100, Math.round(percent || 0)));
+        const percentEl = document.getElementById("loading-percent");
+        const textEl = document.getElementById("loading-text");
+
+        if (percentEl) percentEl.textContent = safePercent + "%";
+        if (textEl && text) textEl.textContent = text;
+      }
+
+      function hideLoadingOverlay() {
+        const overlay = document.getElementById("loading-overlay");
+        if (!overlay) return;
+        overlay.classList.add("is-hidden");
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        setLoadingProgress(8, "Preparando consulta...");
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="js/geo-card.js?v=20260624-pdfv2"></script>
+
+
+  </div>
+
+  <footer style="
+    text-align:center;
+    padding:16px;
+    margin-top:40px;
+    color:#64748b;
+    font-size:0.8rem;
+    border-top:1px solid #1e293b;
+  ">
+    © GeoCard IPT — geocalculo.cl
+  </footer>
+</body>
+</html>
