@@ -1,0 +1,11 @@
+# Permanent redirects from the legacy GeoIPT domains to the official GeoCalculo path.
+# Rules are host-specific to avoid redirect loops on geocalculo.cl.
+# Query strings are preserved by Cloudflare Pages when the target URL does not define a query string.
+http://geoipt.cl/geoipt/* https://geocalculo.cl/geoipt/:splat 301
+https://geoipt.cl/geoipt/* https://geocalculo.cl/geoipt/:splat 301
+http://www.geoipt.cl/geoipt/* https://geocalculo.cl/geoipt/:splat 301
+https://www.geoipt.cl/geoipt/* https://geocalculo.cl/geoipt/:splat 301
+http://geoipt.cl/* https://geocalculo.cl/geoipt/:splat 301
+https://geoipt.cl/* https://geocalculo.cl/geoipt/:splat 301
+http://www.geoipt.cl/* https://geocalculo.cl/geoipt/:splat 301
+https://www.geoipt.cl/* https://geocalculo.cl/geoipt/:splat 301
